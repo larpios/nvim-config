@@ -24,4 +24,12 @@ return require('packer').startup(function(use)
         config = function() require("nvim-autopairs").setup {} end,
         cond = not vim.g.vscode,
     }
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+        cond = not vim.g.vscode,
+    }
 end)
