@@ -7,5 +7,6 @@ vim.keymap.set('i', '<C-k>', '<Up>')
 vim.keymap.set('i', '<C-l>', '<Right>')
 
 -- Format Document
-vim.keymap.set('n', '<C-f>', 'gg=G<C-o>')
-
+vim.keymap.set('n', '<leader>fd', 'gg=G<C-o>')
+-- Copy Whole Document to System Clipboard
+vim.keymap.set('n', '<leader>yg', 'gg"+yG<C-o>')

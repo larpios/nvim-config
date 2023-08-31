@@ -1,4 +1,4 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local mycond = function() return vim.g.vscode ~= 1 end
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -16,20 +16,13 @@ return require('packer').startup(function(use)
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
-        cond = not vim.g.vscode,
+        cond = mycond
     }
 
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end,
-        cond = not vim.g.vscode,
+        cond = mycond
     }
 
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional
-        },
-        cond = not vim.g.vscode,
-    }
 end)
