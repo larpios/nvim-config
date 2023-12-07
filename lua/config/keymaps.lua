@@ -38,19 +38,19 @@ map(
 map("i", ";d", function()
   vim.cmd([[
     function! s:opfunc(type) abort
-    let save = #{
-    \ virtual_edit: l:&virtual_edit,
-    \}
+    let save = {'selection': $selection, 'virtualedit': &virtualedit}
     let &selection = "inclusive"
-    let target = "`[v`]"
+    let &virtualedit = "onemore"
     let command = "d"
+    let target = "`[v`]"
     let commands = target . command
     execute 'silent noautocmd keepjumps normal! ' . commands
-    let &selection = save.selection
+    let $selection = save.selection
+    let $virtualedit = save.virtualedit
     endfunction
     set opfunc=s:opfunc
     ]])
-  return " <C-o>g@"
+  return "<C-o>g@"
 end, { noremap = true, silent = true, expr = true })
 --map("i", ";dw", "<C-o>vwd", { noremap = true, silent = true, desc = "Delete word forward in insert mode" })
 --map("i", ";diw", "<C-o>viwd", { noremap = true, silent = true, desc = "Delete inside word in insert mode" })
