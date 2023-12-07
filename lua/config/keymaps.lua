@@ -31,7 +31,7 @@ map({ "n", "v" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Y
 map(
   { "n", "v" },
   "<leader>p",
-  "_p",
+  '"_dP',
   { noremap = true, silent = true, desc = "Paste without replacing the current register" }
 )
 
