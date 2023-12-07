@@ -36,25 +36,20 @@ map(
 )
 
 map("i", ";d", function()
-  vim.cmd([[
-    function! s:opfunc(type) abort
-    let save = {'selection': $selection, 'virtualedit': &virtualedit}
-    let &selection = "inclusive"
-    let &virtualedit = "onemore"
-    let command = "d"
-    let target = "`[v`]"
-    let commands = target . command
-    execute 'silent noautocmd keepjumps normal! ' . commands
-    let $selection = save.selection
-    let $virtualedit = save.virtualedit
-    endfunction
-    set opfunc=s:opfunc
-    ]])
+  function DeleteInInsert()
+    local save = { selection = vim.o.selection, virtualedit = vim.o.virtualedit }
+    vim.o.selection = "inclusive"
+    vim.o.virtualedit = "onemore"
+    local command = "d"
+    local target = "`[v`]"
+    local commands = target .. command
+    vim.cmd("silent noautocmd keepjumps normal! " .. commands)
+    vim.o.selection = save.selection
+    vim.o.virtualedit = save.virtualedit
+  end
+  vim.o.opfunc = "v:lua.DeleteInInsert"
   return "<C-o>g@"
 end, { noremap = true, silent = true, expr = true })
---map("i", ";dw", "<C-o>vwd", { noremap = true, silent = true, desc = "Delete word forward in insert mode" })
---map("i", ";diw", "<C-o>viwd", { noremap = true, silent = true, desc = "Delete inside word in insert mode" })
---map("i", ";db", "<C-o>vbd", { noremap = true, silent = true, desc = "Delete word backword in insert mode" })
 map("i", "<C-h>", "<Left>", { noremap = true, silent = true, desc = "Move left in insert mode" })
 map("i", "<C-l>", "<Right>", { noremap = true, silent = true, desc = "Move right in insert mode" })
 map("i", "<A-h>", "<BS>", { noremap = true, silent = true, desc = "Erase character in insert mode" })
