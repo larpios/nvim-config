@@ -1,3 +1,3 @@
-# My person Neovim cofnig
+# My person Neovim config
 
 Nothing special. Just my personal Neovim config. 
