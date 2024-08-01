@@ -1,5 +1,5 @@
 local function map(mode, lhs, rhs, opts)
-    local default_opts = { silent = true, noremap = false }
+    local default_opts = { silent = true, noremap = true }
 
     if opts ~= nil then
         for k, v in pairs(opts) do default_opts[k] = v end
@@ -34,6 +34,7 @@ map("n", "<C-n>", "<cmd>bn<cr>", { desc = "Navigate to Next Buffer" })
 -- Editing
 map("", "<leader>y", "\"+y", { desc = "Yank to Clipboard" })
 map("i", "<C-C>", "<ESC>")
+map("n", "==", "gg=G<C-o>", { desc = "Indent Buffer", noremap = false })
 
 map("v", "J", function ()
     return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .."<CR>gv=gv"
