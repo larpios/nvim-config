@@ -1,5 +1,5 @@
 local function map(mode, lhs, rhs, opts)
-    local default_opts = { silent = true, noremap = false }
+  local default_opts = { silent = true, noremap = false }
 
   if opts ~= nil then
     for k, v in pairs(opts) do
@@ -18,9 +18,13 @@ end
 map('', '<leader>wc', '<C-w>c', { desc = 'Close Window' })
 map('', '<leader>wm', '<C-w>o', { desc = 'Maximize Window' })
 map('', '<leader>sh', ':vsplit<CR>', { desc = 'Split Window to the Left' })
-map('', '<leader>sj', ':split<CR><C-w>j', { desc = 'Split Window to the Bottom' })
+map('', '<leader>sj', '<cmd>split<cr><C-w>j', { desc = 'Split Window to the Bottom' })
 map('', '<leader>sk', ':split<CR>', { desc = 'Split Window to the Top' })
 map('', '<leader>sl', ':vsplit<CR><C-w>l', { desc = 'Split Window to the Right' })
+map('', '<leader>w+', '<c-w>+', { desc = 'Increase Window Height' })
+map('', '<leader>w-', '<c-w>-', { desc = 'Decrease Window Height' })
+map('', '<leader>w>', '<c-w>>', { desc = 'Increase Window Width' })
+map('', '<leader>w<', '<c-w><', { desc = 'Decrease Window Width' })
 
 -- General
 map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
@@ -31,6 +35,8 @@ map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
 map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
 map('n', '<C-p>', '<cmd>bp<cr>', { desc = 'Navigate to Previous Buffer' })
 map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
+-- TODO: Fix this
+-- map('n', '<leader>ot', '<leader>sj<jmd>term<cr>', { desc = 'Open Terminal', remap = true })
 
 -- Editing
 map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
