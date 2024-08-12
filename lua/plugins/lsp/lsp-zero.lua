@@ -20,13 +20,25 @@ return {
       lsp_zero.default_keymaps { buffer = bufnr, exclude = { '<F2>', '<F3>', '<F4>' } }
     end)
 
+    lsp_zero.extend_lspconfig({
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    })
+
     require('mason').setup {}
     require('mason-lspconfig').setup {
-      ensure_installed = {},
+      ensure_installed = {'lua_ls', 'rust_analyzer', 'clangd'},
       handlers = {
         function(server_name)
           require('lspconfig')[server_name].setup {}
         end,
+        lua_ls = function()
+            require('lspconfig').lua_ls.setup({
+                on_init = function(client)
+                    lsp_zero.nvim_lua_settings(client, {})
+                end,
+            })
+        end,
+        rust_analyzer = lsp_zero.noop
       },
     }
   end,
