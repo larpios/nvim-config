@@ -67,8 +67,6 @@ return {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           },
-          ['<Tab>'] = cmp_action.luasnip_supertab(),
-          ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
         },
         snippet = {
           expand = function(args)
@@ -85,6 +83,12 @@ return {
 
       lsp_zero.extend_lspconfig {
         capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      }
+
+      vim.g.rustaceanvim = {
+          server = {
+              capabilities = lsp_zero.get_capabilities(),
+          }
       }
 
       require('mason').setup {}
