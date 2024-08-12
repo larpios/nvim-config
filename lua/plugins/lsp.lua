@@ -19,6 +19,12 @@ return {
   },
 
   {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v4.x',
     dependencies = {
@@ -31,6 +37,7 @@ return {
       { 'onsails/lspkind.nvim' },
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
+      { 'mrcjkb/rustaceanvim' },
     },
     config = function()
       local lsp_zero = require 'lsp-zero'
@@ -86,9 +93,9 @@ return {
       }
 
       vim.g.rustaceanvim = {
-          server = {
-              capabilities = lsp_zero.get_capabilities(),
-          }
+        server = {
+          capabilities = lsp_zero.get_capabilities(),
+        },
       }
 
       require('mason').setup {}
