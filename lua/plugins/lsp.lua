@@ -55,9 +55,9 @@ return {
           lua = { 'stylua' },
           python = { 'black' },
           rust = { 'rustfmt' },
-          c = { 'clang-format' },
-          cpp = { 'clang-format' },
-          cmake = { 'cmake-format' },
+          c = { 'clang_format' },
+          cpp = { 'clang_format' },
+          cmake = { 'cmake_format' },
         },
       }
 
