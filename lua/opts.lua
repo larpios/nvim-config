@@ -10,6 +10,7 @@ vim.o.shiftwidth= 4
 vim.o.expandtab = true
 vim.o.scrolloff = 24
 vim.o.smarttab = true
+vim.o.breakindent = true
 
 vim.g.timeout = false
 vim.g.ttimeout = false
