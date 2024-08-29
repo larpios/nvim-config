@@ -35,6 +35,7 @@ map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
 map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
 map('n', '<C-p>', '<cmd>bp<cr>', { desc = 'Navigate to Previous Buffer' })
 map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
+map('', '<leader>ob', "<cmd>cd " .. vim.fn.expand("%:p:h") .. "<cr>", {desc = "Change Directory to Current Buffer"})
 -- TODO: Fix this
 -- map('n', '<leader>ot', '<leader>sj<jmd>term<cr>', { desc = 'Open Terminal', remap = true })
 
