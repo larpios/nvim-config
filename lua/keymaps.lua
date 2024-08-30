@@ -28,16 +28,20 @@ map('', '<leader>w<', '<c-w><', { desc = 'Decrease Window Width' })
 
 -- General
 map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
-map('', '<leader>oc', '<cmd>e ' .. vim.fn.stdpath 'config' .. '<cr>', { desc = 'Open Neovim Config' })
+map('', '<leader>oc', '<cmd>e ' .. vim.fn.stdpath('config') .. '<cr>', { desc = 'Open Neovim Config' })
 map('', '<leader>wb', '<cmd>w<cr>', { desc = 'Write to Buffer' })
 map('', '<leader>wa', '<cmd>wa<cr>', { desc = 'Write All' })
 map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
 map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
 map('n', '<C-p>', '<cmd>bp<cr>', { desc = 'Navigate to Previous Buffer' })
 map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
-map('', '<leader>ob', "<cmd>cd " .. vim.fn.expand("%:p:h") .. "<cr>", {desc = "Change Directory to Current Buffer"})
+map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>', { desc = 'Change Directory to Current Buffer' })
+map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
+map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 -- TODO: Fix this
--- map('n', '<leader>ot', '<leader>sj<jmd>term<cr>', { desc = 'Open Terminal', remap = true })
+map('n', '<leader>otv', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
+map('n', '<leader>oth', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
+map('t', '<esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode'})
 
 -- Editing
 map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
