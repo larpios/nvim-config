@@ -7,6 +7,13 @@ return {
   },
   config = function()
       -- calling `setup` is optional for customization
-      require("fzf-lua").setup({})
+      require("fzf-lua").setup({
+          hls = {
+              Rg = {
+                  cmd = "rg --vimgrep --no-heading --smart-case",
+                  previewer = "bat",
+              },
+          },
+      })
   end
 }
