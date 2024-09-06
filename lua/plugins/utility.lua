@@ -58,6 +58,14 @@ return {
       })
     end,
   },
+  {
+
+      "lambdalisue/vim-suda",
+      config = function()
+          vim.keymap.set("n", "<leader><leader>w", ":SudaWrite<CR>", { noremap = true })
+          vim.keymap.set("n", "<leader><leader>r", ":SudaRead<CR>", { noremap = true })
+      end
+  },
 }
 
 -- lazy.nvim
