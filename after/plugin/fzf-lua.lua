@@ -15,3 +15,5 @@ vim.keymap.set('n', '<leader>ft', '<cmd>FzfLua colorschemes<cr>', { silent = tru
 vim.keymap.set('n', '<leader>gc', '<cmd>FzfLua live_grep cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
 
 vim.keymap.set('n', '<leader>fld', '<cmd>FzfLua lsp_document_diagnostics<cr>', { silent = true, desc = 'Find Diagnostics' })
+
+vim.keymap.set('n', '<leader>flf', '<cmd>FzfLua lsp_finder<cr>', { silent = true, desc = 'Find Symbol' })
