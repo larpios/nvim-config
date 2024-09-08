@@ -46,7 +46,6 @@ map('t', '<esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode'})
 -- Editing
 map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 map('i', '<C-C>', '<ESC>')
-map('n', '==', 'gg=G<C-o>', { desc = 'Indent Buffer', noremap = false })
 
 map('v', 'J', function()
   return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
