@@ -24,6 +24,5 @@ vim.opt.ignorecase = true
 vim.o.undofile = true
 vim.g.undolevels = 5000
 
-if vim.lsp.inlay_hint then
-    vim.lsp.inlay_hint.enable(true)
-end
+vim.opt.updatetime = 50
+
