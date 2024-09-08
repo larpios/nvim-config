@@ -55,8 +55,6 @@ map('v', 'K', function()
   return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
 end, { expr = true, desc = 'Move Selected Line Up' })
 
--- File
-map('n', '<leader>bw', '<cmd>w<cr>', { desc = '[B]uffer [W]rite' })
 map('i', 'jk', '<Esc>')
 
 -- LSP

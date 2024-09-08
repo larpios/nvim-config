@@ -1,4 +1,4 @@
-require("opts")
-require("keymaps")
-require("plugins")
-require("autocmds")
+require("larp.opts")
+require("larp.keymaps")
+require("larp.autocmds")
+require("larp.lazy")
