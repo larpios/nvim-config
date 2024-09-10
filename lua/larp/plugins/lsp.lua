@@ -97,7 +97,7 @@ return {
       lsp_zero.setup({})
 
       lsp_zero.on_attach(function(client, bufnr)
-        lsp_zero.default_keymaps({ buffer = bufnr, exclude = { '<F2>', '<F3>', '<F4>' } })
+        lsp_zero.default_keymaps({ buffer = bufnr, preserve_mappings = false })
       end)
 
       lsp_zero.extend_lspconfig({
