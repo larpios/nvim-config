@@ -13,6 +13,7 @@ return {
   },
   {
     'stevearc/conform.nvim',
+    enable = false,
     opts = {},
     config = function()
       require('conform').setup({
@@ -94,10 +95,14 @@ return {
         },
       })
 
-      lsp_zero.setup({})
 
+      -- LSP Setup
+
+      lsp_zero.setup({})
       lsp_zero.on_attach(function(client, bufnr)
         lsp_zero.default_keymaps({ buffer = bufnr, preserve_mappings = false })
+
+        vim.keymap.set({ 'n', 'x' }, '<leader>cf',vim.lsp.buf.format({async = false, timeout_ms = 10000}))
       end)
 
       lsp_zero.extend_lspconfig({
