@@ -109,8 +109,10 @@ return {
       { 'junegunn/fzf', build = './install --bin' },
     },
     config = function()
+      local fzf = require('fzf-lua')
       -- calling `setup` is optional for customization
-      require('fzf-lua').setup({
+      fzf.setup({
+        'fzf-native',
         hls = {
           Rg = {
             cmd = 'rg --vimgrep --no-heading --smart-case',
@@ -118,6 +120,13 @@ return {
           },
         },
       })
+
+      vim.keymap.set({ 'i' }, '<C-x><C-f>', function()
+        fzf.complete_file({
+          cmd = 'rg --files',
+          winopts = { preview = { hidden = 'nohidden' } },
+        })
+      end, { silent = true, desc = 'Fuzzy complete file' })
     end,
   },
   {
