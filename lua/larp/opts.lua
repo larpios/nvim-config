@@ -1,13 +1,13 @@
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.termguicolors = true
 vim.g.confirm = true
 
 vim.o.tabstop = 4
-vim.o.shiftwidth= 4
+vim.o.shiftwidth = 4
 vim.o.expandtab = true
-vim.o.scrolloff = 24
+vim.o.scrolloff = 100
 vim.o.smarttab = true
 
 vim.g.timeout = false
@@ -24,8 +24,7 @@ vim.g.undolevels = 5000
 
 vim.opt.updatetime = 50
 
-
 vim.g.backup = true
 vim.g.breakindent = true
-vim.g.showbreak = "> "
-vim.breakindentopt = "sbr=on,"
+vim.g.showbreak = '> '
+vim.breakindentopt = 'sbr=on,'

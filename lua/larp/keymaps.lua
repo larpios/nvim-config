@@ -38,15 +38,23 @@ map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
 map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>', { desc = 'Change Directory to Current Buffer' })
 map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
 map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
--- TODO: Fix this
+
+-- Terminal
 map('n', '<leader>otv', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
 map('n', '<leader>oth', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
-map('t', '<esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode'})
+map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 
 -- Editing
 map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
-map('i', '<C-C>', '<ESC>')
+map('i', '<C-C>', 'ESC')
+map('o', '"', 'i"')
+map('o', "'", "i'")
+map('o', '(', 'i(')
+map('o', '{', 'i{')
+-- jflsadfjdslf{flsadasdlfsjfklalsdf}
+-- jflsadfjdslf{flsadasdlfsjfklalsdf}
 
+-- kasjflasd"sadjflasd"
 map('v', 'J', function()
   return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
 end, { expr = true, desc = 'Move Selected Line Down' })
