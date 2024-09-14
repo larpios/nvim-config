@@ -30,3 +30,4 @@ vim.keymap.set('', '<leader>fxa', '<cmd>FzfLua autocmds<cr>', { silent = true, d
 vim.keymap.set('', '<leader>fxgf', '<cmd>FzfLua git_files<cr>', { silent = true, desc = 'Find Git Files' })
 vim.keymap.set('', '<leader>fxgc', '<cmd>FzfLua git_commits<cr>', { silent = true, desc = 'Find Git Commits' })
 vim.keymap.set('', '<leader>fr', '<cmd>FzfLua resume<cr>', { silent = true, desc = 'Resume Search' })
+vim.keymap.set('', '<leader>fxc', '<cmd>FzfLua changes<cr>', { silent = true, desc = 'Find Changes' })
