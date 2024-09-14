@@ -180,7 +180,7 @@ return {
           'cssls',
           'jsonls',
           'yamlls',
-          'tsserver',
+          'ts_ls',
           'bashls',
           'pylsp',
           'pylyzer',
