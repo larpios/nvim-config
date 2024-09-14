@@ -9,7 +9,6 @@ vim.o.shiftwidth= 4
 vim.o.expandtab = true
 vim.o.scrolloff = 24
 vim.o.smarttab = true
-vim.o.breakindent = true
 
 vim.g.timeout = false
 vim.g.ttimeout = false
@@ -25,3 +24,8 @@ vim.g.undolevels = 5000
 
 vim.opt.updatetime = 50
 
+
+vim.g.backup = true
+vim.g.breakindent = true
+vim.g.showbreak = "> "
+vim.breakindentopt = "sbr=on,"

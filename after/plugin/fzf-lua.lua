@@ -13,7 +13,7 @@ vim.keymap.set('', '<leader>fj', '<cmd>FzfLua jumps<cr>', { silent = true, desc 
 vim.keymap.set('', '<leader>fxm', '<cmd>FzfLua marks<cr>', { silent = true, desc = 'Find Marks' })
 vim.keymap.set('', '<leader>fxt', '<cmd>FzfLua colorschemes<cr>', { silent = true, desc = 'Find Themes' })
 vim.keymap.set('', '<leader>gc', '<cmd>FzfLua live_grep cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
-vim.keymap.set('', '<leader>fld', '<cmd>FzfLua lsp_document_diagnostics<cr>', { silent = true, desc = 'Find Diagnostics' })
+vim.keymap.set('', 'gH', '<cmd>FzfLua lsp_document_diagnostics<cr>', { silent = true, desc = 'Find Diagnostics' })
 vim.keymap.set('', '<leader>f*', '<cmd>FzfLua lsp_finder<cr>', { silent = true, desc = 'Find Symbol' })
 vim.keymap.set('', '<leader>ft', '<cmd>FzfLua lsp_typedefs<cr>', { silent = true, desc = 'Find Typedefs' })
 vim.keymap.set('', '<leader>fsd', '<cmd>FzfLua lsp_document_symbols<cr>', { silent = true, desc = 'Find Document Symbols' })
