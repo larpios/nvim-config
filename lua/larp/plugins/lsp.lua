@@ -45,7 +45,7 @@ return {
         default_format_opts = {
           lsp_format = 'fallback',
         },
-        format_on_save = {
+        format_after_save = {
           lsp_format = 'fallback',
           timeout_ms = 500,
         },
@@ -65,6 +65,7 @@ return {
 
   {
     'VonHeikemen/lsp-zero.nvim',
+    event = 'BufEnter',
     branch = 'v4.x',
     dependencies = {
       { 'neovim/nvim-lspconfig' },
@@ -252,6 +253,8 @@ return {
   },
   {
     'nvimdev/lspsaga.nvim',
+    enabled = false,
+    event = 'LspAttach',
     config = function()
       require('lspsaga').setup({})
       require('lspsaga.symbol.winbar').get_bar()

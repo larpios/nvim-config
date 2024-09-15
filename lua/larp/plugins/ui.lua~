@@ -257,7 +257,7 @@ return {
       -- refer to the configuration section below
     },
     keys = {
-        { "<leader>tz", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode"}
+        { "<leader>tz", "<cmd>ZenMode<cr>"}
     }
   },
 }

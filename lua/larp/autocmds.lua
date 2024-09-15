@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 200 })
   end,
 })
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp_attach', {}),
   desc = 'Attach LSP',

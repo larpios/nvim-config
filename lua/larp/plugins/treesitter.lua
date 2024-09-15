@@ -2,6 +2,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    event = 'BufRead',
     config = function()
       require('nvim-treesitter.configs').setup({
         textobjects = {
@@ -124,6 +125,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    event = 'BufRead',
     config = function()
       require('nvim-treesitter.configs').setup({
         -- A list of parser names, or "all" (the listed parsers MUST always be installed)

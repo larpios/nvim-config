@@ -1,3 +1,4 @@
+vim.g.mapleader = ' '
 local function map(mode, lhs, rhs, opts)
   local default_opts = { silent = true, noremap = false }
 
@@ -10,17 +11,15 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, default_opts)
 end
 
--- Windows
--- map("", "<C-h>", "<C-w>h", { desc = "Move to Left Window" })
--- map("", "<C-j>", "<C-w>j", { desc = "Move to Down Window" })
--- map("", "<C-k>", "<C-w>k", { desc = "Move to Up Window" })
--- map("", "<C-l>", "<C-w>l", { desc = "Move to Right Window" })
-map('', '<leader>wc', '<C-w>c', { desc = 'Close Window' })
-map('', '<leader>wm', '<C-w>o', { desc = 'Maximize Window' })
+-- # Windows
+map('', '<leader>wd', '<C-w>c', { desc = 'Close Window' })
+map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
+-- Split Windows
 map('', '<leader>sh', ':vsplit<CR>', { desc = 'Split Window to the Left' })
 map('', '<leader>sj', '<cmd>split<cr><C-w>j', { desc = 'Split Window to the Bottom' })
 map('', '<leader>sk', ':split<CR>', { desc = 'Split Window to the Top' })
 map('', '<leader>sl', ':vsplit<CR><C-w>l', { desc = 'Split Window to the Right' })
+-- Resize Windows
 map('', '<leader>w+', '<c-w>+', { desc = 'Increase Window Height' })
 map('', '<leader>w-', '<c-w>-', { desc = 'Decrease Window Height' })
 map('', '<leader>w>', '<c-w>>', { desc = 'Increase Window Width' })
@@ -39,31 +38,30 @@ map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>', { desc = '
 map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
 map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
--- Terminal
+-- # Terminal
 map('n', '<leader>otv', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
 map('n', '<leader>oth', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
 map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 
--- Editing
+-- # Editing
+map({ 'i', 'v' }, 'zx', '<Esc>') -- Use a key sequence to exit Insert Mode
+map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
-map('i', '<C-C>', 'ESC')
-map('o', '"', 'i"')
-map('o', "'", "i'")
-map('o', '(', 'i(')
-map('o', '{', 'i{')
--- jflsadfjdslf{flsadasdlfsjfklalsdf}
--- jflsadfjdslf{flsadasdlfsjfklalsdf}
 
--- kasjflasd"sadjflasd"
+-- # Objects
+map('o', '"', 'i"', { desc = 'Inside Double Quotes' })
+map('o', "'", "i'", { desc = 'Inside Single Quotes' })
+map('o', '(', 'i(', { desc = 'Inside Parentheses' })
+map('o', '{', 'i{', { desc = 'Inside Braces' })
+map('o', ',', 't,', { desc = 'Until Comma' })
+
+-- Move Lines
 map('v', 'J', function()
   return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
 end, { expr = true, desc = 'Move Selected Line Down' })
-
 map('v', 'K', function()
   return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
 end, { expr = true, desc = 'Move Selected Line Up' })
-
-map('i', 'jk', '<Esc>')
 
 -- LSP
 map('n', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
