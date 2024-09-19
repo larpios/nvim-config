@@ -68,6 +68,21 @@ return {
       'nvim-treesitter/nvim-treesitter',
       'nvim-tree/nvim-web-devicons',
     },
+    config = function()
+      local aerial = require('aerial')
+      aerial.setup({
+        ignore = {
+          filetype = {
+            'oil',
+          },
+        },
+        open_atomatic = true,
+        show_guides = true,
+        lsp = {
+          diagnostics_trigger_update = true,
+        },
+      })
+    end,
   },
   {
     'nvimdev/dashboard-nvim',
@@ -257,7 +272,7 @@ return {
       -- refer to the configuration section below
     },
     keys = {
-        { "<leader>tz", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode"}
-    }
+      { '<leader>tz', '<cmd>ZenMode<cr>', desc = 'Toggle Zen Mode' },
+    },
   },
 }
