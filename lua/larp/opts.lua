@@ -27,3 +27,7 @@ vim.opt.updatetime = 50
 vim.opt.breakindent = true
 vim.opt.wrap = true
 vim.opt.swapfile = false
+
+if vim.g.neovide then
+  require('larp.neovide')
+end
