@@ -260,6 +260,14 @@ return {
         lightbulb = {
           enable = false,
         },
+        symbol_in_winbar = {
+          enable = true,
+        },
+        outline = {
+          auto_preview = true,
+          auto_close = true,
+          detail = true,
+        },
       })
       require('lspsaga.symbol.winbar').get_bar()
     end,
@@ -346,19 +354,20 @@ return {
     config = function()
       local aerial = require('aerial')
       aerial.setup({
+        filter_kind = false,
         max_width = { 100, 0.2 },
-        ignore = {
-          filetype = {
-            'oil',
-            'dashboard',
-            '',
-          },
-        },
+        -- ignore = {
+        --   filetype = {
+        --     'oil',
+        --     'dashboard',
+        --   },
+        -- },
         attach_mode = 'window',
         open_automatic = true,
         close_automatic_events = {
           'unsupported',
           'unfocus',
+          'switch_buffer',
         },
         autojump = true,
         show_guides = true,

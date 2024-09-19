@@ -14,6 +14,12 @@ end
 -- # Windows
 map('', '<leader>wd', '<C-w>c', { desc = 'Close Window' })
 map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
+
+-- Navigate Windows
+map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window' })
+map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window' })
+map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
+map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window' })
 -- Split Windows
 map('', '<leader>sh', ':vsplit<CR>', { desc = 'Split Window to the Left' })
 map('', '<leader>sj', '<cmd>split<cr><C-w>j', { desc = 'Split Window to the Bottom' })
@@ -24,6 +30,7 @@ map('', '<leader>w+', '<c-w>+', { desc = 'Increase Window Height' })
 map('', '<leader>w-', '<c-w>-', { desc = 'Decrease Window Height' })
 map('', '<leader>w>', '<c-w>>', { desc = 'Increase Window Width' })
 map('', '<leader>w<', '<c-w><', { desc = 'Decrease Window Width' })
+map('', '<leader>w=', '<c-w>=', { desc = 'Equal Window Size' })
 
 -- General
 map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
