@@ -27,7 +27,7 @@ map('', '<leader>w<', '<c-w><', { desc = 'Decrease Window Width' })
 
 -- General
 map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
-map('', '<leader>oc', '<cmd>e ' .. vim.fn.stdpath('config') .. '<cr>', { desc = 'Open Neovim Config' })
+map('', '<leader>hoc', '<cmd>e ' .. vim.fn.stdpath('config') .. '<cr>', { desc = 'Open Neovim Config' })
 map('', '<leader>wb', '<cmd>w<cr>', { desc = 'Write to Buffer' })
 map('', '<leader>wa', '<cmd>wa<cr>', { desc = 'Write All' })
 map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
