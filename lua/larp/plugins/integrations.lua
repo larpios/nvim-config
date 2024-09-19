@@ -29,7 +29,33 @@ return {
   },
   {
     'nvim-neorg/neorg',
-    dependencies = { 'luarocks.nvim' },
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    depends = { 'nvim-lua/plenary.nvim' }, -- Load plenary as a dependency
+    version = '*', -- Pin Neorg to the latest stable release
+    config = function()
+      require('neorg').setup({
+        -- Tell Neorg what modules to load
+        load = {
+          ['core.defaults'] = {}, -- Load all the default modules
+          ['core.concealer'] = {},
+          ['core.completion'] = {
+            config = {
+              engine = 'nvim-cmp',
+            },
+          },
+          ['core.integrations.nvim-cmp'] = {},
+          ['core.integrations.image'] = {},
+          ['core.latex.renderer'] = {},
+          ['core.dirman'] = {
+            config = {
+              workspaces = {
+                notes = '~/notes',
+              },
+            },
+          },
+        },
+      })
+    end,
   },
   {
     'epwalsh/obsidian.nvim',

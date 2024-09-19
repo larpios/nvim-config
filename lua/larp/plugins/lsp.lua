@@ -125,6 +125,7 @@ return {
               end,
             },
           },
+          { name = 'neorg' },
           sorting = {
             comparators = {
               function(...)
@@ -253,10 +254,13 @@ return {
   },
   {
     'nvimdev/lspsaga.nvim',
-    enabled = false,
     event = 'LspAttach',
     config = function()
-      require('lspsaga').setup({})
+      require('lspsaga').setup({
+        lightbulb = {
+          enable = false,
+        },
+      })
       require('lspsaga.symbol.winbar').get_bar()
     end,
     dependencies = {
@@ -328,6 +332,39 @@ return {
 
       ufo.setup({
         fold_virt_text_handler = handler,
+      })
+    end,
+  },
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      local aerial = require('aerial')
+      aerial.setup({
+        max_width = { 100, 0.2 },
+        ignore = {
+          filetype = {
+            'oil',
+            'dashboard',
+            '',
+          },
+        },
+        attach_mode = 'window',
+        open_automatic = true,
+        close_automatic_events = {
+          'unsupported',
+          'unfocus',
+        },
+        autojump = true,
+        show_guides = true,
+        lsp = {
+          diagnostics_trigger_update = true,
+        },
       })
     end,
   },

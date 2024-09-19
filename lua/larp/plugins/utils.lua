@@ -144,14 +144,4 @@ return {
     'gelguy/wilder.nvim',
     config = true,
   },
-  {
-    'ahmedkhalf/project.nvim',
-    enabled = false,
-    event = 'BufRead',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
-    config = function()
-      local telescope = require('telescope')
-      telescope.load_extension('projects')
-    end,
-  },
 }

@@ -61,30 +61,6 @@ return {
     end,
   },
   {
-    'stevearc/aerial.nvim',
-    opts = {},
-    -- Optional dependencies
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      local aerial = require('aerial')
-      aerial.setup({
-        ignore = {
-          filetype = {
-            'oil',
-          },
-        },
-        open_atomatic = true,
-        show_guides = true,
-        lsp = {
-          diagnostics_trigger_update = true,
-        },
-      })
-    end,
-  },
-  {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
     opts = {
