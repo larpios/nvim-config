@@ -42,4 +42,4 @@ vim.keymap.set('', '<leader>fxt', '<cmd>FzfLua colorschemes<cr>', { silent = tru
 -- # Grep
 vim.keymap.set('', '<leader>gC', '<cmd>FzfLua grep_cWORD<cr>', { silent = true, desc = 'Grep Cursor (Case Sensitive)' })
 vim.keymap.set('', '<leader>gc', '<cmd>FzfLua grep_cword<cr>', { silent = true, desc = 'Grep Cursor (Case Insensitive)' })
-vim.keymap.set('', '<leader>gv', '<cmd>FzfLua visual<cr>', { silent = true, desc = 'Grep Selection' })
+vim.keymap.set('', '<leader>gv', '<cmd>FzfLua grep_visual<cr>', { silent = true, desc = 'Grep Selection' })
