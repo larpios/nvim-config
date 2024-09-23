@@ -143,4 +143,33 @@ return {
             })
         end,
     },
+    {
+        'nvim-orgmode/orgmode',
+        dependencies = {
+            'akinsho/org-bullets.nvim',
+            'chipsenkbeil/org-roam.nvim',
+        },
+        event = 'VeryLazy',
+        ft = { 'org' },
+        config = function()
+            -- Setup orgmode
+            require('orgmode').setup({
+                org_agenda_files = '~/orgfiles/**/*',
+                org_default_notes_file = '~/orgfiles/refile.org',
+            })
+
+            -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+            -- add ~org~ to ignore_install
+            -- require('nvim-treesitter.configs').setup({
+            --   ensure_installed = 'all',
+            --   ignore_install = { 'org' },
+            -- })
+
+            require('org-bullets').setup({})
+
+            require('org-roam').setup({
+                directory = '~/org_roam_files',
+            })
+        end,
+    },
 }
