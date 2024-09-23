@@ -81,12 +81,11 @@ return {
         },
         config = function()
             require('neogit').setup({})
-            larp.fn.map('n', '<leader>Gno', '<cmd>Neogit<cr>', { desc = 'Open Neogit' })
-            larp.fn.map('n', '<leader>Gnd', '<cmd>Neogit diff <cr>', { desc = 'Open Neogit Diff' })
+            larp.fn.map('n', '<leader>Go', '<cmd>Neogit<cr>', { desc = 'Open Neogit' })
+            larp.fn.map('n', '<leader>Gd', '<cmd>Neogit diff <cr>', { desc = 'Open Neogit Diff' })
         end,
     },
     {
         'tpope/vim-fugitive',
-        enabled = false,
     },
 }
