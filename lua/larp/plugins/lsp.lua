@@ -52,7 +52,7 @@ return {
                 -- Conform will notify you when no formatters are available for the buffer
                 notify_no_formatters = true,
             })
-larp.fn.map('n', '<leader>cf', "<cmd>lua require('conform').format()<cr>")
+            larp.fn.map('n', '<leader>cf', "<cmd>lua require('conform').format()<cr>")
         end,
     },
 
@@ -339,34 +339,6 @@ larp.fn.map('n', '<leader>cf', "<cmd>lua require('conform').format()<cr>")
 
             ufo.setup({
                 fold_virt_text_handler = handler,
-            })
-        end,
-    },
-    {
-        'stevearc/aerial.nvim',
-        opts = {},
-        -- Optional dependencies
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons',
-        },
-        config = function()
-            local aerial = require('aerial')
-            aerial.setup({
-                filter_kind = false,
-                max_width = { 100, 0.2 },
-                -- ignore = {
-                --   filetype = {
-                --     'oil',
-                --     'dashboard',
-                --   },
-                -- },
-                attach_mode = 'window',
-                autojump = true,
-                show_guides = true,
-                lsp = {
-                    diagnostics_trigger_update = true,
-                },
             })
         end,
     },
