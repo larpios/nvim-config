@@ -126,7 +126,20 @@ return {
     },
     {
         'gelguy/wilder.nvim',
-        config = true,
+        config = function()
+            local wilder = require('wilder').setup({
+                modes = { '/**', ':', '/', '?', '!' },
+                history = false,
+                quick_ref_commands = { 'History', 'History:' },
+                pipeline = {
+                    { 'builtin', 'cmd_history' },
+                    { 'builtin', 'path' },
+                    { 'builtin', 'grep' },
+                    { 'builtin', 'help' },
+                    { 'builtin', 'file' },
+                },
+            })
+        end,
     },
     {
         'nvim-pack/nvim-spectre',
