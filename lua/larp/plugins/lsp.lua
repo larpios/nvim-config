@@ -141,6 +141,7 @@ return {
                             cmp.config.compare.fuzzy,
                         },
                     },
+                    { name = 'orgmode' },
                 },
                 window = {
                     completion = cmp.config.window.bordered(),
@@ -253,6 +254,7 @@ return {
     },
     {
         'nvimdev/lspsaga.nvim',
+        enabled = false,
         event = 'LspAttach',
         config = function()
             require('lspsaga').setup({
@@ -339,6 +341,44 @@ return {
 
             ufo.setup({
                 fold_virt_text_handler = handler,
+            })
+        end,
+    },
+    {
+        -- Stops inactive LSP servers to free RAM
+        'zeioth/garbage-day.nvim',
+        dependencies = 'neovim/nvim-lspconfig',
+        event = 'VeryLazy',
+        opts = {
+            -- your options here
+        },
+    },
+
+    {
+        -- IDE-like breadcrumb navigation
+        'Bekaboo/dropbar.nvim',
+        -- optional, but required for fuzzy finder support
+        dependencies = {
+            'nvim-telescope/telescope-fzf-native.nvim',
+        },
+    },
+    {
+        'mfussenegger/nvim-lint',
+        config = function()
+            require('lint').linters_by_ft = {
+                markdown = { 'vale' },
+            }
+
+            vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+                callback = function()
+                    -- try_lint without arguments runs the linters defined in `linters_by_ft`
+                    -- for the current filetype
+                    require('lint').try_lint()
+
+                    -- You can call `try_lint` with a linter name or a list of names to always
+                    -- run specific linters, independent of the `linters_by_ft` configuration
+                    require('lint').try_lint('cspell')
+                end,
             })
         end,
     },
