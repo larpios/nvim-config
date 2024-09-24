@@ -124,7 +124,7 @@ return {
                             end,
                         },
                     },
-                    { name = 'neorg' },
+                    -- { name = 'neorg' },
                     sorting = {
                         comparators = {
                             function(...)
@@ -141,7 +141,6 @@ return {
                             cmp.config.compare.fuzzy,
                         },
                     },
-                    { name = 'orgmode' },
                 },
                 window = {
                     completion = cmp.config.window.bordered(),
@@ -364,6 +363,7 @@ return {
     },
     {
         'mfussenegger/nvim-lint',
+        enabled = false,
         config = function()
             require('lint').linters_by_ft = {
                 markdown = { 'vale' },

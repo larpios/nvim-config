@@ -38,11 +38,6 @@ return {
                 load = {
                     ['core.defaults'] = {}, -- Load all the default modules
                     ['core.concealer'] = {},
-                    ['core.completion'] = {
-                        config = {
-                            engine = 'nvim-cmp',
-                        },
-                    },
                     ['core.integrations.nvim-cmp'] = {},
                     ['core.integrations.image'] = {},
                     ['core.latex.renderer'] = {},
@@ -190,5 +185,14 @@ return {
         end,
         -- Uncomment next line if you want to follow only stable versions
         -- version = "*"
+    },
+    {
+        'Wansmer/langmapper.nvim',
+        lazy = false,
+        priority = 1, -- High priority is needed if you will use `autoremap()`
+        config = function()
+            require('langmapper').setup({--[[ your config ]]
+            })
+        end,
     },
 }

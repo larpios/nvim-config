@@ -164,8 +164,8 @@ return {
         'mistricky/codesnap.nvim',
         build = 'make build_generator',
         keys = {
-            { '<leader><leader>cc', '<cmd>CodeSnap<cr>', mode = 'x', desc = 'Save selected code snapshot into clipboard' },
-            { '<leader><leader>cs', '<cmd>CodeSnapSave<cr>', mode = 'x', desc = 'Save selected code snapshot in ~/Pictures' },
+            { '<leader>xcc', '<cmd>CodeSnap<cr>', mode = 'x', desc = 'Save selected code snapshot into clipboard' },
+            { '<leader>xcs', '<cmd>CodeSnapSave<cr>', mode = 'x', desc = 'Save selected code snapshot in ~/Pictures' },
         },
         opts = {
             save_path = '~/Pictures',
@@ -209,7 +209,23 @@ return {
         -- live-command supports semantic versioning via Git tags
         -- tag = "2.*",
         config = function()
-            require('live-command').setup()
+            require('live-command').setup({
+                commands = {
+                    Norm = { cmd = 'norm' },
+                },
+            })
+        end,
+    },
+    {
+        'simonmclean/triptych.nvim',
+        event = 'VeryLazy',
+        dependencies = {
+            'nvim-lua/plenary.nvim', -- required
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+        config = function()
+            require('triptych').setup()
+            vim.keymap.set('n', '<leader><leader>t', ':Triptych<CR>', { silent = true })
         end,
     },
 }
