@@ -46,6 +46,8 @@ return {
                     ['core.integrations.nvim-cmp'] = {},
                     ['core.integrations.image'] = {},
                     ['core.latex.renderer'] = {},
+                    ['core.integrations.treesitter'] = {},
+                    ['core.ui'] = {},
                     ['core.dirman'] = {
                         config = {
                             workspaces = {
@@ -55,6 +57,12 @@ return {
                     },
                 },
             })
+            larp.fn.map('n', '<leader>no', '<cmd>Neorg<CR>', { noremap = true, silent = true })
+            larp.fn.map('n', '<leader>nw', function()
+                vim.ui.select({ 'default', 'notes' }, { prompt = 'Workspace: ' }, function(input)
+                    vim.cmd('Neorg workspace ' .. input)
+                end)
+            end, { noremap = true, silent = true })
         end,
     },
     {
@@ -145,6 +153,7 @@ return {
     },
     {
         'nvim-orgmode/orgmode',
+        enabled = false,
         dependencies = {
             'akinsho/org-bullets.nvim',
             'chipsenkbeil/org-roam.nvim',
