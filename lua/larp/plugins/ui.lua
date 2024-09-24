@@ -247,4 +247,9 @@ return {
             { '<leader>tz', '<cmd>ZenMode<cr>', desc = 'Toggle Zen Mode' },
         },
     },
+    {
+        'nvim-zh/colorful-winsep.nvim',
+        config = true,
+        event = { 'WinLeave' },
+    },
 }

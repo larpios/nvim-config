@@ -173,4 +173,35 @@ return {
             bg_theme = 'bamboo',
         },
     },
+    {
+        -- better yank history
+        'ptdewey/yankbank-nvim',
+        dependencies = 'kkharji/sqlite.lua',
+        config = function()
+            require('yankbank').setup({
+                persist_type = 'sqlite',
+            })
+        end,
+    },
+    {
+        'rmagatti/auto-session',
+        lazy = false,
+
+        ---enables autocomplete for opts
+        ---@module "auto-session"
+        ---@type AutoSession.Config
+        opts = {
+            suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+            -- log_level = 'debug',
+        },
+    },
+    {
+        'otavioschwanck/arrow.nvim',
+        enabled = false,
+        opts = {
+            show_icons = true,
+            leader_key = "'", -- Recommended to be a single key
+            buffer_leader_key = 'm', -- Per Buffer Mappings
+        },
+    },
 }

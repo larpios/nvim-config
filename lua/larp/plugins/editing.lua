@@ -112,4 +112,19 @@ return {
             larp.fn.map('n', '<leader>tu', vim.cmd.UndotreeToggle, { desc = 'Toggle UndoTree', noremap = true, silent = true })
         end,
     },
+    -- lazy.nvim
+    {
+        'chrisgrieser/nvim-rip-substitute',
+        cmd = 'RipSubstitute',
+        keys = {
+            {
+                '<leader>fs',
+                function()
+                    require('rip-substitute').sub()
+                end,
+                mode = { 'n', 'x' },
+                desc = ' rip substitute',
+            },
+        },
+    },
 }
