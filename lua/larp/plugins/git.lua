@@ -11,6 +11,7 @@ return {
     },
     {
         'lewis6991/gitsigns.nvim',
+        event = 'BufRead',
         config = function()
             require('gitsigns').setup({
                 on_attach = function(bufnr)
@@ -70,9 +71,11 @@ return {
     },
     {
         'sindrets/diffview.nvim',
+        event = 'BufRead',
     },
     {
         'NeogitOrg/neogit',
+        event = 'BufRead',
         dependencies = {
             'nvim-lua/plenary.nvim', -- required
             'sindrets/diffview.nvim', -- optional - Diff integration

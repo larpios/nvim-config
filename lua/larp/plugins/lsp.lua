@@ -11,7 +11,6 @@ return {
             })
         end,
     },
-    { 'rafamadriz/friendly-snippets' },
     {
 
         'L3MON4D3/LuaSnip',
@@ -25,6 +24,7 @@ return {
     },
     {
         'stevearc/conform.nvim',
+        event = 'LspAttach',
         opts = {},
         config = function()
             require('conform').setup({
@@ -210,6 +210,7 @@ return {
                     },
                 },
             })
+            larp.fn.map('n', '<leader>mm', ':Mason<CR>', { noremap = true, silent = true, desc = 'Mason' })
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
@@ -276,7 +277,6 @@ return {
             'nvim-tree/nvim-web-devicons', -- optional
         },
     },
-    { 'onsails/lspkind.nvim' },
     {
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
@@ -364,6 +364,7 @@ return {
     {
         'mfussenegger/nvim-lint',
         enabled = false,
+        event = 'BufRead',
         config = function()
             require('lint').linters_by_ft = {
                 markdown = { 'vale' },

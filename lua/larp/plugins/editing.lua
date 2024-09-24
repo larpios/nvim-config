@@ -1,6 +1,7 @@
 return {
     {
         'numToStr/Comment.nvim',
+        enabled = false,
         opts = {
             -- add any options here
         },
@@ -108,8 +109,77 @@ return {
     },
     {
         'mbbill/undotree',
+        keys = {
+            {
+                '<leader>tu',
+                function()
+                    vim.cmd.UndotreeToggle()
+                end,
+                mode = { 'n' },
+                desc = 'Toggle UndoTree',
+            },
+        },
+    },
+    {
+        'chrisgrieser/nvim-rip-substitute',
+        cmd = 'RipSubstitute',
+        keys = {
+            { '<leader>rs', mode = { 'n', 'x' } },
+        },
         config = function()
-            larp.fn.map('n', '<leader>tu', vim.cmd.UndotreeToggle, { desc = 'Toggle UndoTree', noremap = true, silent = true })
+            larp.fn.map({ 'n', 'x' }, '<leader>rs', function()
+                require('rip-substitute').sub()
+            end)
+        end,
+    },
+    {
+        'cshuaimin/ssr.nvim',
+        module = 'ssr',
+        -- Calling setup is optional.
+
+        config = function()
+            require('ssr').setup({
+                border = 'rounded',
+                min_width = 50,
+                min_height = 5,
+                max_width = 120,
+                max_height = 25,
+                adjust_window = true,
+                keymaps = {
+                    close = 'q',
+                    next_match = 'n',
+                    prev_match = 'N',
+                    replace_confirm = '<cr>',
+                    replace_all = '<leader><cr>',
+                },
+            })
+            larp.fn.map({ 'n', 'x' }, '<leader><leader>sr', function()
+                require('ssr').open()
+            end)
+        end,
+    },
+    {
+        'ptdewey/yankbank-nvim',
+        dependencies = 'kkharji/sqlite.lua',
+        config = function()
+            require('yankbank').setup({
+                persist_type = 'sqlite',
+            })
+            -- map to '<leader>y'
+            larp.fn.map('n', '<leader><leader>y', '<cmd>YankBank<CR>', { noremap = true })
+        end,
+    },
+    {
+        'smjonas/live-command.nvim',
+        event = 'VeryLazy',
+        -- live-command supports semantic versioning via Git tags
+        -- tag = "2.*",
+        config = function()
+            require('live-command').setup({
+                commands = {
+                    Norm = { cmd = 'norm' },
+                },
+            })
         end,
     },
     -- lazy.nvim

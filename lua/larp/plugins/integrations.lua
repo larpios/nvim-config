@@ -11,6 +11,8 @@ return {
     },
     {
         'github/copilot.vim',
+        event = 'BufRead',
+        run = 'make',
     },
     {
         'iamcco/markdown-preview.nvim',
@@ -40,9 +42,6 @@ return {
                     ['core.concealer'] = {},
                     ['core.integrations.nvim-cmp'] = {},
                     ['core.integrations.image'] = {},
-                    ['core.latex.renderer'] = {},
-                    ['core.integrations.treesitter'] = {},
-                    ['core.ui'] = {},
                     ['core.dirman'] = {
                         config = {
                             workspaces = {
@@ -113,40 +112,6 @@ return {
     },
 
     {
-        -- plugins/quarto.lua
-        'quarto-dev/quarto-nvim',
-        dependencies = {
-            'jmbuhr/otter.nvim',
-            'nvim-treesitter/nvim-treesitter',
-        },
-
-        config = function()
-            require('quarto').setup({
-                debug = false,
-                closePreviewOnExit = true,
-                lspFeatures = {
-                    enabled = true,
-                    chunks = 'curly',
-                    languages = { 'r', 'python', 'julia', 'bash', 'html' },
-                    diagnostics = {
-                        enabled = true,
-                        triggers = { 'BufWritePost' },
-                    },
-                    completion = {
-                        enabled = true,
-                    },
-                },
-                codeRunner = {
-                    enabled = false,
-                    default_method = nil, -- 'molten' or 'slime'
-                    ft_runners = {}, -- filetype to runner, ie. `{ python = "molten" }`.
-                    -- Takes precedence over `default_method`
-                    never_run = { 'yaml' }, -- filetypes which are never sent to a code runner
-                },
-            })
-        end,
-    },
-    {
         'nvim-orgmode/orgmode',
         enabled = false,
         dependencies = {
@@ -193,6 +158,20 @@ return {
         config = function()
             require('langmapper').setup({--[[ your config ]]
             })
+        'kristijanhusak/vim-dadbod-ui',
+        dependencies = {
+            { 'tpope/vim-dadbod', lazy = true },
+            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
+        },
+        cmd = {
+            'DBUI',
+            'DBUIToggle',
+            'DBUIAddConnection',
+            'DBUIFindBuffer',
+        },
+        init = function()
+            -- Your DBUI configuration
+            vim.g.db_ui_use_nerd_fonts = 1
         end,
     },
 }
