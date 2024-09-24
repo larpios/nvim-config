@@ -255,4 +255,10 @@ return {
             larp.fn.map('n', '<leader><leader>wa', '<cmd>SessionToggleAutoSave<CR>', { desc = 'Toggle autosave' })
         end,
     },
+    {
+        -- Preview the definition of the word under the cursor
+        'rmagatti/goto-preview',
+        event = 'BufEnter',
+        config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+    },
 }
