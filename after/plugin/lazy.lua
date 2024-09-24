@@ -1,1 +1,1 @@
-larp.fn.map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy Menu' })
+larp.fn.map('n', '<leader>ll', '<cmd>Lazy<cr>', { desc = 'Open Lazy Menu' })
