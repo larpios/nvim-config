@@ -77,6 +77,7 @@ return {
     },
     {
         'stevearc/dressing.nvim',
+        event = 'VeryLazy',
         opts = {},
     },
     {
@@ -246,5 +247,27 @@ return {
         keys = {
             { '<leader>tz', '<cmd>ZenMode<cr>', desc = 'Toggle Zen Mode' },
         },
+    },
+    {
+        -- Scrollbar
+        'lewis6991/satellite.nvim',
+        event = 'BufRead',
+    },
+    {
+        'simonmclean/triptych.nvim',
+        event = 'VeryLazy',
+        dependencies = {
+            'nvim-lua/plenary.nvim', -- required
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+        config = function()
+            require('triptych').setup()
+            larp.fn.map('n', '<leader><leader>t', ':Triptych<CR>', { silent = true })
+        end,
+    },
+    {
+        'nvim-zh/colorful-winsep.nvim',
+        config = true,
+        event = { 'WinLeave' },
     },
 }

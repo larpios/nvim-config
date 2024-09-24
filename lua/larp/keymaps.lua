@@ -34,10 +34,8 @@ larp.fn.map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
 larp.fn.map('n', '<C-p>', '<cmd>bp<cr>', { desc = 'Navigate to Previous Buffer' })
 larp.fn.map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
 larp.fn.map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>', { desc = 'Change Directory to Current Buffer' })
-
--- Covered by `mini.move` plugin
---('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
---('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
+larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
+larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
 -- # Terminal
 larp.fn.map('n', '<leader>otv', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
@@ -57,10 +55,10 @@ larp.fn.map('o', '(', 'i(', { desc = 'Inside Parentheses' })
 larp.fn.map('o', '{', 'i{', { desc = 'Inside Braces' })
 larp.fn.map('o', ',', 't,', { desc = 'Until Comma' })
 
--- Move Lines
-larp.fn.map('v', 'J', function()
-    return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
-end, { expr = true, desc = 'Move Selected Line Down' })
-larp.fn.map('v', 'K', function()
-    return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
-end, { expr = true, desc = 'Move Selected Line Up' })
+-- -- Move Lines
+-- larp.fn.map('v', 'J', function()
+--     return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
+-- end, { expr = true, desc = 'Move Selected Line Down' })
+-- larp.fn.map('v', 'K', function()
+--     return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
+-- end, { expr = true, desc = 'Move Selected Line Up' })

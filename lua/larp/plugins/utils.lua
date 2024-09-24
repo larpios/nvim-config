@@ -34,6 +34,12 @@ return {
             { 'stevearc/dressing.nvim' }, -- optional: to have the same UI shown in the GIF
         },
 
+        keys = {
+            { 'mm', mode = { 'n', 'v' }, desc = 'Mark current line into active BookmarkList.' },
+            { 'mo', mode = { 'n', 'v' }, desc = 'Go to bookmark at current active BookmarkList' },
+            { 'ma', mode = { 'n', 'v' }, desc = 'Find and trigger a bookmark command.' },
+            { 'mg', mode = { 'n', 'v' }, desc = 'Go to latest visited/created Bookmark' },
+        },
         config = function()
             larp.fn.map({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { desc = 'Mark current line into active BookmarkList.' })
             larp.fn.map({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { desc = 'Go to bookmark at current active BookmarkList' })
@@ -103,6 +109,7 @@ return {
         -- 1. Highlights TODO, FIXME, etc. in your code
         -- 2. Provides a list of all the highlights in your project
         'folke/todo-comments.nvim',
+        event = 'BufRead',
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {
 
@@ -164,13 +171,88 @@ return {
         'mistricky/codesnap.nvim',
         build = 'make build_generator',
         keys = {
-            { '<leader><leader>cc', '<cmd>CodeSnap<cr>', mode = 'x', desc = 'Save selected code snapshot into clipboard' },
-            { '<leader><leader>cs', '<cmd>CodeSnapSave<cr>', mode = 'x', desc = 'Save selected code snapshot in ~/Pictures' },
+            { '<leader>xcc', '<cmd>CodeSnap<cr>', mode = 'x', desc = 'Save selected code snapshot into clipboard' },
+            { '<leader>xcs', '<cmd>CodeSnapSave<cr>', mode = 'x', desc = 'Save selected code snapshot in ~/Pictures' },
         },
         opts = {
             save_path = '~/Pictures',
             has_breadcrumbs = true,
             bg_theme = 'bamboo',
         },
+    },
+    {
+        'mrjones2014/legendary.nvim',
+        -- since legendary.nvim handles all your keymaps/commands,
+        -- its recommended to load legendary.nvim before other plugins
+        priority = 10000,
+        lazy = false,
+        -- sqlite is only needed if you want to use frecency sorting
+        dependencies = { 'kkharji/sqlite.lua' },
+        keys = {
+            { '<leader>fK', '<cmd>Legendary<cr>', desc = 'Open Legendary' },
+        },
+        config = function()
+            require('legendary').setup({
+                extensions = { lazy_nvim = true, smart_splits = true },
+            })
+        end,
+    },
+    {
+        'ziontee113/color-picker.nvim',
+        config = function()
+            local opts = { noremap = true, silent = true }
+
+            larp.fn.map('n', '<leader><leader>pc', '<cmd>PickColor<cr>', opts)
+            require('color-picker').setup({ -- for changing icons & mappings
+                -- ["icons"] = { "ﱢ", "" },
+                -- ["icons"] = { "ﮊ", "" },
+                -- ["icons"] = { "", "ﰕ" },
+                -- ["icons"] = { "", "" },
+                -- ["icons"] = { "", "" },
+                ['icons'] = { 'ﱢ', '' },
+                ['border'] = 'rounded', -- none | single | double | rounded | solid | shadow
+                ['keymap'] = { -- mapping example:
+                    ['U'] = '<Plug>ColorPickerSlider5Decrease',
+                    ['O'] = '<Plug>ColorPickerSlider5Increase',
+                },
+                ['background_highlight_group'] = 'Normal', -- default
+                ['border_highlight_group'] = 'FloatBorder', -- default
+                ['text_highlight_group'] = 'Normal', --default
+            })
+
+            vim.cmd([[hi FloatBorder guibg=NONE]]) -- if you don't want weird border background colors around the popup.
+        end,
+    },
+    {
+        'otavioschwanck/arrow.nvim',
+        opts = {
+            show_icons = true,
+            leader_key = ';', -- Recommended to be a single key
+            buffer_leader_key = 'm', -- Per Buffer Mappings
+        },
+        config = function()
+            larp.fn.map('n', 'H', require('arrow.persist').previous)
+            larp.fn.map('n', 'L', require('arrow.persist').next)
+            larp.fn.map('n', '<C-s>', require('arrow.persist').toggle)
+        end,
+    },
+    {
+        'rmagatti/auto-session',
+        lazy = false,
+
+        ---enables autocomplete for opts
+        ---@module "auto-session"
+        ---@type AutoSession.Config
+        opts = {
+            suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+            -- log_level = 'debug',
+        },
+        config = function()
+            require('auto-session').setup()
+            -- Will use Telescope if installed or a vim.ui.select picker otherwise
+            larp.fn.map('n', '<leader><leader>wr', '<cmd>SessionSearch<CR>', { desc = 'Session search' })
+            larp.fn.map('n', '<leader><leader>ws', '<cmd>SessionSave<CR>', { desc = 'Save session' })
+            larp.fn.map('n', '<leader><leader>wa', '<cmd>SessionToggleAutoSave<CR>', { desc = 'Toggle autosave' })
+        end,
     },
 }
