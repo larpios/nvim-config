@@ -124,7 +124,7 @@ return {
                             end,
                         },
                     },
-                    -- { name = 'neorg' },
+                    { name = 'neorg' },
                     sorting = {
                         comparators = {
                             function(...)

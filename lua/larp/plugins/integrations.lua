@@ -39,7 +39,22 @@ return {
                 -- Tell Neorg what modules to load
                 load = {
                     ['core.defaults'] = {}, -- Load all the default modules
+                    ['core.completion'] = {
+                        config = {
+                            engine = 'nvim-cmp',
+                            name = "[Neorg]"
+                        }
+                    }, -- Load all the default modules
+                    ['core.export'] = {}, -- Load all the default modules
                     ['core.concealer'] = {},
+                    ['core.highlights'] = { },
+                    ['core.integrations.treesitter'] = {
+                        config={
+                            configure_parsers = true,
+                            install_parsers = true,
+
+                        }
+                    },
                     ['core.integrations.nvim-cmp'] = {},
                     ['core.dirman'] = {
                         config = {
