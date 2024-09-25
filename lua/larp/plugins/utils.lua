@@ -3,8 +3,8 @@ return {
 
         'lambdalisue/vim-suda',
         config = function()
-            larp.fn.map('n', '<leader><leader>w', ':SudaWrite<CR>', { noremap = true })
-            larp.fn.map('n', '<leader><leader>r', ':SudaRead<CR>', { noremap = true })
+            larp.fn.map('n', '<leader><leader>Sw', ':SudaWrite<CR>', { noremap = true })
+            larp.fn.map('n', '<leader><leader>Sr', ':SudaRead<CR>', { noremap = true })
         end,
     },
     {
@@ -151,7 +151,7 @@ return {
     {
         'nvim-pack/nvim-spectre',
         config = function()
-            vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
+            vim.keymap.set('n', '<leader>RR', '<cmd>lua require("spectre").toggle()<CR>', {
                 desc = 'Toggle Spectre',
             })
             vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
@@ -261,14 +261,15 @@ return {
         config = function()
             require('auto-session').setup()
             -- Will use Telescope if installed or a vim.ui.select picker otherwise
-            larp.fn.map('n', '<leader><leader>wr', '<cmd>SessionSearch<CR>', { desc = 'Session search' })
-            larp.fn.map('n', '<leader><leader>ws', '<cmd>SessionSave<CR>', { desc = 'Save session' })
-            larp.fn.map('n', '<leader><leader>wa', '<cmd>SessionToggleAutoSave<CR>', { desc = 'Toggle autosave' })
+            larp.fn.map('n', '<leader><leader>sr', '<cmd>SessionSearch<CR>', { desc = 'Session search' })
+            larp.fn.map('n', '<leader><leader>ss', '<cmd>SessionSave<CR>', { desc = 'Save session' })
+            larp.fn.map('n', '<leader><leader>sa', '<cmd>SessionToggleAutoSave<CR>', { desc = 'Toggle autosave' })
         end,
     },
     {
         -- Preview the definition of the word under the cursor
         'rmagatti/goto-preview',
+        enabled = false,
         event = 'BufEnter',
         config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
     },

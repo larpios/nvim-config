@@ -96,6 +96,7 @@ return {
             '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
+
     {
         'nacro90/numb.nvim',
         config = true,

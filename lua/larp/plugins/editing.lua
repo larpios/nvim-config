@@ -153,9 +153,9 @@ return {
                     replace_all = '<leader><cr>',
                 },
             })
-            larp.fn.map({ 'n', 'x' }, '<leader><leader>sr', function()
+            larp.fn.map({ 'n', 'x' }, '<leader><leader>rr', function()
                 require('ssr').open()
-            end)
+            end, { desc = 'Replace (SSR)' })
         end,
     },
     {

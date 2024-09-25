@@ -41,7 +41,6 @@ return {
                     ['core.defaults'] = {}, -- Load all the default modules
                     ['core.concealer'] = {},
                     ['core.integrations.nvim-cmp'] = {},
-                    ['core.integrations.image'] = {},
                     ['core.dirman'] = {
                         config = {
                             workspaces = {

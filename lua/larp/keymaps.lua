@@ -42,8 +42,10 @@ larp.fn.map('n', '<leader>otv', '<leader>sj<cmd>term<cr>', { desc = 'Open Termin
 larp.fn.map('n', '<leader>oth', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
 larp.fn.map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 
--- # Editing
-larp.fn.map({ 'i', 'v' }, 'zx', '<Esc>') --
+-- # Edit
+larp.fn.map({ 'i', 'x' }, 'zx', '<Esc>')
+larp.fn.map('i', 'jk', '<Esc>')
+larp.fn.map('i', 'kj', '<Esc>')
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
