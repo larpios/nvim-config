@@ -38,18 +38,42 @@ return {
         depends = { 'nvim-lua/plenary.nvim' }, -- Load plenary as a dependency
         version = '*', -- Pin Neorg to the latest stable release
         config = function()
+            local my_workspaces = {
+                default = '~/neorg',
+                personal = '~/neorg/personal',
+                work = '~/neorg/work',
+            }
             require('neorg').setup({
                 -- Tell Neorg what modules to load
                 load = {
                     ['core.defaults'] = {}, -- Load all the default modules
+                    ['core.dirman'] = {
+                        config = {
+                            workspaces = my_workspaces,
+                        },
+                        index = 'index.norg',
+                    },
                     ['core.completion'] = {
                         config = {
                             engine = 'nvim-cmp',
                             name = '[Neorg]',
                         },
                     }, -- Load all the default modules
-                    ['core.export'] = {}, -- Load all the default modules
+                    ['core.export'] = {
+                        config = {
+                            export_dir = '"<export-dir>/<language>-export"',
+                        },
+                    }, -- Load all the default modules
+                    ['core.export.markdown'] = {}, -- Load all the default modules
+                    ['core.fs'] = {}, -- Load all the default modules
+                    ['core.neorgcmd'] = {}, -- Load all the default modules
                     ['core.concealer'] = {},
+                    ['core.syntax'] = {},
+                    ['core.summary'] = {
+                        config = {
+                            strategy = 'default',
+                        },
+                    },
                     ['core.highlights'] = {},
                     ['core.integrations.treesitter'] = {
                         config = {
@@ -57,22 +81,29 @@ return {
                             install_parsers = true,
                         },
                     },
+                    ['core.queries.native'] = {},
                     ['core.integrations.nvim-cmp'] = {},
-                    ['core.dirman'] = {
-                        config = {
-                            workspaces = {
-                                notes = '~/notes',
-                            },
-                        },
-                    },
+                    ['core.storage'] = { vim.fn.stdpath('data') .. '/neorg.mpack' },
+                    ['core.text-objects'] = {},
                 },
             })
             larp.fn.map('n', '<leader>no', '<cmd>Neorg<CR>', { noremap = true, silent = true })
             larp.fn.map('n', '<leader>nw', function()
-                vim.ui.select({ 'default', 'notes' }, { prompt = 'Workspace: ' }, function(input)
+                vim.ui.select(vim.tbl_keys(my_workspaces), { prompt = 'Workspace: ' }, function(input)
                     vim.cmd('Neorg workspace ' .. input)
                 end)
             end, { noremap = true, silent = true })
+            vim.api.nvim_create_autocmd('Filetype', {
+                pattern = 'norg',
+                callback = function()
+                    larp.fn.map('n', '<up>', '<Plug>(neorg.text-objects.item-up)', { desc = 'Move item up' })
+                    larp.fn.map('n', '<down>', '<Plug>(neorg.text-objects.item-down)', { desc = 'Move item down' })
+                    larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
+                    larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
+                    larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                end,
+            })
         end,
     },
     {
