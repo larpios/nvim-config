@@ -25,13 +25,16 @@ return {
     {
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {},
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     },
     {
         'nvim-neorg/neorg',
         lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        ft = 'norg',
+        cmd = 'Neorg',
+        priority = 30,
         depends = { 'nvim-lua/plenary.nvim' }, -- Load plenary as a dependency
         version = '*', -- Pin Neorg to the latest stable release
         config = function()
@@ -42,18 +45,17 @@ return {
                     ['core.completion'] = {
                         config = {
                             engine = 'nvim-cmp',
-                            name = "[Neorg]"
-                        }
+                            name = '[Neorg]',
+                        },
                     }, -- Load all the default modules
                     ['core.export'] = {}, -- Load all the default modules
                     ['core.concealer'] = {},
-                    ['core.highlights'] = { },
+                    ['core.highlights'] = {},
                     ['core.integrations.treesitter'] = {
-                        config={
+                        config = {
                             configure_parsers = true,
                             install_parsers = true,
-
-                        }
+                        },
                     },
                     ['core.integrations.nvim-cmp'] = {},
                     ['core.dirman'] = {

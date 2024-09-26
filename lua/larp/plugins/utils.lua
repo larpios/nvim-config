@@ -236,6 +236,7 @@ return {
     },
     {
         'otavioschwanck/arrow.nvim',
+        enabled = false,
         opts = {
             show_icons = true,
             leader_key = ';', -- Recommended to be a single key
