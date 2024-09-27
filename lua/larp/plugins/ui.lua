@@ -96,6 +96,11 @@ return {
             '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
+    {
+        '3rd/image.nvim',
+        enabled = false,
+        opts = {},
+    },
 
     {
         'nacro90/numb.nvim',
@@ -130,6 +135,9 @@ return {
     { 'petertriho/nvim-scrollbar' },
     {
         'stevearc/oil.nvim',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
         opts = {
             delete_to_trash = true,
             use_default_keymaps = false,
@@ -154,7 +162,32 @@ return {
             watch_for_changes = true,
             view_options = {
                 show_hidden = true,
+                sort = {
+                    { 'type', 'desc' },
+                    { 'name', 'asc' },
+                },
             },
+            sort_by = function(a, b)
+                if a.type == 'directory' and b.type ~= 'directory' then
+                    return true
+                elseif a.type ~= 'directory' and b.type == 'directory' then
+                    return false
+                else
+                    local function get_extension(file)
+                        return file.name:match('^.+(%..+)$') or ''
+                    end
+
+                    local ext_a = get_extension(a.name):lower()
+                    local ext_b = get_extension(b.name):lower()
+
+                    if ext_a == ext_b then
+                        return a.name:lower() < b.name:lower()
+                    else
+                        return ext_a < ext_b
+                    end
+                end
+            end,
+
             columns = {
                 'icon',
                 'mtime',
@@ -162,11 +195,9 @@ return {
                 'permissions',
             },
             win_options = {
+                wrap = true,
                 winbar = "%{v:lua.require('oil').get_current_dir()}",
             },
-        },
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
         },
     },
     {

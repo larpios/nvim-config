@@ -50,8 +50,8 @@ return {
                     ['core.dirman'] = {
                         config = {
                             workspaces = my_workspaces,
+                            index = 'index.norg',
                         },
-                        index = 'index.norg',
                     },
                     ['core.completion'] = {
                         config = {
@@ -101,7 +101,7 @@ return {
                     larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
                     larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
                     larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<S-space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                 end,
             })
         end,

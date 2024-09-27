@@ -24,6 +24,12 @@ larp.fn.map('', '<leader>w>', '<c-w>>', { desc = 'Increase Window Width' })
 larp.fn.map('', '<leader>w<', '<c-w><', { desc = 'Decrease Window Width' })
 larp.fn.map('', '<leader>w=', '<c-w>=', { desc = 'Equal Window Size' })
 
+-- # Tabs
+larp.fn.map('n', '<leader>Tc', '<cmd>tabnew<cr>', { desc = 'New Tab' })
+larp.fn.map('n', '<leader>Td', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
+larp.fn.map('n', '<leader>Tn', '<cmd>tabnext<cr>', { desc = 'Go to Next Tab' })
+larp.fn.map('n', '<leader>Tp', '<cmd>tabprevious<cr>', { desc = 'Go to Previous Tab' })
+
 -- General
 larp.fn.map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
 larp.fn.map('', '<leader>hoc', '<cmd>e ' .. vim.fn.stdpath('config') .. '<cr>', { desc = 'Open Neovim Config' })
@@ -38,8 +44,8 @@ larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Li
 larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
 -- # Terminal
-larp.fn.map('n', '<leader>otv', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
-larp.fn.map('n', '<leader>oth', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
+larp.fn.map('n', '<leader>otv', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
+larp.fn.map('n', '<leader>oth', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
 larp.fn.map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 
 -- # Edit
