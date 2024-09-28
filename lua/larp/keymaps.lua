@@ -55,6 +55,9 @@ larp.fn.map('i', 'kj', '<Esc>')
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
+larp.fn.map('v', '<', '<gv' )
+larp.fn.map('v', '>', '>gv' )
+
 
 -- # Objects
 larp.fn.map('o', '"', 'i"', { desc = 'Inside Double Quotes' })
