@@ -1,10 +1,10 @@
 return {
     {
         'amitds1997/remote-nvim.nvim',
-        version = '*',                       -- Pin to GitHub releases
+        version = '*', -- Pin to GitHub releases
         dependencies = {
-            'nvim-lua/plenary.nvim',         -- For standard functions
-            'MunifTanjim/nui.nvim',          -- To build the plugin UI
+            'nvim-lua/plenary.nvim', -- For standard functions
+            'MunifTanjim/nui.nvim', -- To build the plugin UI
             'nvim-telescope/telescope.nvim', -- For picking b/w different remote methods
         },
         config = true,
@@ -36,7 +36,7 @@ return {
         cmd = 'Neorg',
         priority = 30,
         depends = { 'nvim-lua/plenary.nvim' }, -- Load plenary as a dependency
-        version = '*',                         -- Pin Neorg to the latest stable release
+        version = '*', -- Pin Neorg to the latest stable release
         config = function()
             local my_workspaces = {
                 default = '~/norgs',
@@ -63,10 +63,10 @@ return {
                         config = {
                             export_dir = '"<export-dir>/<language>-export"',
                         },
-                    },                             -- Load all the default modules
+                    }, -- Load all the default modules
                     ['core.export.markdown'] = {}, -- Load all the default modules
-                    ['core.fs'] = {},              -- Load all the default modules
-                    ['core.neorgcmd'] = {},        -- Load all the default modules
+                    ['core.fs'] = {}, -- Load all the default modules
+                    ['core.neorgcmd'] = {}, -- Load all the default modules
                     ['core.concealer'] = {},
                     ['core.syntax'] = {},
                     ['core.summary'] = {
@@ -99,63 +99,12 @@ return {
                 callback = function()
                     larp.fn.map('n', '<up>', '<Plug>(neorg.text-objects.item-up)', { desc = 'Move item up' })
                     larp.fn.map('n', '<down>', '<Plug>(neorg.text-objects.item-down)', { desc = 'Move item down' })
-                    larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)',
-                        { desc = 'Select heading' })
-                    larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)',
-                        { desc = 'Select heading' })
-                    larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)',
-                        { desc = 'Cycle through Task Modes' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)',
-                        { desc = 'Continue Current Object' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)',
-                        { desc = 'Continue Current Object' })
-                    larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer', { desc = "Toggle Concealer" })
-
-                    local marks = {
-                        { symbol = '*', key = 'b', name = "Bold" },
-                        { symbol = '/', key = 'i', name = "Italics" },
-                        { symbol = '_', key = 't', name = "Strikethrough" },
-                        { symbol = '`', key = 'c', name = "Inline Code" },
-                        { symbol = '^', key = '6', name = "Superscript" },
-                        { symbol = ',', key = ',', name = "Subscript" },
-                        { symbol = '$', key = 'm', name = "Math" },
-                        { symbol = '&', key = 'v', name = "Variable" },
-                        { symbol = '%', key = '3', name = "Inline Comment" },
-                    }
-
-                    local toggle_mark = function(sym)
-                        local text = larp.fn.get_selection_text()
-
-                        if #text < 1 then
-                            print("Select text")
-                            return ""
-                        end
-
-                        local lfirst = text[1]
-                        local llast = text[#text]
-                        print("lfirst: " .. lfirst .. ", llast: " .. llast)
-
-                        ---@type string
-                        local cfirst = string.sub(lfirst, 1, 1)
-                        local clast = string.sub(llast, #llast)
-
-                        --  TODO:
-                        -- if string.match(lfirst, string.format("^%%s%%s(.*)%%s%%s$")) then
-                        -- end
-                        if cfirst ~= sym or clast ~= sym then
-                            return 'c' .. sym .. sym .. "<esc>Pgvll"
-                        else
-                            return "xpxBx"
-                        end
-                    end
-                    -- wow *awsome ama* amaizng
-
-                    for _, m in ipairs(marks) do
-                        larp.fn.map('x', "<C-" .. m.key .. ">", function()
-                                return toggle_mark('*')
-                            end,
-                            { desc = 'Toggle ' .. m.name, expr = true })
-                    end
+                    larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
+                    larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
+                    larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
                 end,
             })
         end,
@@ -204,10 +153,10 @@ return {
             'TmuxNavigatePrevious',
         },
         keys = {
-            { '<c-h>',  '<cmd><C-U>TmuxNavigateLeft<cr>' },
-            { '<c-j>',  '<cmd><C-U>TmuxNavigateDown<cr>' },
-            { '<c-k>',  '<cmd><C-U>TmuxNavigateUp<cr>' },
-            { '<c-l>',  '<cmd><C-U>TmuxNavigateRight<cr>' },
+            { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+            { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+            { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+            { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
             { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
         },
     },
@@ -255,7 +204,7 @@ return {
     {
         'kristijanhusak/vim-dadbod-ui',
         dependencies = {
-            { 'tpope/vim-dadbod',                     lazy = true },
+            { 'tpope/vim-dadbod', lazy = true },
             { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
         },
         cmd = {
@@ -270,7 +219,7 @@ return {
         end,
     },
     {
-        "codethread/qmk.nvim",
+        'codethread/qmk.nvim',
         config = function()
             -- local conf = {
             --     name = 'LAYOUT_glove80', -- identify your layout name
@@ -290,8 +239,8 @@ return {
             --     },
             -- }
             -- require('qmk').setup(conf)
-            local qmk = require 'qmk'
-            qmk.setup {
+            local qmk = require('qmk')
+            qmk.setup({
                 name = 'LAYOUT_glove80', -- identify your layout name
                 comment_preview = {
                     keymap_overrides = {
@@ -307,7 +256,7 @@ return {
                     'x x x x x x x x x x x x x x x x x x',
                     'x x x x x _ x x x x x x _ x x x x x',
                 },
-            }
-        end
-    }
+            })
+        end,
+    },
 }

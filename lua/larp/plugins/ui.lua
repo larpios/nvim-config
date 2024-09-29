@@ -26,11 +26,11 @@ return {
                 },
                 -- you can enable a preset for easier configuration
                 presets = {
-                    bottom_search = true,         -- use a classic bottom cmdline for search
-                    command_palette = false,      -- position the cmdline and popupmenu together
+                    bottom_search = true, -- use a classic bottom cmdline for search
+                    command_palette = false, -- position the cmdline and popupmenu together
                     long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = true,        -- add a border to hover docs and signature help
+                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = true, -- add a border to hover docs and signature help
                 },
             })
             vim.api.nvim_create_autocmd('RecordingEnter', {
@@ -93,28 +93,28 @@ return {
             'nvim-lua/plenary.nvim',
             'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
             'MunifTanjim/nui.nvim',
-            '3rd/image.nvim',              -- Optional image support in preview window: See `# Preview Mode` for more information
+            '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
     {
         '3rd/image.nvim',
         enabled = false,
         opts = {
-            backend = "kitty",
+            backend = 'kitty',
             integrations = {
                 markdown = {
                     enabled = true,
                     clear_in_insert_mode = false,
                     download_remote_images = true,
                     only_render_image_at_cursor = false,
-                    filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+                    filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
                 },
                 neorg = {
                     enabled = true,
                     clear_in_insert_mode = false,
                     download_remote_images = true,
                     only_render_image_at_cursor = false,
-                    filetypes = { "norg" },
+                    filetypes = { 'norg' },
                 },
                 html = {
                     enabled = false,
@@ -127,11 +127,11 @@ return {
             max_height = nil,
             max_width_window_percentage = nil,
             max_height_window_percentage = 50,
-            window_overlap_clear_enabled = false,                                               -- toggles images when windows are overlapped
-            window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-            editor_only_render_when_focused = false,                                            -- auto show/hide images when the editor gains/looses focus
-            tmux_show_only_in_active_window = false,                                            -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-            hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
+            window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+            window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
+            editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+            tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+            hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.avif' }, -- render image files as images when opened
         },
     },
 
@@ -322,7 +322,7 @@ return {
         'simonmclean/triptych.nvim',
         event = 'VeryLazy',
         dependencies = {
-            'nvim-lua/plenary.nvim',       -- required
+            'nvim-lua/plenary.nvim', -- required
             'nvim-tree/nvim-web-devicons', -- optional
         },
         config = function()
