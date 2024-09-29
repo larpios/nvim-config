@@ -29,3 +29,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end)
     end,
 })
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    group = vim.api.nvim_create_augroup('keymap_read', {}),
+    desc = "Recognize *.keymap files as C files",
+    pattern = "*.keymap",
+    callback = function()
+        vim.cmd([[set filetype=c]])
+    end,
+})

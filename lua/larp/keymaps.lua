@@ -39,13 +39,16 @@ larp.fn.map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
 larp.fn.map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
 larp.fn.map('n', '<C-p>', '<cmd>bp<cr>', { desc = 'Navigate to Previous Buffer' })
 larp.fn.map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
-larp.fn.map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>', { desc = 'Change Directory to Current Buffer' })
+larp.fn.map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>',
+    { desc = 'Change Directory to Current Buffer' })
 larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
 larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
 -- # Terminal
-larp.fn.map('n', '<leader>otv', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal Vertically', remap = true })
-larp.fn.map('n', '<leader>oth', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal Horizontally', remap = true })
+larp.fn.map('n', '<leader>oth', '<leader>sh<cmd>term<cr>', { desc = 'Open Terminal to the Left', remap = true })
+larp.fn.map('n', '<leader>otj', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal to the Bottom', remap = true })
+larp.fn.map('n', '<leader>otk', '<leader>sk<cmd>term<cr>', { desc = 'Open Terminal to the Top', remap = true })
+larp.fn.map('n', '<leader>otl', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal to the Right', remap = true })
 larp.fn.map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 
 -- # Edit
@@ -55,8 +58,8 @@ larp.fn.map('i', 'kj', '<Esc>')
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
-larp.fn.map('v', '<', '<gv' )
-larp.fn.map('v', '>', '>gv' )
+larp.fn.map('v', '<', '<gv')
+larp.fn.map('v', '>', '>gv')
 
 
 -- # Objects
