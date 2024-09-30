@@ -83,7 +83,11 @@ return {
                     },
                     ['core.queries.native'] = {},
                     ['core.integrations.nvim-cmp'] = {},
-                    ['core.storage'] = { vim.fn.stdpath('data') .. '/neorg.mpack' },
+                    ['core.storage'] = {
+                        config = {
+                            vim.fn.stdpath('data') .. '/neorg.mpack',
+                        },
+                    },
                     ['core.text-objects'] = {},
                 },
             })
