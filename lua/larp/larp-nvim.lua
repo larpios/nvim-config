@@ -145,6 +145,28 @@ function M.fn.tbl_append(t1, t2)
     return t1
 end
 
+---Get values of a table by the key.
+---Returns a table of values
+---@param tbls table[]
+---@param key string|integer
+---@param formatter? fun(value):any
+---@return table
+function M.fn.tbl_get_by_key(tbls, key, formatter)
+    formatter = formatter or function(v)
+        return v
+    end
+    local values = {}
+
+    for _, tbl in ipairs(tbls) do
+        for k, v in pairs(tbl) do
+            if k == key then
+                table.insert(values, formatter(v))
+            end
+        end
+    end
+    return values
+end
+
 ---Returns selection range
 ---@return table
 function M.fn.get_selection_range()

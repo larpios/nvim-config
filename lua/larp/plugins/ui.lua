@@ -98,7 +98,9 @@ return {
     },
     {
         '3rd/image.nvim',
-        enabled = false,
+        dependencies = {
+            'luarocks.nvim',
+        },
         opts = {
             backend = 'kitty',
             integrations = {

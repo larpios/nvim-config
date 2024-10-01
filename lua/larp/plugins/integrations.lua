@@ -34,8 +34,10 @@ return {
         lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
         ft = 'norg',
         cmd = 'Neorg',
-        priority = 30,
-        depends = { 'nvim-lua/plenary.nvim' }, -- Load plenary as a dependency
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-neorg/neorg-telescope',
+        }, -- Load plenary as a dependency
         version = '*', -- Pin Neorg to the latest stable release
         config = function()
             local my_workspaces = {
@@ -53,21 +55,38 @@ return {
                             index = 'index.norg',
                         },
                     },
+                    ['core.concealer'] = {},
                     ['core.completion'] = {
                         config = {
-                            engine = 'nvim-cmp',
                             name = '[Neorg]',
+                            engine = 'nvim-cmp',
                         },
                     }, -- Load all the default modules
+                    ['core.integrations.nvim-cmp'] = {},
+                    ['core.integrations.treesitter'] = {},
+                    ['core.integrations.telescope'] = {
+                        config = {
+                            insert_file_link = {
+                                show_title_preview = true,
+                            },
+                        },
+                    },
+                    ['core.presenter'] = {
+                        config = {
+                            zen_mode = 'zen-mode',
+                        },
+                    },
                     ['core.export'] = {
                         config = {
                             export_dir = '"<export-dir>/<language>-export"',
                         },
-                    }, -- Load all the default modules
-                    ['core.export.markdown'] = {}, -- Load all the default modules
-                    ['core.fs'] = {}, -- Load all the default modules
-                    ['core.neorgcmd'] = {}, -- Load all the default modules
-                    ['core.concealer'] = {},
+                    },
+                    ['core.export.markdown'] = {},
+                    ['core.fs'] = {},
+                    ['core.neorgcmd'] = {},
+                    ['core.ui'] = {},
+                    ['core.neorgcmd.commands.return'] = {},
+                    ['core.tempus'] = {},
                     ['core.syntax'] = {},
                     ['core.summary'] = {
                         config = {
@@ -75,14 +94,9 @@ return {
                         },
                     },
                     ['core.highlights'] = {},
-                    ['core.integrations.treesitter'] = {
-                        config = {
-                            configure_parsers = true,
-                            install_parsers = true,
-                        },
-                    },
+                    ['core.clipboard'] = {},
                     ['core.queries.native'] = {},
-                    ['core.integrations.nvim-cmp'] = {},
+                    ['core.todo-introspector'] = {},
                     ['core.storage'] = {
                         config = {
                             vim.fn.stdpath('data') .. '/neorg.mpack',
@@ -91,23 +105,31 @@ return {
                     ['core.text-objects'] = {},
                 },
             })
-            vim.o.conceallevel = 3
             larp.fn.map('n', '<leader>no', '<cmd>Neorg<CR>', { noremap = true, silent = true })
             larp.fn.map('n', '<leader>nw', function()
                 vim.ui.select(vim.tbl_keys(my_workspaces), { prompt = 'Workspace: ' }, function(input)
                     vim.cmd('Neorg workspace ' .. input)
                 end)
             end, { noremap = true, silent = true })
+
+            larp.fn.map('n', '<leader>nfh', '<Plug>(neorg.telescope.search_headings)', { desc = 'Find Norg Headings' })
+            larp.fn.map('n', '<leader>nff', '<Plug>(neorg.telescope.find_norg_files)', { desc = 'Find Norg Files' })
+            larp.fn.map('n', '<leader>nfb', '<Plug>(neorg.telescope.backlinks.file_backlinks)', { desc = 'Find Backlinks' })
+            larp.fn.map('n', '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', { desc = 'Find Header Backlinks' })
+            larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
+            larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', { desc = 'Insert Link' })
+
             vim.api.nvim_create_autocmd('Filetype', {
                 pattern = 'norg',
                 callback = function()
+                    vim.o.conceallevel = 3
                     larp.fn.map('n', '<up>', '<Plug>(neorg.text-objects.item-up)', { desc = 'Move item up' })
                     larp.fn.map('n', '<down>', '<Plug>(neorg.text-objects.item-down)', { desc = 'Move item down' })
                     larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
                     larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
                     larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-f>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
                 end,
             })
@@ -115,37 +137,78 @@ return {
     },
     {
         'epwalsh/obsidian.nvim',
+        enabled = false,
+        priority = 1000,
         version = '*', -- recommended, use latest release instead of latest commit
-        lazy = true,
-        ft = 'markdown',
-        -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-        -- event = {
-        --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-        --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-        --   "BufReadPre path/to/my-vault/**.md",
-        --   "BufNewFile path/to/my-vault/**.md",
-        -- },
         dependencies = {
-            -- Required.
             'nvim-lua/plenary.nvim',
-
-            -- see below for full list of optional dependencies 👇
+            'hrsh7th/nvim-cmp',
+            'ibhagwan/fzf-lua',
+            'nvim-treesitter/nvim-treesitter',
         },
         opts = {
             workspaces = {
                 {
                     name = 'personal',
-                    path = '~/vaults/personal',
+                    path = '~/obsidian-vault/personal',
                 },
                 {
                     name = 'work',
-                    path = '~/vaults/work',
+                    path = '~/obsidian-vault/work',
                 },
             },
-
-            -- see below for full list of options 👇
+            templates = {
+                folder = 'Templates',
+            },
+            daily_notes = {
+                folder = 'journal',
+            },
+            completion = {
+                nvim_cmp = true,
+                min_char = 2,
+            },
         },
-        enabled = false,
+        config = function(_, opts)
+            local obsidian = require('obsidian')
+            obsidian.setup(opts)
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = { 'markdown', 'markdown_inline' },
+                highlight = {
+                    enable = true,
+                },
+            })
+
+            local vault_path = '~/obsidian-vault'
+
+            local workspaces = {
+                {
+                    name = 'personal',
+                    path = vault_path .. '/personal',
+                },
+                {
+                    name = 'work',
+                    path = vault_path .. '/work',
+                },
+            }
+
+            larp.fn.map('n', '<leader>Ow', function()
+                vim.ui.select(larp.fn.tbl_get_by_key(workspaces, 'name'), {
+                    prompt = 'Choose your obsidian vault',
+                }, function(_, idx)
+                    vim.cmd('edit ' .. workspaces[idx]['path'])
+                end)
+            end, { desc = 'Open Obisdian Workspace' })
+
+            larp.fn.map('n', '<leader>Of', '<cmd>ObsidianSearch<cr>', { desc = 'Search Obsidian Vault' })
+
+            vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+                desc = 'Enter Obsidian Vault',
+                pattern = '' .. vault_path .. '.*',
+                callback = function()
+                    vim.o.conceallevel = 2
+                end,
+            })
+        end,
     },
     {
         'christoomey/vim-tmux-navigator',
@@ -163,37 +226,6 @@ return {
             { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
             { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
         },
-    },
-
-    {
-        'nvim-orgmode/orgmode',
-        enabled = false,
-        dependencies = {
-            'akinsho/org-bullets.nvim',
-            'chipsenkbeil/org-roam.nvim',
-        },
-        event = 'VeryLazy',
-        ft = { 'org' },
-        config = function()
-            -- Setup orgmode
-            require('orgmode').setup({
-                org_agenda_files = '~/orgfiles/**/*',
-                org_default_notes_file = '~/orgfiles/refile.org',
-            })
-
-            -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
-            -- add ~org~ to ignore_install
-            -- require('nvim-treesitter.configs').setup({
-            --   ensure_installed = 'all',
-            --   ignore_install = { 'org' },
-            -- })
-
-            require('org-bullets').setup({})
-
-            require('org-roam').setup({
-                directory = '~/org_roam_files',
-            })
-        end,
     },
     {
         'danymat/neogen',

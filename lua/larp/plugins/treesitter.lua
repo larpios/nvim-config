@@ -94,6 +94,10 @@ return {
                         },
                     },
                 },
+                ensure_installed = { 'markdown', 'markdown_inline' },
+                highlight = {
+                    enable = true,
+                },
             })
 
             local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
@@ -103,8 +107,8 @@ return {
             larp.fn.map({ 'n', 'x', 'o' }, ',', ts_repeat_move.repeat_last_move_previous)
 
             -- vim way: ; goes to the direction you were moving.
-            --larp.fn.map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-            --larp.fn.map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+            larp.fn.map({ 'n', 'x', 'o' }, ';', ts_repeat_move.repeat_last_move)
+            larp.fn.map({ 'n', 'x', 'o' }, ',', ts_repeat_move.repeat_last_move_opposite)
 
             -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
             larp.fn.map({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f_expr, { expr = true })

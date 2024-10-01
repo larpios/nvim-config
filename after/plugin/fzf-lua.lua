@@ -1,8 +1,8 @@
 local config_path = vim.fn.stdpath('config')
 
 -- # Config
-larp.fn.map('', '<leader>hfc', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
-larp.fn.map('', '<leader>hgc', '<cmd>FzfLua live_grep cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
+larp.fn.map('', '<leader>fH', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
+larp.fn.map('', '<leader>gH', '<cmd>FzfLua live_grep cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
 
 -- # Basic
 larp.fn.map('', '<leader>ff', '<cmd>FzfLua files<cr>', { silent = true, desc = 'Find Files' })

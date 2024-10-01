@@ -12,9 +12,8 @@ vim.opt.scrolloff = 100
 vim.opt.smarttab = true
 vim.opt.smartindent = true
 
-vim.g.timeoutlen = 500
--- vim.opt.timeout = false
--- vim.opt.ttimeout = false
+vim.opt.timeout = false
+vim.opt.ttimeout = false
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
@@ -32,6 +31,7 @@ vim.opt.wrap = true
 vim.opt.swapfile = false
 
 vim.opt.textwidth = 100
+vim.wo.conceallevel = 2
 
 if vim.g.neovide then
     require('larp.neovide')
