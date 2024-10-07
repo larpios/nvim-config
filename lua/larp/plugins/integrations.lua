@@ -88,6 +88,7 @@ return {
                     ['core.neorgcmd.commands.return'] = {},
                     ['core.tempus'] = {},
                     ['core.syntax'] = {},
+                    ['core.ui.calendar'] = {},
                     ['core.summary'] = {
                         config = {
                             strategy = 'default',
