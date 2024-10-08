@@ -249,30 +249,14 @@ return {
         end,
     },
     {
-        'rmagatti/auto-session',
-        lazy = false,
-
-        ---enables autocomplete for opts
-        ---@module "auto-session"
-        ---@type AutoSession.Config
-        opts = {
-            suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-            -- log_level = 'debug',
-        },
-        config = function()
-            require('auto-session').setup()
-            -- Will use Telescope if installed or a vim.ui.select picker otherwise
-            larp.fn.map('n', '<leader><leader>sr', '<cmd>SessionSearch<CR>', { desc = 'Session search' })
-            larp.fn.map('n', '<leader><leader>ss', '<cmd>SessionSave<CR>', { desc = 'Save session' })
-            larp.fn.map('n', '<leader><leader>sa', '<cmd>SessionToggleAutoSave<CR>', { desc = 'Toggle autosave' })
-        end,
-    },
-    {
         -- Preview the definition of the word under the cursor
         'rmagatti/goto-preview',
-        enabled = false,
         event = 'BufEnter',
-        config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+        config = function()
+            require('goto-preview').setup({
+                default_mappings = true,
+            })
+        end,
     },
     {
         'Vigemus/iron.nvim',
@@ -354,5 +338,41 @@ return {
                 },
             },
         },
+    },
+    {
+        'folke/persistence.nvim',
+        event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+        config = function()
+            -- load the session for the current directory
+            larp.fn.map('n', '<leader>qs', function()
+                require('persistence').load()
+            end)
+
+            -- select a session to load
+            larp.fn.map('n', '<leader>qS', function()
+                require('persistence').select()
+            end)
+
+            -- load the last session
+            larp.fn.map('n', '<leader>ql', function()
+                require('persistence').load({ last = true })
+            end)
+
+            -- stop Persistence => session won't be saved on exit
+            larp.fn.map('n', '<leader>qd', function()
+                require('persistence').stop()
+            end)
+        end,
+    },
+
+    -- amongst your other plugins
+    {
+        'akinsho/toggleterm.nvim',
+        version = '*',
+        config = function()
+            require('toggleterm').setup({
+                open_mapping = [[<c-\>]],
+            })
+        end,
     },
 }

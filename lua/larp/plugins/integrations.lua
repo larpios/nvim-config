@@ -119,6 +119,13 @@ return {
             larp.fn.map('n', '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', { desc = 'Find Header Backlinks' })
             larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
             larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', { desc = 'Insert Link' })
+            larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>', { noremap = true, silent = true })
+            larp.fn.map(
+                { 'i', 'x', 'n' },
+                '<C-Space>',
+                '<Plug>(neorg.itero.next-iteration)',
+                { desc = 'Continue Current Object', noremap = true, silent = true }
+            )
 
             vim.api.nvim_create_autocmd('Filetype', {
                 pattern = 'norg',
@@ -129,8 +136,9 @@ return {
                     larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
                     larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
                     larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-s>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>')
+                    larp.fn.map({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
                 end,
             })
