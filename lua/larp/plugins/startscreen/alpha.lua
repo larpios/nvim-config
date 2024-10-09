@@ -57,8 +57,10 @@ return {
     'goolord/alpha-nvim',
     dependencies = {
         'kyazdani42/nvim-web-devicons',
-        'folke/persistence.nvim',
         'nvim-lua/plenary.nvim',
+        'LintaoAmons/bookmarks.nvim',
+        'stevearc/resession.nvim',
+        'ibhagwan/fzf-lua',
     },
     config = function()
         local alpha = require('alpha')
@@ -68,26 +70,13 @@ return {
         dashboard.section.buttons.val = {
             dashboard.button('e', '  New file', ':enew<CR>'),
             dashboard.button('f', '󰈞  Find file', ':FzfLua files<CR>'),
+            dashboard.button('G', '󰈬  Find word', ':FzfLua live_grep_native<CR>'),
             dashboard.button('r', '󰊄  Recently opened files', ':FzfLua oldfiles<CR>'),
-            dashboard.button('n', '  Load session', ':lua require("persistence").load()<CR>'),
+            dashboard.button('m', '  Jump to bookmarks', ':BookmarksGoto<CR>'),
+            dashboard.button('n', '  Load session', require('resession').load),
         }
-        dashboard.section.header.opts.hl = {}
-        for i = 1, #dashboard.section.header.val do
-            table.insert(dashboard.section.header.opts.hl, { 'AlphaRed', 0, 10000 })
-        end
-        --   New file                                      e
-        --
-        -- 󰈞  Find file                               SPC f f
-        --
-        -- 󰊄  Recently opened files                   SPC f h
-        --
-        --   Frecency/MRU                            SPC f r
-        --
-        -- 󰈬  Find word                               SPC f g
-        --
-        --   Jump to bookmarks                       SPC f m
-        --
-        --   Open last session                       SPC s l
+
+        -- TODO: Add colors by settings the highlight group
         alpha.setup(dashboard.opts)
     end,
 }

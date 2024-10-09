@@ -27,114 +27,21 @@ return {
         end,
     },
     {
-        'LintaoAmons/bookmarks.nvim',
-        -- tag = "v0.5.4", -- optional, pin the plugin at specific version for stability
-        dependencies = {
-            { 'nvim-telescope/telescope.nvim' },
-            { 'stevearc/dressing.nvim' }, -- optional: to have the same UI shown in the GIF
-        },
-
-        keys = {
-            { 'mm', mode = { 'n', 'v' }, desc = 'Mark current line into active BookmarkList.' },
-            { 'mo', mode = { 'n', 'v' }, desc = 'Go to bookmark at current active BookmarkList' },
-            { 'ma', mode = { 'n', 'v' }, desc = 'Find and trigger a bookmark command.' },
-            { 'mg', mode = { 'n', 'v' }, desc = 'Go to latest visited/created Bookmark' },
-        },
-        config = function()
-            larp.fn.map({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { desc = 'Mark current line into active BookmarkList.' })
-            larp.fn.map({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { desc = 'Go to bookmark at current active BookmarkList' })
-            larp.fn.map({ 'n', 'v' }, 'ma', '<cmd>BookmarksCommands<cr>', { desc = 'Find and trigger a bookmark command.' })
-            larp.fn.map({ 'n', 'v' }, 'mg', '<cmd>BookmarksGotoRecent<cr>', { desc = 'Go to latest visited/created Bookmark' })
-        end,
-    },
-    {
-        'ibhagwan/fzf-lua',
-        -- optional for icon support
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-            { 'junegunn/fzf', build = './install --bin' },
-        },
-        config = function()
-            local fzf = require('fzf-lua')
-            -- calling `setup` is optional for customization
-            fzf.setup({
-                'fzf-native',
-                hls = {
-                    Rg = {
-                        cmd = 'rg --vimgrep --no-heading --smart-case',
-                        previewer = 'bat',
-                    },
-                },
-                fzf_colors = true,
-            })
-            larp.fn.map({ 'i' }, '<C-x><C-f>', function()
-                fzf.complete_file({
-                    cmd = 'rg --files',
-                    winopts = { preview = { hidden = 'nohidden' } },
-                })
-            end, { silent = true, desc = 'Fuzzy complete file' })
-        end,
-    },
-    {
-        'mfussenegger/nvim-dap',
-    },
-    {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.6',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-            'BurntSushi/ripgrep',
-            'sharkdp/fd',
-            'nvim-treesitter/nvim-treesitter',
-        },
-        config = function()
-            local telescope = require('telescope')
-            local actions = require('telescope.actions')
-            telescope.setup({
-                defaults = {
-                    path_display = { 'truncate ' }, -- Example configuration
-                    mappings = {
-                        i = {
-                            ['<C-k>'] = actions.move_selection_previous,
-                            ['<C-j>'] = actions.move_selection_next,
-                            ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
-                        },
-                    },
-                },
-            })
-        end,
-    },
-    {
-        -- 1. Highlights TODO, FIXME, etc. in your code
-        -- 2. Provides a list of all the highlights in your project
-        'folke/todo-comments.nvim',
-        event = 'BufRead',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        opts = {
-
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
-        config = function()
-            require('todo-comments').setup({})
-            larp.fn.map('n', ']t', function()
-                require('todo-comments').jump_next()
-            end, { desc = 'Next todo comment' })
-            larp.fn.map('n', '[t', function()
-                require('todo-comments').jump_prev()
-            end, { desc = 'Previous todo comment' })
-            -- You can also specify a list of valid jump keywords
-            larp.fn.map('n', ']t', function()
-                require('todo-comments').jump_next({ keywords = { 'ERROR', 'WARNING' } })
-            end, { desc = 'Next error/warning todo comment' })
-        end,
-    },
-    {
+        -- Disabled because using it with noice.nvim is annoying,
+        -- and the project is not maintained anymore
         'gelguy/wilder.nvim',
         config = function()
-            local wilder = require('wilder').setup({
+            local wilder = require('wilder')
+            wilder.set_option(
+                'renderer',
+                wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
+                    highlights = {
+                        border = 'Normal',
+                    },
+                    border = 'rounded',
+                }))
+            )
+            wilder.setup({
                 modes = { '/**', ':', '/', '?', '!' },
                 history = false,
                 quick_ref_commands = { 'History', 'History:' },
@@ -259,7 +166,9 @@ return {
         end,
     },
     {
+        -- Provides REPLs for various languages
         'Vigemus/iron.nvim',
+        enabled = false,
         config = function()
             local iron = require('iron.core')
 
@@ -340,34 +249,30 @@ return {
         },
     },
     {
-        'folke/persistence.nvim',
-        event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+        'stevearc/resession.nvim',
         opts = {},
         config = function()
-            -- load the session for the current directory
-            larp.fn.map('n', '<leader>qs', function()
-                require('persistence').load()
-            end, { desc = 'Load session for current directory' })
-
-            -- select a session to load
-            larp.fn.map('n', '<leader>qS', function()
-                require('persistence').select()
-            end, { desc = 'Select a session to load' })
-
-            -- load the last session
-            larp.fn.map('n', '<leader>ql', function()
-                require('persistence').load({ last = true })
-            end, { desc = 'Load last session' })
-
-            -- stop Persistence => session won't be saved on exit
-            larp.fn.map('n', '<leader>qd', function()
-                require('persistence').stop()
-            end, { desc = 'Stop Persistence' })
+            local resession = require('resession')
+            resession.setup({
+                autosave = {
+                    enabled = true,
+                    interval = 60,
+                    notify = true,
+                },
+            })
+            larp.fn.map('n', '<leader>Ss', resession.save)
+            larp.fn.map('n', '<leader>Sl', resession.load)
+            larp.fn.map('n', '<leader>Sd', resession.delete)
+            vim.api.nvim_create_autocmd('VimLeavePre', {
+                callback = function()
+                    -- Always save a special session named "last"
+                    resession.save('last')
+                end,
+            })
         end,
     },
-
-    -- amongst your other plugins
     {
+        -- Better terminal support with persistent history
         'akinsho/toggleterm.nvim',
         version = '*',
         opts = {},
@@ -375,6 +280,42 @@ return {
             require('toggleterm').setup({
                 open_mapping = [[<c-\>]],
             })
+        end,
+    },
+    {
+        'stevearc/quicker.nvim',
+        event = 'FileType qf',
+        ---@module "quicker"
+        ---@type quicker.SetupOptions
+        opts = {},
+        config = function()
+            local quicker = require('quicker')
+
+            quicker.setup({
+                keys = {
+                    {
+                        '>',
+                        function()
+                            quicker.expand({ before = 2, after = 2, add_to_existing = true })
+                        end,
+                        desc = 'Expand quickfix context',
+                    },
+                    {
+                        '<',
+                        function()
+                            quicker.collapse()
+                        end,
+                        desc = 'Collapse quickfix context',
+                    },
+                },
+            })
+            larp.fn.map('n', '<leader>tq', function()
+                quicker.toggle()
+            end, { desc = 'Toggle quickfix' })
+
+            larp.fn.map('n', '<leader>tl', function()
+                quicker.toggle({ loclist = true })
+            end, { desc = 'Toggle loclist' })
         end,
     },
 }
