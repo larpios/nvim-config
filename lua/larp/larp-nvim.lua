@@ -21,8 +21,7 @@ function M.fn.tbl_choose_random(tbl, num)
         return {}
     end
     if num < 1 then
-        error("`number` can't be less than 1", 2)
-        return {}
+        num = 1
     end
 
     math.randomseed(os.time())
@@ -143,16 +142,14 @@ function M.fn.tbl_slice(tbl, start_idx, end_idx, is_end_exclusive)
     end_idx = end_idx or 1
     is_end_exclusive = is_end_exclusive or false
 
-    if start_idx > end_idx then
-        error(string.format("Start index can't be greater than end index: (%d, %d)", start_idx, end_idx), 2)
-    end
+    assert(start_idx > end_idx, "Start index can't be greater than end index")
     if start_idx < 1 then
-        error(string.format("Start index can't be less than 1: (%d)", start_idx), 2)
+        start_idx = 1
     end
 
     local new_tbl = {}
     local idx = start_idx
-    while idx < end_idx + larp.fn.if_get_or(is_end_exclusive, 0, 1) do
+    while idx < end_idx + M.fn.if_get_or(is_end_exclusive, 0, 1) do
         table.insert(new_tbl, idx - start_idx + 1, tbl[idx])
         idx = idx + 1
     end
@@ -196,8 +193,8 @@ end
 ---Returns selection range
 ---@return table
 function M.fn.get_selection_range()
-    local pos1 = larp.fn.tbl_slice(vim.fn.getpos('v'), 2, 3)
-    local pos2 = larp.fn.tbl_slice(vim.fn.getpos('.'), 2, 3)
+    local pos1 = M.fn.tbl_slice(vim.fn.getpos('v'), 2, 3)
+    local pos2 = M.fn.tbl_slice(vim.fn.getpos('.'), 2, 3)
     local start_tbl, end_tbl
     if pos1[1] < pos2[1] or (pos1[1] == pos2[1] and pos1[2] <= pos2[2]) then
         start_tbl = pos1
@@ -209,7 +206,7 @@ function M.fn.get_selection_range()
     if vim.fn.mode() == 'V' then
         start_tbl[2] = 1
     end
-    local tbl = larp.fn.tbl_append(start_tbl, end_tbl)
+    local tbl = M.fn.tbl_append(start_tbl, end_tbl)
 
     return tbl
 end
@@ -260,7 +257,6 @@ end
 function M.fn.toggle_marker(sym)
     -- Get the current mode
     local mode = vim.api.nvim_get_mode().mode
-    local is_blockmode = mode == ''
 
     -- Check if we're in any visual mode
     if not (mode:sub(1, 1) == 'v' or mode:sub(1, 1) == 'V' or mode:sub(1, 1) == '\22') then
@@ -269,7 +265,7 @@ function M.fn.toggle_marker(sym)
     end
 
     -- Get the visual selection range
-    local start_row, start_col, end_row, end_col = unpack(larp.fn.get_selection_range())
+    local start_row, start_col, end_row, end_col = unpack(M.fn.get_selection_range())
 
     -- Check if the entire selection is wrapped with the marker
     local first_char = vim.api.nvim_buf_get_text(0, start_row - 1, start_col - 1, start_row - 1, start_col - 1 + #sym, {})[1]
@@ -348,6 +344,7 @@ function M.fn.create_sequence(...)
         end
         return seq
     end
+
     if arg_cnt == 1 then
         return sequence_(1, args[1])
     elseif arg_cnt == 2 then
@@ -374,7 +371,7 @@ function M.fn.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = larp.fn.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
+    local targets = M.fn.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
     for target in targets do
         if val == target then
             return true
@@ -386,47 +383,68 @@ end
 --- Calculates the number of UTF-8 characters in a string.
 ---@param str string
 ---@return integer
-local function utf8_len(str)
+function M.fn.utf8_len(str)
     local _, count = string.gsub(str, '[^\128-\193]', '')
     return count
 end
 
--- Helper function to correctly substring UTF-8 strings
+--- Extracts a substring based on UTF-8 character indices.
 ---@param str string
 ---@param start_char integer
 ---@param end_char integer
 ---@return string
 function M.fn.utf8_sub(str, start_char, end_char)
-    local utf8 = require('utf8')
-    local len = utf8.len(str)
-    if not len then
-        return ''
-    end
-
     start_char = start_char or 1
-    end_char = end_char or len
+    end_char = end_char or M.fn.utf8_len(str)
 
     if start_char < 1 then
         start_char = 1
     end
-    if end_char > len then
-        end_char = len
+    if end_char > M.fn.utf8_len(str) then
+        end_char = M.fn.utf8_len(str)
     end
-
     if start_char > end_char then
         return ''
     end
 
-    local byte_start = utf8.offset(str, start_char)
-    local byte_end = utf8.offset(str, end_char + 1) - 1
+    local byte_pos = 1
+    local current_char = 1
+    local start_byte, end_byte = nil, nil
 
-    if not byte_start then
+    while byte_pos <= #str do
+        if current_char == start_char then
+            start_byte = byte_pos
+        end
+        if current_char == end_char then
+            end_byte = byte_pos
+            break
+        end
+
+        local c = string.byte(str, byte_pos)
+        if c >= 240 then
+            byte_pos = byte_pos + 4
+        elseif c >= 224 then
+            byte_pos = byte_pos + 3
+        elseif c >= 192 then
+            byte_pos = byte_pos + 2
+        else
+            byte_pos = byte_pos + 1
+        end
+        current_char = current_char + 1
+    end
+
+    -- Handle the last character
+    if end_byte == nil and current_char == end_char then
+        end_byte = byte_pos
+    end
+
+    if start_byte and end_byte then
+        return string.sub(str, start_byte, end_byte)
+    elseif start_byte then
+        return string.sub(str, start_byte)
+    else
         return ''
     end
-    if not byte_end then
-        byte_end = #str
-    end
-
-    return str:sub(byte_start, byte_end)
 end
+
 return M
