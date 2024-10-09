@@ -1,6 +1,7 @@
 return {
     {
         'amitds1997/remote-nvim.nvim',
+        event = 'BufRead',
         version = '*', -- Pin to GitHub releases
         dependencies = {
             'nvim-lua/plenary.nvim', -- For standard functions
@@ -312,6 +313,10 @@ return {
     },
     {
         'codethread/qmk.nvim',
+        ft = { 'keymap' },
+        keys = {
+            { '<leader>qf', '<cmd>QMKFormat<cr>', desc = 'Format QMK' },
+        },
         config = function()
             -- local conf = {
             --     name = 'LAYOUT_glove80', -- identify your layout name

@@ -30,6 +30,7 @@ return {
         -- Disabled because using it with noice.nvim is annoying,
         -- and the project is not maintained anymore
         'gelguy/wilder.nvim',
+        event = 'BufEnter',
         config = function()
             local wilder = require('wilder')
 
@@ -135,6 +136,8 @@ return {
             require('yankbank').setup({
                 persist_type = 'sqlite',
             })
+            -- map to '<leader>y'
+            vim.keymap.set('n', '<leader>Y', '<cmd>YankBank<CR>', { noremap = true })
         end,
     },
 

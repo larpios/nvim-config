@@ -27,6 +27,7 @@ return {
     },
     {
         'folke/tokyonight.nvim',
+        enabled = false,
         lazy = false,
         priority = 1000,
         opts = {},
@@ -34,6 +35,7 @@ return {
 
     {
         'mawkler/onedark.nvim',
+        enabled = false,
         priority = 1000,
         opts = {
             style = 'darker',
@@ -46,6 +48,7 @@ return {
     -- Or with configuration
     {
         'projekt0n/github-nvim-theme',
+        enabled = false,
         name = 'github-theme',
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins

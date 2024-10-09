@@ -353,7 +353,7 @@ end
 
 return {
     'nvim-lualine/lualine.nvim',
-    event = 'VimEnter',
+    event = 'BufWinEnter',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
         require('lualine').setup({

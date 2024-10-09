@@ -67,7 +67,9 @@ return {
         opts = {},
     },
     {
+        -- Loading screen on the bottom right
         'j-hui/fidget.nvim',
+        event = 'VeryLazy',
         opts = {
             -- options
         },
@@ -280,6 +282,7 @@ return {
     },
     {
         'RRethy/vim-illuminate',
+        event = 'BufRead',
     },
     {
         'folke/which-key.nvim',
