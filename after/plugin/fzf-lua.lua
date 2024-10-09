@@ -2,14 +2,14 @@ local config_path = vim.fn.stdpath('config')
 
 -- # Config
 larp.fn.map('', '<leader>fH', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
-larp.fn.map('', '<leader>gH', '<cmd>FzfLua live_grep cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
+larp.fn.map('', '<leader>gH', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
 
 -- # Basic
 larp.fn.map('', '<leader>ff', '<cmd>FzfLua files<cr>', { silent = true, desc = 'Find Files' })
 larp.fn.map('', '<leader>fo', '<cmd>FzfLua oldfiles<cr>', { silent = true, desc = 'Find Old Files' })
 larp.fn.map('', '<leader>fq', '<cmd>FzfLua quickfix<cr>', { silent = true, desc = 'Quickfix List' })
 larp.fn.map('', '<leader>fb', '<cmd>FzfLua buffers<cr>', { silent = true, desc = 'Find Buffers' })
-larp.fn.map('', '<leader>gg', '<cmd>FzfLua live_grep<cr>', { silent = true, desc = 'Grep Current Directory' })
+larp.fn.map('', '<leader>gg', '<cmd>FzfLua live_grep_native<cr>', { silent = true, desc = 'Grep Current Directory' })
 larp.fn.map('', '<leader>gb', '<cmd>FzfLua lgrep_curbuf<cr>', { silent = true, desc = 'Grep Inside Current Buffer' })
 larp.fn.map('', '<leader>f:', '<cmd>FzfLua commands<cr>', { silent = true, desc = 'Find Commands' })
 larp.fn.map('', '<leader>fj', '<cmd>FzfLua jumps<cr>', { silent = true, desc = 'Find Jumps' })
