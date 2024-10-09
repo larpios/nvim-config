@@ -6,13 +6,36 @@ local M = {}
 M = M or {}
 
 ---@class larp.fn
--- ---@field merge_dict function
--- ---@field map function
--- ---@field multimap function
 M.fn = M.fn or {}
-M.fn.merge_dict = M.fn.merge_dict or {}
-M.fn.map = M.fn.map or vim.keymap.set
-M.fn.multimap = M.fn.multimap or {}
+
+---Returns a table of randomly choosen elements from a given table
+---@generic T
+---@param tbl T[] Table to choose elements from
+---@param num? integer Number of elements to choose
+---@return T[]
+function M.fn.tbl_choose_random(tbl, num)
+    tbl = tbl or {}
+    num = num or 1
+
+    if vim.tbl_isempty(tbl) then
+        return {}
+    end
+    if num < 1 then
+        error("`number` can't be less than 1", 2)
+        return {}
+    end
+
+    math.randomseed(os.time())
+    local chosen_elems = {}
+    for _ = 1, num, 1 do
+        local keys = vim.tbl_keys(tbl)
+        local key_idx = math.random(#keys)
+        local key = keys[key_idx]
+        table.insert(chosen_elems, tbl[key])
+        table.remove(keys, key_idx)
+    end
+    return chosen_elems
+end
 
 ---@class larp.fn.merge_dict.opts
 ---@field overlay? larp.fn.merge_dict.opts.overlay
@@ -30,6 +53,7 @@ M.fn.multimap = M.fn.multimap or {}
 function M.fn.merge_dict(base, top, opts)
     opts = opts or {}
     setmetatable(opts, {
+        ---@type larp.fn.merge_dict.opts
         __index = {
             overlay = {
                 enable = true,
@@ -91,11 +115,12 @@ function M.fn.multimap(keymaps)
 end
 
 ---Returns {true_val} if {cond} is true, otherwise {false_val}.
+---@generic T
 ---@param cond boolean|fun(...):boolean
----@param true_val any
----@param false_val any
----@return any
-function M.fn.get_if_or(cond, true_val, false_val)
+---@param true_val T
+---@param false_val T
+---@return T
+function M.fn.if_get_or(cond, true_val, false_val)
     if type(cond) == 'function' then
         cond = cond()
     end
@@ -127,7 +152,7 @@ function M.fn.tbl_slice(tbl, start_idx, end_idx, is_end_exclusive)
 
     local new_tbl = {}
     local idx = start_idx
-    while idx < end_idx + larp.fn.get_if_or(is_end_exclusive, 0, 1) do
+    while idx < end_idx + larp.fn.if_get_or(is_end_exclusive, 0, 1) do
         table.insert(new_tbl, idx - start_idx + 1, tbl[idx])
         idx = idx + 1
     end
@@ -135,9 +160,10 @@ function M.fn.tbl_slice(tbl, start_idx, end_idx, is_end_exclusive)
 end
 
 ---Append a table to anthoter
----@param t1 table
----@param t2 table
----@return table
+---@generic T
+---@param t1 table<T>
+---@param t2 table<T>
+---@return table<T>
 function M.fn.tbl_append(t1, t2)
     for _, val in ipairs(t2) do
         table.insert(t1, val)
@@ -189,7 +215,7 @@ function M.fn.get_selection_range()
 end
 
 ---Get currently selected text.
----@return table
+---@return string[] lines
 function M.fn.get_selection_text()
     local srow, scol = unpack(vim.fn.getpos('v'), 2, 3)
     local erow, ecol = unpack(vim.fn.getpos('.'), 2, 3)
@@ -229,26 +255,8 @@ function M.fn.get_selection_text()
     return { '' }
 end
 
--- ---Surround selection with {sym}. It should be togglable, meaning the selection should stay the same with the {sym} characters, allowing for you to call the function again to remove them.
--- ---@param sym string
--- function M.fn.toggle_marker(sym)
---     local mode = vim.fn.mode()
---     local lines = larp.fn.get_selection_text()
---     local buff = table.concat(lines)
---     buff = vim.trim(buff)
---     local cfirst = string.sub(buff, 1, 1)
---     local clast = string.sub(buff, #buff)
---     local txt
---     local start_row, start_col, end_row, end_col = unpack(larp.fn.get_selection_range())
---     if cfirst ~= sym or clast ~= sym then
---         txt = string.format('c%s%s<esc>P%dG%d|v%dG%d|', sym, sym, start_row, start_col, end_row, end_col + 2)
---     else
---         txt = string.format('xPx%dG%d|xv%dG%d|', start_row, start_col, end_row, end_col - 2)
---     end
---     vim.cmd('norm ' .. txt)
--- end
-
--- Function to toggle markers around a selection (supports multi-line)
+---Function to toggle markers around a selection (supports multi-line)
+---@param sym string
 function M.fn.toggle_marker(sym)
     -- Get the current mode
     local mode = vim.api.nvim_get_mode().mode
@@ -310,4 +318,115 @@ function M.fn.toggle_marker(sym)
     vim.api.nvim_win_set_cursor(0, { end_row, end_col - 1 })
 end
 
+---Returns a sequence of numbers
+---* `fun(end_num)`: Returns a sequence of numbers from 1 to {end_num}
+---* `fun(start_num, end_num)`: Returns a sequence of numbers from {start_num} and {end_num}
+---* `fun(start_num, end_num, increment)`: Returns a sequence of numbers from {start_num} and {end_num} with an increment of {increment}
+---@overload fun(end_num: number): number[]
+---@overload fun(start_num: number, end_num: number): number[] Returns a sequence of numbers from {start_num} and {end_num}
+---@overload fun(start_num: number, end_num: number, increment: number): number[] Returns a sequence of numbers from {start_num} and {end_num} with an increment of {increment}
+function M.fn.create_sequence(...)
+    local args = { ... }
+    local arg_cnt = select('#', ...)
+
+    ---Returns a number sequence between {start} and {end} with an increment of {increment}
+    ---@param start_num number
+    ---@param end_num number
+    ---@param increment? number
+    ---@return number[]
+    local function sequence_(start_num, end_num, increment)
+        start_num = start_num or 1
+        end_num = end_num or 1
+        increment = increment or 1
+        if start_num > end_num then
+            local msg = string.format("`start_num`(%d) can't be greater than `end_num`(%d)", start_num, end_num)
+            error(msg, 3)
+        end
+        local seq = {}
+        for i = start_num, end_num, increment do
+            table.insert(seq, i)
+        end
+        return seq
+    end
+    if arg_cnt == 1 then
+        return sequence_(1, args[1])
+    elseif arg_cnt == 2 then
+        return sequence_(args[1], args[2])
+    elseif arg_cnt == 3 then
+        return sequence_(args[1], args[2], args[3])
+    else
+        error('Invalid number of arguments to create_sequence', 3)
+    end
+end
+
+---Checks if {val} is in {tbl}
+---@generic T
+---@param val T
+---@param tbl table<T>
+---@param from_keys? boolean Whether to compare with keys over values. The default value is `false`
+---@return boolean
+function M.fn.is_in(val, tbl, from_keys)
+    val = val or nil
+    tbl = tbl or {}
+    from_keys = from_keys or false
+
+    if vim.tbl_isempty(tbl) or val == nil then
+        return false
+    end
+
+    local targets = larp.fn.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
+    for target in targets do
+        if val == target then
+            return true
+        end
+    end
+    return false
+end
+
+--- Calculates the number of UTF-8 characters in a string.
+---@param str string
+---@return integer
+local function utf8_len(str)
+    local _, count = string.gsub(str, '[^\128-\193]', '')
+    return count
+end
+
+-- Helper function to correctly substring UTF-8 strings
+---@param str string
+---@param start_char integer
+---@param end_char integer
+---@return string
+function M.fn.utf8_sub(str, start_char, end_char)
+    local utf8 = require('utf8')
+    local len = utf8.len(str)
+    if not len then
+        return ''
+    end
+
+    start_char = start_char or 1
+    end_char = end_char or len
+
+    if start_char < 1 then
+        start_char = 1
+    end
+    if end_char > len then
+        end_char = len
+    end
+
+    if start_char > end_char then
+        return ''
+    end
+
+    local byte_start = utf8.offset(str, start_char)
+    local byte_end = utf8.offset(str, end_char + 1) - 1
+
+    if not byte_start then
+        return ''
+    end
+    if not byte_end then
+        byte_end = #str
+    end
+
+    return str:sub(byte_start, byte_end)
+end
 return M

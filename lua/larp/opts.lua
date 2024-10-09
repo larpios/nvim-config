@@ -30,7 +30,6 @@ vim.opt.breakindent = true
 vim.opt.wrap = true
 vim.opt.swapfile = false
 
-vim.opt.textwidth = 100
 vim.wo.conceallevel = 2
 
 if vim.g.neovide then

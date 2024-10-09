@@ -78,7 +78,8 @@ return {
                     },
                     ['core.export'] = {
                         config = {
-                            export_dir = '"<export-dir>/<language>-export"',
+                            path = '~/norgs/exports',
+                            export_dir = '<export-dir>/<language>-export',
                         },
                     },
                     ['core.export.markdown'] = {},
