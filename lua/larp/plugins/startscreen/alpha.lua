@@ -52,24 +52,42 @@ local function limit_size(art_lines, max_width, max_height)
     return new_lines
 end
 
+vim.api.nvim_set_hl(0, 'AlphaRed', { fg = '#f08dbd' })
 return {
     'goolord/alpha-nvim',
     dependencies = {
         'kyazdani42/nvim-web-devicons',
         'folke/persistence.nvim',
+        'nvim-lua/plenary.nvim',
     },
     config = function()
         local alpha = require('alpha')
-        -- local theme = require('alpha.themes.startify')
-        local theme = require('alpha.themes.dashboard')
-        local persistence = require('persistence')
-        -- theme.section.header.val = random_art.art
-        theme.section.header.val = limit_size(random_art.art, 80, 20)
-        theme.section.buttons.val = {
-            theme.button('e', '  New file', ':enew<CR>'),
-            theme.button('n', '  Load session', ':lua require("persistence").load()<CR>'),
-            theme.button('q', '  Quit', ':qa<CR>'),
+        local dashboard = require('alpha.themes.dashboard')
+
+        dashboard.section.header.val = limit_size(random_art.art, 80, 20)
+        dashboard.section.buttons.val = {
+            dashboard.button('e', '  New file', ':enew<CR>'),
+            dashboard.button('f', '󰈞  Find file', ':FzfLua files<CR>'),
+            dashboard.button('r', '󰊄  Recently opened files', ':FzfLua oldfiles<CR>'),
+            dashboard.button('n', '  Load session', ':lua require("persistence").load()<CR>'),
         }
-        alpha.setup(theme.config)
+        dashboard.section.header.opts.hl = {}
+        for i = 1, #dashboard.section.header.val do
+            table.insert(dashboard.section.header.opts.hl, { 'AlphaRed', 0, 10000 })
+        end
+        --   New file                                      e
+        --
+        -- 󰈞  Find file                               SPC f f
+        --
+        -- 󰊄  Recently opened files                   SPC f h
+        --
+        --   Frecency/MRU                            SPC f r
+        --
+        -- 󰈬  Find word                               SPC f g
+        --
+        --   Jump to bookmarks                       SPC f m
+        --
+        --   Open last session                       SPC s l
+        alpha.setup(dashboard.opts)
     end,
 }

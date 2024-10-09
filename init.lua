@@ -1,6 +1,1 @@
-require('larp.global')
-require('larp.opts')
-require('larp.keymaps')
-require('larp.lazy')
-require('larp.autocmds')
-require('larp.test')
+require('larp')

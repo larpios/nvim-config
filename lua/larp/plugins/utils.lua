@@ -347,22 +347,22 @@ return {
             -- load the session for the current directory
             larp.fn.map('n', '<leader>qs', function()
                 require('persistence').load()
-            end)
+            end, { desc = 'Load session for current directory' })
 
             -- select a session to load
             larp.fn.map('n', '<leader>qS', function()
                 require('persistence').select()
-            end)
+            end, { desc = 'Select a session to load' })
 
             -- load the last session
             larp.fn.map('n', '<leader>ql', function()
                 require('persistence').load({ last = true })
-            end)
+            end, { desc = 'Load last session' })
 
             -- stop Persistence => session won't be saved on exit
             larp.fn.map('n', '<leader>qd', function()
                 require('persistence').stop()
-            end)
+            end, { desc = 'Stop Persistence' })
         end,
     },
 
