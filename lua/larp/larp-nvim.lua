@@ -130,32 +130,6 @@ function M.fn.if_get_or(cond, true_val, false_val)
     end
 end
 
----Return a new sliced table with elements at indices from {start_idx} to {end_idx}.
----@param tbl table
----@param start_idx integer
----@param end_idx integer Last index up to at which elements to slice. Its exclusivity depends on {is_end_exclusive}.
----@param is_end_exclusive? boolean Whether to exclude the elemnt at {end_idx}. Its value is `false` by default.
----@return table
-function M.fn.tbl_slice(tbl, start_idx, end_idx, is_end_exclusive)
-    tbl = tbl or {}
-    start_idx = start_idx or 1
-    end_idx = end_idx or 1
-    is_end_exclusive = is_end_exclusive or false
-
-    assert(start_idx > end_idx, "Start index can't be greater than end index")
-    if start_idx < 1 then
-        start_idx = 1
-    end
-
-    local new_tbl = {}
-    local idx = start_idx
-    while idx < end_idx + M.fn.if_get_or(is_end_exclusive, 0, 1) do
-        table.insert(new_tbl, idx - start_idx + 1, tbl[idx])
-        idx = idx + 1
-    end
-    return new_tbl
-end
-
 ---Append a table to anthoter
 ---@generic T
 ---@param t1 table<T>
@@ -193,8 +167,8 @@ end
 ---Returns selection range
 ---@return table
 function M.fn.get_selection_range()
-    local pos1 = M.fn.tbl_slice(vim.fn.getpos('v'), 2, 3)
-    local pos2 = M.fn.tbl_slice(vim.fn.getpos('.'), 2, 3)
+    local pos1 = vim.list_slice(vim.fn.getpos('v'), 2, 3)
+    local pos2 = vim.list_slice(vim.fn.getpos('.'), 2, 3)
     local start_tbl, end_tbl
     if pos1[1] < pos2[1] or (pos1[1] == pos2[1] and pos1[2] <= pos2[2]) then
         start_tbl = pos1
@@ -416,7 +390,19 @@ function M.fn.utf8_sub(str, start_char, end_char)
             start_byte = byte_pos
         end
         if current_char == end_char then
-            end_byte = byte_pos
+            -- Determine the byte length of the current character
+            local c = string.byte(str, byte_pos)
+            local char_len
+            if c >= 240 then
+                char_len = 4
+            elseif c >= 224 then
+                char_len = 3
+            elseif c >= 192 then
+                char_len = 2
+            else
+                char_len = 1
+            end
+            end_byte = byte_pos + char_len - 1
             break
         end
 
@@ -433,7 +419,7 @@ function M.fn.utf8_sub(str, start_char, end_char)
         current_char = current_char + 1
     end
 
-    -- Handle the last character
+    -- Handle the last character if end_char exceeds the string length
     if end_byte == nil and current_char == end_char then
         end_byte = byte_pos
     end

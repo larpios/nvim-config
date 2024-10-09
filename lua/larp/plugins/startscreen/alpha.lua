@@ -29,20 +29,10 @@ local function limit_size(art_lines, max_width, max_height)
         local start_trim = half_excess
         local end_trim = excess_rows - half_excess
 
-        -- Create sequences of indices to remove
-        local top_indices = larp.fn.create_sequence(1, start_trim)
-        local bottom_indices = larp.fn.create_sequence(current_height - end_trim + 1, current_height)
-        local skip_row_indices = larp.fn.tbl_append(top_indices, bottom_indices)
+        local start_idx = start_trim + 1
+        local end_idx = current_height - end_trim
 
-        -- Sort indices in descending order to prevent shifting
-        table.sort(skip_row_indices, function(a, b)
-            return a > b
-        end)
-
-        -- Remove lines from bottom to top
-        for _, idx in ipairs(skip_row_indices) do
-            table.remove(new_lines, idx)
-        end
+        new_lines = vim.list_slice(new_lines, start_idx, end_idx)
     end
 
     -- Trim width for each line if necessary
@@ -64,13 +54,22 @@ end
 
 return {
     'goolord/alpha-nvim',
-    dependencies = 'kyazdani42/nvim-web-devicons',
+    dependencies = {
+        'kyazdani42/nvim-web-devicons',
+        'folke/persistence.nvim',
+    },
     config = function()
         local alpha = require('alpha')
         -- local theme = require('alpha.themes.startify')
         local theme = require('alpha.themes.dashboard')
+        local persistence = require('persistence')
         -- theme.section.header.val = random_art.art
-        theme.section.header.val = limit_size(random_art.art, 50, 50)
+        theme.section.header.val = limit_size(random_art.art, 80, 20)
+        theme.section.buttons.val = {
+            theme.button('e', '  New file', ':enew<CR>'),
+            theme.button('n', '  Load session', ':lua require("persistence").load()<CR>'),
+            theme.button('q', '  Quit', ':qa<CR>'),
+        }
         alpha.setup(theme.config)
     end,
 }

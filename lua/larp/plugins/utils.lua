@@ -342,6 +342,7 @@ return {
     {
         'folke/persistence.nvim',
         event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+        opts = {},
         config = function()
             -- load the session for the current directory
             larp.fn.map('n', '<leader>qs', function()
@@ -369,6 +370,7 @@ return {
     {
         'akinsho/toggleterm.nvim',
         version = '*',
+        opts = {},
         config = function()
             require('toggleterm').setup({
                 open_mapping = [[<c-\>]],
