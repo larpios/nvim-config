@@ -23,7 +23,49 @@ return {
         end,
     },
     {
+        'OXY2DEV/markview.nvim',
+        lazy = false, -- Recommended
+        -- ft = "markdown" -- If you decide to lazy-load anyway
+
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons',
+        },
+        config = function()
+            local presets = require('markview.presets')
+            require('markview').setup({
+                hybrid_modes = { 'n' },
+                checkboxes = presets.checkboxes.nerd,
+                headings = presets.headings.slanted,
+                -- horizontal_rules = presets.horizontal_rules.double,
+                injections = {
+                    languages = {
+                        markdown = {
+                            --- This disables other
+                            --- injected queries!
+                            overwrite = true,
+                            query = [[
+                    (section
+                        (atx_headng) @injections.mkv.fold
+                        (#set! @fold))
+                ]],
+                        },
+                    },
+                },
+            })
+
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = 'markdown',
+                callback = function()
+                    vim.cmd('Markview attach')
+                end,
+            })
+        end,
+    },
+    {
         'MeanderingProgrammer/render-markdown.nvim',
+        -- Replaced by `OXY2DEV/markview.nvim`
+        enabled = false,
         opts = {},
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
@@ -31,7 +73,7 @@ return {
     },
     {
         'nvim-neorg/neorg',
-        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        lazy = true, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
         ft = 'norg',
         cmd = 'Neorg',
         dependencies = {
@@ -39,6 +81,10 @@ return {
             'nvim-neorg/neorg-telescope',
         }, -- Load plenary as a dependency
         version = '*', -- Pin Neorg to the latest stable release
+        keys = {
+            { '<leader>no', '<cmd>Neorg<CR>', desc = 'Open Neorg', mode = 'n' },
+            { '<leader>nw', desc = 'Open Neorg Workspace' },
+        },
         config = function()
             local my_workspaces = {
                 default = '~/norgs',

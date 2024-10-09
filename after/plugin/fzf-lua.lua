@@ -1,12 +1,16 @@
 local config_path = vim.fn.stdpath('config')
 
+local dotfile_path = os.getenv('XDG_CONFIG_HOME')
+dotfile_path = dotfile_path or os.getenv('HOME') .. '/.config'
 -- # Config
-larp.fn.map('', '<leader>fH', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
-larp.fn.map('', '<leader>gH', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
+larp.fn.map('', '<leader>hff', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
+larp.fn.map('', '<leader>hgg', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
+larp.fn.map('', '<leader>hfd', '<cmd>FzfLua files cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Find Dotfile Directory' })
+larp.fn.map('', '<leader>hgd', '<cmd>FzfLua live_grep_native cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Grep Dotfile Directory' })
 
 -- # Basic
 larp.fn.map('', '<leader>ff', '<cmd>FzfLua files<cr>', { silent = true, desc = 'Find Files' })
-larp.fn.map('', '<leader>fo', '<cmd>FzfLua oldfiles<cr>', { silent = true, desc = 'Find Old Files' })
+larp.fn.map('', '<leader>fr', '<cmd>FzfLua oldfiles<cr>', { silent = true, desc = 'Find Old Files' })
 larp.fn.map('', '<leader>fq', '<cmd>FzfLua quickfix<cr>', { silent = true, desc = 'Quickfix List' })
 larp.fn.map('', '<leader>fb', '<cmd>FzfLua buffers<cr>', { silent = true, desc = 'Find Buffers' })
 larp.fn.map('', '<leader>gg', '<cmd>FzfLua live_grep_native<cr>', { silent = true, desc = 'Grep Current Directory' })
@@ -33,10 +37,10 @@ larp.fn.map('', '<leader>fgf', '<cmd>FzfLua git_files<cr>', { silent = true, des
 larp.fn.map('', '<leader>fh', '<cmd>FzfLua helptags<cr>', { silent = true, desc = 'Find Helptags' })
 larp.fn.map('', '<leader>fk', '<cmd>FzfLua keymaps<cr>', { silent = true, desc = 'Find Keymaps' })
 larp.fn.map('', '<leader>fm', '<cmd>FzfLua manpages<cr>', { silent = true, desc = 'Find Manpages' })
-larp.fn.map('', '<leader>fr', '<cmd>FzfLua resume<cr>', { silent = true, desc = 'Resume Search' })
+larp.fn.map('', '<leader>f.', '<cmd>FzfLua resume<cr>', { silent = true, desc = 'Resume Search' })
 larp.fn.map('', '<leader>fxa', '<cmd>FzfLua autocmds<cr>', { silent = true, desc = 'Find Manpages' })
 larp.fn.map('', '<leader>fxc', '<cmd>FzfLua changes<cr>', { silent = true, desc = 'Find Changes' })
-larp.fn.map('', '<leader>fxr', '<cmd>FzfLua registers<cr>', { silent = true, desc = 'Find Registers' })
+larp.fn.map('', '<leader>fR', '<cmd>FzfLua registers<cr>', { silent = true, desc = 'Find Registers' })
 larp.fn.map('', '<leader>fxt', '<cmd>FzfLua colorschemes<cr>', { silent = true, desc = 'Find Themes' })
 
 -- # Grep

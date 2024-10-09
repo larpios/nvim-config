@@ -55,6 +55,7 @@ end
 vim.api.nvim_set_hl(0, 'AlphaRed', { fg = '#f08dbd' })
 return {
     'goolord/alpha-nvim',
+    enabled = false,
     dependencies = {
         'kyazdani42/nvim-web-devicons',
         'nvim-lua/plenary.nvim',

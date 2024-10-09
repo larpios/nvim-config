@@ -17,7 +17,7 @@ return {
         config = function()
             require('noice').setup({
                 lsp = {
-                    signature = { enabled = true },
+                    signature = { enabled = false },
                     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
                     override = {
                         ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -129,10 +129,9 @@ return {
         config = true,
     },
     {
-        'kevinhwang91/nvim-bqf',
-    },
-    {
         'rcarriga/nvim-notify',
+        lazy = true,
+        event = 'VeryLazy',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope.nvim',
@@ -340,5 +339,11 @@ return {
             -- work properly.
             -- show_warnings = true,
         },
+    },
+    {
+        -- Adds nice icons and bars to the signcolumn
+        'OXY2DEV/bars-N-lines.nvim',
+        -- No point in lazy loading this
+        lazy = false,
     },
 }
