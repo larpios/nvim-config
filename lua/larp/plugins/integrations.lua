@@ -74,7 +74,7 @@ return {
     },
     {
         'nvim-neorg/neorg',
-        lazy = true, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
         ft = 'norg',
         cmd = 'Neorg',
         dependencies = {
@@ -88,9 +88,9 @@ return {
         },
         config = function()
             local my_workspaces = {
-                default = '~/norgs',
-                personal = '~/norgs/personal',
-                work = '~/norgs/work',
+                default = '~/notes/norgs',
+                personal = '~/notes/norgs/personal',
+                work = '~/notes/norgs/work',
             }
             require('neorg').setup({
                 -- Tell Neorg what modules to load
@@ -354,6 +354,25 @@ return {
                     'x x x x x _ x x x x x x _ x x x x x',
                 },
             })
+        end,
+    },
+    {
+        'nvim-orgmode/orgmode',
+        event = 'VeryLazy',
+        ft = { 'org' },
+        config = function()
+            -- Setup orgmode
+            require('orgmode').setup({
+                org_agenda_files = '~/orgfiles/**/*',
+                org_default_notes_file = '~/orgfiles/refile.org',
+            })
+
+            -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+            -- add ~org~ to ignore_install
+            -- require('nvim-treesitter.configs').setup({
+            --   ensure_installed = 'all',
+            --   ignore_install = { 'org' },
+            -- })
         end,
     },
 }
