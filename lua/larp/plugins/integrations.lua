@@ -25,6 +25,8 @@ return {
     },
     {
         'OXY2DEV/markview.nvim',
+        -- Doesn't feel complete yet, until then, I'll use render-markdown
+        enabled = false,
         lazy = false, -- Recommended
         -- ft = "markdown" -- If you decide to lazy-load anyway
 
@@ -65,8 +67,6 @@ return {
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',
-        -- Replaced by `OXY2DEV/markview.nvim`
-        enabled = false,
         opts = {},
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins

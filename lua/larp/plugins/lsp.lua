@@ -242,7 +242,6 @@ return {
                     'ts_ls',
                     'bashls',
                     'pylsp',
-                    'pylyzer',
                     'pyright',
                     'marksman',
                     'graphql',

@@ -1,37 +1,34 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.termguicolors = true
-vim.opt.confirm = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.termguicolors = true
+vim.o.confirm = true
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.scrolloff = 100
-vim.opt.smarttab = true
-vim.opt.smartindent = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.scrolloff = 100
+vim.o.smarttab = true
+vim.o.smartindent = true
 
-vim.opt.timeout = false
-vim.opt.ttimeout = false
+vim.o.timeout = false
+vim.o.ttimeout = false
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+vim.o.hlsearch = false
+vim.o.incsearch = true
 
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
+vim.o.smartcase = true
+vim.o.ignorecase = true
 
-vim.opt.undofile = true
-vim.opt.undolevels = 5000
+vim.o.undofile = true
+vim.o.undolevels = 5000
 
-vim.opt.updatetime = 50
+vim.o.updatetime = 50
 
-vim.opt.breakindent = true
-vim.opt.wrap = true
-vim.opt.swapfile = false
+vim.o.textwidth = 160
+vim.o.breakindent = true
+vim.o.wrap = true
+vim.o.swapfile = false
 
 vim.wo.conceallevel = 2
-
-if vim.g.neovide then
-    require('larp.neovide')
-end
