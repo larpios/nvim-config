@@ -68,11 +68,11 @@ return {
                     },
                     {
                         icon = ' ',
-                        desc = 'Find Dotfiles',
+                        desc = 'Find Nvim Config',
                         desc_hl = 'String',
                         key = 'h',
                         keymap = 'SPC h f d',
-                        action = 'FzfLua files cwd=' .. os.getenv('HOME') .. '/.config',
+                        action = 'FzfLua files cwd=' .. vim.fn.stdpath('config'),
                     },
                 },
             },

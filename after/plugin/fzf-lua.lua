@@ -1,12 +1,21 @@
 local config_path = vim.fn.stdpath('config')
 
-local dotfile_path = os.getenv('XDG_CONFIG_HOME')
-dotfile_path = dotfile_path or os.getenv('HOME') .. '/.config'
+local is_unix = false
+if jit and jit.os then
+    if jit.os ~= 'Windows' then
+        is_unix = true
+    end
+end
+
+if is_unix then
+    local dotfile_path = os.getenv('XDG_CONFIG_HOME')
+    dotfile_path = dotfile_path or os.getenv('HOME') .. '/.config'
+    larp.fn.map('', '<leader>hfd', '<cmd>FzfLua files cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Find Dotfile Directory' })
+    larp.fn.map('', '<leader>hgd', '<cmd>FzfLua live_grep_native cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Grep Dotfile Directory' })
+end
 -- # Config
 larp.fn.map('', '<leader>hff', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
 larp.fn.map('', '<leader>hgg', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
-larp.fn.map('', '<leader>hfd', '<cmd>FzfLua files cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Find Dotfile Directory' })
-larp.fn.map('', '<leader>hgd', '<cmd>FzfLua live_grep_native cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Grep Dotfile Directory' })
 
 -- # Basic
 larp.fn.map('', '<leader>ff', '<cmd>FzfLua files<cr>', { silent = true, desc = 'Find Files' })

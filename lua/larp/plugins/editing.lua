@@ -159,17 +159,6 @@ return {
         end,
     },
     {
-        'ptdewey/yankbank-nvim',
-        dependencies = 'kkharji/sqlite.lua',
-        config = function()
-            require('yankbank').setup({
-                persist_type = 'sqlite',
-            })
-            -- map to '<leader>y'
-            larp.fn.map('n', '<leader><leader>y', '<cmd>YankBank<CR>', { noremap = true })
-        end,
-    },
-    {
         'smjonas/live-command.nvim',
         -- live-command supports semantic versioning via Git tags
         -- tag = "2.*",

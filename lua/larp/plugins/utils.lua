@@ -128,18 +128,6 @@ return {
             bg_theme = 'bamboo',
         },
     },
-    {
-        -- better yank history
-        'ptdewey/yankbank-nvim',
-        dependencies = 'kkharji/sqlite.lua',
-        config = function()
-            require('yankbank').setup({
-                persist_type = 'sqlite',
-            })
-            -- map to '<leader>y'
-            vim.keymap.set('n', '<leader>Y', '<cmd>YankBank<CR>', { noremap = true })
-        end,
-    },
 
     {
         'mrjones2014/legendary.nvim',
