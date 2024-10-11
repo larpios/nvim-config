@@ -51,7 +51,7 @@ larp.fn.map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 larp.fn.map({ 'i', 'x' }, 'zx', '<Esc>')
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
-larp.fn.map('', '<leader>p', '"_xp', { desc = 'Paste (Without Cutting)' })
+larp.fn.map('', '<leader>p', '"_xP', { desc = 'Paste (Without Cutting)' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
