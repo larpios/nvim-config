@@ -363,16 +363,29 @@ return {
         config = function()
             -- Setup orgmode
             require('orgmode').setup({
-                org_agenda_files = '~/orgfiles/**/*',
-                org_default_notes_file = '~/orgfiles/refile.org',
+                org_agenda_files = '~/notes/orgs/**/*',
+                org_default_notes_file = '~/notes/orgs/refile.org',
             })
-
             -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
             -- add ~org~ to ignore_install
             -- require('nvim-treesitter.configs').setup({
             --   ensure_installed = 'all',
             --   ignore_install = { 'org' },
             -- })
+        end,
+    },
+    {
+        'chipsenkbeil/org-roam.nvim',
+        tag = '0.1.0',
+        dependencies = { 'nvim-orgmode/orgmode' },
+        config = function()
+            require('org-roam').setup({
+                directory = '~/org_roam_files',
+                -- optional
+                org_files = {
+                    '~/notes/orgs',
+                },
+            })
         end,
     },
 }

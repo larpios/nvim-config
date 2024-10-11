@@ -106,7 +106,7 @@ return {
             cmp.setup({
                 preselect = 'item',
                 completion = {
-                    completeopt = 'menu,menuone,noinsert',
+                    completeopt = 'menu,menuone,noinsert,popup',
                 },
 
                 sources = {
@@ -127,6 +127,7 @@ return {
                             end,
                         },
                     },
+                    { name = 'orgmode' },
                     { name = 'neorg' },
                     sorting = {
                         comparators = {
