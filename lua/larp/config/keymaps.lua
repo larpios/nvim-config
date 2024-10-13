@@ -30,7 +30,7 @@ larp.fn.map('n', '<leader>Tp', '<cmd>tabprevious<cr>', { desc = 'Go to Previous 
 -- General
 larp.fn.map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
 larp.fn.map('', '<leader>oH', '<cmd>e ' .. vim.fn.stdpath('config') .. '<cr>', { desc = 'Open Neovim Config' })
-larp.fn.map('', '<leader>wb', '<cmd>w<cr>', { desc = 'Write to Buffer' })
+larp.fn.map('', '<leader>ww', '<cmd>w<cr>', { desc = 'Write to Buffer' })
 larp.fn.map('', '<leader>wa', '<cmd>wa<cr>', { desc = 'Write All' })
 larp.fn.map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
 larp.fn.map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
