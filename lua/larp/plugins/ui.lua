@@ -352,5 +352,13 @@ return {
         'OXY2DEV/bars-N-lines.nvim',
         -- No point in lazy loading this
         lazy = false,
+        enabled = false,
+        config = function()
+            require('bars').setup({
+                statuscolumn = false,
+                -- statusline = true,
+                -- tabline = true,
+            })
+        end,
     },
 }
