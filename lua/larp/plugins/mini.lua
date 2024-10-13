@@ -27,5 +27,8 @@ return {
                 line_up = '<M-s-k>',
             },
         })
+        require('mini.sessions').setup({
+            autoread = true,
+        })
     end,
 }

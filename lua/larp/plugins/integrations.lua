@@ -434,4 +434,14 @@ return {
             require('bufresize').setup()
         end,
     },
+    {
+        'renerocksai/telekasten.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
+        enabled = false,
+        config = function()
+            require('telekasten').setup({
+                home = vim.fn.expand('~/zettelkasten'), -- Put the name of your notes directory here
+            })
+        end,
+    },
 }

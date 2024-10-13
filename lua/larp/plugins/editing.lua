@@ -270,4 +270,25 @@ return {
             vim.api.nvim_set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
         end,
     },
+    {
+        'gennaro-tedesco/nvim-peekup',
+    },
+    -- lazy.nvim
+    {
+        'chrisgrieser/nvim-scissors',
+        dependencies = { 'nvim-telescope/telescope.nvim', 'garymjr/nvim-snippets' },
+        opts = {
+            snippetDir = vim.fn.stdpath('config') .. '/snippets',
+        },
+        config = function()
+            vim.keymap.set('n', '<leader>se', function()
+                require('scissors').editSnippet()
+            end)
+
+            -- when used in visual mode, prefills the selection as snippet body
+            vim.keymap.set({ 'n', 'x' }, '<leader>sa', function()
+                require('scissors').addNewSnippet()
+            end)
+        end,
+    },
 }
