@@ -1,5 +1,3 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.termguicolors = true
@@ -26,9 +24,12 @@ vim.o.undolevels = 5000
 
 vim.o.updatetime = 50
 
-vim.o.textwidth = 160
+vim.o.textwidth = 110
 vim.o.breakindent = true
 vim.o.wrap = true
 vim.o.swapfile = false
+
+vim.o.hidden = true
+vim.o.bufhidden = 'hide'
 
 vim.wo.conceallevel = 2

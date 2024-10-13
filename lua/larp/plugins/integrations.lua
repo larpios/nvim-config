@@ -385,6 +385,10 @@ return {
     },
     {
         'chipsenkbeil/org-roam.nvim',
+        -- It prevents me from using the neorg keymaps.
+        -- Re-enable it when you feel like
+        -- remapping the keymaps
+        enabled = false,
         tag = '0.1.0',
         dependencies = { 'nvim-orgmode/orgmode' },
         config = function()
