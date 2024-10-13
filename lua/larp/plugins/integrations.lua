@@ -374,7 +374,10 @@ return {
             larp.fn.map('n', '<leader>oj', function()
                 local today = os.date('*t')
                 local journal = org_path .. '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
-                vim.cmd('!mkdir -p ' .. org_path .. '/journal/' .. today.year .. '/' .. today.month)
+                if vim.fn.filereadable(vim.fn.expand(journal)) == 0 then
+                    vim.cmd('silent !mkdir -p ' .. org_path .. '/journal/' .. today.year .. '/' .. today.month)
+                    vim.cmd('silent !touch ' .. journal)
+                end
                 vim.cmd('e ' .. journal)
             end, { desc = 'Open Org Journal' })
             -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
