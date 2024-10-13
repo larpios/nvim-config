@@ -50,4 +50,8 @@ return {
         },
         opts = {},
     },
+    {
+        'michaelb/sniprun',
+        build = 'sh ./install.sh 1',
+    },
 }
