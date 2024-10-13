@@ -70,7 +70,14 @@ return {
         dependencies = {
             { 'neovim/nvim-lspconfig' },
             { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/nvim-cmp' },
+            {
+                -- nvim-cmp is apparenty not being that well maintained.
+                -- Someone has forked it and merged some pull requests and stuff.
+                -- Until it gets well maintained again, I'll use this fork.
+                -- 'hrsh7th/nvim-cmp' ,
+                'iguanacucumber/magazine.nvim',
+                name = 'nvim-cmp', -- Otherwise highlighting gets messed up
+            },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-nvim-lua' },
             -- { 'hrsh7th/cmp-cmdline' },
