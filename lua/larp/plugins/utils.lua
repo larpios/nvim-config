@@ -142,7 +142,10 @@ return {
         },
         config = function()
             require('legendary').setup({
-                extensions = { lazy_nvim = true, smart_splits = true },
+                extensions = {
+                    lazy_nvim = true,
+                    smart_splits = {},
+                },
             })
         end,
     },

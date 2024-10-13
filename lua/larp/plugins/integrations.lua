@@ -409,4 +409,29 @@ return {
     {
         'dhruvasagar/vim-table-mode',
     },
+    {
+        'mrjones2014/smart-splits.nvim',
+        dependencies = { 'kwkarlwang/bufresize.nvim' },
+        lazy = false,
+        config = function()
+            require('smart-splits').setup({
+                resize_mode = {
+                    hooks = {
+                        on_enter = function()
+                            vim.notify('Entering resize mode')
+                        end,
+                        on_leave = function()
+                            vim.notify('Exiting resize mode')
+                        end,
+                    },
+                },
+            })
+        end,
+    },
+    {
+        'kwkarlwang/bufresize.nvim',
+        config = function()
+            require('bufresize').setup()
+        end,
+    },
 }
