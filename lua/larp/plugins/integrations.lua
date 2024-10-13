@@ -185,6 +185,7 @@ return {
                     larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
                     larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>')
+                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
@@ -362,10 +363,18 @@ return {
         ft = { 'org' },
         config = function()
             -- Setup orgmode
+            local org_path = '~/notes/orgs'
             require('orgmode').setup({
-                org_agenda_files = '~/notes/orgs/**/*',
-                org_default_notes_file = '~/notes/orgs/refile.org',
+                org_agenda_files = org_path .. '/**/*',
+                org_default_notes_file = org_path .. 'refile.org',
             })
+            larp.fn.map('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
+            larp.fn.map('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })
+            larp.fn.map('n', '<leader>oj', function()
+                local today = os.date('*t')
+                local journal = org_path .. '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
+                vim.cmd('e ' .. journal)
+            end, { desc = 'Open Org Journal' })
             -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
             -- add ~org~ to ignore_install
             -- require('nvim-treesitter.configs').setup({
@@ -387,5 +396,13 @@ return {
                 },
             })
         end,
+    },
+    {
+        'akinsho/org-bullets.nvim',
+        dependencies = { 'nvim-orgmode/orgmode' },
+        opts = {},
+    },
+    {
+        'dhruvasagar/vim-table-mode',
     },
 }
