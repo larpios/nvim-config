@@ -368,6 +368,7 @@ return {
                 org_agenda_files = org_path .. '/**/*',
                 org_default_notes_file = org_path .. 'refile.org',
                 org_fold_enable = false,
+                org_startup_folded = 'showeverything',
             })
             larp.fn.map('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
             larp.fn.map('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })
