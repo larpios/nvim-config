@@ -59,7 +59,7 @@ return {
 
     {
         'mrcjkb/rustaceanvim',
-        -- enabled = false,
+        enabled = false,
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
     },
@@ -228,11 +228,11 @@ return {
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
             })
 
-            vim.g.rustaceanvim = {
-                server = {
-                    capabilities = lsp_zero.get_capabilities(),
-                },
-            }
+            -- vim.g.rustaceanvim = {
+            --     server = {
+            --         capabilities = lsp_zero.get_capabilities(),
+            --     },
+            -- }
 
             require('mason').setup({
                 ui = {
@@ -267,7 +267,7 @@ return {
                             end,
                         })
                     end,
-                    rust_analyzer = lsp_zero.noop,
+                    -- rust_analyzer = lsp_zero.noop,
                 },
             })
         end,
