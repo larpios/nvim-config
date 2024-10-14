@@ -42,5 +42,6 @@ return {
         require('mini.sessions').setup({
             autoread = true,
         })
+        require('mini.splitjoin').setup({})
     end,
 }

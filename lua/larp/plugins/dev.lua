@@ -7,9 +7,12 @@ return {
             require('overseer').setup({
                 templates = {
                     'builtin',
-                    'user.cpp_build',
+                    -- 'user.cpp_build',
                 },
             })
+            larp.fn.map('n', '<leader>tO', ':OverseerToggle<CR>', { desc = 'Toggle Overseer' })
+            larp.fn.map('n', '<leader>Or', ':OverseerRun<CR>', { desc = 'Overseer Run' })
+            larp.fn.map('n', '<leader>OR', ':OverseerRunCmd<CR>', { desc = 'Overseer Run Cmd' })
         end,
     },
     {
