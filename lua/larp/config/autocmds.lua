@@ -56,23 +56,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
             { symbol = '%', key = '3', name = 'Inline Comment' },
         }
 
-        -- local toggle_marker = function(sym)
-        --     local lines = larp.fn.get_selection_text()
-        --     local buff = table.concat(lines)
-        --     buff = vim.trim(buff)
-        --     local cfirst = string.sub(buff, 1, 1)
-        --     local clast = string.sub(buff, #buff)
-        --     local txt
-        --     local start_row, start_col, end_row, end_col = unpack(larp.fn.get_selection_range())
-        --     if cfirst ~= sym or clast ~= sym then
-        --         txt = string.format('c%s%s<esc>P%dG%d|v%dG%d|', sym, sym, start_row, start_col, end_row, end_col + 2)
-        --     else
-        --         local start_row, start_col, end_row, end_col = unpack(larp.fn.get_selection_range())
-        --         txt = string.format('xPx%dG%d|xv%dG%d|', start_row, start_col, end_row, end_col - 2)
-        --     end
-        --     return txt
-        -- end
-        --
         for _, m in ipairs(marks) do
             larp.fn.map('x', '<C-' .. m.key .. '>', function()
                 larp.fn.toggle_marker(m.symbol)
