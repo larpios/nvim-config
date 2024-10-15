@@ -59,9 +59,32 @@ return {
 
     {
         'mrcjkb/rustaceanvim',
-        enabled = false,
+        ft = 'rust',
+        -- enabled = false,
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
+        config = function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            vim.keymap.set('n', '<leader>a', function()
+                vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
+                -- or vim.lsp.buf.codeAction() if you don't want grouping.
+            end, { silent = true, buffer = bufnr })
+        end,
+    },
+    {
+        'rust-lang/rust.vim',
+        ft = 'rust',
+        init = function()
+            vim.g.rustfmt_autosave = 1
+        end,
+    },
+    {
+        'simrat39/rust-tools.nvim',
+        dependencies = {
+            'neovim/nvim-lspconfig',
+            'nvim-lua/plenary.nvim',
+            'mfussenegger/nvim-dap',
+        },
     },
 
     {
@@ -228,11 +251,11 @@ return {
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
             })
 
-            -- vim.g.rustaceanvim = {
-            --     server = {
-            --         capabilities = lsp_zero.get_capabilities(),
-            --     },
-            -- }
+            vim.g.rustaceanvim = {
+                server = {
+                    capabilities = lsp_zero.get_capabilities(),
+                },
+            }
 
             require('mason').setup({
                 ui = {
@@ -267,7 +290,7 @@ return {
                             end,
                         })
                     end,
-                    -- rust_analyzer = lsp_zero.noop,
+                    rust_analyzer = lsp_zero.noop,
                 },
             })
         end,
