@@ -94,7 +94,7 @@ return {
                         },
                     },
                 },
-                ensure_installed = { 'markdown', 'markdown_inline', 'html', 'c', 'cpp' },
+                ensure_installed = { 'markdown', 'markdown_inline', 'html', 'c', 'cpp', 'lua', 'luadoc' },
                 highlight = {
                     enable = true,
                 },

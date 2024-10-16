@@ -39,6 +39,7 @@ return {
                     nix = { 'nixpkgs_fmt', 'nixfmt' },
                     markdown = { 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
                     xml = { 'xmlformat' },
+                    yaml = { 'yamllint', 'prettier' },
                     text = { 'autocorrect' },
                     ['*'] = { 'autocorrect', 'codespell' },
                     ['_'] = { 'trim_whitespace' },
@@ -269,11 +270,9 @@ return {
             larp.fn.map('n', '<leader>mm', ':Mason<CR>', { noremap = true, silent = true, desc = 'Mason' })
             require('mason-lspconfig').setup({
                 ensure_installed = {
-                    'cmake',
                     'vimls',
                     'ts_ls',
                     'bashls',
-                    'pylsp',
                     'pyright',
                     'marksman',
                     'graphql',
