@@ -58,7 +58,7 @@ return {
                 end,
                 group = vim.api.nvim_create_augroup('NoiceMacroNotficationDismiss', { clear = true }),
             })
-            larp.fn.map('n', '<leader>dn', '<cmd>NoiceDismiss<cr>', { desc = 'Dismiss Notification' })
+            larp.fn.map('n', '<leader>Nd', '<cmd>NoiceDismiss<cr>', { desc = 'Dismiss Notification' })
         end,
     },
     {
