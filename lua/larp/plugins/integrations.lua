@@ -195,6 +195,7 @@ return {
     },
     {
         'epwalsh/obsidian.nvim',
+        enabled = false,
         priority = 1000,
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
