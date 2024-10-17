@@ -195,7 +195,6 @@ return {
     },
     {
         'epwalsh/obsidian.nvim',
-        enabled = false,
         priority = 1000,
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
@@ -207,12 +206,8 @@ return {
         opts = {
             workspaces = {
                 {
-                    name = 'personal',
-                    path = '~/obsidian-vault/personal',
-                },
-                {
-                    name = 'work',
-                    path = '~/obsidian-vault/work',
+                    name = 'default',
+                    path = '~/github/obsidian-vault',
                 },
             },
             templates = {
