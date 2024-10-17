@@ -60,8 +60,7 @@ return {
 
     {
         'mrcjkb/rustaceanvim',
-        ft = 'rust',
-        -- enabled = false,
+        enabled = false,
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
         config = function()
@@ -254,15 +253,20 @@ return {
                 end
             end)
 
+            local cap = require('cmp_nvim_lsp').default_capabilities()
+            cap.textDocument.foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            }
             lsp_zero.extend_lspconfig({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = cap,
             })
 
-            vim.g.rustaceanvim = {
-                server = {
-                    capabilities = lsp_zero.get_capabilities(),
-                },
-            }
+            -- vim.g.rustaceanvim = {
+            --     server = {
+            --         capabilities = lsp_zero.get_capabilities(),
+            --     },
+            -- }
 
             require('mason').setup({
                 ui = {
@@ -295,7 +299,7 @@ return {
                             end,
                         })
                     end,
-                    rust_analyzer = lsp_zero.noop,
+                    -- rust_analyzer = lsp_zero.noop,
                 },
             })
         end,
@@ -457,8 +461,9 @@ return {
     },
     {
         'saghen/blink.cmp',
-        -- Replacement for nvim-cmp, but it's lacking for now
         enabled = false,
+        -- Replacement for nvim-cmp, but it's lacking for now
+        -- enabled = false,
         lazy = false, -- lazy loading handled internally
         -- optional: provides snippets for the snippet source
         dependencies = 'rafamadriz/friendly-snippets',
@@ -471,11 +476,23 @@ return {
         -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
 
         opts = {
+            keymap = {
+                accept = '<C-y>',
+            },
             highlight = {
                 -- sets the fallback highlight groups to nvim-cmp's highlight groups
                 -- useful for when your theme doesn't support blink.cmp
                 -- will be removed in a future release, assuming themes add support
                 use_nvim_cmp_as_default = true,
+            },
+            sources = {
+                providers = {
+                    { 'blink.cmp.sources.lsp', name = 'LSP' },
+                    { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
+                    { 'blink.cmp.sources.snippets', name = 'Snippets', score_offset = -3 },
+                    { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' } },
+                    -- { 'neorg' },
+                },
             },
             -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
             -- adjusts spacing to ensure icons are aligned
@@ -487,5 +504,21 @@ return {
             -- experimental signature help support
             -- trigger = { signature_help = { enabled = true } }
         },
+    },
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = {
+            'kevinhwang91/promise-async',
+        },
+        config = function()
+            vim.o.foldcolumn = '1'
+            vim.o.foldlevel = 99
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+
+            larp.fn.map('n', 'zR', '<cmd>lua require("ufo").openAllFolds()<cr>')
+            larp.fn.map('n', 'zM', '<cmd>lua require("ufo").closeAllFolds()<cr>')
+            require('ufo').setup({})
+        end,
     },
 }
