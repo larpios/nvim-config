@@ -62,6 +62,7 @@ larp.fn.map('', '<leader>p', '"_xP', { desc = 'Paste (Without Cutting)' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
+larp.fn.map('n', '<Tab>', 'za', { desc = 'Toggle Fold' })
 
 -- -- Move Lines
 -- larp.fn.map('v', 'J', function()
