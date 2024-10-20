@@ -8,8 +8,8 @@ larp.fn.map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
 -- Navigate Windows
 larp.fn.map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window' })
 larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window' })
-larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window' })
+larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 
 -- Split Windows
 larp.fn.map('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left' })
@@ -17,6 +17,7 @@ larp.fn.map('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bott
 larp.fn.map('', '<leader>sk', '<C-w>s', { desc = 'Split Window to the Top' })
 larp.fn.map('', '<leader>sl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right' })
 larp.fn.map('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next' })
+
 -- Resize Windows
 larp.fn.map('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height' })
 larp.fn.map('', '<leader>w-', '<C-w>-', { desc = 'Decrease Window Height' })
@@ -63,11 +64,3 @@ larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'R
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
 larp.fn.map('n', '<Tab>', 'za', { desc = 'Toggle Fold' })
-
--- -- Move Lines
--- larp.fn.map('v', 'J', function()
---     return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
--- end, { expr = true, desc = 'Move Selected Line Down' })
--- larp.fn.map('v', 'K', function()
---     return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
--- end, { expr = true, desc = 'Move Selected Line Up' })

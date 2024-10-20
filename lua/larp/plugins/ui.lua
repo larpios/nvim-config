@@ -86,7 +86,6 @@ return {
     },
     {
         '3rd/image.nvim',
-        enabled = false,
         dependencies = {
             'luarocks.nvim',
         },
@@ -205,27 +204,26 @@ return {
                     { 'name', 'asc' },
                 },
             },
-            sort_by = function(a, b)
-                if a.type == 'directory' and b.type ~= 'directory' then
-                    return true
-                elseif a.type ~= 'directory' and b.type == 'directory' then
-                    return false
-                else
-                    local function get_extension(file)
-                        return file.name:match('^.+(%..+)$') or ''
-                    end
-
-                    local ext_a = get_extension(a.name):lower()
-                    local ext_b = get_extension(b.name):lower()
-
-                    if ext_a == ext_b then
-                        return a.name:lower() < b.name:lower()
-                    else
-                        return ext_a < ext_b
-                    end
-                end
-            end,
-
+            -- sort_by = function(a, b)
+            --     if a.type == 'directory' and b.type ~= 'directory' then
+            --         return true
+            --     elseif a.type ~= 'directory' and b.type == 'directory' then
+            --         return false
+            --     else
+            --         local function get_extension(file)
+            --             return file.name:match('^.+(%..+)$') or ''
+            --         end
+            --
+            --         local ext_a = get_extension(a.name):lower()
+            --         local ext_b = get_extension(b.name):lower()
+            --
+            --         if ext_a == ext_b then
+            --             return a.name:lower() < b.name:lower()
+            --         else
+            --             return ext_a < ext_b
+            --         end
+            --     end
+            -- end,
             columns = {
                 'icon',
                 'mtime',
@@ -237,6 +235,10 @@ return {
                 winbar = "%{v:lua.require('oil').get_current_dir()}",
             },
         },
+        config = function(_, opts)
+            require('oil').setup(opts)
+            larp.fn.map('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+        end,
     },
     {
         'folke/trouble.nvim',
