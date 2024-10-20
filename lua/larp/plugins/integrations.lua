@@ -165,7 +165,7 @@ return {
             larp.fn.map('n', '<leader>nff', '<Plug>(neorg.telescope.find_norg_files)', { desc = 'Find Norg Files' })
             larp.fn.map('n', '<leader>nfb', '<Plug>(neorg.telescope.backlinks.file_backlinks)', { desc = 'Find Backlinks' })
             larp.fn.map('n', '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', { desc = 'Find Header Backlinks' })
-            larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
+            larp.fn.map('n', '<localleader>niL', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
             larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', { desc = 'Insert Link' })
             larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>', { noremap = true, silent = true })
             larp.fn.map(
