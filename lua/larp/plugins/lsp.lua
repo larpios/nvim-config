@@ -31,12 +31,12 @@ return {
             require('conform').setup({
                 formatters_by_ft = {
                     lua = { 'stylua' },
-                    python = { 'black' },
                     rust = { 'rustfmt' },
                     c = { 'clang_format' },
                     cpp = { 'clang_format' },
                     cmake = { 'cmake_format' },
                     nix = { 'nixpkgs_fmt', 'nixfmt' },
+                    python = { 'autopep8', 'autoflake', 'black' },
                     markdown = { 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
                     xml = { 'xmlformat' },
                     yaml = { 'yamllint', 'prettier' },
@@ -338,6 +338,7 @@ return {
     },
     {
         'kevinhwang91/nvim-ufo',
+        enabled = false,
         dependencies = { 'kevinhwang91/promise-async' },
         init = function()
             vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -350,6 +351,7 @@ return {
             -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
             larp.fn.map('n', 'zR', ufo.openAllFolds)
             larp.fn.map('n', 'zM', ufo.closeAllFolds)
+            vim.keymap.del('n', '<C-i>')
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.foldingRange = {
                 dynamicRegistration = false,
