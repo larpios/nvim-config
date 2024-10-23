@@ -41,6 +41,12 @@ return {
         })
         require('mini.sessions').setup({
             autoread = true,
+            autowrite = true,
+            verbose = {
+                read = true,
+                write = true,
+                delete = true,
+            },
         })
         require('mini.splitjoin').setup({})
     end,

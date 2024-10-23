@@ -355,6 +355,7 @@ return {
     },
     {
         'nvim-orgmode/orgmode',
+        enabled = false,
         event = 'VeryLazy',
         ft = { 'org' },
         config = function()
@@ -405,6 +406,7 @@ return {
     },
     {
         'akinsho/org-bullets.nvim',
+        enabled = false,
         dependencies = { 'nvim-orgmode/orgmode' },
         opts = {},
     },

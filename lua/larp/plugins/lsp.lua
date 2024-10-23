@@ -338,7 +338,6 @@ return {
     },
     {
         'kevinhwang91/nvim-ufo',
-        enabled = false,
         dependencies = { 'kevinhwang91/promise-async' },
         init = function()
             vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -351,7 +350,6 @@ return {
             -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
             larp.fn.map('n', 'zR', ufo.openAllFolds)
             larp.fn.map('n', 'zM', ufo.closeAllFolds)
-            vim.keymap.del('n', '<C-i>')
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.foldingRange = {
                 dynamicRegistration = false,
@@ -513,10 +511,10 @@ return {
             'kevinhwang91/promise-async',
         },
         config = function()
-            vim.o.foldcolumn = '0'
-            vim.o.foldlevel = 99
-            vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
+            -- vim.o.foldcolumn = '0'
+            -- vim.o.foldlevel = 99
+            -- vim.o.foldlevelstart = 99
+            -- vim.o.foldenable = true
 
             larp.fn.map('n', 'zR', '<cmd>lua require("ufo").openAllFolds()<cr>')
             larp.fn.map('n', 'zM', '<cmd>lua require("ufo").closeAllFolds()<cr>')
