@@ -10,7 +10,29 @@ return {
         end,
     },
     {
+        'ggandor/leap.nvim',
+        dependencies = { 'tpope/vim-repeat' },
+        config = function()
+            local leap = require('leap')
+            local user = require('leap.user')
+
+            vim.keymap.set('n', 'ss', '<Plug>(leap)')
+            vim.keymap.set('n', 'sw', '<Plug>(leap-from-window)')
+            vim.keymap.set({ 'x', 'o' }, 'sf', '<Plug>(leap-forward)')
+            vim.keymap.set({ 'x', 'o' }, 'sb', '<Plug>(leap-backward)')
+            -- leap.create_default_mappings()
+            -- Define equivalence classes for brackets and quotes, in addition to
+            -- the default whitespace group.
+            leap.opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+
+            -- Use the traversal keys to repeat the previous motion without explicitly
+            -- invoking Leap.
+            user.set_repeat_keys('<enter>', '<backspace>')
+        end,
+    },
+    {
         'folke/flash.nvim',
+        enabled = false,
         event = 'VeryLazy',
         opts = {},
         keys = {
