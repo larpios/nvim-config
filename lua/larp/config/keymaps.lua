@@ -59,7 +59,24 @@ larp.fn.map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 larp.fn.map({ 'i', 'x' }, 'zx', '<Esc>')
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
-larp.fn.map('', '<leader>p', '"_xP', { desc = 'Paste (Without Cutting)' })
+larp.fn.map('', '<leader><leader>p', '"+p', { desc = 'Paste from Clipboard' })
+larp.fn.map('', '<leader>p', function()
+    -- Get current cursor position: {row, col} (col is 0-based)
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local current_col = cursor[2] + 1 -- Convert to 1-based index
+
+    -- Get the current line
+    local line = vim.api.nvim_get_current_line()
+    local last_col = #line -- Lua's # operator gives the string length
+
+    if current_col == last_col then
+        -- Cursor is on the last column; perform a normal paste
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('P', true, false, true), 'n', true)
+    else
+        -- Cursor is not on the last column; replace character under cursor without affecting registers
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('"_xP', true, false, true), 'n', true)
+    end
+end, { desc = 'Paste (Without Cutting)' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
