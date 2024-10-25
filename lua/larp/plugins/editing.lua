@@ -27,7 +27,7 @@ return {
 
             -- Use the traversal keys to repeat the previous motion without explicitly
             -- invoking Leap.
-            user.set_repeat_keys('<enter>', '<backspace>')
+            -- user.set_repeat_keys('<enter>', '<backspace>')
         end,
     },
     {
