@@ -9,6 +9,12 @@ return {
     },
     {
         'mfussenegger/nvim-dap',
+        dependencies = {
+            {
+                "rcarriga/nvim-dap-ui",
+                dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" }
+            },
+        },
     },
     {
         -- 1. Highlights TODO, FIXME, etc. in your code
