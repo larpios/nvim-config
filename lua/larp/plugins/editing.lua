@@ -11,15 +11,16 @@ return {
     },
     {
         'ggandor/leap.nvim',
+        enabled = false,
         dependencies = { 'tpope/vim-repeat' },
         config = function()
             local leap = require('leap')
             local user = require('leap.user')
 
-            vim.keymap.set('n', 'ss', '<Plug>(leap)')
-            vim.keymap.set('n', 'sw', '<Plug>(leap-from-window)')
-            vim.keymap.set({ 'x', 'o' }, 'sf', '<Plug>(leap-forward)')
-            vim.keymap.set({ 'x', 'o' }, 'sb', '<Plug>(leap-backward)')
+            vim.keymap.set('n', 's', '<Plug>(leap)')
+            -- vim.keymap.set('n', 'sw', '<Plug>(leap-from-window)')
+            -- vim.keymap.set({ 'x', 'o' }, 'sf', '<Plug>(leap-forward)')
+            -- vim.keymap.set({ 'x', 'o' }, 'sb', '<Plug>(leap-backward)')
             -- leap.create_default_mappings()
             -- Define equivalence classes for brackets and quotes, in addition to
             -- the default whitespace group.
@@ -32,7 +33,6 @@ return {
     },
     {
         'folke/flash.nvim',
-        enabled = false,
         event = 'VeryLazy',
         opts = {},
         keys = {
@@ -45,12 +45,29 @@ return {
                 desc = 'Flash',
             },
             {
-                '<leader>s',
+                'SS',
                 mode = { 'n', 'x', 'o' },
                 function()
                     require('flash').treesitter()
                 end,
                 desc = 'Flash Treesitter',
+            },
+            {
+                'Sh',
+                mode = { 'n', 'x', 'o' },
+                function()
+                    require('flash').jump({
+                        action = function(match, state)
+                            vim.api.nvim_win_call(match.win, function()
+                                vim.api.nvim_win_set_cursor(match.win, match.pos)
+                                vim.lsp.buf.hover()
+                                -- vim.diagnostic.open_float()
+                            end)
+                            state:restore()
+                        end,
+                    })
+                end,
+                desc = 'Flash Hover',
             },
             {
                 'r',

@@ -244,7 +244,16 @@ return {
 
             lsp_zero.setup({})
             lsp_zero.on_attach(function(client, bufnr)
-                lsp_zero.default_keymaps({ buffer = bufnr, preserve_mappings = false })
+                lsp_zero.default_keymaps({
+                    buffer = bufnr,
+                    preserve_mappings = false,
+                    exclude = {
+                        '<F1>',
+                        '<F2>',
+                        '<F3>',
+                        '<F4>',
+                    },
+                })
                 if client.server_capabilities.document_formatting then
                     larp.fn.map('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<cr>', { buffer = bufnr })
                 end
