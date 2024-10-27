@@ -10,10 +10,6 @@ return {
                     sidebars = 'transparent',
                     floats = 'transparent',
                 },
-                dim_inactive = {
-                    enabled = true,
-                    shade = 'dark',
-                },
                 default_integrations = true,
                 integrations = {
                     cmp = true,
