@@ -374,4 +374,8 @@ return {
             { '<leader>P', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
         },
     },
+    {
+        'NMAC427/guess-indent.nvim',
+        opts = {},
+    },
 }
