@@ -1,19 +1,14 @@
 local M = {}
 
 ---My special Module :)
----@class larp
----@field fn larp.fn
 M = M or {}
-
----@class larp.fn
-M.fn = M.fn or {}
 
 ---Returns a table of randomly choosen elements from a given table
 ---@generic T
 ---@param tbl T[] Table to choose elements from
 ---@param num? integer Number of elements to choose
 ---@return T[]
-function M.fn.tbl_choose_random(tbl, num)
+function M.tbl_choose_random(tbl, num)
     tbl = tbl or {}
     num = num or 1
 
@@ -36,23 +31,23 @@ function M.fn.tbl_choose_random(tbl, num)
     return chosen_elems
 end
 
----@class larp.fn.merge_dict.opts
----@field overlay? larp.fn.merge_dict.opts.overlay
+---@class merge_dict.opts
+---@field overlay? merge_dict.opts.overlay
 ---@field format? fun(key: any, value: any): any function to format values in `overlay` table.
 ---
----@class larp.fn.merge_dict.opts.overlay
+---@class merge_dict.opts.overlay
 ---@field enable? boolean Whether to overlay.
 ---@field exclude? table Array of specific keys to prevent correspoding values from getting overlayed.
 ---
 ---Merge two tables, one overlaying the other.
 ---@param base table Base table to be overlayed.
 ---@param top table Overlay table to be overlayed with onto {base}.
----@param opts? larp.fn.merge_dict.opts Options
+---@param opts? merge_dict.opts Options
 ---@return table
-function M.fn.merge_dict(base, top, opts)
+function M.merge_dict(base, top, opts)
     opts = opts or {}
     setmetatable(opts, {
-        ---@type larp.fn.merge_dict.opts
+        ---@type merge_dict.opts
         __index = {
             overlay = {
                 enable = true,
@@ -72,23 +67,23 @@ function M.fn.merge_dict(base, top, opts)
     return base
 end
 
----@class larp.fn.map.Params
+---@class map.Params
 ---@field mode string Mode in which the keymap is applied.
 ---@field lhs string Key sequence to be mapped.
 ---@field rhs string|function Key sequence or function to be simulated.
----@field opts? larp.fn.map.Opts
+---@field opts? map.Opts
 
----@class larp.fn.map.Opts : vim.keymap.set.Opts
+---@class map.Opts : vim.keymap.set.Opts
 ---@field desc_prefix? string String prefix to add to description.
 
 ---Set keymaps. Same with [vim.keymap.set()](lua://vim.api.nvim_set_keymap), but with some tweaks.
 ---@param mode string|table Mode in which the keymap is applied.
 ---@param lhs string Key sequence to be mapped.
 ---@param rhs string|function Key sequence or function to be simulated.
----@param opts? larp.fn.map.Opts Options to change behavior of the keymap function.
----@see larp.fn.multimap
+---@param opts? map.Opts Options to change behavior of the keymap function.
+---@see multimap
 ---@return nil
-function M.fn.map(mode, lhs, rhs, opts)
+function M.map(mode, lhs, rhs, opts)
     opts = opts or {}
     setmetatable(opts, {
         __index = {
@@ -103,13 +98,13 @@ function M.fn.map(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
----Set Keymaps at once using [map](lua://larp.fn.map) function.
----@param keymaps larp.fn.map.Params[] List of keymaps.
----@see larp.fn.map
+---Set Keymaps at once using [map](lua://map) function.
+---@param keymaps map.Params[] List of keymaps.
+---@see map
 ---@return nil
-function M.fn.multimap(keymaps)
+function M.multimap(keymaps)
     for _, keymap in ipairs(keymaps) do
-        M.fn.map(table.unpack(keymap))
+        M.map(table.unpack(keymap))
     end
 end
 
@@ -119,7 +114,7 @@ end
 ---@param true_val T
 ---@param false_val T
 ---@return T
-function M.fn.if_get_or(cond, true_val, false_val)
+function M.if_get_or(cond, true_val, false_val)
     if type(cond) == 'function' then
         cond = cond()
     end
@@ -135,7 +130,7 @@ end
 ---@param t1 table<T>
 ---@param t2 table<T>
 ---@return table<T>
-function M.fn.tbl_append(t1, t2)
+function M.tbl_append(t1, t2)
     for _, val in ipairs(t2) do
         table.insert(t1, val)
     end
@@ -148,7 +143,7 @@ end
 ---@param key string|integer
 ---@param formatter? fun(value):any
 ---@return table
-function M.fn.tbl_get_by_key(tbls, key, formatter)
+function M.tbl_get_by_key(tbls, key, formatter)
     formatter = formatter or function(v)
         return v
     end
@@ -166,7 +161,7 @@ end
 
 ---Returns selection range
 ---@return table
-function M.fn.get_selection_range()
+function M.get_selection_range()
     local pos1 = vim.list_slice(vim.fn.getpos('v'), 2, 3)
     local pos2 = vim.list_slice(vim.fn.getpos('.'), 2, 3)
     local start_tbl, end_tbl
@@ -180,14 +175,14 @@ function M.fn.get_selection_range()
     if vim.fn.mode() == 'V' then
         start_tbl[2] = 1
     end
-    local tbl = M.fn.tbl_append(start_tbl, end_tbl)
+    local tbl = M.tbl_append(start_tbl, end_tbl)
 
     return tbl
 end
 
 ---Get currently selected text.
 ---@return string[] lines
-function M.fn.get_selection_text()
+function M.get_selection_text()
     local srow, scol = unpack(vim.fn.getpos('v'), 2, 3)
     local erow, ecol = unpack(vim.fn.getpos('.'), 2, 3)
 
@@ -228,7 +223,7 @@ end
 
 ---Function to toggle markers around a selection (supports multi-line)
 ---@param sym string
-function M.fn.toggle_marker(sym)
+function M.toggle_marker(sym)
     -- Get the current mode
     local mode = vim.api.nvim_get_mode().mode
 
@@ -239,7 +234,7 @@ function M.fn.toggle_marker(sym)
     end
 
     -- Get the visual selection range
-    local start_row, start_col, end_row, end_col = unpack(M.fn.get_selection_range())
+    local start_row, start_col, end_row, end_col = unpack(M.get_selection_range())
 
     -- Check if the entire selection is wrapped with the marker
     local first_char = vim.api.nvim_buf_get_text(0, start_row - 1, start_col - 1, start_row - 1, start_col - 1 + #sym, {})[1]
@@ -295,7 +290,7 @@ end
 ---@overload fun(end_num: number): number[]
 ---@overload fun(start_num: number, end_num: number): number[] Returns a sequence of numbers from {start_num} and {end_num}
 ---@overload fun(start_num: number, end_num: number, increment: number): number[] Returns a sequence of numbers from {start_num} and {end_num} with an increment of {increment}
-function M.fn.create_sequence(...)
+function M.create_sequence(...)
     local args = { ... }
     local arg_cnt = select('#', ...)
 
@@ -336,7 +331,7 @@ end
 ---@param tbl table<T>
 ---@param from_keys? boolean Whether to compare with keys over values. The default value is `false`
 ---@return boolean
-function M.fn.is_in(val, tbl, from_keys)
+function M.is_in(val, tbl, from_keys)
     val = val or nil
     tbl = tbl or {}
     from_keys = from_keys or false
@@ -345,7 +340,7 @@ function M.fn.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = M.fn.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
+    local targets = M.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
     for target in targets do
         if val == target then
             return true
@@ -357,7 +352,7 @@ end
 --- Calculates the number of UTF-8 characters in a string.
 ---@param str string
 ---@return integer
-function M.fn.utf8_len(str)
+function M.utf8_len(str)
     local _, count = string.gsub(str, '[^\128-\193]', '')
     return count
 end
@@ -367,15 +362,15 @@ end
 ---@param start_char integer
 ---@param end_char integer
 ---@return string
-function M.fn.utf8_sub(str, start_char, end_char)
+function M.utf8_sub(str, start_char, end_char)
     start_char = start_char or 1
-    end_char = end_char or M.fn.utf8_len(str)
+    end_char = end_char or M.utf8_len(str)
 
     if start_char < 1 then
         start_char = 1
     end
-    if end_char > M.fn.utf8_len(str) then
-        end_char = M.fn.utf8_len(str)
+    if end_char > M.utf8_len(str) then
+        end_char = M.utf8_len(str)
     end
     if start_char > end_char then
         return ''
@@ -439,7 +434,7 @@ end
 ---@param max_width integer
 ---@param max_height integer
 ---@return string[]
-function M.fn.limit_text_art_size(art_lines, max_width, max_height)
+function M.limit_text_art_size(art_lines, max_width, max_height)
     -- Validate input parameters
     assert(type(art_lines) == 'table', 'art_lines must be a table of strings')
     assert(type(max_width) == 'number' and max_width > 0, 'max_width must be a positive number')
@@ -470,14 +465,14 @@ function M.fn.limit_text_art_size(art_lines, max_width, max_height)
     -- Trim width for each line if necessary
     for i, line in ipairs(new_lines) do
         -- Calculate the number of UTF-8 characters
-        local line_length = M.fn.utf8_len(line)
+        local line_length = M.utf8_len(line)
         if line_length > max_width then
             local excess_cols = line_length - max_width
             local half_excess = math.floor(excess_cols / 2)
             local start_col = half_excess + 1
             local end_col = start_col + max_width - 1
 
-            new_lines[i] = M.fn.utf8_sub(line, start_col, end_col)
+            new_lines[i] = M.utf8_sub(line, start_col, end_col)
         end
     end
 

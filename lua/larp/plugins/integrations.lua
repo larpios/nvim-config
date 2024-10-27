@@ -165,7 +165,7 @@ return {
             larp.fn.map('n', '<leader>nff', '<Plug>(neorg.telescope.find_norg_files)', { desc = 'Find Norg Files' })
             larp.fn.map('n', '<leader>nfb', '<Plug>(neorg.telescope.backlinks.file_backlinks)', { desc = 'Find Backlinks' })
             larp.fn.map('n', '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', { desc = 'Find Header Backlinks' })
-            larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
+            larp.fn.map('n', '<localleader>niL', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
             larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', { desc = 'Insert Link' })
             larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>', { noremap = true, silent = true })
             larp.fn.map(
@@ -185,6 +185,7 @@ return {
                     larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
                     larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>')
+                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
                     larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
@@ -206,12 +207,8 @@ return {
         opts = {
             workspaces = {
                 {
-                    name = 'personal',
-                    path = '~/obsidian-vault/personal',
-                },
-                {
-                    name = 'work',
-                    path = '~/obsidian-vault/work',
+                    name = 'default',
+                    path = '~/github/obsidian-vault',
                 },
             },
             templates = {
@@ -358,14 +355,29 @@ return {
     },
     {
         'nvim-orgmode/orgmode',
+        enabled = false,
         event = 'VeryLazy',
         ft = { 'org' },
         config = function()
             -- Setup orgmode
+            local org_path = '~/notes/orgs'
             require('orgmode').setup({
-                org_agenda_files = '~/notes/orgs/**/*',
-                org_default_notes_file = '~/notes/orgs/refile.org',
+                org_agenda_files = org_path .. '/**/*',
+                org_default_notes_file = org_path .. 'refile.org',
+                org_fold_enable = false,
+                org_startup_folded = 'showeverything',
             })
+            larp.fn.map('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
+            larp.fn.map('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })
+            larp.fn.map('n', '<leader>oj', function()
+                local today = os.date('*t')
+                local journal = org_path .. '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
+                if vim.fn.filereadable(vim.fn.expand(journal)) == 0 then
+                    vim.cmd('silent !mkdir -p ' .. org_path .. '/journal/' .. today.year .. '/' .. today.month)
+                    vim.cmd('silent !touch ' .. journal)
+                end
+                vim.cmd('e ' .. journal)
+            end, { desc = 'Open Org Journal' })
             -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
             -- add ~org~ to ignore_install
             -- require('nvim-treesitter.configs').setup({
@@ -376,6 +388,10 @@ return {
     },
     {
         'chipsenkbeil/org-roam.nvim',
+        -- It prevents me from using the neorg keymaps.
+        -- Re-enable it when you feel like
+        -- remapping the keymaps
+        enabled = false,
         tag = '0.1.0',
         dependencies = { 'nvim-orgmode/orgmode' },
         config = function()
@@ -385,6 +401,50 @@ return {
                 org_files = {
                     '~/notes/orgs',
                 },
+            })
+        end,
+    },
+    {
+        'akinsho/org-bullets.nvim',
+        enabled = false,
+        dependencies = { 'nvim-orgmode/orgmode' },
+        opts = {},
+    },
+    {
+        'dhruvasagar/vim-table-mode',
+    },
+    {
+        'mrjones2014/smart-splits.nvim',
+        dependencies = { 'kwkarlwang/bufresize.nvim' },
+        lazy = false,
+        config = function()
+            require('smart-splits').setup({
+                resize_mode = {
+                    hooks = {
+                        on_enter = function()
+                            vim.notify('Entering resize mode')
+                        end,
+                        on_leave = function()
+                            vim.notify('Exiting resize mode')
+                        end,
+                    },
+                },
+            })
+        end,
+    },
+    {
+        'kwkarlwang/bufresize.nvim',
+        config = function()
+            require('bufresize').setup()
+        end,
+    },
+    {
+        'renerocksai/telekasten.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
+        enabled = false,
+        config = function()
+            require('telekasten').setup({
+                home = vim.fn.expand('~/zettelkasten'), -- Put the name of your notes directory here
             })
         end,
     },

@@ -1,12 +1,11 @@
 return {
     {
         'kdheepak/lazygit.nvim',
-        enabled = false,
         dependencies = {
             'nvim-lua/plenary.nvim',
         },
         keys = {
-            { '<leader>cg', '<cmd>LazyGit<cr>', noremap = true, silent = true, desc = 'LazyGit' },
+            { '<leader>Gl', '<cmd>LazyGit<cr>', noremap = true, silent = true, desc = 'LazyGit' },
         },
     },
     {

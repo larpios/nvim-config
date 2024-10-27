@@ -1,7 +1,6 @@
 return {
     {
         'numToStr/Comment.nvim',
-        enabled = false,
         opts = {
             -- add any options here
         },
@@ -11,7 +10,29 @@ return {
         end,
     },
     {
+        'ggandor/leap.nvim',
+        dependencies = { 'tpope/vim-repeat' },
+        config = function()
+            local leap = require('leap')
+            local user = require('leap.user')
+
+            vim.keymap.set('n', 'ss', '<Plug>(leap)')
+            vim.keymap.set('n', 'sw', '<Plug>(leap-from-window)')
+            vim.keymap.set({ 'x', 'o' }, 'sf', '<Plug>(leap-forward)')
+            vim.keymap.set({ 'x', 'o' }, 'sb', '<Plug>(leap-backward)')
+            -- leap.create_default_mappings()
+            -- Define equivalence classes for brackets and quotes, in addition to
+            -- the default whitespace group.
+            leap.opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+
+            -- Use the traversal keys to repeat the previous motion without explicitly
+            -- invoking Leap.
+            user.set_repeat_keys('<enter>', '<backspace>')
+        end,
+    },
+    {
         'folke/flash.nvim',
+        enabled = false,
         event = 'VeryLazy',
         opts = {},
         keys = {
@@ -99,6 +120,8 @@ return {
     },
     {
         'kylechui/nvim-surround',
+        -- To give mini.surround a try.
+        enabled = false,
         version = '*', -- Use for stability; omit to use `main` branch for the latest features
         event = 'VeryLazy',
         config = function()
@@ -267,6 +290,27 @@ return {
             vim.api.nvim_set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
             vim.api.nvim_set_hl(0, 'MultiCursorDisabledCursor', { link = 'Visual' })
             vim.api.nvim_set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
+        end,
+    },
+    {
+        'gennaro-tedesco/nvim-peekup',
+    },
+    -- lazy.nvim
+    {
+        'chrisgrieser/nvim-scissors',
+        dependencies = { 'nvim-telescope/telescope.nvim', 'garymjr/nvim-snippets' },
+        opts = {
+            snippetDir = vim.fn.stdpath('config') .. '/snippets',
+        },
+        config = function()
+            vim.keymap.set('n', '<leader>se', function()
+                require('scissors').editSnippet()
+            end)
+
+            -- when used in visual mode, prefills the selection as snippet body
+            vim.keymap.set({ 'n', 'x' }, '<leader>sa', function()
+                require('scissors').addNewSnippet()
+            end)
         end,
     },
 }

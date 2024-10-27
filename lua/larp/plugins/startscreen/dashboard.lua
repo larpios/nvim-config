@@ -17,6 +17,9 @@ return {
         require('dashboard').setup({
             theme = 'doom',
             config = {
+                hide = {
+                    tabline = true,
+                },
                 header = header,
                 center = {
                     {

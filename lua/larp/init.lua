@@ -1,4 +1,4 @@
-require('larp.utils')
+require('larp.larp-nvim')
 require('larp.config')
 require('larp.third-party')
 require('larp.lazy')

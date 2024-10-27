@@ -1,3 +1,6 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
+
 -- # Windows
 larp.fn.map('', '<leader>wd', '<C-w>c', { desc = 'Close Window' })
 larp.fn.map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
@@ -5,47 +8,52 @@ larp.fn.map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
 -- Navigate Windows
 larp.fn.map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window' })
 larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window' })
-larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window' })
+larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 
 -- Split Windows
-larp.fn.map('', '<leader>sh', ':vsplit<CR>', { desc = 'Split Window to the Left' })
-larp.fn.map('', '<leader>sj', '<cmd>split<cr><C-w>j', { desc = 'Split Window to the Bottom' })
-larp.fn.map('', '<leader>sk', ':split<CR>', { desc = 'Split Window to the Top' })
-larp.fn.map('', '<leader>sl', ':vsplit<CR><C-w>l', { desc = 'Split Window to the Right' })
+larp.fn.map('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left' })
+larp.fn.map('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom' })
+larp.fn.map('', '<leader>sk', '<C-w>s', { desc = 'Split Window to the Top' })
+larp.fn.map('', '<leader>sl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right' })
 larp.fn.map('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next' })
+
 -- Resize Windows
-larp.fn.map('', '<leader>w+', '<c-w>+', { desc = 'Increase Window Height' })
-larp.fn.map('', '<leader>w-', '<c-w>-', { desc = 'Decrease Window Height' })
-larp.fn.map('', '<leader>w>', '<c-w>>', { desc = 'Increase Window Width' })
-larp.fn.map('', '<leader>w<', '<c-w><', { desc = 'Decrease Window Width' })
-larp.fn.map('', '<leader>w=', '<c-w>=', { desc = 'Equal Window Size' })
+larp.fn.map('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height' })
+larp.fn.map('', '<leader>w-', '<C-w>-', { desc = 'Decrease Window Height' })
+larp.fn.map('', '<leader>w>', '<C-w>>', { desc = 'Increase Window Width' })
+larp.fn.map('', '<leader>w<', '<C-w><', { desc = 'Decrease Window Width' })
+larp.fn.map('', '<leader>w=', '<C-w>=', { desc = 'Equal Window Size' })
+
+-- # Buffers
+-- Close Buffer
+larp.fn.map('n', '<leader>bd', ':bd<CR>', { desc = 'Close Buffer' })
 
 -- # Tabs
-larp.fn.map('n', '<leader>Tc', '<cmd>tabnew<cr>', { desc = 'New Tab' })
-larp.fn.map('n', '<leader>Td', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
-larp.fn.map('n', '<leader>Tn', '<cmd>tabnext<cr>', { desc = 'Go to Next Tab' })
-larp.fn.map('n', '<leader>Tp', '<cmd>tabprevious<cr>', { desc = 'Go to Previous Tab' })
+larp.fn.map('n', '<leader>Tc', ':tabnew<CR>', { desc = 'New Tab' })
+larp.fn.map('n', '<leader>Td', ':tabclose<CR>', { desc = 'Close Tab' })
+larp.fn.map('n', '<leader>Tn', ':tabnext<CR>', { desc = 'Go to Next Tab' })
+larp.fn.map('n', '<leader>Tp', ':tabprevious<CR>', { desc = 'Go to Previous Tab' })
 
 -- General
-larp.fn.map('', '<leader>qq', '<cmd>confirm qa<cr>', { desc = 'Exit NeoVim' })
-larp.fn.map('', '<leader>oH', '<cmd>e ' .. vim.fn.stdpath('config') .. '<cr>', { desc = 'Open Neovim Config' })
-larp.fn.map('', '<leader>wb', '<cmd>w<cr>', { desc = 'Write to Buffer' })
-larp.fn.map('', '<leader>wa', '<cmd>wa<cr>', { desc = 'Write All' })
-larp.fn.map('', '<leader>wq', '<cmd>wq<cr>', { desc = 'Write and Quit' })
-larp.fn.map('', '<leader>so', '<cmd>so<cr>', { desc = 'Source Current Buffer' })
-larp.fn.map('n', '<C-p>', '<cmd>bp<cr>', { desc = 'Navigate to Previous Buffer' })
-larp.fn.map('n', '<C-n>', '<cmd>bn<cr>', { desc = 'Navigate to Next Buffer' })
-larp.fn.map('', '<leader>ob', '<cmd>cd ' .. vim.fn.expand('%:p:h') .. '<cr>', { desc = 'Change Directory to Current Buffer' })
+larp.fn.map('', '<leader>qq', ':confirm qa<CR>', { desc = 'Exit NeoVim' })
+larp.fn.map('', '<leader>ho', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config' })
+larp.fn.map('', '<leader>ww', ':w<CR>', { desc = 'Write to Buffer' })
+larp.fn.map('', '<leader>wa', ':wa<CR>', { desc = 'Write All' })
+larp.fn.map('', '<leader>wq', ':wq<CR>', { desc = 'Write and Quit' })
+larp.fn.map('', '<leader>so', ':so<CR>', { desc = 'Source Current Buffer' })
+larp.fn.map('n', '<C-p>', ':bp<CR>', { desc = 'Navigate to Previous Buffer' })
+larp.fn.map('n', '<C-n>', ':bn<CR>', { desc = 'Navigate to Next Buffer' })
+larp.fn.map('', '<leader>bo', ':cd ' .. vim.fn.expand('%:p:h') .. '<CR>', { desc = 'Change Directory to Current Buffer' })
 larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
 larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
 -- # Terminal
-larp.fn.map('n', '<leader>oth', '<leader>sh<cmd>term<cr>', { desc = 'Open Terminal to the Left', remap = true })
-larp.fn.map('n', '<leader>otj', '<leader>sj<cmd>term<cr>', { desc = 'Open Terminal to the Bottom', remap = true })
-larp.fn.map('n', '<leader>otk', '<leader>sk<cmd>term<cr>', { desc = 'Open Terminal to the Top', remap = true })
-larp.fn.map('n', '<leader>otl', '<leader>sl<cmd>term<cr>', { desc = 'Open Terminal to the Right', remap = true })
-larp.fn.map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
+larp.fn.map('n', '<leader>oth', '<leader>sh:term<CR>', { desc = 'Open Terminal to the Left', remap = true })
+larp.fn.map('n', '<leader>otj', '<leader>sj:term<CR>', { desc = 'Open Terminal to the Bottom', remap = true })
+larp.fn.map('n', '<leader>otk', '<leader>sk:term<CR>', { desc = 'Open Terminal to the Top', remap = true })
+larp.fn.map('n', '<leader>otl', '<leader>sl:term<CR>', { desc = 'Open Terminal to the Right', remap = true })
+larp.fn.map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 
 -- # Edit
 larp.fn.map({ 'i', 'x' }, 'zx', '<Esc>')
@@ -55,18 +63,4 @@ larp.fn.map('', '<leader>p', '"_xP', { desc = 'Paste (Without Cutting)' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
-
--- # Objects
-larp.fn.map('o', '"', 'i"', { desc = 'Inside Double Quotes' })
-larp.fn.map('o', "'", "i'", { desc = 'Inside Single Quotes' })
-larp.fn.map('o', '(', 'i(', { desc = 'Inside Parentheses' })
-larp.fn.map('o', '{', 'i{', { desc = 'Inside Braces' })
-larp.fn.map('o', ',', 't,', { desc = 'Until Comma' })
-
--- -- Move Lines
--- larp.fn.map('v', 'J', function()
---     return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
--- end, { expr = true, desc = 'Move Selected Line Down' })
--- larp.fn.map('v', 'K', function()
---     return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
--- end, { expr = true, desc = 'Move Selected Line Up' })
+-- larp.fn.map('n', '<Tab>', 'za', { desc = 'Toggle Fold' })

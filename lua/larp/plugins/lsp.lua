@@ -31,14 +31,15 @@ return {
             require('conform').setup({
                 formatters_by_ft = {
                     lua = { 'stylua' },
-                    python = { 'black' },
                     rust = { 'rustfmt' },
                     c = { 'clang_format' },
                     cpp = { 'clang_format' },
                     cmake = { 'cmake_format' },
                     nix = { 'nixpkgs_fmt', 'nixfmt' },
+                    python = { 'autopep8', 'autoflake', 'black' },
                     markdown = { 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
                     xml = { 'xmlformat' },
+                    yaml = { 'yamllint', 'prettier' },
                     text = { 'autocorrect' },
                     ['*'] = { 'autocorrect', 'codespell' },
                     ['_'] = { 'trim_whitespace' },
@@ -59,8 +60,31 @@ return {
 
     {
         'mrcjkb/rustaceanvim',
+        enabled = false,
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
+        config = function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            vim.keymap.set('n', '<leader>a', function()
+                vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
+                -- or vim.lsp.buf.codeAction() if you don't want grouping.
+            end, { silent = true, buffer = bufnr })
+        end,
+    },
+    {
+        'rust-lang/rust.vim',
+        ft = 'rust',
+        init = function()
+            vim.g.rustfmt_autosave = 1
+        end,
+    },
+    {
+        'simrat39/rust-tools.nvim',
+        dependencies = {
+            'neovim/nvim-lspconfig',
+            'nvim-lua/plenary.nvim',
+            'mfussenegger/nvim-dap',
+        },
     },
 
     {
@@ -70,7 +94,14 @@ return {
         dependencies = {
             { 'neovim/nvim-lspconfig' },
             { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/nvim-cmp' },
+            {
+                -- nvim-cmp is apparenty not being that well maintained.
+                -- Someone has forked it and merged some pull requests and stuff.
+                -- Until it gets well maintained again, I'll use this fork.
+                -- 'hrsh7th/nvim-cmp' ,
+                'iguanacucumber/magazine.nvim',
+                name = 'nvim-cmp', -- Otherwise highlighting gets messed up
+            },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-nvim-lua' },
             -- { 'hrsh7th/cmp-cmdline' },
@@ -214,17 +245,28 @@ return {
             lsp_zero.setup({})
             lsp_zero.on_attach(function(client, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr, preserve_mappings = false })
+                if client.server_capabilities.document_formatting then
+                    larp.fn.map('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<cr>', { buffer = bufnr })
+                end
+                if client.server_capabilities.inlayHintProvider then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                end
             end)
 
+            local cap = require('cmp_nvim_lsp').default_capabilities()
+            cap.textDocument.foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            }
             lsp_zero.extend_lspconfig({
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                capabilities = cap,
             })
 
-            vim.g.rustaceanvim = {
-                server = {
-                    capabilities = lsp_zero.get_capabilities(),
-                },
-            }
+            -- vim.g.rustaceanvim = {
+            --     server = {
+            --         capabilities = lsp_zero.get_capabilities(),
+            --     },
+            -- }
 
             require('mason').setup({
                 ui = {
@@ -238,11 +280,9 @@ return {
             larp.fn.map('n', '<leader>mm', ':Mason<CR>', { noremap = true, silent = true, desc = 'Mason' })
             require('mason-lspconfig').setup({
                 ensure_installed = {
-                    'cmake',
                     'vimls',
                     'ts_ls',
                     'bashls',
-                    'pylsp',
                     'pyright',
                     'marksman',
                     'graphql',
@@ -259,7 +299,7 @@ return {
                             end,
                         })
                     end,
-                    rust_analyzer = lsp_zero.noop,
+                    -- rust_analyzer = lsp_zero.noop,
                 },
             })
         end,
@@ -421,8 +461,9 @@ return {
     },
     {
         'saghen/blink.cmp',
-        -- Replacement for nvim-cmp, but it's lacking for now
         enabled = false,
+        -- Replacement for nvim-cmp, but it's lacking for now
+        -- enabled = false,
         lazy = false, -- lazy loading handled internally
         -- optional: provides snippets for the snippet source
         dependencies = 'rafamadriz/friendly-snippets',
@@ -435,11 +476,23 @@ return {
         -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
 
         opts = {
+            keymap = {
+                accept = '<C-y>',
+            },
             highlight = {
                 -- sets the fallback highlight groups to nvim-cmp's highlight groups
                 -- useful for when your theme doesn't support blink.cmp
                 -- will be removed in a future release, assuming themes add support
                 use_nvim_cmp_as_default = true,
+            },
+            sources = {
+                providers = {
+                    { 'blink.cmp.sources.lsp', name = 'LSP' },
+                    { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
+                    { 'blink.cmp.sources.snippets', name = 'Snippets', score_offset = -3 },
+                    { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' } },
+                    -- { 'neorg' },
+                },
             },
             -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
             -- adjusts spacing to ensure icons are aligned
