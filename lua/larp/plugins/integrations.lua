@@ -355,7 +355,22 @@ return {
     },
     {
         'nvim-orgmode/orgmode',
-        enabled = false,
+        dependencies = {
+            {
+                'chipsenkbeil/org-roam.nvim',
+                -- It prevents me from using the neorg keymaps.
+                -- Re-enable it when you feel like
+                -- remapping the keymaps
+                tag = '0.1.0',
+            },
+            {
+                'akinsho/org-bullets.nvim',
+                opts = {},
+            },
+            {
+                'dhruvasagar/vim-table-mode',
+            },
+        },
         event = 'VeryLazy',
         ft = { 'org' },
         config = function()
@@ -384,17 +399,6 @@ return {
             --   ensure_installed = 'all',
             --   ignore_install = { 'org' },
             -- })
-        end,
-    },
-    {
-        'chipsenkbeil/org-roam.nvim',
-        -- It prevents me from using the neorg keymaps.
-        -- Re-enable it when you feel like
-        -- remapping the keymaps
-        enabled = false,
-        tag = '0.1.0',
-        dependencies = { 'nvim-orgmode/orgmode' },
-        config = function()
             require('org-roam').setup({
                 directory = '~/org_roam_files',
                 -- optional
@@ -403,15 +407,6 @@ return {
                 },
             })
         end,
-    },
-    {
-        'akinsho/org-bullets.nvim',
-        enabled = false,
-        dependencies = { 'nvim-orgmode/orgmode' },
-        opts = {},
-    },
-    {
-        'dhruvasagar/vim-table-mode',
     },
     {
         'mrjones2014/smart-splits.nvim',

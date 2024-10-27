@@ -25,6 +25,7 @@ return {
             larp.fn.map('n', '<leader>Or', ':OverseerRun<CR>', { desc = 'Overseer Run' })
             larp.fn.map('n', '<leader>Ob', ':OverseerBuild<CR>', { desc = 'Overseer Build' })
             larp.fn.map('n', '<leader>OR', ':OverseerRunCmd<CR>', { desc = 'Overseer Run Cmd' })
+            larp.fn.map('n', '<leader>Oa', ':OverseerTaskAction<CR>', { desc = 'Overseer Task Actions' })
         end,
     },
     {
@@ -65,7 +66,7 @@ return {
             }
             dap.adapters.lldb = {
                 type = 'executable',
-                command = '/usr/bin/lldb-dap',
+                command = 'lldb-vscode',
                 name = 'lldb',
             }
             dap.configurations.cpp = {

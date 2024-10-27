@@ -138,112 +138,65 @@ return {
                 },
             })
             -- `/` cmdline setup.
-            cmp.setup({
-                preselect = 'item',
-                completion = {
-                    completeopt = 'menu,menuone,noinsert,popup',
-                },
-
-                sources = {
-                    { name = 'nvim_lsp' },
-                    {
-                        name = 'luasnip',
-                        option = {
-                            use_show_condition = false,
-                            show_autosnippets = true,
-                        },
-                    },
-                    {
-                        name = 'buffer',
-                        option = {
-                            keyword_pattern = [[\k+]],
-                            get_bufnrs = function()
-                                return vim.api.nvim_list_bufs()
-                            end,
-                        },
-                    },
-                    { name = 'orgmode' },
-                    { name = 'neorg' },
-                    sorting = {
-                        comparators = {
-                            function(...)
-                                return require('cmp-buffer').compare_locality(...)
-                            end,
-                            cmp.config.compare.offset,
-                            cmp.config.compare.exact,
-                            cmp.config.compare.score,
-                            cmp.config.compare.kind,
-                            cmp.config.compare.length,
-                            cmp.config.compare.order,
-                            cmp.config.compare.alphabet,
-                            cmp.config.compare.substr,
-                            cmp.config.compare.fuzzy,
-                        },
-                    },
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                formatting = cmp_format,
-
-                mapping = cmp.mapping.preset.insert({
-                    ['<c-f>'] = cmp_action.luasnip_jump_forward(),
-                    ['<c-b>'] = cmp_action.luasnip_jump_backward(),
-                }),
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
-                    end,
-                },
-                -- formatting = {
-                --     fields = { 'abbr', 'kind', 'menu' },
-                --     format = require('lspkind').cmp_format({
-                --         mode = 'symbol', -- show only symbol annotations
-                --         maxwidth = 50, -- prevent the popup from showing more than provided characters
-                --         ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
-                --     }),
-                -- },
-                -- mapping = {
-                --     ['<C-n>'] = cmp.mapping.select_next_item(),
-                --     ['<C-p>'] = cmp.mapping.select_prev_item(),
-                --     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                --     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                --     ['<C-Space>'] = cmp.mapping.complete(),
-                --     ['<C-e>'] = cmp.mapping.close(),
-                --     ['<C-y>'] = cmp.mapping.confirm({
-                --         behavior = cmp.ConfirmBehavior.Insert,
-                --         select = true,
-                --     }),
-                -- },
-                -- snippet = {
-                --     expand = function(args)
-                --         require('luasnip').lsp_expand(args.body)
-                --     end,
-                -- },
-            })
-
-            -- cmp.setup.cmdline('/', {
-            --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = {
-            --         { name = 'buffer' },
+            -- cmp.setup({
+            --     preselect = 'item',
+            --     completion = {
+            --         completeopt = 'menu,menuone,noinsert,popup',
             --     },
-            -- })
-            -- -- `:` cmdline setup.
-            -- cmp.setup.cmdline(':', {
-            --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = cmp.config.sources({
-            --         { name = 'path' },
-            --     }, {
+            --
+            --     sources = {
+            --         { name = 'nvim_lsp' },
             --         {
-            --             name = 'cmdline',
+            --             name = 'luasnip',
             --             option = {
-            --                 ignore_cmds = { 'Man', '!' },
+            --                 use_show_condition = false,
+            --                 show_autosnippets = true,
             --             },
             --         },
+            --         {
+            --             name = 'buffer',
+            --             option = {
+            --                 keyword_pattern = [[\k+]],
+            --                 get_bufnrs = function()
+            --                     return vim.api.nvim_list_bufs()
+            --                 end,
+            --             },
+            --         },
+            --         { name = 'orgmode' },
+            --         { name = 'neorg' },
+            --         sorting = {
+            --             comparators = {
+            --                 function(...)
+            --                     return require('cmp-buffer').compare_locality(...)
+            --                 end,
+            --                 cmp.config.compare.offset,
+            --                 cmp.config.compare.exact,
+            --                 cmp.config.compare.score,
+            --                 cmp.config.compare.kind,
+            --                 cmp.config.compare.length,
+            --                 cmp.config.compare.order,
+            --                 cmp.config.compare.alphabet,
+            --                 cmp.config.compare.substr,
+            --                 cmp.config.compare.fuzzy,
+            --             },
+            --         },
+            --     },
+            --     window = {
+            --         completion = cmp.config.window.bordered(),
+            --         documentation = cmp.config.window.bordered(),
+            --     },
+            --     formatting = cmp_format,
+            --
+            --     mapping = cmp.mapping.preset.insert({
+            --         ['<c-f>'] = cmp_action.luasnip_jump_forward(),
+            --         ['<c-b>'] = cmp_action.luasnip_jump_backward(),
             --     }),
+            --     snippet = {
+            --         expand = function(args)
+            --             require('luasnip').lsp_expand(args.body)
+            --         end,
+            --     },
             -- })
-
             -- LSP Setup
 
             lsp_zero.setup({})
@@ -474,7 +427,6 @@ return {
     },
     {
         'saghen/blink.cmp',
-        enabled = false,
         -- Replacement for nvim-cmp, but it's lacking for now
         -- enabled = false,
         lazy = false, -- lazy loading handled internally
@@ -492,19 +444,51 @@ return {
             keymap = {
                 accept = '<C-y>',
             },
+            trigger = {
+                completion = {
+                    show_in_snippet = true,
+                },
+                signature_help = {
+                    enabled = true,
+                },
+            },
             highlight = {
+                ns = vim.api.nvim_create_namespace('blink_cmp'),
                 -- sets the fallback highlight groups to nvim-cmp's highlight groups
                 -- useful for when your theme doesn't support blink.cmp
                 -- will be removed in a future release, assuming themes add support
                 use_nvim_cmp_as_default = true,
             },
             sources = {
+                completions = { 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
-                    { 'blink.cmp.sources.lsp', name = 'LSP' },
-                    { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
-                    { 'blink.cmp.sources.snippets', name = 'Snippets', score_offset = -3 },
-                    { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' } },
+                    lsp = { 'blink.cmp.sources.lsp', name = 'LSP' },
+                    path = { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
+                    snippets = {
+                        'blink.cmp.sources.snippets',
+                        name = 'Snippets',
+                        score_offset = -3,
+                        opts = {
+                            friendly_snippets = true,
+                            search_paths = {
+                                vim.fn.stdpath('config') .. '/snippets',
+                            },
+                        },
+                    },
+                    buffer = { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' } },
                     -- { 'neorg' },
+                },
+            },
+            windows = {
+                autocomplete = {
+                    border = 'rounded',
+                },
+                documentation = {
+                    min_width = 30,
+                    max_width = 80,
+                    max_height = 40,
+                    border = 'rounded',
+                    auto_show = true,
                 },
             },
             -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
