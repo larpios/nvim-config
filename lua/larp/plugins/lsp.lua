@@ -306,6 +306,7 @@ return {
         'kevinhwang91/nvim-ufo',
         dependencies = { 'kevinhwang91/promise-async' },
         init = function()
+            vim.o.foldcolumn = '0'
             vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
@@ -313,9 +314,16 @@ return {
         end,
         config = function()
             local ufo = require('ufo')
+            local actions = require('ufo.action')
             -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
             larp.fn.map('n', 'zR', ufo.openAllFolds)
             larp.fn.map('n', 'zM', ufo.closeAllFolds)
+            larp.fn.map('n', 'zuc', function()
+                local level = vim.fn.input('Enter fold level: ')
+                actions.closeFoldsWith(level)
+            end)
+            larp.fn.map('n', 'z;', actions.goNextClosedFold)
+            larp.fn.map('n', 'z,', actions.goPreviousClosedFold)
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.foldingRange = {
                 dynamicRegistration = false,
@@ -442,7 +450,12 @@ return {
 
         opts = {
             keymap = {
+                show = '<C-n>',
                 accept = '<C-y>',
+                show_documentation = '<c-q>',
+                hide_documentation = '<c-q>',
+                snippet_forward = '<c-f>',
+                snippet_backward = '<c-b>',
             },
             trigger = {
                 completion = {
