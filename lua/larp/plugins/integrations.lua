@@ -195,7 +195,6 @@ return {
     },
     {
         'epwalsh/obsidian.nvim',
-        enabled = false,
         priority = 1000,
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
@@ -208,7 +207,7 @@ return {
             workspaces = {
                 {
                     name = 'default',
-                    path = '~/github/obsidian-vault',
+                    path = '~/notes/obsidian/obsidian-vault',
                 },
             },
             templates = {
@@ -232,24 +231,11 @@ return {
                 },
             })
 
-            local vault_path = '~/obsidian-vault'
-
-            local workspaces = {
-                {
-                    name = 'personal',
-                    path = vault_path .. '/personal',
-                },
-                {
-                    name = 'work',
-                    path = vault_path .. '/work',
-                },
-            }
-
             larp.fn.map('n', '<leader>Ow', function()
-                vim.ui.select(larp.fn.tbl_get_by_key(workspaces, 'name'), {
+                vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
                     prompt = 'Choose your obsidian vault',
                 }, function(_, idx)
-                    vim.cmd('edit ' .. workspaces[idx]['path'])
+                    vim.cmd('edit ' .. opts.workspaces[idx]['path'])
                 end)
             end, { desc = 'Open Obisdian Workspace' })
 
@@ -257,7 +243,7 @@ return {
 
             vim.api.nvim_create_autocmd({ 'BufEnter' }, {
                 desc = 'Enter Obsidian Vault',
-                pattern = '' .. vault_path .. '.*',
+                pattern = '~/notes/obsidian/*',
                 callback = function()
                     vim.o.conceallevel = 2
                 end,
@@ -354,6 +340,9 @@ return {
         end,
     },
     {
+        'dhruvasagar/vim-table-mode',
+    },
+    {
         'nvim-orgmode/orgmode',
         enabled = false,
         dependencies = {
@@ -367,9 +356,6 @@ return {
             {
                 'akinsho/org-bullets.nvim',
                 opts = {},
-            },
-            {
-                'dhruvasagar/vim-table-mode',
             },
         },
         event = 'VeryLazy',

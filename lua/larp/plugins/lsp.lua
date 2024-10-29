@@ -164,22 +164,22 @@ return {
             --         },
             --         { name = 'orgmode' },
             --         { name = 'neorg' },
-            --         sorting = {
-            --             comparators = {
-            --                 function(...)
-            --                     return require('cmp-buffer').compare_locality(...)
-            --                 end,
-            --                 cmp.config.compare.offset,
-            --                 cmp.config.compare.exact,
-            --                 cmp.config.compare.score,
-            --                 cmp.config.compare.kind,
-            --                 cmp.config.compare.length,
-            --                 cmp.config.compare.order,
-            --                 cmp.config.compare.alphabet,
-            --                 cmp.config.compare.substr,
-            --                 cmp.config.compare.fuzzy,
-            --             },
-            --         },
+            --         -- sorting = {
+            --         --     comparators = {
+            --         --         function(...)
+            --         --             return require('cmp-buffer').compare_locality(...)
+            --         --         end,
+            --         --         cmp.config.compare.offset,
+            --         --         cmp.config.compare.exact,
+            --         --         cmp.config.compare.score,
+            --         --         cmp.config.compare.kind,
+            --         --         cmp.config.compare.length,
+            --         --         cmp.config.compare.order,
+            --         --         cmp.config.compare.alphabet,
+            --         --         cmp.config.compare.substr,
+            --         --         cmp.config.compare.fuzzy,
+            --         --     },
+            --         -- },
             --     },
             --     window = {
             --         completion = cmp.config.window.bordered(),
