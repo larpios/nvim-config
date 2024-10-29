@@ -95,11 +95,13 @@ return {
         'smjonas/live-command.nvim',
         -- live-command supports semantic versioning via Git tags
         -- tag = "2.*",
-        opts = {
-            commands = {
-                Norm = { cmd = 'norm' },
-            },
-        },
+        config = function()
+            require('live-command').setup({
+                commands = {
+                    Norm = { cmd = 'norm' },
+                },
+            })
+        end,
     },
     -- lazy.nvim
     {
