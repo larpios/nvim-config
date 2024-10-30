@@ -4,7 +4,7 @@ return {
         'stevearc/overseer.nvim',
         dependencies = {
             'akinsho/toggleterm.nvim',
-            'rmagatti/auto-session',
+            -- 'rmagatti/auto-session',
         },
         config = function()
             require('custom.overseer')
