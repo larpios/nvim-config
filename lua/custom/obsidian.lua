@@ -1,3 +1,4 @@
+local obsidian = require('obsidian')
 local opts = {
     workspaces = {
         {
@@ -15,9 +16,14 @@ local opts = {
         nvim_cmp = true,
         min_char = 2,
     },
+    follow_url_func = function(url)
+        vim.fn.jobstart('xdg-open ' .. url)
+    end,
 }
-local obsidian = require('obsidian')
 obsidian.setup(opts)
+
+vim.o.conceallevel = 2
+
 require('nvim-treesitter.configs').setup({
     ensure_installed = { 'markdown', 'markdown_inline' },
     highlight = {
@@ -35,8 +41,8 @@ end, { desc = 'Search Obsidian Workspace' })
 
 larp.fn.map('n', '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', { desc = 'Search Obsidian Vault' })
 larp.fn.map('n', '<leader>Ogg', '<cmd>ObsidianSearch<cr>', { desc = 'Grep Obsidian Vault' })
-larp.fn.map('n', '<leader>Ot', '<cmd>ObsidianTOC<cr>', { desc = 'Search Obsidian Vault' })
-
+larp.fn.map('n', '<leader>Ot', '<cmd>ObsidianTOC<cr>', { desc = 'Search Obsidian TOC' })
+larp.fn.map('n', '<leader>Oft', '<cmd>ObsidianTags<cr>', { desc = 'Find Obsidian Tags' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
