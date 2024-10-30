@@ -3,7 +3,7 @@ local M = {}
 ---My special Module :)
 M = M or {}
 
----Returns a table of randomly choosen elements from a given table
+---Returns a table of randomly chosen elements from a given table
 ---@generic T
 ---@param tbl T[] Table to choose elements from
 ---@param num? integer Number of elements to choose
@@ -37,11 +37,11 @@ end
 ---
 ---@class merge_dict.opts.overlay
 ---@field enable? boolean Whether to overlay.
----@field exclude? table Array of specific keys to prevent correspoding values from getting overlayed.
+---@field exclude? table Array of specific keys to prevent corresponding values from getting overlaid.
 ---
 ---Merge two tables, one overlaying the other.
----@param base table Base table to be overlayed.
----@param top table Overlay table to be overlayed with onto {base}.
+---@param base table Base table to be overlaid.
+---@param top table Overlay table to be overlaid with onto {base}.
 ---@param opts? merge_dict.opts Options
 ---@return table
 function M.merge_dict(base, top, opts)
@@ -277,10 +277,11 @@ function M.toggle_marker(sym)
     end
 
     -- Reselect the modified text
+    local compensate = need_remove and 0 or (#sym - 1)
     vim.api.nvim_win_set_cursor(0, { start_row, start_col - 1 })
     vim.cmd('normal! ')
     vim.cmd('normal! ' .. mode)
-    vim.api.nvim_win_set_cursor(0, { end_row, end_col - 1 })
+    vim.api.nvim_win_set_cursor(0, { end_row, end_col - 1 + compensate })
 end
 
 ---Returns a sequence of numbers
