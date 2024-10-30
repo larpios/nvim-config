@@ -37,6 +37,15 @@ larp.fn.map('n', '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', { desc = 'Search
 larp.fn.map('n', '<leader>Ogg', '<cmd>ObsidianSearch<cr>', { desc = 'Grep Obsidian Vault' })
 larp.fn.map('n', '<leader>Ot', '<cmd>ObsidianTOC<cr>', { desc = 'Search Obsidian Vault' })
 
+larp.fn.map('n', '<leader>Os', function()
+    -- current date and time
+    local now = os.date('%Y-%m-%d %H:%M:%S')
+
+    -- commit and push to git
+    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. ' && git add . && git commit -m "Update ' .. now .. '" && git push')
+    vim.print(output)
+end, { desc = 'Commit and Push Obsidian Vault' })
+
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     desc = 'Enter Obsidian Vault',
     pattern = '~/notes/obsidian/*',
