@@ -156,13 +156,55 @@ return {
         -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
 
         opts = {
+
+            -- "default" keymap
+            --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+            --   ['<C-e>'] = { 'hide' },
+            --   ['<C-y>'] = { 'select_and_accept' },
+            --
+            --   ['<C-p>'] = { 'select_prev', 'fallback' },
+            --   ['<C-n>'] = { 'select_next', 'fallback' },
+            --
+            --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+            --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+            --
+            --   ['<Tab>'] = { 'snippet_forward', 'fallback' },
+            --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+            --
+            -- "super-tab" keymap
+            --   you may want to set `trigger.completion.show_in_snippet = false` when using "super-tab"
+            --   or use `window.autocomplete.selection = "manual" | "auto_insert"`
+            --
+            --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+            --   ['<C-e>'] = { 'hide' },
+            --
+            --   ['<Tab>'] = {
+            --     function(cmp)
+            --       if cmp.is_in_snippet() then return cmp.accept()
+            --       else return cmp.select_and_accept() end
+            --     end,
+            --     'snippet_forward',
+            --     'fallback'
+            --   },
+            --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+            --
+            --   ['<Up>'] = { 'select_prev', 'fallback' },
+            --   ['<Down>'] = { 'select_next', 'fallback' },
+            --   ['<C-p>'] = { 'select_prev', 'fallback' },
+            --   ['<C-n>'] = { 'select_next', 'fallback' },
+            --
+            --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+            --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+            --
+            -- available commands:
+            --   show, hide, accept, select_and_accept, select_prev, select_next, show_documentation, hide_documentation,
+            --   scroll_documentation_up, scroll_documentation_down, snippet_forward, snippet_backward, fallback
             keymap = {
-                show = '<C-n>',
-                accept = '<C-y>',
-                show_documentation = '<c-q>',
-                hide_documentation = '<c-q>',
-                snippet_forward = '<c-f>',
-                snippet_backward = '<c-b>',
+                ['<C-n>'] = { 'show' },
+                ['<C-y>'] = { 'accept' },
+                ['<C-q>'] = { 'show_documentation', 'hide_documentation' },
+                ['<C-f>'] = { 'snippet_forward' },
+                ['<C-b>'] = { 'snippet_backward' },
             },
             trigger = {
                 completion = {
