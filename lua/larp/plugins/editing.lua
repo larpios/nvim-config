@@ -154,4 +154,22 @@ return {
             },
         },
     },
+
+    {
+        -- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
+        'chrisgrieser/nvim-spider',
+        event = 'BufRead',
+        config = function()
+            require('custom.nvim-spider')
+        end,
+    },
+    {
+        'willothy/flatten.nvim',
+        config = true,
+        -- or pass configuration with
+        -- opts = {  }
+        -- Ensure that it runs first to minimize delay when opening file from terminal
+        lazy = false,
+        priority = 1001,
+    },
 }

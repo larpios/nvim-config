@@ -22,7 +22,7 @@ dap.adapters.gdb = {
 }
 dap.adapters.lldb = {
     type = 'executable',
-    command = 'lldb-vscode-14',
+    command = 'lldb-dap',
     name = 'lldb',
 }
 dap.configurations.cpp = {

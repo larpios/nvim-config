@@ -111,11 +111,25 @@ lsp_zero.extend_lspconfig({
     capabilities = cap,
 })
 
--- vim.g.rustaceanvim = {
---     server = {
---         capabilities = lsp_zero.get_capabilities(),
---     },
--- }
+vim.g.rustaceanvim = {
+    server = {
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
+        default_settings = {
+            ['rust-analyzer'] = {
+                cmd = { '~/.cargo/bin/rust-analyzer' },
+                cargo = {
+                    allFeatures = true,
+                },
+                diagnostics = {
+                    enable = true,
+                    experimental = {
+                        enable = true,
+                    },
+                },
+            },
+        },
+    },
+}
 
 require('mason').setup({
     ui = {
@@ -148,6 +162,6 @@ require('mason-lspconfig').setup({
                 end,
             })
         end,
-        -- rust_analyzer = lsp_zero.noop,
+        rust_analyzer = lsp_zero.noop,
     },
 })

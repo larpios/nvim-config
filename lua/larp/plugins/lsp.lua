@@ -32,7 +32,6 @@ return {
 
     {
         'mrcjkb/rustaceanvim',
-        enabled = false,
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
         config = function()
@@ -96,6 +95,7 @@ return {
         config = true,
     },
     {
+        -- Better folding
         'kevinhwang91/nvim-ufo',
         dependencies = { 'kevinhwang91/promise-async' },
         init = function()
@@ -154,127 +154,8 @@ return {
         -- build = 'cargo build --release',
         -- On musl libc based systems you need to add this flag
         -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
-
-        opts = {
-
-            -- "default" keymap
-            --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-            --   ['<C-e>'] = { 'hide' },
-            --   ['<C-y>'] = { 'select_and_accept' },
-            --
-            --   ['<C-p>'] = { 'select_prev', 'fallback' },
-            --   ['<C-n>'] = { 'select_next', 'fallback' },
-            --
-            --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-            --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-            --
-            --   ['<Tab>'] = { 'snippet_forward', 'fallback' },
-            --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-            --
-            -- "super-tab" keymap
-            --   you may want to set `trigger.completion.show_in_snippet = false` when using "super-tab"
-            --   or use `window.autocomplete.selection = "manual" | "auto_insert"`
-            --
-            --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-            --   ['<C-e>'] = { 'hide' },
-            --
-            --   ['<Tab>'] = {
-            --     function(cmp)
-            --       if cmp.is_in_snippet() then return cmp.accept()
-            --       else return cmp.select_and_accept() end
-            --     end,
-            --     'snippet_forward',
-            --     'fallback'
-            --   },
-            --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-            --
-            --   ['<Up>'] = { 'select_prev', 'fallback' },
-            --   ['<Down>'] = { 'select_next', 'fallback' },
-            --   ['<C-p>'] = { 'select_prev', 'fallback' },
-            --   ['<C-n>'] = { 'select_next', 'fallback' },
-            --
-            --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-            --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-            --
-            -- available commands:
-            --   show, hide, accept, select_and_accept, select_prev, select_next, show_documentation, hide_documentation,
-            --   scroll_documentation_up, scroll_documentation_down, snippet_forward, snippet_backward, fallback
-            keymap = {
-                ['<C-n>'] = { 'show' },
-                ['<C-y>'] = { 'accept' },
-                ['<C-q>'] = { 'show_documentation', 'hide_documentation' },
-                ['<C-f>'] = { 'snippet_forward' },
-                ['<C-b>'] = { 'snippet_backward' },
-            },
-            trigger = {
-                completion = {
-                    show_in_snippet = true,
-                },
-                signature_help = {
-                    enabled = true,
-                },
-            },
-            highlight = {
-                ns = vim.api.nvim_create_namespace('blink_cmp'),
-                -- sets the fallback highlight groups to nvim-cmp's highlight groups
-                -- useful for when your theme doesn't support blink.cmp
-                -- will be removed in a future release, assuming themes add support
-                use_nvim_cmp_as_default = true,
-            },
-            sources = {
-                completions = { 'lsp', 'path', 'snippets', 'buffer' },
-                providers = {
-                    lsp = { 'blink.cmp.sources.lsp', name = 'LSP' },
-                    path = { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
-                    snippets = {
-                        'blink.cmp.sources.snippets',
-                        name = 'Snippets',
-                        score_offset = -3,
-                        opts = {
-                            friendly_snippets = true,
-                            search_paths = {
-                                vim.fn.stdpath('config') .. '/snippets',
-                            },
-                        },
-                    },
-                    buffer = { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' } },
-                    -- { 'neorg' },
-                },
-            },
-            windows = {
-
-                autocomplete = {
-                    border = 'rounded',
-                    ---@param ctx blink.cmp.CompletionRenderContext
-                    draw = function(ctx)
-                        return {
-                            ' ',
-                            { ctx.kind_icon, ctx.icon_gap, hl_group = 'BlinkCmpKind' .. ctx.kind },
-
-                            ' ',
-                            { ctx.label, ctx.kind == 'Snippet' and '~' or nil, fill = true, hl_group = 'BlinkCmpItem' },
-                            ' ',
-                            { '[' .. ctx.item.source_name .. ']', hl_group = 'BlinkCmpSource' },
-                        }
-                    end,
-                },
-                documentation = {
-                    min_width = 30,
-                    max_width = 80,
-                    max_height = 40,
-                    border = 'rounded',
-                    auto_show = true,
-                },
-            },
-            -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'normal',
-
-            -- experimental auto-brackets support
-            -- accept = { auto_brackets = { enabled = true } }
-
-            -- experimental signature help support
-            -- trigger = { signature_help = { enabled = true } }
-        },
+        config = function()
+            require('custom.blink')
+        end,
     },
 }
