@@ -87,115 +87,11 @@ return {
             { '<leader>nw', desc = 'Open Neorg Workspace' },
         },
         config = function()
-            local my_workspaces = {
-                default = '~/notes/norgs',
-                personal = '~/notes/norgs/personal',
-                work = '~/notes/norgs/work',
-            }
-            require('neorg').setup({
-                -- Tell Neorg what modules to load
-                load = {
-                    ['core.defaults'] = {}, -- Load all the default modules
-                    ['core.dirman'] = {
-                        config = {
-                            workspaces = my_workspaces,
-                            index = 'index.norg',
-                        },
-                    },
-                    ['core.concealer'] = {},
-                    ['core.completion'] = {
-                        config = {
-                            name = '[Neorg]',
-                            engine = 'nvim-cmp',
-                        },
-                    }, -- Load all the default modules
-                    ['core.integrations.nvim-cmp'] = {},
-                    ['core.integrations.treesitter'] = {},
-                    ['core.integrations.telescope'] = {
-                        config = {
-                            insert_file_link = {
-                                show_title_preview = true,
-                            },
-                        },
-                    },
-                    ['core.presenter'] = {
-                        config = {
-                            zen_mode = 'zen-mode',
-                        },
-                    },
-                    ['core.export'] = {
-                        config = {
-                            path = '~/norgs/exports',
-                            export_dir = '<export-dir>/<language>-export',
-                        },
-                    },
-                    ['core.export.markdown'] = {},
-                    ['core.fs'] = {},
-                    ['core.neorgcmd'] = {},
-                    ['core.ui'] = {},
-                    ['core.neorgcmd.commands.return'] = {},
-                    ['core.tempus'] = {},
-                    ['core.syntax'] = {},
-                    ['core.ui.calendar'] = {},
-                    ['core.summary'] = {
-                        config = {
-                            strategy = 'default',
-                        },
-                    },
-                    ['core.highlights'] = {},
-                    ['core.clipboard'] = {},
-                    ['core.queries.native'] = {},
-                    ['core.todo-introspector'] = {},
-                    ['core.storage'] = {
-                        config = {
-                            vim.fn.stdpath('data') .. '/neorg.mpack',
-                        },
-                    },
-                    ['core.text-objects'] = {},
-                },
-            })
-            larp.fn.map('n', '<leader>no', '<cmd>Neorg<CR>', { noremap = true, silent = true })
-            larp.fn.map('n', '<leader>nw', function()
-                vim.ui.select(vim.tbl_keys(my_workspaces), { prompt = 'Workspace: ' }, function(input)
-                    vim.cmd('Neorg workspace ' .. input)
-                end)
-            end, { noremap = true, silent = true })
-
-            larp.fn.map('n', '<leader>nfh', '<Plug>(neorg.telescope.search_headings)', { desc = 'Find Norg Headings' })
-            larp.fn.map('n', '<leader>nff', '<Plug>(neorg.telescope.find_norg_files)', { desc = 'Find Norg Files' })
-            larp.fn.map('n', '<leader>nfb', '<Plug>(neorg.telescope.backlinks.file_backlinks)', { desc = 'Find Backlinks' })
-            larp.fn.map('n', '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', { desc = 'Find Header Backlinks' })
-            larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_file_link)', { desc = 'Insert File Link' })
-            larp.fn.map('n', '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', { desc = 'Insert Link' })
-            larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>', { noremap = true, silent = true })
-            larp.fn.map(
-                { 'i', 'x', 'n' },
-                '<C-Space>',
-                '<Plug>(neorg.itero.next-iteration)',
-                { desc = 'Continue Current Object', noremap = true, silent = true }
-            )
-
-            vim.api.nvim_create_autocmd('Filetype', {
-                pattern = 'norg',
-                callback = function()
-                    vim.o.conceallevel = 3
-                    larp.fn.map('n', '<up>', '<Plug>(neorg.text-objects.item-up)', { desc = 'Move item up' })
-                    larp.fn.map('n', '<down>', '<Plug>(neorg.text-objects.item-down)', { desc = 'Move item down' })
-                    larp.fn.map({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
-                    larp.fn.map({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
-                    larp.fn.map({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>')
-                    larp.fn.map({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
-                    larp.fn.map({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
-                    larp.fn.map('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
-                end,
-            })
+            require('custom.neorg')
         end,
     },
     {
         'epwalsh/obsidian.nvim',
-        enabled = false,
         priority = 1000,
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
@@ -204,64 +100,8 @@ return {
             'ibhagwan/fzf-lua',
             'nvim-treesitter/nvim-treesitter',
         },
-        opts = {
-            workspaces = {
-                {
-                    name = 'default',
-                    path = '~/github/obsidian-vault',
-                },
-            },
-            templates = {
-                folder = 'Templates',
-            },
-            daily_notes = {
-                folder = 'journal',
-            },
-            completion = {
-                nvim_cmp = true,
-                min_char = 2,
-            },
-        },
-        config = function(_, opts)
-            local obsidian = require('obsidian')
-            obsidian.setup(opts)
-            require('nvim-treesitter.configs').setup({
-                ensure_installed = { 'markdown', 'markdown_inline' },
-                highlight = {
-                    enable = true,
-                },
-            })
-
-            local vault_path = '~/obsidian-vault'
-
-            local workspaces = {
-                {
-                    name = 'personal',
-                    path = vault_path .. '/personal',
-                },
-                {
-                    name = 'work',
-                    path = vault_path .. '/work',
-                },
-            }
-
-            larp.fn.map('n', '<leader>Ow', function()
-                vim.ui.select(larp.fn.tbl_get_by_key(workspaces, 'name'), {
-                    prompt = 'Choose your obsidian vault',
-                }, function(_, idx)
-                    vim.cmd('edit ' .. workspaces[idx]['path'])
-                end)
-            end, { desc = 'Open Obisdian Workspace' })
-
-            larp.fn.map('n', '<leader>Of', '<cmd>ObsidianSearch<cr>', { desc = 'Search Obsidian Vault' })
-
-            vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-                desc = 'Enter Obsidian Vault',
-                pattern = '' .. vault_path .. '.*',
-                callback = function()
-                    vim.o.conceallevel = 2
-                end,
-            })
+        config = function()
+            require('custom.obsidian')
         end,
     },
     {
@@ -283,6 +123,7 @@ return {
     },
     {
         'danymat/neogen',
+        enabled = false,
         config = function()
             require('neogen').setup({ snippet_engine = 'luasnip' })
             local opts = { noremap = true, silent = true }
@@ -293,6 +134,7 @@ return {
     },
     {
         'kristijanhusak/vim-dadbod-ui',
+        enabled = false,
         dependencies = {
             { 'tpope/vim-dadbod', lazy = true },
             { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
@@ -310,6 +152,7 @@ return {
     },
     {
         'codethread/qmk.nvim',
+        enabled = false,
         ft = { 'keymap' },
         keys = {
             { '<leader>qf', '<cmd>QMKFormat<cr>', desc = 'Format QMK' },
@@ -354,87 +197,41 @@ return {
         end,
     },
     {
+        'dhruvasagar/vim-table-mode',
+    },
+    {
         'nvim-orgmode/orgmode',
+        enabled = false,
+        dependencies = {
+            {
+                'chipsenkbeil/org-roam.nvim',
+                -- It prevents me from using the neorg keymaps.
+                -- Re-enable it when you feel like
+                -- remapping the keymaps
+                tag = '0.1.0',
+            },
+            {
+                'akinsho/org-bullets.nvim',
+                opts = {},
+            },
+        },
         event = 'VeryLazy',
         ft = { 'org' },
         config = function()
-            -- Setup orgmode
-            local org_path = '~/notes/orgs'
-            require('orgmode').setup({
-                org_agenda_files = org_path .. '/**/*',
-                org_default_notes_file = org_path .. 'refile.org',
-                org_fold_enable = false,
-                org_startup_folded = 'showeverything',
-            })
-            larp.fn.map('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
-            larp.fn.map('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })
-            larp.fn.map('n', '<leader>oj', function()
-                local today = os.date('*t')
-                local journal = org_path .. '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
-                if vim.fn.filereadable(vim.fn.expand(journal)) == 0 then
-                    vim.cmd('silent !mkdir -p ' .. org_path .. '/journal/' .. today.year .. '/' .. today.month)
-                    vim.cmd('silent !touch ' .. journal)
-                end
-                vim.cmd('e ' .. journal)
-            end, { desc = 'Open Org Journal' })
-            -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
-            -- add ~org~ to ignore_install
-            -- require('nvim-treesitter.configs').setup({
-            --   ensure_installed = 'all',
-            --   ignore_install = { 'org' },
-            -- })
+            require('custom.orgmode')
         end,
-    },
-    {
-        'chipsenkbeil/org-roam.nvim',
-        -- It prevents me from using the neorg keymaps.
-        -- Re-enable it when you feel like
-        -- remapping the keymaps
-        enabled = false,
-        tag = '0.1.0',
-        dependencies = { 'nvim-orgmode/orgmode' },
-        config = function()
-            require('org-roam').setup({
-                directory = '~/org_roam_files',
-                -- optional
-                org_files = {
-                    '~/notes/orgs',
-                },
-            })
-        end,
-    },
-    {
-        'akinsho/org-bullets.nvim',
-        dependencies = { 'nvim-orgmode/orgmode' },
-        opts = {},
-    },
-    {
-        'dhruvasagar/vim-table-mode',
     },
     {
         'mrjones2014/smart-splits.nvim',
         dependencies = { 'kwkarlwang/bufresize.nvim' },
         lazy = false,
         config = function()
-            require('smart-splits').setup({
-                resize_mode = {
-                    hooks = {
-                        on_enter = function()
-                            vim.notify('Entering resize mode')
-                        end,
-                        on_leave = function()
-                            vim.notify('Exiting resize mode')
-                        end,
-                    },
-                },
-            })
+            require('custom.smart-splits')
         end,
     },
     {
         'kwkarlwang/bufresize.nvim',
-        config = function()
-            require('bufresize').setup()
-        end,
+        opts = {},
     },
     {
         'renerocksai/telekasten.nvim',

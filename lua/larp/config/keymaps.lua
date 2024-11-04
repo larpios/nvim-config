@@ -8,8 +8,8 @@ larp.fn.map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
 -- Navigate Windows
 larp.fn.map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window' })
 larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window' })
-larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window' })
+larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 
 -- Split Windows
 larp.fn.map('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left' })
@@ -17,6 +17,7 @@ larp.fn.map('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bott
 larp.fn.map('', '<leader>sk', '<C-w>s', { desc = 'Split Window to the Top' })
 larp.fn.map('', '<leader>sl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right' })
 larp.fn.map('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next' })
+
 -- Resize Windows
 larp.fn.map('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height' })
 larp.fn.map('', '<leader>w-', '<C-w>-', { desc = 'Decrease Window Height' })
@@ -58,15 +59,25 @@ larp.fn.map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 larp.fn.map({ 'i', 'x' }, 'zx', '<Esc>')
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
-larp.fn.map('', '<leader>p', '"_xP', { desc = 'Paste (Without Cutting)' })
+larp.fn.map('', '<leader><leader>p', '"+p', { desc = 'Paste from Clipboard' })
+larp.fn.map('', '<leader>p', function()
+    -- Get current cursor position: {row, col} (col is 0-based)
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local current_col = cursor[2] + 1 -- Convert to 1-based index
+
+    -- Get the current line
+    local line = vim.api.nvim_get_current_line()
+    local last_col = #line -- Lua's # operator gives the string length
+
+    if current_col == last_col then
+        -- Cursor is on the last column; perform a normal paste
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('P', true, false, true), 'n', true)
+    else
+        -- Cursor is not on the last column; replace character under cursor without affecting registers
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('"_xP', true, false, true), 'n', true)
+    end
+end, { desc = 'Paste (Without Cutting)' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
-
--- -- Move Lines
--- larp.fn.map('v', 'J', function()
---     return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .. '<CR>gv=gv'
--- end, { expr = true, desc = 'Move Selected Line Down' })
--- larp.fn.map('v', 'K', function()
---     return ":m '<" .. (vim.v.count > 1 and -vim.v.count - 1 or -2) .. '<CR>gv=gv'
--- end, { expr = true, desc = 'Move Selected Line Up' })
+-- larp.fn.map('n', '<Tab>', 'za', { desc = 'Toggle Fold' })

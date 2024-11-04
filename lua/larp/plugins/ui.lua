@@ -1,5 +1,16 @@
 return {
     {
+        'nvim-lualine/lualine.nvim',
+        event = 'BufWinEnter',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'stevearc/overseer.nvim',
+        },
+        config = function()
+            require('custom.lualine')
+        end,
+    },
+    {
         'folke/noice.nvim',
         event = 'VeryLazy',
         opts = {
@@ -15,50 +26,7 @@ return {
             'nvim-treesitter/nvim-treesitter',
         },
         config = function()
-            require('noice').setup({
-                lsp = {
-                    signature = { enabled = false },
-                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-                    override = {
-                        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-                        ['vim.lsp.util.stylize_markdown'] = true,
-                        ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
-                    },
-                },
-                -- you can enable a preset for easier configuration
-                presets = {
-                    bottom_search = false, -- use a classic bottom cmdline for search
-                    command_palette = true, -- position the cmdline and popupmenu together
-                    long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = true, -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = true, -- add a border to hover docs and signature help
-                },
-            })
-            vim.api.nvim_create_autocmd('RecordingEnter', {
-                callback = function()
-                    local msg = string.format('Register:  %s', vim.fn.reg_recording())
-                    _MACRO_RECORDING_STATUS = true
-                    vim.notify(msg, vim.log.levels.INFO, {
-                        title = 'Macro Recording',
-                        keep = function()
-                            return _MACRO_RECORDING_STATUS
-                        end,
-                    })
-                end,
-                group = vim.api.nvim_create_augroup('NoiceMacroNotfication', { clear = true }),
-            })
-
-            vim.api.nvim_create_autocmd('RecordingLeave', {
-                callback = function()
-                    _MACRO_RECORDING_STATUS = false
-                    vim.notify('Success!', vim.log.levels.INFO, {
-                        title = 'Macro Recording End',
-                        timeout = 2000,
-                    })
-                end,
-                group = vim.api.nvim_create_augroup('NoiceMacroNotficationDismiss', { clear = true }),
-            })
-            larp.fn.map('n', '<leader>nd', '<cmd>NoiceDismiss<cr>', { desc = 'Dismiss Notification' })
+            require('custom.noice')
         end,
     },
     {
@@ -81,52 +49,10 @@ return {
             'nvim-lua/plenary.nvim',
             'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
             'MunifTanjim/nui.nvim',
-            '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
     {
-        '3rd/image.nvim',
-        enabled = false,
-        dependencies = {
-            'luarocks.nvim',
-        },
-        opts = {
-            backend = 'kitty',
-            integrations = {
-                markdown = {
-                    enabled = true,
-                    clear_in_insert_mode = false,
-                    download_remote_images = true,
-                    only_render_image_at_cursor = false,
-                    filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
-                },
-                neorg = {
-                    enabled = true,
-                    clear_in_insert_mode = false,
-                    download_remote_images = true,
-                    only_render_image_at_cursor = false,
-                    filetypes = { 'norg' },
-                },
-                html = {
-                    enabled = false,
-                },
-                css = {
-                    enabled = false,
-                },
-            },
-            max_width = nil,
-            max_height = nil,
-            max_width_window_percentage = nil,
-            max_height_window_percentage = 50,
-            window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
-            window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
-            editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-            tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-            hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.avif' }, -- render image files as images when opened
-        },
-    },
-
-    {
+        -- Peek buffer while typing :<linenumber>
         'nacro90/numb.nvim',
         config = true,
     },
@@ -139,20 +65,7 @@ return {
             'nvim-telescope/telescope.nvim',
         },
         config = function()
-            require('notify').setup({
-                render = 'compact',
-                stages = 'slide',
-                timeout = 5000,
-                background_colour = '#000000',
-                icons = {
-                    ERROR = '',
-                    WARN = '',
-                    INFO = '',
-                    DEBUG = '',
-                    TRACE = '✎',
-                },
-            })
-            larp.fn.map('n', '<leader>fn', '<cmd>Telescope notify<cr>', { desc = 'Find Notify History' })
+            require('custom.nvim-notify')
         end,
     },
     { 'petertriho/nvim-scrollbar' },
@@ -161,82 +74,9 @@ return {
         dependencies = {
             'nvim-tree/nvim-web-devicons',
         },
-        opts = {
-            delete_to_trash = true,
-            use_default_keymaps = false,
-            keymaps = {
-                ['g?'] = 'actions.show_help',
-                ['<CR>'] = 'actions.select',
-                ['-'] = 'actions.parent',
-                -- If you want to automatically change the directory when selecting a file
-                -- ['<CR>'] = function()
-                --     require('oil').select(nil, function(err)
-                --         if not err then
-                --             local curdir = require('oil').get_current_dir()
-                --             if curdir then
-                --                 vim.cmd.lcd(curdir)
-                --             end
-                --         end
-                --     end)
-                -- end,
-                -- ['-'] = function()
-                --     require('oil.actions').parent.callback()
-                --     vim.cmd.lcd(require('oil').get_current_dir())
-                -- end,
-                ['<C-5>'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
-                ["<C-'>"] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
-                ['<C-t>'] = { 'actions.select', opts = { tab = true }, desc = 'Open the entry in new tab' },
-                ['<C-p>'] = 'actions.preview',
-                ['<C-c>'] = 'actions.close',
-                ['<F5>'] = 'actions.refresh',
-                ['_'] = 'actions.open_cwd',
-                ['`'] = 'actions.cd',
-                ['~'] = { 'actions.cd', opts = { scope = 'tab' }, desc = ':tcd to the current oil directory' },
-                ['gs'] = 'actions.change_sort',
-                ['gx'] = 'actions.open_external',
-                ['g.'] = 'actions.toggle_hidden',
-                ['g\\'] = 'actions.toggle_trash',
-            },
-            watch_for_changes = true,
-            view_options = {
-                show_hidden = true,
-                sort = {
-                    { 'type', 'desc' },
-                    { 'name', 'asc' },
-                },
-            },
-            sort_by = function(a, b)
-                if a.type == 'directory' and b.type ~= 'directory' then
-                    return true
-                elseif a.type ~= 'directory' and b.type == 'directory' then
-                    return false
-                else
-                    local function get_extension(file)
-                        return file.name:match('^.+(%..+)$') or ''
-                    end
-
-                    local ext_a = get_extension(a.name):lower()
-                    local ext_b = get_extension(b.name):lower()
-
-                    if ext_a == ext_b then
-                        return a.name:lower() < b.name:lower()
-                    else
-                        return ext_a < ext_b
-                    end
-                end
-            end,
-
-            columns = {
-                'icon',
-                'mtime',
-                'size',
-                'permissions',
-            },
-            win_options = {
-                wrap = true,
-                winbar = "%{v:lua.require('oil').get_current_dir()}",
-            },
-        },
+        config = function()
+            require('custom.oil')
+        end,
     },
     {
         'folke/trouble.nvim',
@@ -320,10 +160,10 @@ return {
             'nvim-lua/plenary.nvim', -- required
             'nvim-tree/nvim-web-devicons', -- optional
         },
-        config = function()
-            require('triptych').setup()
-            larp.fn.map('n', '<leader><leader>t', ':Triptych<CR>', { silent = true })
-        end,
+        keys = {
+            { '<leader><leader>t', '<cmd>Triptych<cr>', mode = 'n', desc = 'Toggle Triptych' },
+        },
+        opts = {},
     },
     {
         'nvim-zh/colorful-winsep.nvim',
@@ -339,13 +179,7 @@ return {
             vim.o.number = true
             vim.o.termguicolors = true
         end,
-        opts = {
-            -- Warn if any required option above is missing. May emit false positives
-            -- if some other plugin modifies them, which in that case you can just
-            -- ignore. Feel free to remove this line after you've gotten Modicator to
-            -- work properly.
-            -- show_warnings = true,
-        },
+        opts = {},
     },
     {
         -- Adds nice icons and bars to the signcolumn
@@ -360,5 +194,13 @@ return {
                 -- tabline = true,
             })
         end,
+    },
+    {
+        'folke/twilight.nvim',
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
     },
 }

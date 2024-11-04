@@ -1,99 +1,48 @@
 return {
     {
         'numToStr/Comment.nvim',
-        opts = {
-            -- add any options here
-        },
+        opts = {},
         lazy = false,
-        config = function()
-            require('Comment').setup()
-        end,
     },
     {
         'folke/flash.nvim',
         event = 'VeryLazy',
-        opts = {},
         keys = {
             {
                 's',
                 mode = { 'n', 'x', 'o' },
-                function()
-                    require('flash').jump()
-                end,
-                desc = 'Flash',
             },
             {
-                '<leader>s',
+                'SS',
                 mode = { 'n', 'x', 'o' },
-                function()
-                    require('flash').treesitter()
-                end,
-                desc = 'Flash Treesitter',
+            },
+            {
+                'Sh',
+                mode = { 'n', 'x', 'o' },
             },
             {
                 'r',
                 mode = 'o',
-                function()
-                    require('flash').remote()
-                end,
-                desc = 'Remote Flash',
             },
             {
                 'R',
                 mode = { 'o', 'x' },
-                function()
-                    require('flash').treesitter_search()
-                end,
-                desc = 'Treesitter Search',
             },
             {
                 '<c-s>',
                 mode = { 'c' },
-                function()
-                    require('flash').toggle()
-                end,
-                desc = 'Toggle Flash Search',
             },
         },
+        config = function()
+            require('custom.flash')
+        end,
     },
     {
         'lukas-reineke/indent-blankline.nvim',
         main = 'ibl',
         opts = {},
         config = function()
-            local highlight = {
-                'RainbowRed',
-                'RainbowYellow',
-                'RainbowBlue',
-                'RainbowOrange',
-                'RainbowGreen',
-                'RainbowViolet',
-                'RainbowCyan',
-            }
-            local hooks = require('ibl.hooks')
-            -- create the highlight groups in the highlight setup hook, so they are reset
-            -- every time the colorscheme changes
-            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#E06C75' })
-                vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#E5C07B' })
-                vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#61AFEF' })
-                vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#D19A66' })
-                vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#98C379' })
-                vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#C678DD' })
-                vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
-            end)
-
-            vim.g.rainbow_delimiters = { highlight = highlight }
-            require('ibl').setup({
-                scope = { highlight = highlight },
-                exclude = {
-                    filetypes = {
-                        'dashboard', -- Exclude dashboard buffer by dashboard.nvim
-                    },
-                },
-            })
-
-            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+            require('custom.indent-blankline')
         end,
     },
     {
@@ -139,24 +88,7 @@ return {
         -- Calling setup is optional.
 
         config = function()
-            require('ssr').setup({
-                border = 'rounded',
-                min_width = 50,
-                min_height = 5,
-                max_width = 120,
-                max_height = 25,
-                adjust_window = true,
-                keymaps = {
-                    close = 'q',
-                    next_match = 'n',
-                    prev_match = 'N',
-                    replace_confirm = '<cr>',
-                    replace_all = '<leader><cr>',
-                },
-            })
-            larp.fn.map({ 'n', 'x' }, '<leader><leader>rr', function()
-                require('ssr').open()
-            end, { desc = 'Replace (SSR)' })
+            require('custom.ssr')
         end,
     },
     {
@@ -190,84 +122,7 @@ return {
         'jake-stewart/multicursor.nvim',
         branch = '1.0',
         config = function()
-            local mc = require('multicursor-nvim')
-
-            mc.setup()
-
-            -- Add cursors above/below the main cursor.
-            vim.keymap.set({ 'n', 'v' }, '<up>', function()
-                mc.addCursor('k')
-            end)
-            vim.keymap.set({ 'n', 'v' }, '<down>', function()
-                mc.addCursor('j')
-            end)
-
-            -- Add a cursor and jump to the next word under cursor.
-            vim.keymap.set({ 'n', 'v' }, '<c-n>', function()
-                mc.addCursor('*')
-            end)
-
-            -- Jump to the next word under cursor but do not add a cursor.
-            vim.keymap.set({ 'n', 'v' }, '<c-s>', function()
-                mc.skipCursor('*')
-            end)
-
-            -- Rotate the main cursor.
-            vim.keymap.set({ 'n', 'v' }, '<left>', mc.nextCursor)
-            vim.keymap.set({ 'n', 'v' }, '<right>', mc.prevCursor)
-
-            -- Delete the main cursor.
-            vim.keymap.set({ 'n', 'v' }, '<leader>x', mc.deleteCursor)
-
-            -- Add and remove cursors with control + left click.
-            vim.keymap.set('n', '<c-leftmouse>', mc.handleMouse)
-
-            -- vim.keymap.set({ 'n', 'v' }, '<c-q>', function()
-            --     if mc.cursorsEnabled() then
-            --         -- Stop other cursors from moving.
-            --         -- This allows you to reposition the main cursor.
-            --         mc.disableCursors()
-            --     else
-            --         mc.addCursor()
-            --     end
-            -- end)
-
-            vim.keymap.set('n', '<esc>', function()
-                if not mc.cursorsEnabled() then
-                    mc.enableCursors()
-                elseif mc.hasCursors() then
-                    mc.clearCursors()
-                else
-                    -- Default <esc> handler.
-                end
-            end)
-
-            -- Align cursor columns.
-            vim.keymap.set('n', '<leader>a', mc.alignCursors)
-
-            -- Split visual selections by regex.
-            vim.keymap.set('v', 'S', mc.splitCursors)
-
-            -- Append/insert for each line of visual selections.
-            vim.keymap.set('v', 'I', mc.insertVisual)
-            vim.keymap.set('v', 'A', mc.appendVisual)
-
-            -- match new cursors within visual selections by regex.
-            vim.keymap.set('v', 'M', mc.matchCursors)
-
-            -- Rotate visual selection contents.
-            vim.keymap.set('v', '<leader>t', function()
-                mc.transposeCursors(1)
-            end)
-            vim.keymap.set('v', '<leader>T', function()
-                mc.transposeCursors(-1)
-            end)
-
-            -- Customize how cursors look.
-            vim.api.nvim_set_hl(0, 'MultiCursorCursor', { link = 'Cursor' })
-            vim.api.nvim_set_hl(0, 'MultiCursorVisual', { link = 'Visual' })
-            vim.api.nvim_set_hl(0, 'MultiCursorDisabledCursor', { link = 'Visual' })
-            vim.api.nvim_set_hl(0, 'MultiCursorDisabledVisual', { link = 'Visual' })
+            require('custom.multicursor')
         end,
     },
     {
@@ -280,15 +135,41 @@ return {
         opts = {
             snippetDir = vim.fn.stdpath('config') .. '/snippets',
         },
-        config = function()
-            vim.keymap.set('n', '<leader>se', function()
-                require('scissors').editSnippet()
-            end)
+        keys = {
+            {
+                '<leader>se',
+                function()
+                    require('scissors').editSnippet()
+                end,
+                mode = { 'n' },
+                desc = ' edit snippet',
+            },
+            {
+                '<leader>sa',
+                function()
+                    require('scissors').addNewSnippet()
+                end,
+                mode = { 'n', 'x' },
+                desc = ' add new snippet',
+            },
+        },
+    },
 
-            -- when used in visual mode, prefills the selection as snippet body
-            vim.keymap.set({ 'n', 'x' }, '<leader>sa', function()
-                require('scissors').addNewSnippet()
-            end)
+    {
+        -- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
+        'chrisgrieser/nvim-spider',
+        event = 'BufRead',
+        config = function()
+            require('custom.nvim-spider')
         end,
+    },
+    {
+        'willothy/flatten.nvim',
+        config = true,
+        -- or pass configuration with
+        -- opts = {  }
+        -- Ensure that it runs first to minimize delay when opening file from terminal
+        lazy = false,
+        priority = 1001,
     },
 }

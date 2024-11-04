@@ -42,20 +42,16 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup('keymap_read', {}),
-    desc = 'Recognize *.keymap files as C files',
-    pattern = { '*.markdown', '*.md', '*.norg' },
+    group = vim.api.nvim_create_augroup('MarkdownRead', {}),
+    desc = 'Add useful keymaps for markdown files',
+    pattern = { '*.markdown', '*.md' },
     callback = function()
         local marks = {
-            { symbol = '*', key = 'b', name = 'Bold' },
-            { symbol = '/', key = 'i', name = 'Italics' },
-            { symbol = '_', key = 't', name = 'Strikethrough' },
+            { symbol = '**', key = 'b', name = 'Bold' },
+            { symbol = '_', key = 'i', name = 'Italics' },
+            { symbol = '~~', key = 't', name = 'Strikethrough' },
             { symbol = '`', key = 'c', name = 'Inline Code' },
-            { symbol = '^', key = '6', name = 'Superscript' },
-            { symbol = ',', key = ',', name = 'Subscript' },
             { symbol = '$', key = 'm', name = 'Math' },
-            { symbol = '&', key = 'v', name = 'Variable' },
-            { symbol = '%', key = '3', name = 'Inline Comment' },
         }
 
         for _, m in ipairs(marks) do
