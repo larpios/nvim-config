@@ -1,11 +1,14 @@
 local obsidian = require('obsidian')
-local opts = {
-    workspaces = {
-        {
-            name = 'default',
-            path = '~/notes/obsidian/obsidian-vault',
-        },
+
+local workspace_candidates = {
+    {
+        name = 'default',
+        path = '~/obsidian-vault',
     },
+}
+
+local opts = {
+    workspaces = {},
     templates = {
         folder = 'Templates',
     },
@@ -19,7 +22,58 @@ local opts = {
     follow_url_func = function(url)
         vim.fn.jobstart('xdg-open ' .. url)
     end,
+
+    mappings = {
+        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+        ['gf'] = {
+            action = function()
+                return require('obsidian').util.gf_passthrough()
+            end,
+            opts = { noremap = false, expr = true, buffer = true },
+        },
+        -- Toggle check-boxes.
+        ['<leader>ch'] = {
+            action = function()
+                return require('obsidian').util.toggle_checkbox()
+            end,
+            opts = { buffer = true },
+        },
+        -- Smart action depending on context, either follow link or toggle checkbox.
+        ['<cr>'] = {
+            action = function()
+                return require('obsidian').util.smart_action()
+            end,
+            opts = { buffer = true, expr = true },
+        },
+    },
+    picker = {
+        name = 'fzf-lua',
+        mappings = {
+            new = '<C-x>',
+            insert_link = '<C-l>',
+        },
+    },
+
+    ui = {
+        enable = true,
+        update_debounce = 200, -- update delay after a text change (in milliseconds)
+        max_file_length = 5000, -- disable UI features for files with more than this many lines
+        checkboxes = {
+            [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
+            ['x'] = { char = '', hl_group = 'ObsidianDone' },
+            ['>'] = { char = '', hl_group = 'ObsidianRightArrow' },
+            ['~'] = { char = '󰰱', hl_group = 'ObsidianTilde' },
+            ['!'] = { char = '', hl_group = 'ObsidianImportant' },
+        },
+    },
 }
+
+for _, candidate in ipairs(workspace_candidates) do
+    if vim.fn.isdirectory(vim.fn.expand(candidate.path)) == 1 then
+        opts.workspaces[#opts.workspaces + 1] = candidate
+    end
+end
+
 obsidian.setup(opts)
 
 vim.o.conceallevel = 2
