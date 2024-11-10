@@ -193,6 +193,12 @@ return {
     {
         'meznaric/key-analyzer.nvim',
         opts = {},
+        'chomosuke/term-edit.nvim',
+        event = 'TermOpen',
+        version = '1.*',
+        opts = {
+            prompt_end = '%$ ',
+        },
     },
 }
 

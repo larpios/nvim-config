@@ -97,6 +97,7 @@ larp.fn.map('n', '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', { desc = 'Search
 larp.fn.map('n', '<leader>Ogg', '<cmd>ObsidianSearch<cr>', { desc = 'Grep Obsidian Vault' })
 larp.fn.map('n', '<leader>Ot', '<cmd>ObsidianTOC<cr>', { desc = 'Search Obsidian TOC' })
 larp.fn.map('n', '<leader>Oft', '<cmd>ObsidianTags<cr>', { desc = 'Find Obsidian Tags' })
+larp.fn.map('n', '<leader>Oj', '<cmd>ObsidianDailies<cr>', { desc = 'Obsidian Journal' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
