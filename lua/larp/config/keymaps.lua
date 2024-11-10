@@ -44,7 +44,7 @@ larp.fn.map('', '<leader>wq', ':wq<CR>', { desc = 'Write and Quit' })
 larp.fn.map('', '<leader>so', ':so<CR>', { desc = 'Source Current Buffer' })
 larp.fn.map('n', '<C-p>', ':bp<CR>', { desc = 'Navigate to Previous Buffer' })
 larp.fn.map('n', '<C-n>', ':bn<CR>', { desc = 'Navigate to Next Buffer' })
-larp.fn.map('', '<leader>bo', ':cd ' .. vim.fn.expand('%:p:h') .. '<CR>', { desc = 'Change Directory to Current Buffer' })
+larp.fn.map('', '<leader>bo', ':!cd ' .. vim.fn.expand('%:p:h') .. '<CR>', { desc = 'Change Directory to Current Buffer', silent = true })
 larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
 larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
