@@ -190,6 +190,10 @@ return {
             { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
         },
     },
+    {
+        'meznaric/key-analyzer.nvim',
+        opts = {},
+    },
 }
 
 -- optional, highly recommended
