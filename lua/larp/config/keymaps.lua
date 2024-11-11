@@ -81,7 +81,9 @@ larp.fn.map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Exit Terminal Mode' })
 
 -- # Edit
 larp.fn.map({ 'i', 'x' }, 'zx', '<Esc>')
-larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
+larp.fn.map('i', '<C-C>', function()
+    vim.cmd('stopinsert')
+end) -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 larp.fn.map('', '<leader><leader>p', '"+p', { desc = 'Paste from Clipboard' })
 larp.fn.map('', '<leader>p', function()
