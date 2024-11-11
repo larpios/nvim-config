@@ -172,4 +172,8 @@ return {
         lazy = false,
         priority = 1001,
     },
+    {
+
+        'HiPhish/rainbow-delimiters.nvim',
+    },
 }
