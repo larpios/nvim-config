@@ -253,6 +253,12 @@ return {
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim', -- optional for vim.ui.select
         },
-        config = true,
+    },
+    {
+        'jubnzv/mdeval.nvim',
+        ft = { 'markdown' },
+        config = function()
+            require('custom.mdeval')
+        end,
     },
 }
