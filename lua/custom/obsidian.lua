@@ -5,6 +5,10 @@ local workspace_candidates = {
         name = 'default',
         path = '~/obsidian-vault',
     },
+    {
+        name = 'fallback',
+        path = '~/.dotfiles/obsidian-vault',
+    },
 }
 
 local opts = {
