@@ -5,6 +5,10 @@ local workspace_candidates = {
         name = 'default',
         path = '~/obsidian-vault',
     },
+    {
+        name = 'fallback',
+        path = '~/.dotfiles/obsidian-vault',
+    },
 }
 
 local opts = {
@@ -103,7 +107,7 @@ larp.fn.map('n', '<leader>Os', function()
     local now = os.date('%Y-%m-%d %H:%M:%S')
 
     -- commit and push to git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. ' && git add . && git commit -m "Update ' .. now .. '" && git push')
+    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull && git add . && git commit -m "Update ' .. now .. '" && git push')
     vim.print(output)
 end, { desc = 'Commit and Push Obsidian Vault' })
 
