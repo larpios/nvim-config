@@ -50,13 +50,13 @@ local opts = {
             opts = { buffer = true, expr = true },
         },
     },
-    picker = {
-        name = 'fzf-lua',
-        mappings = {
-            new = '<C-x>',
-            insert_link = '<C-l>',
-        },
-    },
+    -- picker = {
+    --     name = 'fzf-lua',
+    --     mappings = {
+    --         new = '<C-x>',
+    --         insert_link = '<C-l>',
+    --     },
+    -- },
 
     ui = {
         enable = true,
