@@ -59,8 +59,16 @@ larp.fn.map('n', '<C-n>', function()
     vim.cmd('bnext')
 end, { desc = 'Navigate to Next Buffer' })
 larp.fn.map('', '<leader>bo', function()
-    vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
-end, { desc = 'Change Directory to Current Buffer' })
+    local current_buffer = vim.fn.bufnr('%')
+    local path = vim.fn.expand('%:p:h')
+    -- if the buffer name starts with oil://
+    if vim.fn.bufname(current_buffer):match('^oil://') then
+        -- remove the oil:// prefix
+        path = path:sub(7)
+    end
+    vim.cmd('cd ' .. path)
+    vim.print('Changed directory to ' .. path)
+end, { desc = 'Change Directory to Current Buffer', silent = true })
 larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
 larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
 
