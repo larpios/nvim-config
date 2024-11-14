@@ -203,4 +203,11 @@ return {
             -- refer to the configuration section below
         },
     },
+    {
+        'nvzone/showkeys',
+        -- cmd = 'ShowkeysToggle',
+        config = function()
+            require('custom.showkeys')
+        end,
+    },
 }
