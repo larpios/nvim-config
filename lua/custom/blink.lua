@@ -6,8 +6,8 @@ local opts = {
         ['<C-e>'] = { 'hide' },
         ['<C-y>'] = { 'accept' },
         ['<C-Space>'] = { 'show_documentation', 'hide_documentation' },
-        ['<C-f>'] = { 'snippet_forward', 'scroll_documentation_down' },
-        ['<C-b>'] = { 'snippet_backward', 'scroll_documentation_up' },
+        ['<C-f>'] = { 'snippet_forward', 'scroll_documentation_down', 'fallback' },
+        ['<C-b>'] = { 'snippet_backward', 'scroll_documentation_up', 'fallback' },
         ['<C-p>'] = { 'select_prev', 'fallback' },
         ['<C-n>'] = { 'show', 'select_next', 'fallback' },
     },
@@ -29,7 +29,7 @@ local opts = {
     sources = {
         completions = { 'lsp', 'path', 'snippets', 'buffer' },
         providers = {
-            lsp = { 'blink.cmp.sources.lsp', name = 'LSP' },
+            lsp = { 'blink.cmp.sources.lsp', name = 'LSP', score_offset = 100 },
             path = { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
             snippets = {
                 'blink.cmp.sources.snippets',
@@ -42,7 +42,7 @@ local opts = {
                     },
                 },
             },
-            buffer = { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' } },
+            buffer = { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' }, score_offset = -100 },
         },
     },
     windows = {
