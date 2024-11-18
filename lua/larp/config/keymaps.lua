@@ -115,3 +115,13 @@ larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'R
 larp.fn.map('v', '<', '<gv')
 larp.fn.map('v', '>', '>gv')
 -- larp.fn.map('n', '<Tab>', 'za', { desc = 'Toggle Fold' })
+
+-- # Misc.
+
+larp.fn.map('n', '<leader>Co', function()
+    local xdg_config_home = os.getenv('XDG_CONFIG_HOME')
+    if xdg_config_home == nil then
+        xdg_config_home = vim.fn.expand('$HOME') .. '/.config'
+    end
+    vim.cmd('e ' .. xdg_config_home)
+end, { desc = 'Change Directory to XDG_CONFIG_HOME' })

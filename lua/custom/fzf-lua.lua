@@ -1,3 +1,22 @@
+local fzf = require('fzf-lua')
+-- calling `setup` is optional for customization
+fzf.setup({
+    'fzf-native',
+    hls = {
+        Rg = {
+            cmd = 'rg --vimgrep --no-heading --smart-case',
+            previewer = 'bat',
+        },
+    },
+    fzf_colors = true,
+})
+larp.fn.map({ 'i' }, '<C-x><C-f>', function()
+    fzf.complete_file({
+        cmd = 'rg --files',
+        winopts = { preview = { hidden = 'nohidden' } },
+    })
+end, { silent = true, desc = 'Fuzzy complete file' })
+
 local config_path = vim.fn.stdpath('config')
 
 local is_unix = false
@@ -16,6 +35,16 @@ end
 -- # Config
 larp.fn.map('', '<leader>hff', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
 larp.fn.map('', '<leader>hgg', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
+
+larp.fn.map('n', '<leader>Cff', function()
+    local xdg_config_home = os.getenv('XDG_CONFIG_HOME')
+    if xdg_config_home == nil then
+        xdg_config_home = vim.fn.expand('$HOME') .. '/.config'
+    end
+    fzf.files({
+        cwd = xdg_config_home,
+    })
+end, { desc = 'Search `XDG_CONFIG_HOME` for files' })
 
 -- # Basic
 larp.fn.map('', '<leader>ff', '<cmd>FzfLua files<cr>', { silent = true, desc = 'Find Files' })
