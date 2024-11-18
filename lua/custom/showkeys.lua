@@ -1,8 +1,9 @@
 local opts = {
-    maxkeys = 5,
+    maxkeys = 3,
     winopts = {
         focusable = true,
     },
+    -- show_count = true,
     position = 'top-right',
 }
 
