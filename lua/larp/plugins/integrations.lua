@@ -22,6 +22,9 @@ return {
         build = function()
             vim.fn['mkdp#util#install']()
         end,
+        config = function()
+            require('custom.markdown-preview')
+        end,
     },
     {
         'OXY2DEV/markview.nvim',
