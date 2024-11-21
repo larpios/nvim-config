@@ -102,6 +102,11 @@ larp.fn.map('n', '<leader>Ogg', '<cmd>ObsidianSearch<cr>', { desc = 'Grep Obsidi
 larp.fn.map('n', '<leader>Ot', '<cmd>ObsidianTOC<cr>', { desc = 'Search Obsidian TOC' })
 larp.fn.map('n', '<leader>Oft', '<cmd>ObsidianTags<cr>', { desc = 'Find Obsidian Tags' })
 larp.fn.map('n', '<leader>Oj', '<cmd>ObsidianDailies<cr>', { desc = 'Obsidian Journal' })
+larp.fn.map('n', '<leader>Op', function()
+    -- pull from git
+    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull')
+    vim.print(output)
+end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
