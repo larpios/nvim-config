@@ -1,3 +1,3 @@
 return {
-    -- require('larp.plugins.startscreen'),
+    require('larp.plugins.startscreen'),
 }

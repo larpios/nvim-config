@@ -8,7 +8,3 @@ local opts = {
 }
 
 require('showkeys').setup(opts)
-
-vim.cmd([[
-    ShowkeysToggle
-]])
