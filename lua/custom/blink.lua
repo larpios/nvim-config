@@ -49,18 +49,6 @@ local opts = {
 
         autocomplete = {
             border = 'rounded',
-            ---@param ctx blink.cmp.CompletionRenderContext
-            draw = function(ctx)
-                return {
-                    ' ',
-                    { ctx.kind_icon, ctx.icon_gap, hl_group = 'BlinkCmpKind' .. ctx.kind },
-
-                    ' ',
-                    { ctx.label, ctx.kind == 'Snippet' and '~' or nil, fill = true, hl_group = 'BlinkCmpItem' },
-                    ' ',
-                    { '[' .. ctx.item.source_name .. ']', hl_group = 'BlinkCmpSource' },
-                }
-            end,
         },
         documentation = {
             min_width = 30,
