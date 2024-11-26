@@ -17,10 +17,10 @@ require('conform').setup({
     default_format_opts = {
         lsp_format = 'fallback',
     },
-    format_after_save = {
-        lsp_format = 'fallback',
-        timeout_ms = 500,
-    },
+    -- format_after_save = {
+    --     lsp_format = 'fallback',
+    --     timeout_ms = 500,
+    -- },
     -- Conform will notify you when no formatters are available for the buffer
     notify_no_formatters = true,
 })
