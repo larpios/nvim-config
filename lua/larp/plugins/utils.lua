@@ -193,6 +193,8 @@ return {
     {
         'meznaric/key-analyzer.nvim',
         opts = {},
+    },
+    {
         'chomosuke/term-edit.nvim',
         event = 'TermOpen',
         version = '1.*',
@@ -206,6 +208,14 @@ return {
         lazy = false,
         config = function()
             require('custom.snacks')
+        end,
+    },
+    {
+        'atiladefreitas/dooing',
+        config = function()
+            require('dooing').setup({
+                -- your custom config here (optional)
+            })
         end,
     },
 }
