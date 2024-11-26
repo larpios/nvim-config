@@ -127,6 +127,8 @@ return {
     },
     {
         'stevearc/aerial.nvim',
+        -- just to test symbols.nvim
+        enabled = false,
         event = 'BufEnter',
         opts = {},
         -- Optional dependencies
@@ -137,6 +139,12 @@ return {
 
         config = function()
             require('custom.aerial')
+        end,
+    },
+    {
+        'oskarrrrrrr/symbols.nvim',
+        config = function()
+            require('custom.symbols')
         end,
     },
     {
