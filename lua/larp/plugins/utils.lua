@@ -195,14 +195,6 @@ return {
         opts = {},
     },
     {
-        'chomosuke/term-edit.nvim',
-        event = 'TermOpen',
-        version = '1.*',
-        opts = {
-            prompt_end = '%$ ',
-        },
-    },
-    {
         'folke/snacks.nvim',
         priority = 1000,
         lazy = false,
