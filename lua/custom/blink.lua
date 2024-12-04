@@ -1,71 +1,68 @@
 local opts = {
-    -- available commands:
-    --   show, hide, accept, select_and_accept, select_prev, select_next, show_documentation, hide_documentation,
-    --   scroll_documentation_up, scroll_documentation_down, snippet_forward, snippet_backward, fallback
-    keymap = {
-        ['<C-e>'] = { 'hide' },
-        ['<C-y>'] = { 'accept' },
-        ['<C-Space>'] = { 'show_documentation', 'hide_documentation' },
-        ['<C-f>'] = { 'snippet_forward', 'scroll_documentation_down', 'fallback' },
-        ['<C-b>'] = { 'snippet_backward', 'scroll_documentation_up', 'fallback' },
-        ['<C-p>'] = { 'select_prev', 'fallback' },
-        ['<C-n>'] = { 'show', 'select_next', 'fallback' },
-    },
-    trigger = {
-        completion = {
-            show_in_snippet = true,
-        },
-        -- signature_help = {
-        --     enabled = true,
-        -- },
-    },
-    highlight = {
-        ns = vim.api.nvim_create_namespace('blink_cmp'),
-        -- sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release, assuming themes add support
+    keymap = { preset = 'default' },
+
+    appearance = {
         use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono',
     },
+
     sources = {
-        completions = { 'lsp', 'path', 'snippets', 'buffer' },
+        completion = {
+            enabled_providers = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep' },
+        },
+
         providers = {
-            lsp = { 'blink.cmp.sources.lsp', name = 'LSP', score_offset = 100 },
-            path = { 'blink.cmp.sources.path', name = 'Path', score_offset = 3 },
-            snippets = {
-                'blink.cmp.sources.snippets',
-                name = 'Snippets',
-                score_offset = -3,
+            ripgrep = {
+                module = 'blink-ripgrep',
+                name = 'Ripgrep',
+                -- the options below are optional, some default values are shown
+                ---@module "blink-ripgrep"
+                ---@type blink-ripgrep.Options
                 opts = {
-                    friendly_snippets = true,
-                    search_paths = {
-                        vim.fn.stdpath('config') .. '/snippets',
+                    -- For many options, see `rg --help` for an exact description of
+                    -- the values that ripgrep expects.
+
+                    -- the minimum length of the current word to start searching
+                    -- (if the word is shorter than this, the search will not start)
+                    prefix_min_len = 3,
+
+                    -- The number of lines to show around each match in the preview window
+                    context_size = 5,
+
+                    -- The maximum file size that ripgrep should include in its search.
+                    -- Useful when your project contains large files that might cause
+                    -- performance issues.
+                    -- Examples: "1024" (bytes by default), "200K", "1M", "1G"
+                    max_filesize = '1M',
+                },
+            },
+        },
+    },
+    completion = {
+        menu = {
+            border = 'rounded',
+            winblend = 0,
+
+            draw = {
+                columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+                components = {
+                    item_idx = {
+                        text = function(ctx)
+                            return tostring(ctx.idx)
+                        end,
+                        highlight = 'BlinkCmpItemIdx', -- optional, only if you want to change its color
                     },
                 },
             },
-            buffer = { 'blink.cmp.sources.buffer', name = 'Buffer', fallback_for = { 'LSP' }, score_offset = -100 },
-        },
-    },
-    windows = {
-
-        autocomplete = {
-            border = 'rounded',
         },
         documentation = {
-            min_width = 30,
-            max_width = 80,
-            max_height = 40,
-            border = 'rounded',
             auto_show = true,
+            window = {
+                border = 'rounded',
+                winblend = 0,
+            },
         },
     },
-    -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-    -- adjusts spacing to ensure icons are aligned
-    nerd_font_variant = 'normal',
-
-    -- experimental auto-brackets support
-    accept = { auto_brackets = { enabled = true } },
-
-    -- experimental signature help support
 }
 
 require('blink.cmp').setup(opts)
