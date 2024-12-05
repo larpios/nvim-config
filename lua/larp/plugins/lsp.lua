@@ -169,4 +169,8 @@ return {
             require('custom.blink')
         end,
     },
+    {
+        'VidocqH/lsp-lens.nvim',
+        opts = {}
+    },
 }
