@@ -69,8 +69,20 @@ larp.fn.map('', '<leader>bo', function()
     vim.cmd('cd ' .. path)
     vim.print('Changed directory to ' .. path)
 end, { desc = 'Change Directory to Current Buffer', silent = true })
-larp.fn.map('n', 'j', vim.v.count > 1 and 'j' or 'gj', { desc = 'Navigate One Line Down' })
-larp.fn.map('n', 'k', vim.v.count > 1 and 'k' or 'gk', { desc = 'Navigate One Line Up' })
+larp.fn.map('n', 'j', function()
+    if vim.v.count > 1 then
+        vim.cmd('normal! ' .. vim.v.count .. 'j')
+    else
+        vim.cmd('normal! gj')
+    end
+end, { desc = 'Navigate One Line Down' })
+larp.fn.map('n', 'k', function ()
+    if vim.v.count > 1 then
+        vim.cmd('normal! ' .. vim.v.count .. 'k')
+    else
+        vim.cmd('normal! gk')
+    end
+end, { desc = 'Navigate One Line Up' })
 
 -- # Terminal
 larp.fn.map('n', '<leader>oth', function()
