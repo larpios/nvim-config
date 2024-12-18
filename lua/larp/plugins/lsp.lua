@@ -171,6 +171,16 @@ return {
     },
     {
         'VidocqH/lsp-lens.nvim',
-        opts = {}
+        opts = {},
     },
+    {
+        'mfussenegger/nvim-jdtls',
+    },
+    -- {
+    --     'nvim-java/nvim-java',
+    --     opts = {},
+    --     config = function()
+    --         require('lspconfig').jdtls.setup({})
+    --     end,
+    -- },
 }

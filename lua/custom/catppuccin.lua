@@ -1,5 +1,5 @@
 local opts = {
-    transparent_background = true,
+    -- transparent_background = true,
     styles = {
         sidebars = 'transparent',
         floats = 'transparent',

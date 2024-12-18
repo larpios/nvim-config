@@ -136,7 +136,6 @@ return {
             -- refer to the configuration section below
         },
     },
-    -- Lua
     {
         'folke/zen-mode.nvim',
         opts = {

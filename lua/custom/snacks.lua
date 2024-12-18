@@ -7,6 +7,7 @@ local opts = {
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
+    toggle = {},
 }
 
 local snacks = require('snacks')
