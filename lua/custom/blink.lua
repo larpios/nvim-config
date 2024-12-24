@@ -37,7 +37,7 @@ local opts = {
         },
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot', 'lazydev' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -68,6 +68,12 @@ local opts = {
                 module = 'blink-cmp-copilot',
                 score_offset = 100,
                 async = true,
+            },
+            lazydev = {
+                name = 'LazyDev',
+                module = 'lazydev.integrations.blink',
+                -- make lazydev completions top priority (see `:h blink.cmp`)
+                score_offset = 100,
             },
         },
     },
