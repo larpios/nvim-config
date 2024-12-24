@@ -10,10 +10,17 @@ return {
         },
         config = true,
     },
+    -- {
+    --     'github/copilot.vim',
+    --     event = 'BufRead',
+    --     run = 'make',
+    -- },
     {
-        'github/copilot.vim',
+        "zbirenbaum/copilot.lua",
         event = 'BufRead',
-        run = 'make',
+        config = function()
+            require('custom.copilot-lua')
+        end,
     },
     {
         'iamcco/markdown-preview.nvim',

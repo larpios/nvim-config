@@ -157,6 +157,7 @@ return {
         dependencies = {
             'rafamadriz/friendly-snippets',
             'mikavilpas/blink-ripgrep.nvim',
+            'giuxtaposition/blink-cmp-copilot',
         },
 
         -- use a release tag to download pre-built binaries

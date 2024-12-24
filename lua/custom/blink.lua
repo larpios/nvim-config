@@ -37,7 +37,7 @@ local opts = {
         },
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -62,6 +62,12 @@ local opts = {
                     -- Examples: "1024" (bytes by default), "200K", "1M", "1G"
                     max_filesize = '1M',
                 },
+            },
+            copilot = {
+                name = 'copilot',
+                module = 'blink-cmp-copilot',
+                score_offset = 100,
+                async = true,
             },
         },
     },
