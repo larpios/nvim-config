@@ -1,16 +1,43 @@
 local opts = {
-    keymap = { preset = 'default' },
+    keymap = {
+        preset = 'default',
 
-    appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono',
+        ['<C-q>'] = { 'show_documentation' },
     },
-
-    sources = {
-        completion = {
-            enabled_providers = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep' },
+    completion = {
+        menu = {
+            border = 'single',
+            draw = {
+                columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+                components = {
+                    kind_icon = {
+                        ellipsis = false,
+                        text = function(ctx)
+                            local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                            return kind_icon
+                        end,
+                        -- Optionally, you may also use the highlights from mini.icons
+                        highlight = function(ctx)
+                            local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                            return hl
+                        end,
+                    },
+                    item_idx = {
+                        text = function(ctx)
+                            return tostring(ctx.idx)
+                        end,
+                        highlight = 'BlinkCmpItemIdx', -- optional, only if you want to change its color
+                    },
+                },
+            },
         },
-
+        documentation = {
+            auto_show = true,
+            window = { border = 'rounded' },
+        },
+    },
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -38,30 +65,8 @@ local opts = {
             },
         },
     },
-    completion = {
-        menu = {
-            border = 'rounded',
-            winblend = 0,
-
-            draw = {
-                columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
-                components = {
-                    item_idx = {
-                        text = function(ctx)
-                            return tostring(ctx.idx)
-                        end,
-                        highlight = 'BlinkCmpItemIdx', -- optional, only if you want to change its color
-                    },
-                },
-            },
-        },
-        documentation = {
-            auto_show = true,
-            window = {
-                border = 'rounded',
-                winblend = 0,
-            },
-        },
+    signature = {
+        window = { border = 'rounded' },
     },
 }
 
