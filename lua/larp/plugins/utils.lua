@@ -210,6 +210,10 @@ return {
             })
         end,
     },
+    {
+        'RaafatTurki/hex.nvim',
+        opts = {},
+    },
 }
 
 -- optional, highly recommended
