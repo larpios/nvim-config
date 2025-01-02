@@ -6,7 +6,7 @@ local opts = {
     },
     completion = {
         menu = {
-            border = 'single',
+            border = 'rounded',
             draw = {
                 columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
                 components = {
