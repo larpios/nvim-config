@@ -214,6 +214,10 @@ return {
         'RaafatTurki/hex.nvim',
         opts = {},
     },
+    {
+        'ZWindL/orphans.nvim',
+        opts = {},
+    },
 }
 
 -- optional, highly recommended
