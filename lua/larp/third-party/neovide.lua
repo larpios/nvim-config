@@ -1,8 +1,8 @@
 vim.o.guifont = 'CaskaydiaCove Nerd Font:h16'
 -- vim.o.guifont = 'CaskaydiaCove Nerd Font,JetBrainsMono Nerd Font,Courier New,Aerial:h17'
 vim.g.neovide_background_color = '#1e1e2e' -- Replace with your chosen flavor's color
-vim.g.neovide_transparency = 0.8
-vim.g.neovide_window_blurred = true
+-- vim.g.neovide_transparency = 0.8
+-- vim.g.neovide_window_blurred = true
 
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
