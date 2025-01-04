@@ -71,8 +71,9 @@ return {
     { 'petertriho/nvim-scrollbar' },
     {
         'stevearc/oil.nvim',
+        tag = 'stable',
         dependencies = {
-            'nvim-tree/nvim-web-devicons',
+            'echasnovski/mini.icons',
         },
         config = function()
             require('custom.oil')
