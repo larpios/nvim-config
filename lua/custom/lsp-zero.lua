@@ -51,26 +51,6 @@ lsp_zero.extend_lspconfig({
     capabilities = cap,
 })
 
-vim.g.rustaceanvim = {
-    server = {
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
-        default_settings = {
-            ['rust-analyzer'] = {
-                cmd = { '~/.cargo/bin/rust-analyzer' },
-                cargo = {
-                    allFeatures = true,
-                },
-                diagnostics = {
-                    enable = true,
-                    experimental = {
-                        enable = true,
-                    },
-                },
-            },
-        },
-    },
-}
-
 require('mason').setup({
     ui = {
         icons = {
@@ -80,6 +60,7 @@ require('mason').setup({
         },
     },
 })
+
 larp.fn.map('n', '<leader>mm', ':Mason<CR>', { noremap = true, silent = true, desc = 'Mason' })
 require('mason-lspconfig').setup({
     ensure_installed = {
@@ -114,3 +95,34 @@ require('mason-lspconfig').setup({
         rust_analyzer = lsp_zero.noop,
     },
 })
+
+
+local mason_registry = require('mason-registry')
+local codelldb = mason_registry.get_package('codelldb')
+local extension_path = codelldb:get_install_path() .. '/extension/'
+local codelldb_path = extension_path .. 'adapter/codelldb'
+local liblldb_path = extension_path .. 'lldb/lib/liblldb.' .. (vim.fn.has('win32') == 1 and 'dll' or vim.fn.has('mac') == 1 and 'dylib' or 'so')
+local cfg = require('rustaceanvim.config')
+vim.g.rustaceanvim = {
+    server = {
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
+        default_settings = {
+            ['rust-analyzer'] = {
+                cmd = { '~/.cargo/bin/rust-analyzer' },
+                cargo = {
+                    allFeatures = true,
+                },
+                diagnostics = {
+                    enable = true,
+                    experimental = {
+                        enable = true,
+                    },
+                },
+            },
+        },
+    },
+    dap = {
+        adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+    },
+}
+
