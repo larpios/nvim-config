@@ -1,5 +1,4 @@
 return {
-
     {
         'folke/lazydev.nvim',
         ft = 'lua', -- only load on lua files
@@ -47,15 +46,5 @@ return {
         config = function()
             require('custom.todo-comments')
         end,
-    },
-    {
-        'luckasRanarison/nvim-devdocs',
-        enabled = false,
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-            'nvim-treesitter/nvim-treesitter',
-        },
-        opts = {},
     },
 }

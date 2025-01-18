@@ -117,14 +117,6 @@ return {
         opts = {}, -- for default options, refer to the configuration section for custom setup.
     },
     {
-        'folke/twilight.nvim',
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
-    },
-    {
         'RRethy/vim-illuminate',
         event = 'BufRead',
     },
@@ -148,11 +140,11 @@ return {
             { '<leader>tz', '<cmd>ZenMode<cr>', desc = 'Toggle Zen Mode' },
         },
     },
-    {
-        -- Scrollbar
-        'lewis6991/satellite.nvim',
-        event = 'BufRead',
-    },
+    -- {
+    --     -- Scrollbar
+    --     'lewis6991/satellite.nvim',
+    --     event = 'BufRead',
+    -- },
     {
         'simonmclean/triptych.nvim',
         event = 'VeryLazy',
@@ -166,11 +158,13 @@ return {
         opts = {},
     },
     {
+        -- Colorful window separator
         'nvim-zh/colorful-winsep.nvim',
         config = true,
         event = { 'WinLeave' },
     },
     {
+        -- Changes the color of the line number depending on the current mode.
         'mawkler/modicator.nvim',
         event = 'VeryLazy',
         init = function()
@@ -180,28 +174,6 @@ return {
             vim.o.termguicolors = true
         end,
         opts = {},
-    },
-    {
-        -- Adds nice icons and bars to the signcolumn
-        'OXY2DEV/bars-N-lines.nvim',
-        -- No point in lazy loading this
-        lazy = false,
-        enabled = false,
-        config = function()
-            require('bars').setup({
-                statuscolumn = false,
-                -- statusline = true,
-                -- tabline = true,
-            })
-        end,
-    },
-    {
-        'folke/twilight.nvim',
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
     },
     {
         'nvzone/showkeys',

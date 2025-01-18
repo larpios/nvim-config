@@ -45,31 +45,31 @@ return {
             require('custom.indent-blankline')
         end,
     },
-    {
-        'kylechui/nvim-surround',
-        -- To give mini.surround a try.
-        enabled = false,
-        version = '*', -- Use for stability; omit to use `main` branch for the latest features
-        event = 'VeryLazy',
-        config = function()
-            require('nvim-surround').setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end,
-    },
-    {
-        'mbbill/undotree',
-        keys = {
-            {
-                '<leader>tu',
-                function()
-                    vim.cmd.UndotreeToggle()
-                end,
-                mode = { 'n' },
-                desc = 'Toggle UndoTree',
-            },
-        },
-    },
+    -- {
+    --     'kylechui/nvim-surround',
+    --     -- To give mini.surround a try.
+    --     enabled = false,
+    --     version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    --     event = 'VeryLazy',
+    --     config = function()
+    --         require('nvim-surround').setup({
+    --             -- Configuration here, or leave empty to use defaults
+    --         })
+    --     end,
+    -- },
+    -- {
+    --     'mbbill/undotree',
+    --     keys = {
+    --         {
+    --             '<leader>tu',
+    --             function()
+    --                 vim.cmd.UndotreeToggle()
+    --             end,
+    --             mode = { 'n' },
+    --             desc = 'Toggle UndoTree',
+    --         },
+    --     },
+    -- },
     {
         'chrisgrieser/nvim-rip-substitute',
         cmd = 'RipSubstitute',
@@ -118,13 +118,13 @@ return {
             },
         },
     },
-    {
-        'jake-stewart/multicursor.nvim',
-        branch = '1.0',
-        config = function()
-            require('custom.multicursor')
-        end,
-    },
+    -- {
+    --     'jake-stewart/multicursor.nvim',
+    --     branch = '1.0',
+    --     config = function()
+    --         require('custom.multicursor')
+    --     end,
+    -- },
     {
         'gennaro-tedesco/nvim-peekup',
     },
@@ -163,17 +163,16 @@ return {
             require('custom.nvim-spider')
         end,
     },
+    -- {
+    --     'willothy/flatten.nvim',
+    --     config = true,
+    --     -- or pass configuration with
+    --     -- opts = {  }
+    --     -- Ensure that it runs first to minimize delay when opening file from terminal
+    --     lazy = false,
+    --     priority = 1001,
+    -- },
     {
-        'willothy/flatten.nvim',
-        config = true,
-        -- or pass configuration with
-        -- opts = {  }
-        -- Ensure that it runs first to minimize delay when opening file from terminal
-        lazy = false,
-        priority = 1001,
-    },
-    {
-
         'HiPhish/rainbow-delimiters.nvim',
     },
     {
@@ -188,12 +187,12 @@ return {
         },
         -- See Commands section for default commands if you want to lazy load on them
     },
-    {
-        'olimorris/codecompanion.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-treesitter/nvim-treesitter',
-        },
-        config = true,
-    },
+    -- {
+    --     'olimorris/codecompanion.nvim',
+    --     dependencies = {
+    --         'nvim-lua/plenary.nvim',
+    --         'nvim-treesitter/nvim-treesitter',
+    --     },
+    --     config = true,
+    -- },
 }

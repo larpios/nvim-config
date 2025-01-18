@@ -29,20 +29,19 @@ return {
             require('custom.conform')
         end,
     },
-
     {
         'mrcjkb/rustaceanvim',
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
         config = function() end,
     },
-    {
-        'rust-lang/rust.vim',
-        ft = 'rust',
-        init = function()
-            vim.g.rustfmt_autosave = 1
-        end,
-    },
+    -- {
+    --     'rust-lang/rust.vim',
+    --     ft = 'rust',
+    --     init = function()
+    --         vim.g.rustfmt_autosave = 1
+    --     end,
+    -- },
     {
         'saecki/crates.nvim',
         ft = 'toml',
@@ -121,14 +120,13 @@ return {
             require('custom.nvim-ufo')
         end,
     },
-    {
-        -- Stops inactive LSP servers to free RAM
-        'zeioth/garbage-day.nvim',
-        dependencies = 'neovim/nvim-lspconfig',
-        event = 'VeryLazy',
-        opts = {},
-    },
-
+    -- {
+    --     -- Stops inactive LSP servers to free RAM
+    --     'zeioth/garbage-day.nvim',
+    --     dependencies = 'neovim/nvim-lspconfig',
+    --     event = 'VeryLazy',
+    --     opts = {},
+    -- },
     {
         -- IDE-like breadcrumb navigation
         'Bekaboo/dropbar.nvim',
@@ -154,6 +152,7 @@ return {
         end,
     },
     {
+        -- Overview panel, something like aerial
         'oskarrrrrrr/symbols.nvim',
         config = function()
             require('custom.symbols')
@@ -183,6 +182,7 @@ return {
         end,
     },
     {
+        -- Shows refernce and definition info above functions
         'VidocqH/lsp-lens.nvim',
         opts = {},
     },
