@@ -28,7 +28,7 @@ local opts = {
         ['<F5>'] = 'actions.refresh',
         ['_'] = 'actions.open_cwd',
         ['`'] = 'actions.cd',
-        ['~'] = { 'actions.cd', opts = { scope = 'tab' }, desc = ':tcd to the current oil directory' },
+        -- ['~'] = { 'actions.cd', opts = { scope = 'tab' }, desc = ':tcd to the current oil directory' },
         ['gs'] = 'actions.change_sort',
         ['gx'] = 'actions.open_external',
         ['g.'] = 'actions.toggle_hidden',
