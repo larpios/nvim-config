@@ -4,9 +4,7 @@ require('smart-splits').setup({
             on_enter = function()
                 vim.notify('Entering resize mode')
             end,
-            on_leave = function()
-                vim.notify('Exiting resize mode')
-            end,
+            on_leave = require('bufresize').register,
         },
     },
 })
