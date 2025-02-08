@@ -10,8 +10,8 @@ vim.o.scrolloff = 100
 vim.o.smarttab = true
 vim.o.smartindent = true
 
-vim.o.timeout = false
-vim.o.ttimeout = false
+
+vim.o.ttimeoutlen = 50
 
 vim.o.hlsearch = false
 vim.o.incsearch = true
