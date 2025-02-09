@@ -176,7 +176,6 @@ return {
             'rafamadriz/friendly-snippets',
             'mikavilpas/blink-ripgrep.nvim',
             'giuxtaposition/blink-cmp-copilot',
-            'Kaiser-Yang/blink-cmp-dictionary',
             'moyiz/blink-emoji.nvim',
         },
 

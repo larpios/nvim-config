@@ -36,7 +36,7 @@ local opts = {
         },
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot', 'lazydev', 'dictionary', 'emoji' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot', 'lazydev', 'emoji' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -73,16 +73,6 @@ local opts = {
                 module = 'lazydev.integrations.blink',
                 -- make lazydev completions top priority (see `:h blink.cmp`)
                 score_offset = 100,
-            },
-            dictionary = {
-                module = 'blink-cmp-dictionary',
-                name = 'Dict',
-                -- Make sure this is at least 2.
-                -- 3 is recommended
-                min_keyword_length = 3,
-                opts = {
-                    -- options for blink-cmp-dictionary
-                },
             },
             emoji = {
                 module = 'blink-emoji',
