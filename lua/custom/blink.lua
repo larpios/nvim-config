@@ -1,8 +1,7 @@
 local opts = {
     keymap = {
         preset = 'default',
-
-        ['<C-q>'] = { 'show_documentation' },
+        ['<C-q>'] = { 'show_documentation', 'hide_documentation' },
     },
     completion = {
         menu = {
@@ -37,7 +36,7 @@ local opts = {
         },
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot', 'lazydev', 'dictionary', 'emoji' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -75,9 +74,29 @@ local opts = {
                 -- make lazydev completions top priority (see `:h blink.cmp`)
                 score_offset = 100,
             },
+            dictionary = {
+                module = 'blink-cmp-dictionary',
+                name = 'Dict',
+                -- Make sure this is at least 2.
+                -- 3 is recommended
+                min_keyword_length = 3,
+                opts = {
+                    -- options for blink-cmp-dictionary
+                },
+            },
+            emoji = {
+                module = 'blink-emoji',
+                name = 'Emoji',
+                score_offset = 15, -- Tune by preference
+                opts = { insert = true }, -- Insert emoji (default) or complete its name
+            },
         },
     },
+    -- snippets = {
+    --     preset = 'luasnip',
+    -- },
     signature = {
+        enabled = true,
         window = { border = 'rounded' },
     },
 }

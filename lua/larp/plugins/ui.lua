@@ -125,7 +125,7 @@ return {
         event = 'VeryLazy',
         config = function()
             require('custom.which-key')
-        end
+        end,
     },
     {
         'folke/zen-mode.nvim',
@@ -178,6 +178,14 @@ return {
         -- cmd = 'ShowkeysToggle',
         config = function()
             require('custom.showkeys')
+        end,
+    },
+    {
+        -- Neovide-like cursor
+        'sphamba/smear-cursor.nvim',
+        event = 'BufWinEnter',
+        config = function()
+            require('custom.smear-cursor')
         end,
     },
 }

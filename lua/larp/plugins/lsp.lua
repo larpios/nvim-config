@@ -133,7 +133,14 @@ return {
         -- optional, but required for fuzzy finder support
         dependencies = {
             'nvim-telescope/telescope-fzf-native.nvim',
+            build = make,
         },
+        config = function()
+            local dropbar_api = require('dropbar.api')
+            vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+            vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+            vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+        end,
     },
     {
         'stevearc/aerial.nvim',
@@ -169,10 +176,12 @@ return {
             'rafamadriz/friendly-snippets',
             'mikavilpas/blink-ripgrep.nvim',
             'giuxtaposition/blink-cmp-copilot',
+            'Kaiser-Yang/blink-cmp-dictionary',
+            'moyiz/blink-emoji.nvim',
         },
 
         -- use a release tag to download pre-built binaries
-        version = 'v0.10.*',
+        version = 'v0.11.*',
         -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
         -- build = 'cargo build --release',
         -- On musl libc based systems you need to add this flag

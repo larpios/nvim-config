@@ -16,7 +16,7 @@ return {
     --     run = 'make',
     -- },
     {
-        "zbirenbaum/copilot.lua",
+        'zbirenbaum/copilot.lua',
         event = 'BufRead',
         config = function()
             require('custom.copilot-lua')
@@ -33,55 +33,24 @@ return {
             require('custom.markdown-preview')
         end,
     },
-    -- {
-    --     'OXY2DEV/markview.nvim',
-    --     -- Doesn't feel complete yet, until then, I'll use render-markdown
-    --     enabled = false,
-    --     lazy = false, -- Recommended
-    --     -- ft = "markdown" -- If you decide to lazy-load anyway
-    --
-    --     dependencies = {
-    --         'nvim-treesitter/nvim-treesitter',
-    --         'nvim-tree/nvim-web-devicons',
-    --     },
-    --     config = function()
-    --         local presets = require('markview.presets')
-    --         require('markview').setup({
-    --             hybrid_modes = { 'n' },
-    --             checkboxes = presets.checkboxes.nerd,
-    --             headings = presets.headings.slanted,
-    --             -- horizontal_rules = presets.horizontal_rules.double,
-    --             injections = {
-    --                 languages = {
-    --                     markdown = {
-    --                         --- This disables other
-    --                         --- injected queries!
-    --                         overwrite = true,
-    --                         query = [[
-    --                 (section
-    --                     (atx_headng) @injections.mkv.fold
-    --                     (#set! @fold))
-    --             ]],
-    --                     },
-    --                 },
-    --             },
-    --         })
-    --
-    --         vim.api.nvim_create_autocmd('FileType', {
-    --             pattern = 'markdown',
-    --             callback = function()
-    --                 vim.cmd('Markview attach')
-    --             end,
-    --         })
-    --     end,
-    -- },
     {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {},
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        -- live-preview markdown
+        'OXY2DEV/markview.nvim',
+        lazy = false,
+        version = 'v25.*',
+        config = function()
+            require('custom.markview')
+        end,
     },
+    -- {
+    --     -- live-preview markdown
+    --     'MeanderingProgrammer/render-markdown.nvim',
+    --     opts = {},
+    --     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    --     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    --     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    -- },
+    --
     -- {
     --     'nvim-neorg/neorg',
     --     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default

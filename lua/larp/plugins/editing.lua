@@ -125,9 +125,9 @@ return {
     --         require('custom.multicursor')
     --     end,
     -- },
-    {
-        'gennaro-tedesco/nvim-peekup',
-    },
+    -- {
+    --     'gennaro-tedesco/nvim-peekup',
+    -- },
     -- lazy.nvim
     {
         'chrisgrieser/nvim-scissors',
@@ -176,16 +176,14 @@ return {
         'HiPhish/rainbow-delimiters.nvim',
     },
     {
-        'CopilotC-Nvim/CopilotChat.nvim',
+        'AckslD/nvim-neoclip.lua',
         dependencies = {
-            { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
-            { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
+            -- {'nvim-telescope/telescope.nvim'},
+            {'ibhagwan/fzf-lua'},
         },
-        build = 'make tiktoken', -- Only on MacOS or Linux
-        opts = {
-            -- See Configuration section for options
-        },
-        -- See Commands section for default commands if you want to lazy load on them
+        config = function()
+            require('custom.nvim-neoclip')
+        end,
     },
     -- {
     --     'olimorris/codecompanion.nvim',
