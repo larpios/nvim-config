@@ -56,18 +56,18 @@ return {
         'nacro90/numb.nvim',
         config = true,
     },
-    {
-        'rcarriga/nvim-notify',
-        lazy = true,
-        event = 'VeryLazy',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-        },
-        config = function()
-            require('custom.nvim-notify')
-        end,
-    },
+    -- {
+    --     'rcarriga/nvim-notify',
+    --     lazy = true,
+    --     event = 'VeryLazy',
+    --     dependencies = {
+    --         'nvim-lua/plenary.nvim',
+    --         'nvim-telescope/telescope.nvim',
+    --     },
+    --     config = function()
+    --         require('custom.nvim-notify')
+    --     end,
+    -- },
     { 'petertriho/nvim-scrollbar' },
     {
         'stevearc/oil.nvim',
