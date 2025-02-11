@@ -7,12 +7,12 @@ return {
             require('custom.catppuccin')
         end,
     },
-    -- {
-    --     'folke/tokyonight.nvim',
-    --     lazy = false,
-    --     priority = 1000,
-    --     opts = {},
-    -- },
+    {
+        'folke/tokyonight.nvim',
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    },
     --
     -- {
     --     'mawkler/onedark.nvim',
