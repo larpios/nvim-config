@@ -61,8 +61,19 @@ return {
 
     {
         'ggandor/leap.nvim',
+        dependencies = {
+            'ggandor/flit.nvim',
+            'tpope/vim-repeat',
+        },
         config = function()
             require('custom.leap')
+        end,
+    },
+    {
+
+        'ggandor/flit.nvim',
+        config = function()
+            require('custom.flit')
         end,
     },
 }
