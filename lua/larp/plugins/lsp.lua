@@ -197,6 +197,10 @@ return {
     {
         'mfussenegger/nvim-jdtls',
     },
+    {
+        'p00f/clangd_extensions.nvim',
+        opts = {},
+    },
     -- {
     --     'nvim-java/nvim-java',
     --     opts = {},

@@ -179,18 +179,14 @@ return {
         'AckslD/nvim-neoclip.lua',
         dependencies = {
             -- {'nvim-telescope/telescope.nvim'},
-            {'ibhagwan/fzf-lua'},
+            { 'ibhagwan/fzf-lua' },
         },
         config = function()
             require('custom.nvim-neoclip')
         end,
     },
-    -- {
-    --     'olimorris/codecompanion.nvim',
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim',
-    --         'nvim-treesitter/nvim-treesitter',
-    --     },
-    --     config = true,
-    -- },
+    {
+        'LintaoAmons/scratch.nvim',
+        event = 'VeryLazy',
+    },
 }
