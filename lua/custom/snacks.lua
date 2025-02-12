@@ -193,7 +193,7 @@ larp.fn.map('n', '<leader>bd', function()
     snacks.bufdelete.other()
 end, { desc = 'Notification Dismiss' })
 
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd('UIEnter', {
     callback = function()
         snacks.dashboard.open()
     end,
