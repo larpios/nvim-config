@@ -115,6 +115,10 @@ larp.fn.map('n', '<leader>gg', function()
     picker.pick('grep')
 end, { desc = 'Grep' })
 
+larp.fn.map('n', '<leader>gw', function()
+    picker.grep_word()
+end, { desc = 'Grep Word' })
+
 larp.fn.map('n', '<leader>gc', function()
     picker.grep({ cwd = vim.fn.stdpath('config') })
 end, { desc = 'Grep Config' })
@@ -180,15 +184,11 @@ larp.fn.map('n', '<leader>nh', function()
     notifier.show_history()
 end, { desc = 'Notification History' })
 
-
 larp.fn.map('n', '<leader>nd', function()
     notifier.hide()
 end, { desc = 'Notification Dismiss' })
-
 
 -- Bufdelete
 larp.fn.map('n', '<leader>bd', function()
     snacks.bufdelete.other()
 end, { desc = 'Notification Dismiss' })
-
-
