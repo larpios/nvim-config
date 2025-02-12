@@ -52,10 +52,17 @@ return {
         dependencies = {
             -- { 'nvim-tree/nvim-web-devicons' },
             -- or if using `mini.icons`
-            { "echasnovski/mini.icons" },
+            { 'echasnovski/mini.icons' },
         },
         config = function()
             require('custom.arrow')
+        end,
+    },
+
+    {
+        'ggandor/leap.nvim',
+        config = function()
+            require('custom.leap')
         end,
     },
 }

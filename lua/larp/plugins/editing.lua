@@ -4,39 +4,39 @@ return {
         opts = {},
         lazy = false,
     },
-    {
-        'folke/flash.nvim',
-        event = 'VeryLazy',
-        keys = {
-            {
-                's',
-                mode = { 'n', 'x', 'o' },
-            },
-            {
-                'SS',
-                mode = { 'n', 'x', 'o' },
-            },
-            {
-                'Sh',
-                mode = { 'n', 'x', 'o' },
-            },
-            {
-                'r',
-                mode = 'o',
-            },
-            {
-                'R',
-                mode = { 'o', 'x' },
-            },
-            {
-                '<c-s>',
-                mode = { 'c' },
-            },
-        },
-        config = function()
-            require('custom.flash')
-        end,
-    },
+    -- {
+    --     'folke/flash.nvim',
+    --     event = 'VeryLazy',
+    --     keys = {
+    --         {
+    --             's',
+    --             mode = { 'n', 'x', 'o' },
+    --         },
+    --         {
+    --             'SS',
+    --             mode = { 'n', 'x', 'o' },
+    --         },
+    --         {
+    --             'Sh',
+    --             mode = { 'n', 'x', 'o' },
+    --         },
+    --         {
+    --             'r',
+    --             mode = 'o',
+    --         },
+    --         {
+    --             'R',
+    --             mode = { 'o', 'x' },
+    --         },
+    --         {
+    --             '<c-s>',
+    --             mode = { 'c' },
+    --         },
+    --     },
+    --     config = function()
+    --         require('custom.flash')
+    --     end,
+    -- },
     {
         'lukas-reineke/indent-blankline.nvim',
         main = 'ibl',
