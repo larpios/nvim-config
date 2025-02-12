@@ -7,6 +7,7 @@ local opts = {
     indent = { enabled = true },
     input = {}, -- Better `vim.ui.input`.
     dim = {},
+    dashboard = {},
     picker = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
@@ -192,9 +193,3 @@ end, { desc = 'Notification Dismiss' })
 larp.fn.map('n', '<leader>bd', function()
     snacks.bufdelete.other()
 end, { desc = 'Notification Dismiss' })
-
-vim.api.nvim_create_autocmd('UIEnter', {
-    callback = function()
-        snacks.dashboard.open()
-    end,
-})
