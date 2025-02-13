@@ -14,13 +14,24 @@ return {
     --         require('custom.wilder')
     --     end,
     -- },
+    -- {
+    --     'nvim-pack/nvim-spectre',
+    --     keys = {
+    --         { '<leader>St', '<cmd>Spectre<cr>', mode = 'n', desc = 'Toggle Spectre' },
+    --         { '<leader>Sw', '<cmd>Spectre<cr>', mode = 'v', desc = 'Search current word' },
+    --         { '<leader>Sp', '<cmd>Spectre<cr>', mode = 'n', desc = 'Search on current file' },
+    --     },
+    -- },
+
     {
-        'nvim-pack/nvim-spectre',
-        keys = {
-            { '<leader>St', '<cmd>Spectre<cr>', mode = 'n', desc = 'Toggle Spectre' },
-            { '<leader>Sw', '<cmd>Spectre<cr>', mode = 'v', desc = 'Search current word' },
-            { '<leader>Sp', '<cmd>Spectre<cr>', mode = 'n', desc = 'Search on current file' },
-        },
+        'MagicDuck/grug-far.nvim',
+        config = function()
+            require('grug-far').setup({
+                -- options, see Configuration section below
+                -- there are no required options atm
+                -- engine = 'ripgrep' is default, but 'astgrep' can be specified
+            })
+        end,
     },
 
     -- Snapshop code
