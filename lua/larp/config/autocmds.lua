@@ -28,6 +28,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.lsp.buf.rename()
         end)
 
+        larp.fn.map('', '<leader>ca', function()
+            vim.lsp.buf.code_action()
+        end)
+
         -- vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
     end,
 })
