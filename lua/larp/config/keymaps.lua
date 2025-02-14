@@ -42,7 +42,7 @@ larp.fn.map('n', '<leader>ww', ':w<cr>', { desc = 'Write to Buffer', noremap = t
 larp.fn.map('n', '<leader>wa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
 larp.fn.map('n', '<leader>wq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
 larp.fn.map('n', '<leader>wQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
-larp.fn.map('n', '<leader>so', '"source %<cr>', { desc = 'Source Current Buffer', noremap = true, silent = true })
+larp.fn.map('n', '<leader>so', ':source %<cr>', { desc = 'Source Current Buffer', noremap = true, silent = true })
 larp.fn.map('n', '<C-p>', ':bprevious<cr>', { desc = 'Navigate to Previous Buffer', noremap = true, silent = true })
 larp.fn.map('n', '<C-n>', ':bnext<cr>', { desc = 'Navigate to Next Buffer', noremap = true, silent = true })
 larp.fn.map('', '<leader>bo', function()
