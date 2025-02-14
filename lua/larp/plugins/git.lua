@@ -9,10 +9,25 @@ return {
     {
         'sindrets/diffview.nvim',
         event = 'BufRead',
+        cmds = {
+            'DiffviewOpen',
+            'DiffviewClose',
+            'DiffviewToggleFiles',
+            'DiffviewFocusFiles',
+            'DiffviewRefresh',
+            'DiffviewLog',
+        },
     },
     {
         'NeogitOrg/neogit',
         event = 'BufRead',
+        cmds = {
+            'Neogit',
+            'NeogitCommit',
+            'NeogitLogCurrent',
+            'NeogitResetState',
+        },
+        keys = { { '<leader>Go', mode = n } },
         dependencies = {
             'nvim-lua/plenary.nvim', -- required
             'sindrets/diffview.nvim', -- optional - Diff integration
@@ -28,6 +43,7 @@ return {
     {
         'akinsho/git-conflict.nvim',
         version = '*',
-        config = true
+        config = true,
+        event = 'BufRead',
     },
 }

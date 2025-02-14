@@ -1,23 +1,8 @@
 return {
-    -- {
-    --     'amitds1997/remote-nvim.nvim',
-    --     event = 'BufRead',
-    --     version = '*', -- Pin to GitHub releases
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim', -- For standard functions
-    --         'MunifTanjim/nui.nvim', -- To build the plugin UI
-    --         'nvim-telescope/telescope.nvim', -- For picking b/w different remote methods
-    --     },
-    --     config = true,
-    -- },
-    -- {
-    --     'github/copilot.vim',
-    --     event = 'BufRead',
-    --     run = 'make',
-    -- },
     {
         'zbirenbaum/copilot.lua',
-        event = 'BufRead',
+        event = 'InsertEnter',
+        cmd = 'Copilot',
         config = function()
             require('custom.copilot-lua')
         end,
@@ -31,6 +16,19 @@ return {
         end,
         config = function()
             require('custom.markdown-preview')
+        end,
+    },
+    {
+        -- Markdown preview plugin
+        'toppair/peek.nvim',
+        event = { 'VeryLazy' },
+        ft = { 'markdown' },
+        cmd = { 'PeekOpen', 'PeekClose' },
+        build = 'deno task --quiet build:fast',
+        config = function()
+            require('peek').setup()
+            vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+            vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
         end,
     },
     {
@@ -72,6 +70,21 @@ return {
     {
         'epwalsh/obsidian.nvim',
         priority = 1000,
+        cmd = {
+            'ObsidianNew',
+            'ObsidianOpen',
+            'ObsidianSearch',
+        },
+        keys = {
+            { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n', desc = 'Search Obsidian Vault' },
+            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>', mode = 'n', desc = 'Grep Obsidian Vault' },
+            { '<leader>Ot', '<cmd>ObsidianTOC<cr>', mode = 'n', desc = 'Search Obsidian TOC' },
+            { '<leader>Oft', '<cmd>ObsidianTags<cr>', mode = 'n', desc = 'Find Obsidian Tags' },
+            { '<leader>Oj', '<cmd>ObsidianDailies<cr>', mode = 'n', desc = 'Obsidian Journal' },
+            { '<leader>Ofw', mode = 'n', desc = 'Search Obsidian Workspace' },
+            { '<leader>Op', mode = 'n', desc = 'Obsidian Pull', },
+            { '<leader>Os', mode = 'n', desc = 'Commit and Push Obsidian Vault', },
+        },
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
             'nvim-lua/plenary.nvim',
@@ -83,23 +96,6 @@ return {
             require('custom.obsidian')
         end,
     },
-    -- {
-    --     'christoomey/vim-tmux-navigator',
-    --     cmd = {
-    --         'TmuxNavigateLeft',
-    --         'TmuxNavigateDown',
-    --         'TmuxNavigateUp',
-    --         'TmuxNavigateRight',
-    --         'TmuxNavigatePrevious',
-    --     },
-    --     keys = {
-    --         { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-    --         { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-    --         { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-    --         { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-    --         { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
-    --     },
-    -- },
     {
         'kristijanhusak/vim-dadbod-ui',
         enabled = false,

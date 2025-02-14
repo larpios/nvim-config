@@ -1,41 +1,8 @@
 return {
-    {
-        'numToStr/Comment.nvim',
-        opts = {},
-        lazy = false,
-    },
     -- {
-    --     'folke/flash.nvim',
-    --     event = 'VeryLazy',
-    --     keys = {
-    --         {
-    --             's',
-    --             mode = { 'n', 'x', 'o' },
-    --         },
-    --         {
-    --             'SS',
-    --             mode = { 'n', 'x', 'o' },
-    --         },
-    --         {
-    --             'Sh',
-    --             mode = { 'n', 'x', 'o' },
-    --         },
-    --         {
-    --             'r',
-    --             mode = 'o',
-    --         },
-    --         {
-    --             'R',
-    --             mode = { 'o', 'x' },
-    --         },
-    --         {
-    --             '<c-s>',
-    --             mode = { 'c' },
-    --         },
-    --     },
-    --     config = function()
-    --         require('custom.flash')
-    --     end,
+    --     'numToStr/Comment.nvim',
+    --     opts = {},
+    --     lazy = false,
     -- },
     {
         'lukas-reineke/indent-blankline.nvim',
@@ -45,31 +12,6 @@ return {
             require('custom.indent-blankline')
         end,
     },
-    -- {
-    --     'kylechui/nvim-surround',
-    --     -- To give mini.surround a try.
-    --     enabled = false,
-    --     version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    --     event = 'VeryLazy',
-    --     config = function()
-    --         require('nvim-surround').setup({
-    --             -- Configuration here, or leave empty to use defaults
-    --         })
-    --     end,
-    -- },
-    -- {
-    --     'mbbill/undotree',
-    --     keys = {
-    --         {
-    --             '<leader>tu',
-    --             function()
-    --                 vim.cmd.UndotreeToggle()
-    --             end,
-    --             mode = { 'n' },
-    --             desc = 'Toggle UndoTree',
-    --         },
-    --     },
-    -- },
     {
         'chrisgrieser/nvim-rip-substitute',
         cmd = 'RipSubstitute',

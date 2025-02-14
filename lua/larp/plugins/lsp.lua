@@ -62,6 +62,7 @@ return {
     },
     {
         'simrat39/rust-tools.nvim',
+        ft = { 'rust' },
         dependencies = {
             'neovim/nvim-lspconfig',
             'nvim-lua/plenary.nvim',
@@ -71,7 +72,7 @@ return {
 
     {
         'VonHeikemen/lsp-zero.nvim',
-        event = 'BufEnter',
+        event = 'BufRead',
         branch = 'v4.x',
         dependencies = {
             { 'neovim/nvim-lspconfig' },
@@ -108,6 +109,7 @@ return {
     {
         -- Better folding
         'kevinhwang91/nvim-ufo',
+        event = 'BufRead',
         dependencies = { 'kevinhwang91/promise-async' },
         init = function()
             vim.o.foldcolumn = '0'
@@ -146,7 +148,7 @@ return {
         'stevearc/aerial.nvim',
         -- just to test symbols.nvim
         enabled = false,
-        event = 'BufEnter',
+        event = 'BufRead',
         opts = {},
         -- Optional dependencies
         dependencies = {
@@ -161,6 +163,14 @@ return {
     {
         -- Overview panel, something like aerial
         'oskarrrrrrr/symbols.nvim',
+        cmds = {
+            'Symbols',
+            'SymbolsOpen',
+            'SymbolsClose',
+        },
+        keys = {
+            { '<leader>ts', mode = 'n', desc = "Toggle Symbols" },
+        },
         config = function()
             require('custom.symbols')
         end,
@@ -196,6 +206,7 @@ return {
     },
     {
         'mfussenegger/nvim-jdtls',
+        ft = 'java',
     },
     {
         'p00f/clangd_extensions.nvim',

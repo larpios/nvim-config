@@ -12,6 +12,31 @@ return {
     },
     {
         'stevearc/overseer.nvim',
+        cmds = {
+            'Overseer',
+            'OverseerRun',
+            'OverseerRunCmd',
+            'OverseerToggle',
+            'OverseerBuild',
+            'OverseerTaskAction',
+            'OverseerClose',
+            'OverseerClearCache',
+            'OverseerDeleteBundle',
+            'OverseerLoadBundle',
+            'OverseerInfo',
+        },
+        keys = {
+            '<leader>cor',
+            mode = 'n',
+            '<leader>coR',
+            mode = 'n',
+            '<leader>coa',
+            mode = 'n',
+            '<leader>cob',
+            mode = 'n',
+            '<leader>cot',
+            mode = 'n',
+        },
         dependencies = {
             'akinsho/toggleterm.nvim',
             -- 'rmagatti/auto-session',
@@ -22,6 +47,16 @@ return {
     },
     {
         'mfussenegger/nvim-dap',
+        cmd = {
+            'DapNew',
+            'DapEval',
+            'DapContinue',
+            'DapDisconnect',
+            'DapStepInto',
+            'DapStepOut',
+            'DapShowLog',
+        },
+        event = 'BufRead',
         dependencies = {
             {
                 'rcarriga/nvim-dap-ui',

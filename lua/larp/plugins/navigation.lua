@@ -49,6 +49,12 @@ return {
     {
         -- Something like harpoon, but better method imo
         'otavioschwanck/arrow.nvim',
+        event = 'BufRead',
+        keys = {
+            { '<leader>aa', '<cmd>ArrowToggle<cr>', desc = 'Toggle Arrow' },
+            { '<leader>an', '<cmd>ArrowNext<cr>', desc = 'Go to next Arrow' },
+            { '<leader>ap', '<cmd>ArrowPrev<cr>', desc = 'Go to previous Arrow' },
+        },
         dependencies = {
             -- { 'nvim-tree/nvim-web-devicons' },
             -- or if using `mini.icons`
@@ -61,6 +67,13 @@ return {
 
     {
         'ggandor/leap.nvim',
+        event = 'BufRead',
+        keys = {
+            { 's', '<Plug>(leap)', mode = { 'n', 'x' } },
+            { 'S', '<Plug>(leap-from-window)', mode = { 'n', 'x' } },
+            { 's', '<Plug>(leap-forward)', mode = 'o' },
+            { 'S', '<Plug>(leap-backward)', mode = 'o' },
+        },
         dependencies = {
             'ggandor/flit.nvim',
             'tpope/vim-repeat',
@@ -72,6 +85,7 @@ return {
     {
 
         'ggandor/flit.nvim',
+        event = 'BufRead',
         config = function()
             require('custom.flit')
         end,

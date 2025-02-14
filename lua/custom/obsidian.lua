@@ -96,12 +96,6 @@ larp.fn.map('n', '<leader>Ofw', function()
         vim.cmd('edit ' .. opts.workspaces[idx]['path'])
     end)
 end, { desc = 'Search Obsidian Workspace' })
-
-larp.fn.map('n', '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', { desc = 'Search Obsidian Vault' })
-larp.fn.map('n', '<leader>Ogg', '<cmd>ObsidianSearch<cr>', { desc = 'Grep Obsidian Vault' })
-larp.fn.map('n', '<leader>Ot', '<cmd>ObsidianTOC<cr>', { desc = 'Search Obsidian TOC' })
-larp.fn.map('n', '<leader>Oft', '<cmd>ObsidianTags<cr>', { desc = 'Find Obsidian Tags' })
-larp.fn.map('n', '<leader>Oj', '<cmd>ObsidianDailies<cr>', { desc = 'Obsidian Journal' })
 larp.fn.map('n', '<leader>Op', function()
     -- pull from git
     local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull')

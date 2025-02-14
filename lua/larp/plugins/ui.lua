@@ -68,7 +68,10 @@ return {
     --         require('custom.nvim-notify')
     --     end,
     -- },
-    { 'petertriho/nvim-scrollbar' },
+    {
+        'petertriho/nvim-scrollbar',
+        event = 'BufRead',
+    },
     {
         'stevearc/oil.nvim',
         tag = 'stable',
@@ -127,23 +130,6 @@ return {
             require('custom.which-key')
         end,
     },
-    -- {
-    --     -- Scrollbar
-    --     'lewis6991/satellite.nvim',
-    --     event = 'BufRead',
-    -- },
-    {
-        'simonmclean/triptych.nvim',
-        event = 'VeryLazy',
-        dependencies = {
-            'nvim-lua/plenary.nvim', -- required
-            'nvim-tree/nvim-web-devicons', -- optional
-        },
-        keys = {
-            { '<leader><leader>t', '<cmd>Triptych<cr>', mode = 'n', desc = 'Toggle Triptych' },
-        },
-        opts = {},
-    },
     {
         -- Colorful window separator
         'nvim-zh/colorful-winsep.nvim',
@@ -164,7 +150,7 @@ return {
     },
     {
         'nvzone/showkeys',
-        -- cmd = 'ShowkeysToggle',
+        cmd = 'ShowkeysToggle',
         config = function()
             require('custom.showkeys')
         end,
@@ -180,8 +166,9 @@ return {
     {
         -- Tabs
         'akinsho/bufferline.nvim',
+        event = 'BufWinEnter',
         version = '*',
         dependencies = 'nvim-tree/nvim-web-devicons',
-        opts = {}
+        opts = {},
     },
 }

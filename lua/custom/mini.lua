@@ -44,6 +44,7 @@ require('mini.sessions').setup({
     },
 })
 require('mini.splitjoin').setup({})
+require('mini.comment').setup({})
 
 local files = require('mini.files')
 

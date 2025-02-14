@@ -70,7 +70,7 @@ return {
     {
         -- Preview the definition of the word under the cursor
         'rmagatti/goto-preview',
-        event = 'BufEnter',
+        event = 'BufRead',
         opts = {
             default_mappings = true,
         },
@@ -187,6 +187,10 @@ return {
     },
     {
         'atiladefreitas/dooing',
+        keys = {
+            { '<leader>td', mode = 'n' },
+        },
+        cmd = 'Dooing',
         config = function()
             require('dooing').setup({
                 -- your custom config here (optional)
@@ -195,6 +199,7 @@ return {
     },
     {
         'RaafatTurki/hex.nvim',
+        event = 'BufRead',
         opts = {},
     },
     {

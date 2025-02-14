@@ -6,7 +6,6 @@ local opts = {
     bufdelete = {}, -- Delete buffers without disrupting window layout.
     indent = { enabled = true },
     input = {}, -- Better `vim.ui.input`.
-    dim = {},
     dashboard = {},
     picker = { enabled = true },
     notifier = { enabled = true },
@@ -14,7 +13,6 @@ local opts = {
     git = {}, -- Git utilities.
     gitbrowse = {}, -- Open the repo of the active file in the browser.
     statuscolumn = { enabled = true },
-    toggle = {},
     scope = {}, -- Scope detection based on treesitter or indent.
     words = { enabled = true },
     picker = {},
@@ -124,16 +122,10 @@ larp.fn.map('n', '<leader>gc', function()
     picker.grep({ cwd = vim.fn.stdpath('config') })
 end, { desc = 'Grep Config' })
 
--- Dim
-larp.fn.map('n', '<leader>tz', function()
-    snacks.dim()
-end, { desc = 'Zen Mode' })
-
 -- Lazygit
-
 larp.fn.map('n', '<leader>Gl', function()
     snacks.lazygit()
-end)
+end, { desc = 'Lazygit' })
 
 -- Notifier
 

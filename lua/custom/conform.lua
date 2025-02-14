@@ -7,7 +7,7 @@ require('conform').setup({
         cmake = { 'cmake_format' },
         nix = { 'nixpkgs_fmt', 'nixfmt' },
         python = { 'autopep8', 'autoflake', 'black' },
-        markdown = { 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
+        markdown = { 'prettier', 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
         xml = { 'xmlformat' },
         yaml = { 'yamllint', 'prettier' },
         text = { 'autocorrect' },
