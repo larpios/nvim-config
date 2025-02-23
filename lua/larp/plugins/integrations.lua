@@ -1,13 +1,5 @@
 return {
     {
-        'zbirenbaum/copilot.lua',
-        event = 'InsertEnter',
-        cmd = 'Copilot',
-        config = function()
-            require('custom.copilot-lua')
-        end,
-    },
-    {
         'iamcco/markdown-preview.nvim',
         cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
         ft = { 'markdown' },

@@ -33,4 +33,16 @@ return {
         },
         -- See Commands section for default commands if you want to lazy load on them
     },
+    -- {
+    --     'github/copilot.vim',
+    --     event = 'InsertEnter'
+    -- },
+    {
+        'zbirenbaum/copilot.lua',
+        event = 'InsertEnter',
+        cmd = 'Copilot',
+        config = function()
+            require('custom.copilot-lua')
+        end,
+    },
 }
