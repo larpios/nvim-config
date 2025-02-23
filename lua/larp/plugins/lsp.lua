@@ -169,7 +169,7 @@ return {
             'SymbolsClose',
         },
         keys = {
-            { '<leader>ts', mode = 'n', desc = "Toggle Symbols" },
+            { '<leader>ts', mode = 'n', desc = 'Toggle Symbols' },
         },
         config = function()
             require('custom.symbols')
@@ -190,7 +190,7 @@ return {
         },
 
         -- use a release tag to download pre-built binaries
-        version = 'v0.11.*',
+        version = 'v0.12.*',
         -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
         -- build = 'cargo build --release',
         -- On musl libc based systems you need to add this flag
@@ -212,11 +212,4 @@ return {
         'p00f/clangd_extensions.nvim',
         opts = {},
     },
-    -- {
-    --     'nvim-java/nvim-java',
-    --     opts = {},
-    --     config = function()
-    --         require('lspconfig').jdtls.setup({})
-    --     end,
-    -- },
 }

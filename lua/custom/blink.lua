@@ -28,6 +28,9 @@ local opts = {
                         highlight = 'BlinkCmpItemIdx', -- optional, only if you want to change its color
                     },
                 },
+                treesitter = {
+                    'lsp',
+                },
             },
         },
         documentation = {
