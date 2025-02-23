@@ -77,7 +77,7 @@ local opts = {
             emoji = {
                 module = 'blink-emoji',
                 name = 'Emoji',
-                score_offset = 15, -- Tune by preference
+                score_offset = -1, -- Tune by preference
                 opts = { insert = true }, -- Insert emoji (default) or complete its name
             },
         },
