@@ -114,7 +114,7 @@ larp.fn.map('n', '<leader>gg', function()
     picker.pick('grep')
 end, { desc = 'Grep' })
 
-larp.fn.map('n', '<leader>gw', function()
+larp.fn.map({ 'n', 'v' }, '<leader>gw', function()
     picker.grep_word()
 end, { desc = 'Grep Word' })
 
