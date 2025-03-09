@@ -170,5 +170,9 @@ return {
         version = '*',
         dependencies = 'nvim-tree/nvim-web-devicons',
         opts = {},
+        keys = {
+            { 'L', '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = 'Next buffer' },
+            { 'H', '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = 'Previous buffer' },
+        },
     },
 }
