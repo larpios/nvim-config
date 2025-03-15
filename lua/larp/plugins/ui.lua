@@ -171,8 +171,13 @@ return {
         dependencies = 'nvim-tree/nvim-web-devicons',
         opts = {},
         keys = {
-            { 'L', '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = 'Next buffer' },
-            { 'H', '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = 'Previous buffer' },
+            { 'L', '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = 'Next Buffer' },
+            { 'H', '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = 'Previous Buffer' },
+            { '<leader>>', '<cmd>BufferLineMoveNext<cr>', mode = 'n', desc = 'Move Buffer to the Right' },
+            { '<leader><', '<cmd>BufferLineMovePrev<cr>', mode = 'n', desc = 'Move Buffer to the Left' },
+            { '<leader>bc', '<cmd>BufferLinePickClose<cr>', mode = 'n', desc = 'Close buffer' },
+            { '<leader>bp', '<cmd>BufferLinePick<cr>', mode = 'n', desc = 'Pick Buffer' },
+            { '<leader>br', '<cmd>BufferLineTabRename<cr>', mode = 'n', desc = 'Rename Tab' },
         },
     },
 }
