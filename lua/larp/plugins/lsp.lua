@@ -212,4 +212,8 @@ return {
         'p00f/clangd_extensions.nvim',
         opts = {},
     },
+    {
+        'pest-parser/pest.vim',
+        ft = "pest",
+    }
 }
