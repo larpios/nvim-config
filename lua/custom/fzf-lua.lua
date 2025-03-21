@@ -66,8 +66,8 @@ larp.fn.map('', '<leader>fsw', '<cmd>FzfLua lsp_workspace_symbols<cr>', { silent
 larp.fn.map('', '<leader>fd', '<cmd>FzfLua lsp_definitions<cr>', { silent = true, desc = 'Find Definitions' })
 larp.fn.map('', '<leader>fD', '<cmd>FzfLua lsp_declarations<cr>', { silent = true, desc = 'Find Declarations' })
 larp.fn.map('', '<leader>ca', '<cmd>FzfLua lsp_code_actions<cr>', { silent = true, desc = 'Code Actions' })
-larp.fn.map('', '<leader>fxic', '<cmd>FzfLua lsp_incoming_calls<cr>', { silent = true, desc = 'Find Incoming Calls' })
-larp.fn.map('', '<leader>fxoc', '<cmd>FzfLua lsp_outgoing_calls<cr>', { silent = true, desc = 'Find Outgoing Calls' })
+larp.fn.map('', '<leader>fxfi', '<cmd>FzfLua lsp_incoming_calls<cr>', { silent = true, desc = 'Find Incoming Calls' })
+larp.fn.map('', '<leader>fxfo', '<cmd>FzfLua lsp_outgoing_calls<cr>', { silent = true, desc = 'Find Outgoing Calls' })
 
 -- Misc.
 larp.fn.map('', '<leader>fgc', '<cmd>FzfLua git_commits<cr>', { silent = true, desc = 'Find Git Commits' })
