@@ -29,12 +29,12 @@ end
 if is_unix then
     local dotfile_path = os.getenv('XDG_CONFIG_HOME')
     dotfile_path = dotfile_path or os.getenv('HOME') .. '/.config'
-    larp.fn.map('', '<leader>hfd', '<cmd>FzfLua files cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Find Dotfile Directory' })
-    larp.fn.map('', '<leader>hgd', '<cmd>FzfLua live_grep_native cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Grep Dotfile Directory' })
+    larp.fn.map('', '<leader>fC', '<cmd>FzfLua files cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Find Dotfile Directory' })
+    larp.fn.map('', '<leader>gC', '<cmd>FzfLua live_grep_native cwd=' .. dotfile_path .. '<cr>', { silent = true, desc = 'Grep Dotfile Directory' })
 end
 -- # Config
-larp.fn.map('', '<leader>hff', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
-larp.fn.map('', '<leader>hgg', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
+larp.fn.map('', '<leader>fc', '<cmd>FzfLua files cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Find Config Directory' })
+larp.fn.map('', '<leader>gc', '<cmd>FzfLua live_grep_native cwd=' .. config_path .. '<cr>', { silent = true, desc = 'Grep Config' })
 
 larp.fn.map('n', '<leader>Cff', function()
     local xdg_config_home = os.getenv('XDG_CONFIG_HOME')
@@ -82,6 +82,6 @@ larp.fn.map('', '<leader>fR', '<cmd>FzfLua registers<cr>', { silent = true, desc
 larp.fn.map('', '<leader>fxt', '<cmd>FzfLua colorschemes<cr>', { silent = true, desc = 'Find Themes' })
 
 -- # Grep
-larp.fn.map('', '<leader>gC', '<cmd>FzfLua grep_cWORD<cr>', { silent = true, desc = 'Grep Cursor (Case Sensitive)' })
-larp.fn.map('', '<leader>gc', '<cmd>FzfLua grep_cword<cr>', { silent = true, desc = 'Grep Cursor (Case Insensitive)' })
-larp.fn.map('', '<leader>gv', '<cmd>FzfLua grep_visual<cr>', { silent = true, desc = 'Grep Selection' })
+larp.fn.map('n', '<leader>gW', '<cmd>FzfLua grep_cWORD<cr>', { silent = true, desc = 'Grep Cursor (Case Sensitive)' })
+larp.fn.map('n', '<leader>gw', '<cmd>FzfLua grep_cword<cr>', { silent = true, desc = 'Grep Cursor (Case Insensitive)' })
+larp.fn.map('v', '<leader>gw', '<cmd>FzfLua grep_visual<cr>', { silent = true, desc = 'Grep Selection' })
