@@ -20,18 +20,17 @@ return {
     --         larp.fn.map({ 'n', 'v' }, 'mg', '<cmd>BookmarksGotoRecent<cr>', { desc = 'Go to latest visited/created Bookmark' })
     --     end,
     -- },
-    -- {
-    --     'ibhagwan/fzf-lua',
-    --     enabled = false,
-    --     event = 'VeryLazy',
-    --     dependencies = {
-    --         'nvim-tree/nvim-web-devicons',
-    --         { 'junegunn/fzf', build = './install --bin' },
-    --     },
-    --     config = function()
-    --         require('custom.fzf-lua')
-    --     end,
-    -- },
+    {
+        'ibhagwan/fzf-lua',
+        event = 'VeryLazy',
+        dependencies = {
+            'echasnovski/mini.icons',
+            { 'junegunn/fzf', build = './install --bin' },
+        },
+        config = function()
+            require('custom.fzf-lua')
+        end,
+    },
     -- {
     --     'nvim-telescope/telescope.nvim',
     --     enabled = false,

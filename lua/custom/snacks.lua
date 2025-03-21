@@ -15,7 +15,7 @@ local opts = {
     statuscolumn = { enabled = true },
     scope = {}, -- Scope detection based on treesitter or indent.
     words = { enabled = true },
-    picker = {},
+    picker = { enabled = false },
     lazygit = {},
 }
 
