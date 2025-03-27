@@ -94,6 +94,16 @@ local opts = {
         enabled = true,
         window = { border = 'rounded' },
     },
+    cmdline = {
+        enabled = true,
+        completion = {
+            menu = {
+                auto_show = function()
+                    return vim.fn.getcmdtype() == ':'
+                end,
+            },
+        },
+    },
 }
 
 require('blink.cmp').setup(opts)
