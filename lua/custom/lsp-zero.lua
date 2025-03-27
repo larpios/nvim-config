@@ -22,7 +22,6 @@ require('luasnip.loaders.from_vscode').lazy_load({
     },
 })
 
-lsp_zero.setup({})
 lsp_zero.on_attach(function(client, bufnr)
     lsp_zero.default_keymaps({
         buffer = bufnr,
@@ -51,6 +50,26 @@ lsp_zero.extend_lspconfig({
     capabilities = cap,
 })
 
+local configs = require('lspconfig.configs')
+if not configs.bpls then
+    configs.bpls = {
+        default_config = {
+            cmd = { '/Users/ray/github/bpls/target/debug/bpls' },
+            filetypes = { 'bp' },
+            root_dir = function(fname)
+                return require('lspconfig.util').root_pattern('.git')(fname) or vim.fn.getcwd()
+            end,
+            settings = {},
+        },
+    }
+end
+require('lspconfig').bpls.setup({})
+
+lsp_zero.configure('bpls', {
+    force_setup = true,
+})
+lsp_zero.setup({})
+
 require('mason').setup({
     ui = {
         icons = {
@@ -78,7 +97,6 @@ require('mason-lspconfig').setup({
             require('lspconfig')[server_name].setup({
                 capabilities = capabilities,
             })
-
         end,
         lua_ls = function()
             require('lspconfig').lua_ls.setup({
@@ -95,7 +113,6 @@ require('mason-lspconfig').setup({
         rust_analyzer = lsp_zero.noop,
     },
 })
-
 
 local mason_registry = require('mason-registry')
 local codelldb = mason_registry.get_package('codelldb')
@@ -125,4 +142,3 @@ vim.g.rustaceanvim = {
         adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
     },
 }
-
