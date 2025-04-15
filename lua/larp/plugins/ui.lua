@@ -181,4 +181,28 @@ return {
             { '<leader>br', '<cmd>BufferLineTabRename<cr>', mode = 'n', desc = 'Rename Tab' },
         },
     },
+    {
+        'jake-stewart/auto-cmdheight.nvim',
+        lazy = false,
+        opts = {
+            -- max cmdheight before displaying hit enter prompt.
+            max_lines = 5,
+
+            -- number of seconds until the cmdheight can restore.
+            duration = 2,
+
+            -- whether key press is required to restore cmdheight.
+            remove_on_key = true,
+
+            -- always clear the cmdline after duration and key press.
+            -- by default it will only happen when cmdheight changed.
+            clear_always = false,
+        },
+    },
+    {
+        'mcauley-penney/visual-whitespace.nvim',
+        config = true,
+        event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
+        opts = {},
+    },
 }
