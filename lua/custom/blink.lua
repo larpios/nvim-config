@@ -2,6 +2,7 @@ local opts = {
     keymap = {
         preset = 'default',
         ['<C-q>'] = { 'show_documentation', 'hide_documentation' },
+        ['<C-e>' ] = { 'show', 'hide' }
     },
     completion = {
         menu = {
@@ -41,7 +42,8 @@ local opts = {
         },
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'ripgrep', 'copilot', 'lazydev', 'emoji' },
+        -- rm ripgrep 
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'lazydev', 'emoji' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
