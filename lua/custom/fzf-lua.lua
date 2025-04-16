@@ -65,6 +65,7 @@ larp.fn.map('', '<leader>fsd', '<cmd>FzfLua lsp_document_symbols<cr>', { silent 
 larp.fn.map('', '<leader>fsw', '<cmd>FzfLua lsp_workspace_symbols<cr>', { silent = true, desc = 'Find Workspace Symbols' })
 larp.fn.map('', '<leader>fd', '<cmd>FzfLua lsp_definitions<cr>', { silent = true, desc = 'Find Definitions' })
 larp.fn.map('', '<leader>fD', '<cmd>FzfLua lsp_declarations<cr>', { silent = true, desc = 'Find Declarations' })
+larp.fn.map('', '<leader>fR', '<cmd>FzfLua lsp_references<cr>', { silent = true, desc = 'Find References' })
 larp.fn.map('', '<leader>ca', '<cmd>FzfLua lsp_code_actions<cr>', { silent = true, desc = 'Code Actions' })
 larp.fn.map('', '<leader>fxfi', '<cmd>FzfLua lsp_incoming_calls<cr>', { silent = true, desc = 'Find Incoming Calls' })
 larp.fn.map('', '<leader>fxfo', '<cmd>FzfLua lsp_outgoing_calls<cr>', { silent = true, desc = 'Find Outgoing Calls' })
@@ -78,7 +79,7 @@ larp.fn.map('', '<leader>fm', '<cmd>FzfLua manpages<cr>', { silent = true, desc 
 larp.fn.map('', '<leader>f.', '<cmd>FzfLua resume<cr>', { silent = true, desc = 'Resume Search' })
 larp.fn.map('', '<leader>fxa', '<cmd>FzfLua autocmds<cr>', { silent = true, desc = 'Find Manpages' })
 larp.fn.map('', '<leader>fxc', '<cmd>FzfLua changes<cr>', { silent = true, desc = 'Find Changes' })
-larp.fn.map('', '<leader>fR', '<cmd>FzfLua registers<cr>', { silent = true, desc = 'Find Registers' })
+larp.fn.map('', '<leader>fxr', '<cmd>FzfLua registers<cr>', { silent = true, desc = 'Find Registers' })
 larp.fn.map('', '<leader>fxt', '<cmd>FzfLua colorschemes<cr>', { silent = true, desc = 'Find Themes' })
 
 -- # Grep
