@@ -31,6 +31,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         larp.fn.map('', '<leader>ca', function()
             vim.lsp.buf.code_action()
         end)
+        larp.fn.map('', '<leader>cf', function()
+            vim.lsp.buf.format({ async = true })
+        end)
 
         -- vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
     end,
