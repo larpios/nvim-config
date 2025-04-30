@@ -34,7 +34,7 @@ lsp_zero.on_attach(function(client, bufnr)
         },
     })
     if client.server_capabilities.document_formatting then
-        larp.fn.map('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<cr>', { buffer = bufnr })
+        -- larp.fn.map('n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<cr>', { buffer = bufnr })
     end
     if client.server_capabilities.inlayHintProvider then
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })

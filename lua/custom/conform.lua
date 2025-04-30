@@ -24,4 +24,4 @@ require('conform').setup({
     -- Conform will notify you when no formatters are available for the buffer
     notify_no_formatters = true,
 })
--- larp.fn.map('n', '<leader>cf', require('conform').format)
+larp.fn.map('n', '<leader>cf', require('conform').format)
