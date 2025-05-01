@@ -2,9 +2,12 @@ return {
     {
         -- Sudo write/read
         'lambdalisue/vim-suda',
-        config = function()
-            larp.fn.map('n', '<leader><leader>Sw', ':SudaWrite<CR>', { noremap = true })
-            larp.fn.map('n', '<leader><leader>Sr', ':SudaRead<CR>', { noremap = true })
+        keys = {
+            { '<leader><leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = 'Sudo Write' },
+            { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
+        },
+        config = function() 
+            vim.g.suda_smart_edit = 1
         end,
     },
     -- {
