@@ -2,48 +2,51 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
 -- # Windows
-larp.fn.map('', '<leader>wd', '<C-w>c', { desc = 'Close Window' })
-larp.fn.map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window' })
+larp.fn.map('', '<leader>wd', '<C-w>c', { desc = 'Close Window', noremap = true, silent = true })
+larp.fn.map('', '<leader>wo', '<C-w>o', { desc = 'Maximize Window', noremap = true, silent = true })
 
 -- Navigate Windows
-larp.fn.map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window' })
-larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window' })
-larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window' })
-larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
+larp.fn.map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window', noremap = true, silent = true })
+larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window', noremap = true, silent = true })
+larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window', noremap = true, silent = true })
+larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window', noremap = true, silent = true })
 
 -- Split Windows
-larp.fn.map('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left' })
-larp.fn.map('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom' })
-larp.fn.map('', '<leader>sk', '<C-w>s', { desc = 'Split Window to the Top' })
-larp.fn.map('', '<leader>sl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right' })
-larp.fn.map('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next' })
+larp.fn.map('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left', noremap = true, silent = true })
+larp.fn.map('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom', noremap = true, silent = true })
+larp.fn.map('', '<leader>sk', '<C-w>s', { desc = 'Split Window to the Top', noremap = true, silent = true })
+larp.fn.map('', '<leader>sl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right', noremap = true, silent = true })
+larp.fn.map('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next', noremap = true, silent = true })
 
 -- Resize Windows
-larp.fn.map('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height' })
-larp.fn.map('', '<leader>w-', '<C-w>-', { desc = 'Decrease Window Height' })
-larp.fn.map('', '<leader>w>', '<C-w>>', { desc = 'Increase Window Width' })
-larp.fn.map('', '<leader>w<', '<C-w><', { desc = 'Decrease Window Width' })
-larp.fn.map('', '<leader>w=', '<C-w>=', { desc = 'Equal Window Size' })
+larp.fn.map('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height', noremap = true, silent = true })
+larp.fn.map('', '<leader>w-', '<C-w>-', { desc = 'Decrease Window Height', noremap = true, silent = true })
+larp.fn.map('', '<leader>w>', '<C-w>>', { desc = 'Increase Window Width', noremap = true, silent = true })
+larp.fn.map('', '<leader>w<', '<C-w><', { desc = 'Decrease Window Width', noremap = true, silent = true })
+larp.fn.map('', '<leader>w=', '<C-w>=', { desc = 'Equal Window Size', noremap = true, silent = true })
 
 -- # Buffers
 -- Close Buffer
-larp.fn.map('n', '<leader>bd', ':bd<CR>', { desc = 'Close Buffer' })
+larp.fn.map('n', '<leader>bd', ':bd<CR>', { desc = 'Close Buffer', noremap = true, silent = true })
 
 -- # Tabs
-larp.fn.map('n', '<leader>Tc', ':tabnew<CR>', { desc = 'New Tab' })
-larp.fn.map('n', '<leader>Td', ':tabclose<CR>', { desc = 'Close Tab' })
-larp.fn.map('n', '<leader>Tn', ':tabnext<CR>', { desc = 'Go to Next Tab' })
-larp.fn.map('n', '<leader>Tp', ':tabprevious<CR>', { desc = 'Go to Previous Tab' })
+larp.fn.map('n', '<leader>Tc', ':tabnew<CR>', { desc = 'New Tab', noremap = true, silent = true })
+larp.fn.map('n', '<leader>Td', ':tabclose<CR>', { desc = 'Close Tab', noremap = true, silent = true })
+larp.fn.map('n', '<leader>Tn', ':tabnext<CR>', { desc = 'Go to Next Tab', noremap = true, silent = true })
+larp.fn.map('n', '<leader>Tp', ':tabprevious<CR>', { desc = 'Go to Previous Tab', noremap = true, silent = true })
 
 -- General
 larp.fn.map('n', '<leader>qq', ':confirm qa<cr>', { desc = 'Exit NeoVim', noremap = true, silent = true })
 larp.fn.map('n', '<leader>QQ', ':qa!<cr>', { desc = 'Exit NeoVim without saving', noremap = true, silent = true })
-larp.fn.map('n', '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config' })
+larp.fn.map('n', '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
 larp.fn.map('n', '<leader>ww', ':w<cr>', { desc = 'Write to Buffer', noremap = true, silent = true })
 larp.fn.map('n', '<leader>wa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
 larp.fn.map('n', '<leader>wq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
 larp.fn.map('n', '<leader>wQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
-larp.fn.map('n', '<leader>so', ':source %<cr>', { desc = 'Source Current Buffer', noremap = true, silent = true })
+larp.fn.map('n', '<leader>so', function()
+    vim.print('Sourced ' .. vim.fn.expand('%:p'))
+    vim.cmd('source ' .. vim.fn.expand('%:p'))
+end, { desc = 'Source Current Buffer', silent = true })
 larp.fn.map('n', '<C-p>', ':bprevious<cr>', { desc = 'Navigate to Previous Buffer', noremap = true, silent = true })
 larp.fn.map('n', '<C-n>', ':bnext<cr>', { desc = 'Navigate to Next Buffer', noremap = true, silent = true })
 larp.fn.map('', '<leader>bo', function()
