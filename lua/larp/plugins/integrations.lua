@@ -41,24 +41,24 @@ return {
     --     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     -- },
     --
-    -- {
-    --     'nvim-neorg/neorg',
-    --     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-    --     ft = 'norg',
-    --     cmd = 'Neorg',
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim',
-    --         'nvim-neorg/neorg-telescope',
-    --     }, -- Load plenary as a dependency
-    --     version = '*', -- Pin Neorg to the latest stable release
-    --     keys = {
-    --         { '<leader>no', '<cmd>Neorg<CR>', desc = 'Open Neorg', mode = 'n' },
-    --         { '<leader>nw', desc = 'Open Neorg Workspace' },
-    --     },
-    --     config = function()
-    --         require('custom.neorg')
-    --     end,
-    -- },
+    {
+        'nvim-neorg/neorg',
+        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        ft = 'norg',
+        cmd = 'Neorg',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-neorg/neorg-telescope',
+        }, -- Load plenary as a dependency
+        version = '*', -- Pin Neorg to the latest stable release
+        keys = {
+            { '<leader>no', '<cmd>Neorg<CR>', desc = 'Open Neorg', mode = 'n' },
+            { '<leader>nw', desc = 'Open Neorg Workspace' },
+        },
+        config = function()
+            require('custom.neorg')
+        end,
+    },
     {
         'epwalsh/obsidian.nvim',
         priority = 1000,

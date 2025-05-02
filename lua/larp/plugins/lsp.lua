@@ -30,7 +30,7 @@ return {
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^5', -- Recommended
+        version = '^6', -- Recommended
         lazy = false, -- This plugin is already lazy
         config = function() end,
     },
@@ -214,4 +214,8 @@ return {
             vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
         end,
     },
+    {
+        'Civitasv/cmake-tools.nvim',
+        opts = {},
+    }
 }
