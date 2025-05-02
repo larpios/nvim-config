@@ -152,9 +152,14 @@ return {
     {
         'nvzone/showkeys',
         cmd = 'ShowkeysToggle',
-        config = function()
-            require('custom.showkeys')
-        end,
+        opts = {
+            maxkeys = 5,
+            winopts = {
+                focusable = true,
+            },
+            show_count = true,
+            position = 'top-right',
+        },
     },
     {
         -- Neovide-like cursor

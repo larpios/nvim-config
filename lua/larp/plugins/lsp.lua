@@ -10,7 +10,6 @@ return {
         },
     },
     {
-
         'L3MON4D3/LuaSnip',
         event = 'InsertEnter',
         -- follow latest release.
@@ -60,16 +59,6 @@ return {
             })
         end,
     },
-    {
-        'simrat39/rust-tools.nvim',
-        ft = { 'rust' },
-        dependencies = {
-            'neovim/nvim-lspconfig',
-            'nvim-lua/plenary.nvim',
-            'mfussenegger/nvim-dap',
-        },
-    },
-
     {
         'VonHeikemen/lsp-zero.nvim',
         event = 'BufRead',
@@ -122,20 +111,20 @@ return {
             require('custom.nvim-ufo')
         end,
     },
-    -- {
-    --     -- Stops inactive LSP servers to free RAM
-    --     'zeioth/garbage-day.nvim',
-    --     dependencies = 'neovim/nvim-lspconfig',
-    --     event = 'VeryLazy',
-    --     opts = {},
-    -- },
+    {
+        -- Stops inactive LSP servers to free RAM
+        'zeioth/garbage-day.nvim',
+        dependencies = 'neovim/nvim-lspconfig',
+        event = 'VeryLazy',
+        opts = {},
+    },
     {
         -- IDE-like breadcrumb navigation
         'Bekaboo/dropbar.nvim',
         -- optional, but required for fuzzy finder support
         dependencies = {
             'nvim-telescope/telescope-fzf-native.nvim',
-            build = make,
+            build = 'make',
         },
         config = function()
             local dropbar_api = require('dropbar.api')
