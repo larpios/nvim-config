@@ -115,10 +115,10 @@ require('mason-lspconfig').setup({
 })
 
 local mason_registry = require('mason-registry')
-local codelldb = mason_registry.get_package('codelldb')
-local extension_path = codelldb:get_install_path() .. '/extension/'
-local codelldb_path = extension_path .. 'adapter/codelldb'
-local liblldb_path = extension_path .. 'lldb/lib/liblldb.' .. (vim.fn.has('win32') == 1 and 'dll' or vim.fn.has('mac') == 1 and 'dylib' or 'so')
+-- local codelldb = mason_registry.get_package('codelldb')
+-- local extension_path = codelldb:get_install_path() .. '/extension/'
+-- local codelldb_path = extension_path .. 'adapter/codelldb'
+-- local liblldb_path = extension_path .. 'lldb/lib/liblldb.' .. (vim.fn.has('win32') == 1 and 'dll' or vim.fn.has('mac') == 1 and 'dylib' or 'so')
 local cfg = require('rustaceanvim.config')
 vim.g.rustaceanvim = {
     server = {
@@ -138,7 +138,7 @@ vim.g.rustaceanvim = {
             },
         },
     },
-    dap = {
-        adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-    },
+    -- dap = {
+    --     adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+    -- },
 }
