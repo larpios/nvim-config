@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup('MarkdownRead', {}),
     desc = 'Add useful keymaps for markdown files',
-    pattern = { '*.markdown', '*.md' },
+    pattern = { '*.markdown', '*.md', '*.txt' },
     callback = function()
         local marks = {
             { symbol = '**', key = 'b', name = 'Bold' },
@@ -66,5 +66,13 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
                 larp.fn.toggle_marker(m.symbol)
             end, { desc = 'Toggle ' .. m.name })
         end
+
+        ------------------
+
+        -- Enable spell check for English
+        --
+        vim.o.spell = true
+        vim.o.spelllang = 'en_us'
+        vim.notify('Spell check enabled for English')
     end,
 })
