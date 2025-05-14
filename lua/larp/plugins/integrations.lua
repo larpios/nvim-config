@@ -36,6 +36,8 @@ return {
     {
         -- live-preview markdown
         'MeanderingProgrammer/render-markdown.nvim',
+        cmd = { 'RenderMarkdown'},
+        ft = { 'markdown', 'vimwiki' },
         opts = {
             completions = {
                 lsp = {
@@ -46,9 +48,15 @@ return {
                 }
             }
         },
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        config = function(_, opts)
+            require('obsidian').get_client().opts.ui.enable = false
+            vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_get_namespaces()['ObsidianUI'], 0, -1)
+            require('render-markdown').setup(opts)
+        end,
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'echasnovski/mini.nvim'
+        },
     },
     {
         'nvim-neorg/neorg',
