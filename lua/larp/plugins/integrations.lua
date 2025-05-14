@@ -26,21 +26,21 @@ return {
     {
         -- live-preview markdown
         'OXY2DEV/markview.nvim',
+        enabled = false,
         lazy = false,
         version = 'v25.*',
         config = function()
             require('custom.markview')
         end,
     },
-    -- {
-    --     -- live-preview markdown
-    --     'MeanderingProgrammer/render-markdown.nvim',
-    --     opts = {},
-    --     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-    --     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    --     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-    -- },
-    --
+    {
+        -- live-preview markdown
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {},
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    },
     {
         'nvim-neorg/neorg',
         lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
@@ -74,8 +74,8 @@ return {
             { '<leader>Oft', '<cmd>ObsidianTags<cr>', mode = 'n', desc = 'Find Obsidian Tags' },
             { '<leader>Oj', '<cmd>ObsidianDailies<cr>', mode = 'n', desc = 'Obsidian Journal' },
             { '<leader>Ofw', mode = 'n', desc = 'Search Obsidian Workspace' },
-            { '<leader>Op', mode = 'n', desc = 'Obsidian Pull', },
-            { '<leader>Os', mode = 'n', desc = 'Commit and Push Obsidian Vault', },
+            { '<leader>Op', mode = 'n', desc = 'Obsidian Pull' },
+            { '<leader>Os', mode = 'n', desc = 'Commit and Push Obsidian Vault' },
         },
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
