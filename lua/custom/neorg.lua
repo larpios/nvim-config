@@ -7,6 +7,7 @@ require('neorg').setup({
     -- Tell Neorg what modules to load
     load = {
         ['core.defaults'] = {}, -- Load all the default modules
+        ['core.autocommands'] = {},
         ['core.dirman'] = {
             config = {
                 workspaces = my_workspaces,
