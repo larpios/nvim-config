@@ -32,7 +32,6 @@ return {
         'mrcjkb/rustaceanvim',
         version = '^6', -- Recommended
         lazy = false, -- This plugin is already lazy
-        config = function() end,
     },
     -- {
     --     'rust-lang/rust.vim',
@@ -81,7 +80,19 @@ return {
             { 'L3MON4D3/LuaSnip' },
             { 'onsails/lspkind.nvim' },
             { 'saadparwaiz1/cmp_luasnip' },
-            { 'williamboman/mason.nvim' },
+            {
+                'williamboman/mason.nvim',
+                build = ':MasonUpdate', -- :MasonUpdate updates registry contents
+                keys = {
+                    { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason' },
+                },
+                cmd = {
+                    'Mason',
+                    'MasonInstall',
+                    'MasonUninstall',
+                    'MasonUpdate',
+                },
+            },
             { 'williamboman/mason-lspconfig.nvim' },
             { 'mrcjkb/rustaceanvim' },
         },
