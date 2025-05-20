@@ -140,8 +140,8 @@ return {
                 silent = false,
             },
             clipboard = {
-                enabled = true
-            }
+                enabled = false,
+            },
         },
     }
 }
