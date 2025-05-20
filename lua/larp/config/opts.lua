@@ -29,3 +29,5 @@ vim.o.hidden = true
 vim.o.bufhidden = 'hide'
 
 vim.wo.conceallevel = 2
+
+vim.o.clipboard=""

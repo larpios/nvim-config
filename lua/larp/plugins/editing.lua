@@ -134,6 +134,11 @@ return {
     {
         'ibhagwan/smartyank.nvim',
         opts = {
+            highlight = {
+                enabled = true,
+                higroup = 'IncSearch',
+                timeout = 200,
+            },
             osc52 = {
                 enabled = true,
                 ssh_only = true,
