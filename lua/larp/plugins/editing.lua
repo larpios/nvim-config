@@ -131,4 +131,17 @@ return {
         'LintaoAmons/scratch.nvim',
         event = 'VeryLazy',
     },
+    {
+        'ibhagwan/smartyank.nvim',
+        opts = {
+            osc52 = {
+                enabled = true,
+                ssh_only = true,
+                silent = false,
+            },
+            clipboard = {
+                enabled = true
+            }
+        },
+    }
 }
