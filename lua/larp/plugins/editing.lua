@@ -142,6 +142,10 @@ return {
             clipboard = {
                 enabled = false,
             },
+            validate_yank = function(info) 
+                -- Only copy to clipboard if the register is "+" or "*"
+                return info and (info.regname == "+" or info.regname == "*")
+            end
         },
     }
 }
