@@ -287,4 +287,12 @@ return {
         event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
         opts = {},
     },
+    {
+        'karb94/neoscroll.nvim',
+        opts = {
+            stop_eof = false,
+            duration_multiplier = 0.7,
+            easing = 'circular'
+        },
+    },
 }
