@@ -5,4 +5,4 @@ require('larp.lazy')
 -- lazy loads this
 -- require('larp.plugins')
 
-vim.cmd.colorscheme('tokyonight-moon')
+vim.cmd.colorscheme('catppuccin')
