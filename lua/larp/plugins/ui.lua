@@ -291,8 +291,8 @@ return {
         'karb94/neoscroll.nvim',
         opts = {
             stop_eof = false,
-            duration_multiplier = 0.7,
-            easing = 'circular'
+            duration_multiplier = 0.4,
+            easing = 'cubic'
         },
     },
 }
