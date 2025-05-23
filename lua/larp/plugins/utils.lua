@@ -7,7 +7,7 @@ return {
             { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
         },
         cmd = { 'SudaWrite', 'SudaRead' },
-        config = function() 
+        config = function()
             vim.g.suda_smart_edit = 1
         end,
     },
@@ -139,11 +139,25 @@ return {
     --         vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
     --     end,
     -- },
+    -- {
+    --     'stevearc/resession.nvim',
+    --     config = function()
+    --         require('custom.resessions')
+    --     end,
+    -- },
     {
-        'stevearc/resession.nvim',
-        config = function()
-            require('custom.resessions')
-        end,
+        -- AutoSession takes advantage of Neovim's existing session management capabilities
+        -- to provide seamless automatic session management.
+        'rmagatti/auto-session',
+        lazy = false,
+
+        ---enables autocomplete for opts
+        ---@module "auto-session"
+        ---@type AutoSession.Config
+        opts = {
+            suppressed_dirs = { '~/', '~/Downloads', '/' },
+            -- log_level = 'debug',
+        },
     },
     {
         -- Better terminal support with persistent history
@@ -211,17 +225,24 @@ return {
         opts = {},
     },
     {
-        "rachartier/tiny-code-action.nvim",
+        'rachartier/tiny-code-action.nvim',
         dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "ibhagwan/fzf-lua" },
+            { 'nvim-lua/plenary.nvim' },
+            { 'ibhagwan/fzf-lua' },
         },
-        event = "LspAttach",
+        event = 'LspAttach',
         keys = {
-            { "<leader>cA", function() require('tiny-code-action').code_action() end, mode = { 'n', 'v' }, desc = 'Code Action' },
+            {
+                '<leader>cA',
+                function()
+                    require('tiny-code-action').code_action()
+                end,
+                mode = { 'n', 'v' },
+                desc = 'Code Action',
+            },
         },
         opts = {},
-    }
+    },
 }
 
 -- optional, highly recommended
