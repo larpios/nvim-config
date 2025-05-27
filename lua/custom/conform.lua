@@ -6,7 +6,7 @@ require('conform').setup({
         cpp = { 'clang_format' },
         cmake = { 'cmake_format' },
         nix = { 'nixpkgs_fmt', 'nixfmt' },
-        python = { 'ruft', 'autopep8', 'autoflake', 'black' },
+        python = { 'ruff', 'autopep8', 'autoflake', 'black' },
         markdown = { 'prettier', 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
         xml = { 'xmlformat' },
         yaml = { 'yamllint', 'prettier' },
