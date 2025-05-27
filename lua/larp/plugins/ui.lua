@@ -156,7 +156,16 @@ return {
             },
         },
         keys = {
-            { '-', '<cmd>Oil<cr>', mode = 'n', desc = 'Open parent directory' },
+            {
+                '-',
+                function()
+                    if vim.bo.buftype == '' then
+                        require('oil').open()
+                    end
+                end,
+                mode = 'n',
+                desc = 'Open parent directory',
+            },
         },
     },
     {
@@ -292,7 +301,7 @@ return {
         opts = {
             stop_eof = false,
             duration_multiplier = 0.4,
-            easing = 'cubic'
+            easing = 'cubic',
         },
     },
 }

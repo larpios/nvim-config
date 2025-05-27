@@ -85,7 +85,7 @@ require('mason-lspconfig').setup({
         'vimls',
         'ts_ls',
         'bashls',
-        'pyright',
+        'clangd',
         'marksman',
         'graphql',
     },
