@@ -29,7 +29,7 @@ return {
         },
         build = 'make tiktoken', -- Only on MacOS or Linux
         opts = {
-            model = 'claude-3.7-sonnet-thought',
+            model = 'claude-sonnet-4',
         },
         -- See Commands section for default commands if you want to lazy load on them
     },
@@ -55,7 +55,7 @@ return {
             provider = 'claude',
             openai = {
                 endpoint = 'https://api.anthropic.com',
-                model = 'claude-3-5-sonnet-20241022', -- your desired model (or use gpt-4o, etc.)
+                model = 'claude-4-sonnet-20240513', -- your desired model (or use gpt-4o, etc.)
                 timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
                 temperature = 0,
                 max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
