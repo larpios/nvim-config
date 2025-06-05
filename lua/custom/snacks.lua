@@ -7,8 +7,8 @@ local opts = {
     indent = { enabled = true },
     input = {}, -- Better `vim.ui.input`.
     dashboard = {},
-    picker = { enabled = true },
     notifier = { enabled = true },
+    toggle = {},
     quickfile = { enabled = true },
     git = {}, -- Git utilities.
     gitbrowse = {}, -- Open the repo of the active file in the browser.
@@ -185,3 +185,11 @@ end, { desc = 'Notification Dismiss' })
 larp.fn.map('n', '<leader>bd', function()
     snacks.bufdelete.other()
 end, { desc = 'Notification Dismiss' })
+
+-- toggle
+snacks.toggle.line_number():map("<leader>tl")
+snacks.toggle.diagnostics():map("<leader>td")
+snacks.toggle.inlay_hints():map("<leader>tci")
+snacks.toggle.indent():map("<leader>ti")
+snacks.toggle.treesitter():map("<leader>tt")
+
