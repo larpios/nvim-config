@@ -45,6 +45,10 @@ require('mini.sessions').setup({
 })
 require('mini.splitjoin').setup({})
 require('mini.comment').setup({})
+local files = require('mini.files')
+larp.fn.map('n', '<leader>tm', function()
+    files.open()
+end)
 
 local files = require('mini.files')
 
