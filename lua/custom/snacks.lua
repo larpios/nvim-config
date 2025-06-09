@@ -6,7 +6,7 @@ local opts = {
     bufdelete = {}, -- Delete buffers without disrupting window layout.
     indent = { enabled = true },
     input = {}, -- Better `vim.ui.input`.
-    dashboard = {},
+    -- dashboard = {},
     notifier = { enabled = true },
     toggle = {},
     quickfile = { enabled = true },
