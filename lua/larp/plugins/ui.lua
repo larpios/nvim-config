@@ -304,4 +304,25 @@ return {
             easing = 'cubic',
         },
     },
+    {
+        'rachartier/tiny-code-action.nvim',
+        dependencies = {
+            { 'nvim-lua/plenary.nvim' },
+            { 'ibhagwan/fzf-lua' },
+        },
+        event = 'LspAttach',
+        opts = {},
+        keys = {
+            {
+                '<leader>ca',
+                function()
+                    require('tiny-code-action').code_action()
+                end,
+                mode = 'n',
+                desc = 'Code Action',
+                noremap = true,
+                silent = true,
+            },
+        }
+    },
 }
