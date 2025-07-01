@@ -37,13 +37,35 @@ return {
     --     'github/copilot.vim',
     --     event = 'InsertEnter'
     -- },
+    --
+    -- Microsoft now charges for Copilot!
+    -- {
+    --     'zbirenbaum/copilot.lua',
+    --     event = 'InsertEnter',
+    --     cmd = 'Copilot',
+    --     config = function()
+    --         require('custom.copilot-lua')
+    --     end,
+    -- },
     {
-        'zbirenbaum/copilot.lua',
-        event = 'InsertEnter',
-        cmd = 'Copilot',
-        config = function()
-            require('custom.copilot-lua')
-        end,
+        'Exafunction/windsurf.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'hrsh7th/nvim-cmp',
+        },
+        opts = {
+            enable_chat = true,
+            virtual_text ={
+                enabled = true,
+                key_bindings = {
+                    accept = "<C-a>",
+                }
+            },
+        },
+        config = function(_, opts) 
+            require('codeium').setup(opts)
+        end
+
     },
     {
         'yetone/avante.nvim',
@@ -60,9 +82,9 @@ return {
                     extra_request_body = {
                         max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
                         temperature = 0,
-                    }
+                    },
                 },
-            }
+            },
         },
         -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
         build = 'make',

@@ -13,6 +13,9 @@ require('conform').setup({
         text = { 'autocorrect' },
         ['*'] = { 'autocorrect', 'codespell' },
         ['_'] = { 'trim_whitespace' },
+        cs = { 'csharpier', 'clang_format' },
+        ts = { 'prettier', 'eslint_d' },
+        js = { 'prettier', 'eslint_d' },
     },
     default_format_opts = {
         lsp_format = 'fallback',

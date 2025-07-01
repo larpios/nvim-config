@@ -2,7 +2,7 @@ local opts = {
     keymap = {
         preset = 'default',
         ['<C-q>'] = { 'show_documentation', 'hide_documentation' },
-        ['<C-e>' ] = { 'show', 'hide' }
+        ['<C-e>'] = { 'show', 'hide' },
     },
     completion = {
         menu = {
@@ -42,8 +42,8 @@ local opts = {
         },
     },
     sources = {
-        -- rm ripgrep 
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'lazydev', 'emoji' },
+        -- rm ripgrep
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'emoji', 'codeium' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -69,10 +69,9 @@ local opts = {
                     max_filesize = '1M',
                 },
             },
-            copilot = {
-                name = 'copilot',
-                module = 'blink-cmp-copilot',
-                score_offset = 100,
+            codeium = {
+                name = 'Codeium',
+                module = 'codeium.blink',
                 async = true,
             },
             lazydev = {
