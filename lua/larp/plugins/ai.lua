@@ -29,7 +29,7 @@ return {
         },
         build = 'make tiktoken', -- Only on MacOS or Linux
         opts = {
-            model = 'claude-sonnet-4',
+            model = 'claude-3.5-sonnet',
         },
         -- See Commands section for default commands if you want to lazy load on them
     },
