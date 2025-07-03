@@ -160,14 +160,6 @@ return {
         },
     },
     {
-        -- Better terminal support with persistent history
-        'akinsho/toggleterm.nvim',
-        version = '*',
-        opts = {
-            open_mapping = [[<c-t>]],
-        },
-    },
-    {
         'stevearc/quicker.nvim',
         ft = 'qf',
         config = function()

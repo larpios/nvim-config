@@ -11,6 +11,23 @@ return {
         },
     },
     {
+        'nvzone/floaterm',
+        dependencies = 'nvzone/volt',
+        opts = {},
+        cmd = 'FloatermToggle',
+        keys = {
+            { '<leader><leader>t', ':FloatermToggle<cr>', mode = 'n', silent = true, desc = 'Toggle Floaterm' },
+        },
+    },
+    {
+        -- Better terminal support with persistent history
+        'akinsho/toggleterm.nvim',
+        version = '*',
+        opts = {
+            open_mapping = [[<c-t>]],
+        },
+    },
+    {
         'stevearc/overseer.nvim',
         cmds = {
             'Overseer',

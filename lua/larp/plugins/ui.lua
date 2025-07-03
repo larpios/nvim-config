@@ -73,6 +73,11 @@ return {
         event = 'BufRead',
     },
     {
+        "benomahony/oil-git.nvim",
+        dependencies = { "stevearc/oil.nvim" },
+        -- No opts or config needed! Works automatically
+    },
+    {
         'stevearc/oil.nvim',
         lazy = false,
         tag = 'stable',
