@@ -235,6 +235,12 @@ return {
         },
         opts = {},
     },
-}
 
--- optional, highly recommended
+    {
+        'max397574/colortils.nvim',
+        cmd = 'Colortils',
+        config = function()
+            require('colortils').setup()
+        end,
+    },
+}
