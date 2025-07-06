@@ -250,6 +250,7 @@ return {
     {
         -- Neovide-like cursor
         'sphamba/smear-cursor.nvim',
+        enabled = false,
         event = 'BufWinEnter',
         config = function()
             require('custom.smear-cursor')
