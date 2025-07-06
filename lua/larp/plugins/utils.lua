@@ -235,12 +235,18 @@ return {
         },
         opts = {},
     },
-
     {
-        'max397574/colortils.nvim',
-        cmd = 'Colortils',
+        -- Color picker utils
+        'uga-rosa/ccc.nvim',
+        cmd = {
+            'CccConvert',
+            'CccPick',
+            'CccHighlighterDisable',
+            'CccHighlighterEnable',
+            'CccHighlighterToggle',
+        },
         config = function()
-            require('colortils').setup()
+            require('custom.ccc')
         end,
     },
 }
