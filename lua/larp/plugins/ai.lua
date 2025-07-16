@@ -1,71 +1,24 @@
 return {
     {
-        'CopilotC-Nvim/CopilotChat.nvim',
-        cmd = {
-            'CopilotChat',
-            'CopilotChatOpen',
-            'CopilotChatClose',
-            'CopilotChatAgents',
-            'CopilotChatCommit',
-            'CopilotChatCommitStaged',
-            'CopilotChatDebugInfo',
-            'CopilotChatDocs',
-            'CopilotChatExplain',
-            'CopilotChatFix',
-            'CopilotChatFixDiagnostic',
-            'CopilotChatLoad',
-            'CopilotChatModels',
-            'CopilotChatOptimize',
-            'CopilotChatReset',
-            'CopilotChatReview',
-            'CopilotChatSave',
-            'CopilotChatStop',
-            'CopilotChatTests',
-            'CopilotChatToggle',
-        },
-        dependencies = {
-            { 'zbirenbaum/copilot.lua' },
-            { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
-        },
-        build = 'make tiktoken', -- Only on MacOS or Linux
-        opts = {
-            model = 'claude-3.5-sonnet',
-        },
-        -- See Commands section for default commands if you want to lazy load on them
-    },
-    -- {
-    --     'github/copilot.vim',
-    --     event = 'InsertEnter'
-    -- },
-    --
-    -- Microsoft now charges for Copilot!
-    -- {
-    --     'zbirenbaum/copilot.lua',
-    --     event = 'InsertEnter',
-    --     cmd = 'Copilot',
-    --     config = function()
-    --         require('custom.copilot-lua')
-    --     end,
-    -- },
-    {
         'Exafunction/windsurf.nvim',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'hrsh7th/nvim-cmp',
         },
-        opts = {
-            enable_chat = true,
-            virtual_text ={
-                enabled = true,
-                key_bindings = {
-                    accept = "<C-a>",
-                }
-            },
-        },
-        config = function(_, opts) 
-            require('codeium').setup(opts)
-        end
-
+        config = function()
+            require('codeium').setup({
+                enable_chat = true,
+                virtual_text = {
+                    enabled = true,
+                    key_bindings = {
+                        accept = '<C-a>',
+                    },
+                },
+                workspace_root = {
+                    paths = { '.git', 'package.json', 'Cargo.toml' },
+                },
+            })
+        end,
     },
     {
         'yetone/avante.nvim',
