@@ -4,29 +4,13 @@ return {
         'lambdalisue/vim-suda',
         keys = {
             { '<leader><leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = 'Sudo Write' },
-            { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
+            { '<leader><leader>Sr', '<cmd>SudaRead<cr>',  mode = 'n', desc = 'Sudo Read' },
         },
         cmd = { 'SudaWrite', 'SudaRead' },
         config = function()
             vim.g.suda_smart_edit = 1
         end,
     },
-    -- {
-    --     'gelguy/wilder.nvim',
-    --     event = 'BufEnter',
-    --     config = function()
-    --         require('custom.wilder')
-    --     end,
-    -- },
-    -- {
-    --     'nvim-pack/nvim-spectre',
-    --     keys = {
-    --         { '<leader>St', '<cmd>Spectre<cr>', mode = 'n', desc = 'Toggle Spectre' },
-    --         { '<leader>Sw', '<cmd>Spectre<cr>', mode = 'v', desc = 'Search current word' },
-    --         { '<leader>Sp', '<cmd>Spectre<cr>', mode = 'n', desc = 'Search on current file' },
-    --     },
-    -- },
-
     {
         'MagicDuck/grug-far.nvim',
         config = function()
@@ -79,72 +63,6 @@ return {
             default_mappings = true,
         },
     },
-    -- {
-    --     -- Provides REPLs for various languages
-    --     'Vigemus/iron.nvim',
-    --     enabled = false,
-    --     config = function()
-    --         local iron = require('iron.core')
-    --
-    --         iron.setup({
-    --             config = {
-    --                 -- Whether a repl should be discarded or not
-    --                 scratch_repl = true,
-    --                 -- Your repl definitions come here
-    --                 repl_definition = {
-    --                     sh = {
-    --                         -- Can be a table or a function that
-    --                         -- returns a table (see below)
-    --                         command = { 'zsh' },
-    --                     },
-    --                     python = {
-    --                         command = { 'python3' }, -- or { "ipython", "--no-autoindent" }
-    --                         format = require('iron.fts.common').bracketed_paste_python,
-    --                     },
-    --                 },
-    --                 -- How the repl window will be displayed
-    --                 -- See below for more information
-    --                 repl_open_cmd = require('iron.view').bottom(40),
-    --             },
-    --             -- Iron doesn't set keymaps by default anymore.
-    --             -- You can set them here or manually add keymaps to the functions in iron.core
-    --             keymaps = {
-    --                 send_motion = '<space>Sc',
-    --                 visual_send = '<space>Sc',
-    --                 send_file = '<space>Sf',
-    --                 send_line = '<space>Sl',
-    --                 send_paragraph = '<space>Sp',
-    --                 send_until_cursor = '<space>Su',
-    --                 send_mark = '<space>Sm',
-    --                 mark_motion = '<space>mc',
-    --                 mark_visual = '<space>mc',
-    --                 remove_mark = '<space>md',
-    --                 cr = '<space>S<cr>',
-    --                 interrupt = '<space>S<space>',
-    --                 exit = '<space>Sq',
-    --                 clear = '<space>cl',
-    --             },
-    --             -- If the highlight is on, you can change how it looks
-    --             -- For the available options, check nvim_set_hl
-    --             highlight = {
-    --                 italic = true,
-    --             },
-    --             ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
-    --         })
-    --
-    --         -- iron also has a list of commands, see :h iron-commands for all available commands
-    --         vim.keymap.set('n', '<space>rs', '<cmd>IronRepl<cr>')
-    --         vim.keymap.set('n', '<space>rr', '<cmd>IronRestart<cr>')
-    --         vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
-    --         vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
-    --     end,
-    -- },
-    -- {
-    --     'stevearc/resession.nvim',
-    --     config = function()
-    --         require('custom.resessions')
-    --     end,
-    -- },
     {
         -- AutoSession takes advantage of Neovim's existing session management capabilities
         -- to provide seamless automatic session management.
@@ -249,4 +167,17 @@ return {
             require('custom.ccc')
         end,
     },
+    {
+        "alex-popov-tech/store.nvim",
+        dependencies = {
+            "OXY2DEV/markview.nvim", -- optional, for pretty readme preview / help window
+        },
+        cmd = "Store",
+        keys = {
+            { "<leader>ps", "<cmd>Store<cr>", desc = "Open Plugin Store" },
+        },
+        opts = {
+            -- optional configuration here
+        },
+    }
 }
