@@ -24,16 +24,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
             })
         end, { desc = 'Get diagnostics' })
 
-        larp.fn.map('', '<leader>cr', function()
-            vim.lsp.buf.rename()
-        end)
+        -- larp.fn.map('', '<leader>cr', function()
+        --     vim.lsp.buf.rename()
+        -- end)
+        larp.fn.map('', 'gd', function()
+            vim.lsp.buf.definition()
+        end, { desc = 'Go to Definition'})
+        larp.fn.map('', 'gD', function()
+            vim.lsp.buf.type_definition()
+        end, { desc = 'Go to Type Definition'})
 
         larp.fn.map('', '<leader>ca', function()
             vim.lsp.buf.code_action()
         end)
-        -- larp.fn.map('', '<leader>cf', function()
-        --     vim.lsp.buf.format({ async = true })
-        -- end)
+        larp.fn.map('', '<leader>cf', function()
+            vim.lsp.buf.format({ async = true })
+        end)
 
         -- vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
     end,

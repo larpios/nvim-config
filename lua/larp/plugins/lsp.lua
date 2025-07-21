@@ -21,25 +21,39 @@ return {
         },
     },
     {
-        'stevearc/conform.nvim',
-        event = 'LspAttach',
-        opts = {},
-        config = function()
-            require('custom.conform')
-        end,
-    },
-    {
         'mrcjkb/rustaceanvim',
         version = '^6', -- Recommended
-        lazy = false, -- This plugin is already lazy
+        lazy = false,   -- This plugin is already lazy
     },
-    -- {
-    --     'rust-lang/rust.vim',
-    --     ft = 'rust',
-    --     init = function()
-    --         vim.g.rustfmt_autosave = 1
-    --     end,
-    -- },
+    {
+        'mason-org/mason.nvim',
+        opts = {},
+        cmds = {
+            'Mason',
+            'MasonInstall',
+            'MasonLog',
+            'MasonUninstall',
+            'MasonUninstallAll',
+            'MasonUpdate'
+        },
+        keys = {
+            { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason', silent = true },
+        },
+    },
+    {
+        'mason-org/mason-lspconfig.nvim',
+        opts = {
+            ensure_installed = {
+                'lua_ls',
+                'rust_analyzer',
+                'clangd',
+            },
+        },
+        dependencies = {
+            { 'mason-org/mason.nvim', opts = {} },
+            'neovim/nvim-lspconfig',
+        },
+    },
     {
         'saecki/crates.nvim',
         ft = 'toml',
@@ -59,54 +73,6 @@ return {
         end,
     },
     {
-        'VonHeikemen/lsp-zero.nvim',
-        event = 'BufRead',
-        branch = 'v4.x',
-        dependencies = {
-            { 'neovim/nvim-lspconfig' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            {
-                -- nvim-cmp is apparenty not being that well maintained.
-                -- Someone has forked it and merged some pull requests and stuff.
-                -- Until it gets well maintained again, I'll use this fork.
-                -- 'hrsh7th/nvim-cmp' ,
-                'iguanacucumber/magazine.nvim',
-                name = 'nvim-cmp', -- Otherwise highlighting gets messed up
-            },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-nvim-lua' },
-            -- { 'hrsh7th/cmp-cmdline' },
-            { 'rafamadriz/friendly-snippets' },
-            { 'L3MON4D3/LuaSnip' },
-            { 'onsails/lspkind.nvim' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            {
-                'williamboman/mason.nvim',
-                build = ':MasonUpdate', -- :MasonUpdate updates registry contents
-                keys = {
-                    { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason' },
-                },
-                cmd = {
-                    'Mason',
-                    'MasonInstall',
-                    'MasonUninstall',
-                    'MasonUpdate',
-                },
-            },
-            { 'williamboman/mason-lspconfig.nvim' },
-            { 'mrcjkb/rustaceanvim' },
-        },
-        -- TODO: Have sources show up in the completion menu. The default one does, but lspkind overwrites it.
-        config = function()
-            require('custom.lsp-zero')
-        end,
-    },
-    {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        config = true,
-    },
-    {
         -- Better folding
         'kevinhwang91/nvim-ufo',
         event = 'BufRead',
@@ -121,6 +87,9 @@ return {
         config = function()
             require('custom.nvim-ufo')
         end,
+    },
+    {
+        'neovim/nvim-lspconfig',
     },
     {
         -- Stops inactive LSP servers to free RAM
@@ -219,7 +188,7 @@ return {
     {
         'rachartier/tiny-inline-diagnostic.nvim',
         event = 'VeryLazy', -- Or `LspAttach`
-        priority = 1000, -- needs to be loaded in first
+        priority = 1000,    -- needs to be loaded in first
         config = function()
             require('tiny-inline-diagnostic').setup()
             vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
@@ -228,5 +197,5 @@ return {
     {
         'Civitasv/cmake-tools.nvim',
         opts = {},
-    }
+    },
 }
