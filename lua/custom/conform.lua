@@ -1,4 +1,5 @@
-require('conform').setup({
+local conform = require('conform')
+conform.setup({
     formatters_by_ft = {
         lua = { 'stylua' },
         rust = { 'rustfmt' },
@@ -27,4 +28,12 @@ require('conform').setup({
     -- Conform will notify you when no formatters are available for the buffer
     notify_no_formatters = true,
 })
-larp.fn.map('n', '<leader>cf', require('conform').format)
+
+vim.api.nvim_create_autocmd({ 'LspAttach' }, {
+    pattern = '*',
+    callback = function()
+        larp.fn.map('n', '<leader>cf', function()
+            conform.format({ lsp_fallback = true })
+        end, { desc = 'Format Document' })
+    end,
+})
