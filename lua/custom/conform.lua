@@ -17,6 +17,7 @@ conform.setup({
         cs = { 'csharpier', 'clang_format' },
         ts = { 'prettier', 'eslint_d' },
         js = { 'prettier', 'eslint_d' },
+        svelte = { 'prettier', 'eslint_d' },
     },
     default_format_opts = {
         lsp_format = 'fallback',
