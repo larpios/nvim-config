@@ -102,8 +102,8 @@ return {
                 --     require('oil.actions').parent.callback()
                 --     vim.cmd.lcd(require('oil').get_current_dir())
                 -- end,
-                ['<C-5>'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
-                ["<C-'>"] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
+                ['<C-v>'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
+                ["<C-g>"] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
                 -- ['<C-t>'] = { 'actions.select', opts = { tab = true }, desc = 'Open the entry in new tab' },
                 ['<C-p>'] = 'actions.preview',
                 ['<C-c>'] = 'actions.close',
