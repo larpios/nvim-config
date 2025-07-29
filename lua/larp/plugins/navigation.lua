@@ -22,6 +22,7 @@ return {
     -- },
     {
         'ibhagwan/fzf-lua',
+        enabled = false,
         event = 'VeryLazy',
         dependencies = {
             'echasnovski/mini.icons',
