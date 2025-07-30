@@ -116,8 +116,8 @@ end, { desc = 'Grep' })
 
 larp.fn.map({ 'n', 'x' }, '<leader>gw', function()
     picker.grep_word({
-        search = vim.fn.expand('<cWORD>'),
-        live = true,
+        -- live = true,
+        args = { '--hidden', '--follow', '--glob', '!*/.git/*', '--no-ignore' },
     })
 end, { desc = 'Grep Word' })
 
