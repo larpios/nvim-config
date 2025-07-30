@@ -27,7 +27,7 @@ larp.fn.map('n', '<leader>Nff', notifier.show_history, { desc = 'Show History', 
 larp.fn.map('n', '<leader>Gro', snacks.gitbrowse.open, { desc = 'Open in Browser', desc_prefix = 'Git' })
 
 -- Picker
-local picker = snacks.picker
+local picker = require('snacks.picker')
 
 -- Find
 larp.fn.map('n', '<leader>pp', function()
@@ -114,9 +114,17 @@ larp.fn.map('n', '<leader>gg', function()
     picker.pick('grep')
 end, { desc = 'Grep' })
 
-larp.fn.map({ 'n', 'v' }, '<leader>gw', function()
+larp.fn.map({ 'n', 'x' }, '<leader>gw', function()
     picker.grep_word({
         search = vim.fn.expand('<cWORD>'),
+        live = true,
+    })
+end, { desc = 'Grep Word' })
+
+larp.fn.map({ 'n', 'x' }, '<leader>fw', function()
+    picker.files({
+        search = vim.fn.expand('<cWORD>'),
+        live = true,
     })
 end, { desc = 'Grep Word' })
 
@@ -189,9 +197,8 @@ larp.fn.map('n', '<leader>bd', function()
 end, { desc = 'Notification Dismiss' })
 
 -- toggle
-snacks.toggle.line_number():map("<leader>tl")
-snacks.toggle.diagnostics():map("<leader>td")
-snacks.toggle.inlay_hints():map("<leader>tci")
-snacks.toggle.indent():map("<leader>ti")
-snacks.toggle.treesitter():map("<leader>tt")
-
+snacks.toggle.line_number():map('<leader>tl')
+snacks.toggle.diagnostics():map('<leader>td')
+snacks.toggle.inlay_hints():map('<leader>tci')
+snacks.toggle.indent():map('<leader>ti')
+snacks.toggle.treesitter():map('<leader>tt')
