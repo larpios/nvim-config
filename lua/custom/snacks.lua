@@ -15,7 +15,7 @@ local opts = {
     statuscolumn = { enabled = true },
     scope = {}, -- Scope detection based on treesitter or indent.
     words = { enabled = true },
-    picker = { enabled = false },
+    picker = { enabled = true },
     lazygit = {},
 }
 
@@ -115,7 +115,9 @@ larp.fn.map('n', '<leader>gg', function()
 end, { desc = 'Grep' })
 
 larp.fn.map({ 'n', 'v' }, '<leader>gw', function()
-    picker.grep_word()
+    picker.grep_word({
+        search = vim.fn.expand('<cWORD>'),
+    })
 end, { desc = 'Grep Word' })
 
 larp.fn.map('n', '<leader>gc', function()
