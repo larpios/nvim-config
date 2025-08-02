@@ -16,13 +16,15 @@ return {
         'chrisgrieser/nvim-rip-substitute',
         cmd = 'RipSubstitute',
         keys = {
-            { '<leader>rs', mode = { 'n', 'x' } },
+            {
+                '<leader>Ss',
+                function()
+                    require('rip-substitute').sub()
+                end,
+                mode = { 'n', 'x' },
+            },
         },
-        config = function()
-            larp.fn.map({ 'n', 'x' }, '<leader>rs', function()
-                require('rip-substitute').sub()
-            end)
-        end,
+        opts = {},
     },
     {
         'cshuaimin/ssr.nvim',

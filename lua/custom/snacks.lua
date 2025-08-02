@@ -66,6 +66,14 @@ larp.fn.map('n', '<leader>fr', function()
     picker.recent()
 end, { desc = 'Find Lazy Specs' })
 
+larp.fn.map('n', '<leader>fs', function()
+    picker.lsp_symbols()
+end, { desc = 'Find Symbols' })
+
+larp.fn.map('n', '<leader>fS', function()
+    picker.lsp_workspace_symbols()
+end, { desc = 'Find Workspace Symbols' })
+
 larp.fn.map('n', '<leader>fm', function()
     picker.man()
 end, { desc = 'Find Man Pages' })
