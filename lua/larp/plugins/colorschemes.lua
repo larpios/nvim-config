@@ -11,11 +11,11 @@ return {
                 shade = 'dark',
                 percentage = 0.1,
             },
-            transparent_background = true,
-            styles = {
-                sidebars = 'transparent',
-                floats = 'transparent',
-            },
+            -- transparent_background = true,
+            -- styles = {
+            --     sidebars = 'transparent',
+            --     floats = 'transparent',
+            -- },
             default_integrations = true,
             integrations = {
                 blink_cmp = true,
@@ -72,6 +72,49 @@ return {
             lualine_bold = true,
         },
     },
+    {
+        -- For transparent background
+        'xiyaowong/transparent.nvim',
+        -- Modify this to enable/disable transparent background
+        enabled = true,
+        config = function()
+            local transparent = require('transparent')
+            local opts = {
+                groups = {
+                    'Normal',
+                    'NormalNC',
+                    'Comment',
+                    'Constant',
+                    'Special',
+                    'Identifier',
+                    'Statement',
+                    'PreProc',
+                    'Type',
+                    'Underlined',
+                    'Todo',
+                    'String',
+                    'Function',
+                    'Conditional',
+                    'Repeat',
+                    'Operator',
+                    'Structure',
+                    'LineNr',
+                    'NonText',
+                    'SignColumn',
+                    'CursorLine',
+                    'CursorLineNr',
+                    'StatusLine',
+                    'StatusLineNC',
+                    'EndOfBuffer',
+                },
+            }
+
+            transparent.setup(opts)
+            transparent.clear_prefix('Snacks')
+            transparent.clear_prefix('SnacksPicker')
+        end,
+    },
+
     -- {
     --     'navarasu/onedark.nvim',
     --     priority = 1000, -- make sure to load this before all the other start plugins
