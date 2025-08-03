@@ -11,11 +11,11 @@ return {
                 shade = 'dark',
                 percentage = 0.1,
             },
-            -- transparent_background = true,
-            -- styles = {
-            --     sidebars = 'transparent',
-            --     floats = 'transparent',
-            -- },
+            transparent_background = true,
+            styles = {
+                sidebars = 'transparent',
+                floats = 'transparent',
+            },
             default_integrations = true,
             integrations = {
                 blink_cmp = true,
