@@ -11,6 +11,12 @@ larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window', norema
 larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window', noremap = true, silent = true })
 larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window', noremap = true, silent = true })
 
+-- Move Windows
+larp.fn.map('', '<leader>wH', '<C-w>H', { desc = 'Send Window to Left', noremap = true, silent = true })
+larp.fn.map('', '<leader>wJ', '<C-w>J', { desc = 'Send Window to Bottom', noremap = true, silent = true })
+larp.fn.map('', '<leader>wL', '<C-w>L', { desc = 'Send Window to Right', noremap = true, silent = true })
+larp.fn.map('', '<leader>wK', '<C-w>K', { desc = 'Send Window to Top', noremap = true, silent = true })
+
 -- Split Windows
 larp.fn.map('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left', noremap = true, silent = true })
 larp.fn.map('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom', noremap = true, silent = true })
