@@ -106,24 +106,6 @@ return {
         end,
     },
     {
-        'kristijanhusak/vim-dadbod-ui',
-        enabled = false,
-        dependencies = {
-            { 'tpope/vim-dadbod', lazy = true },
-            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
-        },
-        cmd = {
-            'DBUI',
-            'DBUIToggle',
-            'DBUIAddConnection',
-            'DBUIFindBuffer',
-        },
-        init = function()
-            -- Your DBUI configuration
-            vim.g.db_ui_use_nerd_fonts = 1
-        end,
-    },
-    {
         'codethread/qmk.nvim',
         enabled = false,
         ft = { 'keymap' },
@@ -169,31 +151,6 @@ return {
             })
         end,
     },
-    -- {
-    --     'dhruvasagar/vim-table-mode',
-    -- },
-    -- {
-    --     'nvim-orgmode/orgmode',
-    --     enabled = false,
-    --     dependencies = {
-    --         {
-    --             'chipsenkbeil/org-roam.nvim',
-    --             -- It prevents me from using the neorg keymaps.
-    --             -- Re-enable it when you feel like
-    --             -- remapping the keymaps
-    --             tag = '0.1.0',
-    --         },
-    --         {
-    --             'akinsho/org-bullets.nvim',
-    --             opts = {},
-    --         },
-    --     },
-    --     event = 'VeryLazy',
-    --     ft = { 'org' },
-    --     config = function()
-    --         require('custom.orgmode')
-    --     end,
-    -- },
     {
         'mrjones2014/smart-splits.nvim',
         dependencies = { 'kwkarlwang/bufresize.nvim' },
@@ -201,38 +158,5 @@ return {
         config = function()
             require('custom.smart-splits')
         end,
-    },
-    {
-        'renerocksai/telekasten.nvim',
-        enabled = false,
-        dependencies = { 'nvim-telescope/telescope.nvim' },
-        config = function()
-            require('telekasten').setup({
-                home = vim.fn.expand('~/zettelkasten'), -- Put the name of your notes directory here
-            })
-        end,
-    },
-    -- {
-    --     'jubnzv/mdeval.nvim',
-    --     ft = { 'markdown' },
-    --     config = function()
-    --         require('custom.mdeval')
-    --     end,
-    -- },
-    {
-        'kawre/leetcode.nvim',
-        build = ':TSUpdate html',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-            'nvim-lua/plenary.nvim', -- required by telescope
-            'MunifTanjim/nui.nvim',
-
-            -- optional
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons',
-        },
-        opts = {
-            -- configuration goes here
-        },
     },
 }

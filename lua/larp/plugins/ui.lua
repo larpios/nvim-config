@@ -56,18 +56,6 @@ return {
         'nacro90/numb.nvim',
         config = true,
     },
-    -- {
-    --     'rcarriga/nvim-notify',
-    --     lazy = true,
-    --     event = 'VeryLazy',
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim',
-    --         'nvim-telescope/telescope.nvim',
-    --     },
-    --     config = function()
-    --         require('custom.nvim-notify')
-    --     end,
-    -- },
     {
         'petertriho/nvim-scrollbar',
         event = 'BufRead',
@@ -296,15 +284,6 @@ return {
         config = true,
         event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
         opts = {},
-    },
-    {
-        'karb94/neoscroll.nvim',
-        enabled = false,
-        opts = {
-            stop_eof = false,
-            duration_multiplier = 0.4,
-            easing = 'cubic',
-        },
     },
     {
         'rachartier/tiny-code-action.nvim',

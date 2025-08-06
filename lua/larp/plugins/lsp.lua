@@ -10,17 +10,6 @@ return {
         },
     },
     {
-        'L3MON4D3/LuaSnip',
-        event = 'InsertEnter',
-        -- follow latest release.
-        version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = 'make install_jsregexp',
-        dependencies = {
-            'saadparwaiz1/cmp_luasnip',
-        },
-    },
-    {
         'mrcjkb/rustaceanvim',
         version = '^6', -- Recommended
         lazy = false,   -- This plugin is already lazy
@@ -44,6 +33,7 @@ return {
         'mason-org/mason-lspconfig.nvim',
         opts = {
             ensure_installed = {
+                'vimls',
                 'lua_ls',
                 'rust_analyzer',
                 'clangd',
@@ -146,9 +136,6 @@ return {
     },
     {
         'saghen/blink.cmp',
-        -- enabled = false,
-        -- Replacement for nvim-cmp, but it's lacking for now
-        -- enabled = false,
         lazy = false, -- lazy loading handled internally
         -- optional: provides snippets for the snippet source
         dependencies = {
@@ -179,6 +166,7 @@ return {
     },
     {
         'p00f/clangd_extensions.nvim',
+        ft = { 'c', 'cpp' },
         opts = {},
     },
     {
@@ -200,6 +188,7 @@ return {
         opts = {},
     },
     {
+        -- Formatter
         'stevearc/conform.nvim',
         config = function()
             require('custom.conform')

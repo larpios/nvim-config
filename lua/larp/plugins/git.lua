@@ -27,7 +27,7 @@ return {
             'NeogitLogCurrent',
             'NeogitResetState',
         },
-        keys = { { '<leader>Go', mode = n } },
+        keys = { { '<leader>Go', mode = 'n' } },
         dependencies = {
             'nvim-lua/plenary.nvim', -- required
             'sindrets/diffview.nvim', -- optional - Diff integration

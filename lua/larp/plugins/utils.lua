@@ -4,7 +4,7 @@ return {
         'lambdalisue/vim-suda',
         keys = {
             { '<leader><leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = 'Sudo Write' },
-            { '<leader><leader>Sr', '<cmd>SudaRead<cr>',  mode = 'n', desc = 'Sudo Read' },
+            { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
         },
         cmd = { 'SudaWrite', 'SudaRead' },
         config = function()
@@ -22,39 +22,6 @@ return {
         end,
     },
 
-    -- Snapshop code
-    -- {
-    --     'mistricky/codesnap.nvim',
-    --     build = 'make build_generator',
-    --     keys = {
-    --         { '<leader>xcc', '<cmd>CodeSnap<cr>', mode = 'x', desc = 'Save selected code snapshot into clipboard' },
-    --         { '<leader>xcs', '<cmd>CodeSnapSave<cr>', mode = 'x', desc = 'Save selected code snapshot in ~/Pictures' },
-    --     },
-    --     opts = {
-    --         save_path = '~/Pictures',
-    --         has_breadcrumbs = true,
-    --         bg_theme = 'bamboo',
-    --     },
-    -- },
-
-    -- {
-    --     'mrjones2014/legendary.nvim',
-    --     -- since legendary.nvim handles all your keymaps/commands,
-    --     -- its recommended to load legendary.nvim before other plugins
-    --     priority = 10000,
-    --     lazy = false,
-    --     -- sqlite is only needed if you want to use frecency sorting
-    --     dependencies = { 'kkharji/sqlite.lua' },
-    --     keys = {
-    --         { '<leader>fK', '<cmd>Legendary<cr>', desc = 'Open Legendary' },
-    --     },
-    --     opts = {
-    --         extensions = {
-    --             lazy_nvim = true,
-    --             smart_splits = {},
-    --         },
-    --     },
-    -- },
     {
         -- Preview the definition of the word under the cursor
         'rmagatti/goto-preview',
@@ -103,6 +70,7 @@ return {
     },
     {
         'meznaric/key-analyzer.nvim',
+        cmd = { 'KeyAnalyzer' },
         opts = {},
     },
     {
@@ -129,8 +97,10 @@ return {
         'RaafatTurki/hex.nvim',
         event = 'BufRead',
         opts = {},
+        cmd = { 'HexDump', 'HexToggle', 'HexAssemble' }
     },
     {
+        -- Easily identify abandoned Neovim plugins
         'ZWindL/orphans.nvim',
         opts = {},
     },
@@ -168,16 +138,17 @@ return {
         end,
     },
     {
-        "alex-popov-tech/store.nvim",
+        -- Awesome Neovim plugin list
+        'alex-popov-tech/store.nvim',
         dependencies = {
-            "OXY2DEV/markview.nvim", -- optional, for pretty readme preview / help window
+            'OXY2DEV/markview.nvim', -- optional, for pretty readme preview / help window
         },
-        cmd = "Store",
+        cmd = 'Store',
         keys = {
-            { "<leader>ps", "<cmd>Store<cr>", desc = "Open Plugin Store" },
+            { '<leader>ps', '<cmd>Store<cr>', desc = 'Open Plugin Store' },
         },
         opts = {
             -- optional configuration here
         },
-    }
+    },
 }

@@ -52,8 +52,6 @@ larp.fn.map('n', '<leader>tm', function()
     files.open()
 end)
 
-local files = require('mini.files')
-
 larp.fn.map('n', '<leader>mf', function()
     files.open()
 end)
