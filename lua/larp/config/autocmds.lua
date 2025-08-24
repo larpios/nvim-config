@@ -21,6 +21,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 border = 'rounded',
                 severity_sort = true,
                 focus_id = 'diagnostic',
+                focusable = true,
             })
         end, { desc = 'Get diagnostics' })
 
