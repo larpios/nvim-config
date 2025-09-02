@@ -15,7 +15,17 @@ local opts = {
     statuscolumn = { enabled = true },
     scope = { enabled = true },     -- Scope detection based on treesitter or indent.
     words = { enabled = true },
-    picker = { enabled = true },
+    picker = {
+        enabled = true,
+        formatters = {
+            file = {
+                filename_first = true,
+                file = {
+                    truncate = 60,
+                },
+            },
+        },
+    },
     lazygit = { enabled = true },
     scratch = { enabled = true },
     zen = { enabled = true },

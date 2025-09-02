@@ -6,6 +6,18 @@ require('mini.keymap').setup({})
 -- mini.ai is a module that provides more text objects, especially for ones that start with `a(round)`, and `i(nside)`
 -- Check out the documentation for more information (https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md)
 require('mini.ai').setup({})
+require('mini.diff').setup({
+    mappings = {
+        apply = 'gq',
+        reset = 'gQ',
+        textobject = 'gq',
+
+        goto_first = '[H',
+        goto_prev = '[h',
+        goto_next = '[h',
+        goto_last = ']H',
+    },
+})
 require('mini.surround').setup({
     respect_selection_type = true,
     mappings = {
