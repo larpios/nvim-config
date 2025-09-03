@@ -20,9 +20,7 @@ local opts = {
         formatters = {
             file = {
                 filename_first = true,
-                file = {
-                    truncate = 60,
-                },
+                truncate = 10000,
             },
         },
     },
