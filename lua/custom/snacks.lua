@@ -210,3 +210,17 @@ snacks.toggle.diagnostics():map('<leader>td')
 snacks.toggle.inlay_hints():map('<leader>tci')
 snacks.toggle.indent():map('<leader>ti')
 snacks.toggle.treesitter():map('<leader>tt')
+
+-- Fix for a while
+local M = require('snacks.picker.core.main')
+M.new = function(opts)
+    opts = vim.tbl_extend('force', {
+        float = false,
+        file = true,
+        current = false,
+    }, opts or {})
+    local self = setmetatable({}, M)
+    self.opts = opts
+    self.win = vim.api.nvim_get_current_win()
+    return self
+end
