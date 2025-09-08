@@ -3,20 +3,30 @@ local opts = {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
     bigfile = { enabled = true },
-    bufdelete = {}, -- Delete buffers without disrupting window layout.
+    bufdelete = { enabled = true }, -- Delete buffers without disrupting window layout.
     indent = { enabled = true },
-    input = {}, -- Better `vim.ui.input`.
+    input = { enabled = true },     -- Better `vim.ui.input`.
     -- dashboard = {},
     notifier = { enabled = true },
-    toggle = {},
+    toggle = { enabled = true },
     quickfile = { enabled = true },
-    git = {}, -- Git utilities.
-    gitbrowse = {}, -- Open the repo of the active file in the browser.
+    git = { enabled = true },       -- Git utilities.
+    gitbrowse = { enabled = true }, -- Open the repo of the active file in the browser.
     statuscolumn = { enabled = true },
-    scope = {}, -- Scope detection based on treesitter or indent.
+    scope = { enabled = true },     -- Scope detection based on treesitter or indent.
     words = { enabled = true },
-    picker = { enabled = true },
-    lazygit = {},
+    picker = {
+        enabled = true,
+        formatters = {
+            file = {
+                filename_first = true,
+                truncate = 10000,
+            },
+        },
+    },
+    lazygit = { enabled = true },
+    scratch = { enabled = true },
+    zen = { enabled = true },
 }
 
 local snacks = require('snacks')
@@ -25,6 +35,17 @@ snacks.setup(opts)
 
 larp.fn.map('n', '<leader>Nff', notifier.show_history, { desc = 'Show History', desc_prefix = 'Notifier' })
 larp.fn.map('n', '<leader>Gro', snacks.gitbrowse.open, { desc = 'Open in Browser', desc_prefix = 'Git' })
+
+-- Scratch
+larp.fn.map('n', '<leader>st', function() snacks.scratch() end,
+    { desc = 'Toggle Scratch Buffer', desc_prefix = 'Snacks' })
+larp.fn.map('n', '<leader>ss', snacks.scratch.select, { desc = 'Select Scratch Buffer', desc_prefix = 'Snacks' })
+
+-- Git
+larp.fn.map({ 'n', 'x' }, '<leader>Gb', snacks.git.blame_line, { desc = 'Blame', desc_prefix = 'Git' })
+larp.fn.map('n', '<leader>Gr', function()
+    print("Git root: " .. snacks.git.get_root())
+end, { desc = 'Blame', desc_prefix = 'Git' })
 
 -- Picker
 local picker = require('snacks.picker')
@@ -153,7 +174,8 @@ vim.api.nvim_create_autocmd('LspProgress', {
     ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
     callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+        local value = ev.data.params
+        .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
         if not client or type(value) ~= 'table' then
             return
         end
@@ -184,7 +206,8 @@ vim.api.nvim_create_autocmd('LspProgress', {
             id = 'lsp_progress',
             title = client.name,
             opts = function(notif)
-                notif.icon = #progress[client.id] == 0 and ' ' or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+                notif.icon = #progress[client.id] == 0 and ' ' or
+                spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
             end,
         })
     end,
@@ -224,3 +247,5 @@ M.new = function(opts)
     self.win = vim.api.nvim_get_current_win()
     return self
 end
+-- Zen
+larp.fn.map('n', '<leader>zz', function() snacks.zen() end, { desc = 'Toggle Zen' })
