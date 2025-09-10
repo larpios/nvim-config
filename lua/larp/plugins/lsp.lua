@@ -106,7 +106,7 @@ return {
     {
         'stevearc/aerial.nvim',
         -- just to test symbols.nvim
-        enabled = false,
+        -- enabled = false,
         event = 'BufRead',
         opts = {},
         -- Optional dependencies
@@ -122,6 +122,7 @@ return {
     {
         -- Overview panel, something like aerial
         'oskarrrrrrr/symbols.nvim',
+        enabled = false,
         cmds = {
             'Symbols',
             'SymbolsOpen',
