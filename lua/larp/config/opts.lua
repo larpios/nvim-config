@@ -32,3 +32,5 @@ vim.o.signcolumn = 'yes'
 vim.o.winborder = 'rounded'
 
 vim.wo.conceallevel = 2
+
+vim.o.guicursor = 'n-v-i-c:block'
