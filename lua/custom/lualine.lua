@@ -354,7 +354,7 @@ end
 local overseer = require('overseer')
 require('lualine').setup({
     options = {
-        theme = 'ayu_dark',
+        theme = 'catppuccin',
     },
     sections = {
         lualine_a = { 'mode' },
