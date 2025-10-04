@@ -98,7 +98,6 @@ return {
     },
     {
         'RaafatTurki/hex.nvim',
-        event = 'BufRead',
         opts = {},
         cmd = { 'HexDump', 'HexToggle', 'HexAssemble' }
     },
