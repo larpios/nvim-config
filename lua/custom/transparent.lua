@@ -29,7 +29,11 @@ local opts = {
     },
     extra_groups = {
         'SnacksPicker',
+        'FloatTitle',
+        'FloatBorder',
     },
 }
 
 transparent.setup(opts)
+
+transparent.clear_prefix('WhichKey')

@@ -17,6 +17,7 @@ return {
             --     floats = 'transparent',
             -- },
             default_integrations = true,
+            auto_integrations = true,
             integrations = {
                 blink_cmp = true,
                 colorful_winsep = {
