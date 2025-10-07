@@ -17,7 +17,7 @@ return {
             --     floats = 'transparent',
             -- },
             default_integrations = true,
-            auto_integrations = true,
+            auto_integrations = false,
             integrations = {
                 blink_cmp = true,
                 colorful_winsep = {
@@ -38,7 +38,6 @@ return {
                     scope_color = '', -- catppuccin color (eg. `lavender`) Default: text
                     colored_indent_levels = false,
                 },
-                leap = true,
                 markdown = true,
                 mason = true,
                 nvimtree = true,
