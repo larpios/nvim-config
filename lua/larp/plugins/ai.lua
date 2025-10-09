@@ -1,24 +1,13 @@
 return {
     {
-        'Exafunction/windsurf.nvim',
-        event = 'VeryLazy',
+        'zbirenbaum/copilot.lua',
         dependencies = {
-            'nvim-lua/plenary.nvim',
-            'hrsh7th/nvim-cmp',
+            'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
         },
+        cmds = { 'Copilot' },
+        event = 'InsertEnter',
         config = function()
-            require('codeium').setup({
-                enable_chat = true,
-                virtual_text = {
-                    enabled = true,
-                    key_bindings = {
-                        accept = '<C-a>',
-                    },
-                },
-                workspace_root = {
-                    paths = { '.git', 'package.json', 'Cargo.toml' },
-                },
-            })
+            require('custom.copilot-lua')
         end,
     },
     {

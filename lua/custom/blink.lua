@@ -43,7 +43,7 @@ local opts = {
     },
     sources = {
         -- rm ripgrep
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'codeium' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'copilot' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -69,18 +69,10 @@ local opts = {
                     max_filesize = '1M',
                 },
             },
-            codeium = {
-                name = 'Codeium',
-                enabled = function()
-                    local path = vim.api.nvim_buf_get_name(0)
-
-                    if string.find(path, "oil://", 1, true) == 1 then
-                        return false
-                    end
-
-                    return true
-                end,
-                module = 'codeium.blink',
+            copilot = {
+                name = "copilot",
+                module = "blink-cmp-copilot",
+                score_offset = 100,
                 async = true,
             },
             emoji = {

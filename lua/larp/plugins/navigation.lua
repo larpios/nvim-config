@@ -12,6 +12,51 @@ return {
         end,
     },
     {
+        'folke/flash.nvim',
+        event = 'VeryLazy',
+        ---@type Flash.Config
+        opts = {
+            modes = {
+                char = {
+                    jump_labels = true,
+                },
+            },
+        },
+        -- stylua: ignore
+        keys = {
+            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+            { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+            { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+            { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+        },
+    },
+    {
+        'ggandor/leap.nvim',
+        enabled = false,
+        event = 'BufRead',
+        keys = {
+            { 's', '<Plug>(leap)', mode = { 'n', 'x' } },
+            { 'S', '<Plug>(leap-from-window)', mode = { 'n', 'x' } },
+            { 's', '<Plug>(leap-forward)', mode = 'o' },
+            { 'S', '<Plug>(leap-backward)', mode = 'o' },
+        },
+        dependencies = {
+            'ggandor/flit.nvim',
+            'tpope/vim-repeat',
+        },
+        config = function()
+            require('custom.leap')
+        end,
+    },
+    {
+        'ggandor/flit.nvim',
+        event = 'BufRead',
+        config = function()
+            require('custom.flit')
+        end,
+    },
+    {
         'mikavilpas/yazi.nvim',
         event = 'VeryLazy',
         dependencies = {
@@ -58,7 +103,7 @@ return {
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('custom.harpoon')
-        end
+        end,
     },
     {
         "folke/flash.nvim",
