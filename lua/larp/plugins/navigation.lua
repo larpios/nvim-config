@@ -50,13 +50,6 @@ return {
         end,
     },
     {
-        'ggandor/flit.nvim',
-        event = 'BufRead',
-        config = function()
-            require('custom.flit')
-        end,
-    },
-    {
         'mikavilpas/yazi.nvim',
         event = 'VeryLazy',
         dependencies = {
