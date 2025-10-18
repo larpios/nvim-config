@@ -103,6 +103,7 @@ larp.fn.map('i', '<C-C>', function()
 end) -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 larp.fn.map('', '<leader><leader>p', '"+p', { desc = 'Paste from Clipboard' })
+larp.fn.map({ 'n', 'x' }, 'Q', 'gq', { desc = "Split long text into multiple lines", noremap = true, silent = true })
 larp.fn.map('', '<leader>p', function()
     -- Get current cursor position: {row, col} (col is 0-based)
     local cursor = vim.api.nvim_win_get_cursor(0)
