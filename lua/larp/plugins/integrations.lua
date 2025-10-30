@@ -36,7 +36,7 @@ return {
     {
         -- live-preview markdown
         'MeanderingProgrammer/render-markdown.nvim',
-        cmd = { 'RenderMarkdown'},
+        cmd = { 'RenderMarkdown' },
         ft = { 'markdown', 'vimwiki' },
         opts = {
             completions = {
@@ -67,10 +67,10 @@ return {
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-neorg/neorg-telescope',
-        }, -- Load plenary as a dependency
+        },             -- Load plenary as a dependency
         version = '*', -- Pin Neorg to the latest stable release
         keys = {
-            { '<leader>no', '<cmd>Neorg<CR>', desc = 'Open Neorg', mode = 'n' },
+            { '<leader>no', '<cmd>Neorg<CR>',             desc = 'Open Neorg', mode = 'n' },
             { '<leader>nw', desc = 'Open Neorg Workspace' },
         },
         config = function()
@@ -86,14 +86,14 @@ return {
             'ObsidianSearch',
         },
         keys = {
-            { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n', desc = 'Search Obsidian Vault' },
-            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>', mode = 'n', desc = 'Grep Obsidian Vault' },
-            { '<leader>Ot', '<cmd>ObsidianTOC<cr>', mode = 'n', desc = 'Search Obsidian TOC' },
-            { '<leader>Oft', '<cmd>ObsidianTags<cr>', mode = 'n', desc = 'Find Obsidian Tags' },
-            { '<leader>Oj', '<cmd>ObsidianDailies<cr>', mode = 'n', desc = 'Obsidian Journal' },
-            { '<leader>Ofw', mode = 'n', desc = 'Search Obsidian Workspace' },
-            { '<leader>Op', mode = 'n', desc = 'Obsidian Pull' },
-            { '<leader>Os', mode = 'n', desc = 'Commit and Push Obsidian Vault' },
+            { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n',                             desc = 'Search Obsidian Vault' },
+            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>',      mode = 'n',                             desc = 'Grep Obsidian Vault' },
+            { '<leader>Ot',  '<cmd>ObsidianTOC<cr>',         mode = 'n',                             desc = 'Search Obsidian TOC' },
+            { '<leader>Oft', '<cmd>ObsidianTags<cr>',        mode = 'n',                             desc = 'Find Obsidian Tags' },
+            { '<leader>Oj',  '<cmd>ObsidianDailies<cr>',     mode = 'n',                             desc = 'Obsidian Journal' },
+            { '<leader>Ofw', mode = 'n',                     desc = 'Search Obsidian Workspace' },
+            { '<leader>Op',  mode = 'n',                     desc = 'Obsidian Pull' },
+            { '<leader>Os',  mode = 'n',                     desc = 'Commit and Push Obsidian Vault' },
         },
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
@@ -105,6 +105,12 @@ return {
         config = function()
             require('custom.obsidian')
         end,
+    },
+    {
+        'chomosuke/typst-preview.nvim',
+        ft = { 'typst' },
+        version = '1.*',
+        opts = {}, -- lazy.nvim will implicitly calls `setup {}`
     },
     {
         'codethread/qmk.nvim',
