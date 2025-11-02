@@ -59,6 +59,12 @@ return {
         },
     },
     {
+        'chomosuke/typst-preview.nvim',
+        ft = { 'typst' },
+        version = '1.*',
+        opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+    },
+    {
         'nvim-neorg/neorg',
         enabled = false,
         -- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
