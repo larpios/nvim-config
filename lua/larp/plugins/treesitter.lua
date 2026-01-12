@@ -4,7 +4,7 @@ return {
         dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
         event = 'BufRead',
         config = function()
-            require('nvim-treesitter.configs').setup({
+            require('nvim-treesitter').setup({
                 textobjects = {
                     select = {
                         keymaps = {

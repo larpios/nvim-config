@@ -1,5 +1,6 @@
 local overseer = require('overseer')
 overseer.setup({
+    dap = false,
     templates = {
         'builtin',
         'larp.cpp',
