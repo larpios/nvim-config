@@ -43,7 +43,7 @@ local opts = {
     },
     sources = {
         -- rm ripgrep
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'codeium' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -68,11 +68,6 @@ local opts = {
                     -- Examples: "1024" (bytes by default), "200K", "1M", "1G"
                     max_filesize = '1M',
                 },
-            },
-            codeium = {
-                name = 'Codeium',
-                module ='codeium.blink',
-                async = true,
             },
             -- copilot = {
             --     name = "copilot",
