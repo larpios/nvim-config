@@ -17,6 +17,10 @@ vim.diagnostic.config({
 })
 
 vim.lsp.enable('fish_lsp')
+
+-- Nix LSP
+vim.lsp.enable('nil_ls')
+
 vim.lsp.enable('bpls')
 vim.lsp.config('bpls', {
     cmd = { 'bpls' },

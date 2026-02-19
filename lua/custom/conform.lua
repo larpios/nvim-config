@@ -6,7 +6,7 @@ conform.setup({
         c = { 'clang_format' },
         cpp = { 'clang_format' },
         cmake = { 'cmake_format' },
-        nix = { 'nixpkgs_fmt', 'nixfmt' },
+        nix = { 'alejandra', 'nixpkgs_fmt', 'nixfmt' },
         python = { 'ruff', 'autopep8', 'autoflake', 'black' },
         markdown = { 'prettier', 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
         xml = { 'xmlformat' },
