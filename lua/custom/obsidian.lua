@@ -18,6 +18,7 @@ local opts = {
     },
     daily_notes = {
         folder = 'journal',
+        template = 'Daily Template',
     },
     completion = {
         nvim_cmp = true,
