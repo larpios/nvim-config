@@ -6,6 +6,7 @@ require('aerial').setup({
         vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
     end,
     autojump = true,
+    filter_kind = false,
 })
 -- You probably also want to set a keymap to toggle aerial
 larp.fn.map('', '<leader>to', '<cmd>AerialToggle<cr>', { desc = 'Toggle Aerial Overview' })
