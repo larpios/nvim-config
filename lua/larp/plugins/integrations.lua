@@ -64,24 +64,39 @@ return {
         version = '1.*',
         opts = {}, -- lazy.nvim will implicitly calls `setup {}`
     },
+    -- {
+    --     'nvim-neorg/neorg',
+    --     enabled = false,
+    --     -- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    --     ft = 'norg',
+    --     cmd = 'Neorg',
+    --     dependencies = {
+    --         'nvim-lua/plenary.nvim',
+    --         'nvim-neorg/neorg-telescope',
+    --     },             -- Load plenary as a dependency
+    --     version = '*', -- Pin Neorg to the latest stable release
+    --     keys = {
+    --         { '<leader>no', '<cmd>Neorg<CR>',             desc = 'Open Neorg', mode = 'n' },
+    --         { '<leader>nw', desc = 'Open Neorg Workspace' },
+    --     },
+    --     config = function()
+    --         require('custom.neorg')
+    --     end,
+    -- },
     {
-        'nvim-neorg/neorg',
-        enabled = false,
-        -- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-        ft = 'norg',
-        cmd = 'Neorg',
+        "chipsenkbeil/org-roam.nvim",
+        tag = "0.2.0",
         dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-neorg/neorg-telescope',
-        },             -- Load plenary as a dependency
-        version = '*', -- Pin Neorg to the latest stable release
-        keys = {
-            { '<leader>no', '<cmd>Neorg<CR>',             desc = 'Open Neorg', mode = 'n' },
-            { '<leader>nw', desc = 'Open Neorg Workspace' },
+            {
+                "nvim-orgmode/orgmode",
+                tag = "0.7.0",
+            },
         },
         config = function()
-            require('custom.neorg')
-        end,
+            require("org-roam").setup({
+                directory = "~/orgs",
+            })
+        end
     },
     {
         'epwalsh/obsidian.nvim',

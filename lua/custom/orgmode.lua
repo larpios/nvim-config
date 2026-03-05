@@ -1,4 +1,4 @@
-local org_path = '~/notes/orgs'
+local org_path = '~/obsidian-vault/'
 require('orgmode').setup({
     org_agenda_files = org_path .. '/**/*',
     org_default_notes_file = org_path .. 'refile.org',
@@ -22,10 +22,6 @@ end, { desc = 'Open Org Journal' })
 --   ensure_installed = 'all',
 --   ignore_install = { 'org' },
 -- })
-require('org-roam').setup({
-    directory = '~/org_roam_files',
-    -- optional
-    org_files = {
-        '~/notes/orgs',
-    },
-})
+
+-- Experimental LSP support
+vim.lsp.enable('org')
