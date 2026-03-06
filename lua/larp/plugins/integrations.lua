@@ -45,8 +45,8 @@ return {
                 },
                 blink = {
                     enabled = true,
-                }
-            }
+                },
+            },
         },
         config = function(_, opts)
             require('obsidian').get_client().opts.ui.enable = false
@@ -55,7 +55,7 @@ return {
         end,
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
-            'echasnovski/mini.nvim'
+            'echasnovski/mini.nvim',
         },
     },
     {
@@ -84,20 +84,29 @@ return {
     --     end,
     -- },
     {
-        "chipsenkbeil/org-roam.nvim",
-        tag = "0.2.0",
-        dependencies = {
-            {
-                "nvim-orgmode/orgmode",
-                tag = "0.7.0",
-            },
-        },
+        'nvim-orgmode/orgmode',
+        event = 'VeryLazy',
+        ft = { 'org' },
         config = function()
-            require("org-roam").setup({
-                directory = "~/orgs",
-            })
-        end
+            require('custom.orgmode')
+        end,
     },
+    -- {
+    --     "chipsenkbeil/org-roam.nvim",
+    --     tag = "0.2.0",
+    --     dependencies = {
+    --         {
+    --             "nvim-orgmode/orgmode",
+    --             tag = "0.7.0",
+    --         },
+    --     },
+    --     config = function()
+    --         require("org-roam").setup({
+    --             directory = "~/orgs",
+    --         })
+    --         -- vim.lsp.enable('org')
+    --     end
+    -- },
     {
         'epwalsh/obsidian.nvim',
         priority = 1000,
@@ -107,14 +116,14 @@ return {
             'ObsidianSearch',
         },
         keys = {
-            { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n',                             desc = 'Search Obsidian Vault' },
-            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>',      mode = 'n',                             desc = 'Grep Obsidian Vault' },
-            { '<leader>Ot',  '<cmd>ObsidianTOC<cr>',         mode = 'n',                             desc = 'Search Obsidian TOC' },
-            { '<leader>Oft', '<cmd>ObsidianTags<cr>',        mode = 'n',                             desc = 'Find Obsidian Tags' },
-            { '<leader>Oj',  '<cmd>ObsidianDailies<cr>',     mode = 'n',                             desc = 'Obsidian Journal' },
-            { '<leader>Ofw', mode = 'n',                     desc = 'Search Obsidian Workspace' },
-            { '<leader>Op',  mode = 'n',                     desc = 'Obsidian Pull' },
-            { '<leader>Os',  mode = 'n',                     desc = 'Commit and Push Obsidian Vault' },
+            { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n', desc = 'Search Obsidian Vault' },
+            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>', mode = 'n', desc = 'Grep Obsidian Vault' },
+            { '<leader>Ot', '<cmd>ObsidianTOC<cr>', mode = 'n', desc = 'Search Obsidian TOC' },
+            { '<leader>Oft', '<cmd>ObsidianTags<cr>', mode = 'n', desc = 'Find Obsidian Tags' },
+            { '<leader>Oj', '<cmd>ObsidianDailies<cr>', mode = 'n', desc = 'Obsidian Journal' },
+            { '<leader>Ofw', mode = 'n', desc = 'Search Obsidian Workspace' },
+            { '<leader>Op', mode = 'n', desc = 'Obsidian Pull' },
+            { '<leader>Os', mode = 'n', desc = 'Commit and Push Obsidian Vault' },
         },
         version = '*', -- recommended, use latest release instead of latest commit
         dependencies = {
@@ -188,26 +197,26 @@ return {
         end,
     },
     {
-        "hat0uma/csvview.nvim",
+        'hat0uma/csvview.nvim',
         ft = { 'csv' },
         ---@module "csvview"
         ---@type CsvView.Options
         opts = {
-            parser = { comments = { "#", "//" } },
+            parser = { comments = { '#', '//' } },
             keymaps = {
                 -- Text objects for selecting fields
-                textobject_field_inner = { "if", mode = { "o", "x" } },
-                textobject_field_outer = { "af", mode = { "o", "x" } },
+                textobject_field_inner = { 'if', mode = { 'o', 'x' } },
+                textobject_field_outer = { 'af', mode = { 'o', 'x' } },
                 -- Excel-like navigation:
                 -- Use <Tab> and <S-Tab> to move horizontally between fields.
                 -- Use <Enter> and <S-Enter> to move vertically between rows and place the cursor at the end of the field.
                 -- Note: In terminals, you may need to enable CSI-u mode to use <S-Tab> and <S-Enter>.
-                jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
-                jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
-                jump_next_row = { "<Enter>", mode = { "n", "v" } },
-                jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
+                jump_next_field_end = { '<Tab>', mode = { 'n', 'v' } },
+                jump_prev_field_end = { '<S-Tab>', mode = { 'n', 'v' } },
+                jump_next_row = { '<Enter>', mode = { 'n', 'v' } },
+                jump_prev_row = { '<S-Enter>', mode = { 'n', 'v' } },
             },
         },
-        cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
-    }
+        cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
+    },
 }
