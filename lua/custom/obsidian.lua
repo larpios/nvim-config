@@ -115,32 +115,20 @@ larp.fn.map('n', '<leader>Ofw', function()
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
-    if #opts.workspaces == 0 then
-        vim.notify('No Obsidian workspace found', vim.log.levels.WARN)
-        return
-    end
-    local vault_path = vim.fn.expand(opts.workspaces[1].path)
-    vim.fn.jobstart({ 'git', 'pull' }, make_job_opts({
-        cwd = vault_path,
-        on_exit = function(_, code)
-            if code == 0 then
-                vim.print('Obsidian Pull: Success')
-            else
-                vim.print('Obsidian Pull: Failed')
-            end
-        end,
-    }))
-    -- pull from git
+    -- pull from jj asynchronously
     local path = vim.fn.expand(opts.workspaces[1].path)
-    local output = vim.fn.system({ 'git', '-C', path, 'pull' })
-    vim.print(output)
+    vim.system({ 'sh', '-c', 'jj git fetch' }, { cwd = path, text = true }, function(obj)
+        vim.schedule(function()
+            if obj.code == 0 then
+                vim.notify('Obsidian Pull: Success', vim.log.levels.INFO)
+            else
+                vim.notify('Obsidian Pull Failed:\n' .. (obj.stderr or obj.stdout or ''), vim.log.levels.ERROR)
+            end
+        end)
+    end)
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
-    if #opts.workspaces == 0 then
-        vim.notify('No Obsidian workspace found', vim.log.levels.WARN)
-        return
-    end
-    local vault_path = vim.fn.expand(opts.workspaces[1].path)
+    local path = vim.fn.expand(opts.workspaces[1].path)
     local now = os.date('%Y-%m-%d %H:%M:%S')
     local path = vim.fn.expand(opts.workspaces[1].path)
 
@@ -158,70 +146,30 @@ larp.fn.map('n', '<leader>Os', function()
         }))
     end
 
-    local function run_commit()
-        vim.fn.jobstart({ 'git', 'commit', '-m', 'Update ' .. now }, make_job_opts({
-            cwd = vault_path,
-            on_exit = function(_, code)
-                -- git commit exits 1 when there is nothing to commit (working tree clean); still proceed to push
-                if code == 0 or code == 1 then
-                    run_push()
-                else
-                    vim.print('Commit and Push Obsidian Vault: Failed (commit)')
-                end
-            end,
-        }))
-    end
+    -- Check for conflicts first, then push
+    local cmd = 'jj git fetch && '
+        .. 'if jj log -r @ --no-graph -T "conflict" | grep -q "true"; then '
+        .. 'echo "Conflicts detected!" >&2; exit 1; '
+        .. 'else '
+        .. 'jj bookmark move main --to @ && jj commit -m "Update '
+        .. now
+        .. '" && jj git push; '
+        .. 'fi'
 
-    local function run_add()
-        vim.fn.jobstart({ 'git', 'add', '.' }, make_job_opts({
-            cwd = vault_path,
-            on_exit = function(_, code)
-                if code == 0 then
-                    run_commit()
-                else
-                    vim.print('Commit and Push Obsidian Vault: Failed (add)')
-                end
-            end,
-        }))
-    end
-
-    vim.fn.jobstart({ 'git', 'pull' }, make_job_opts({
-        cwd = vault_path,
-        on_exit = function(_, code)
-            if code == 0 then
-                run_add()
+    vim.system({ 'sh', '-c', cmd }, { cwd = path, text = true }, function(obj)
+        vim.schedule(function()
+            if obj.code == 0 then
+                vim.notify('Obsidian Push: Success\nUpdate ' .. now, vim.log.levels.INFO)
             else
-                vim.print('Commit and Push Obsidian Vault: Failed (pull)')
+                local err = obj.stderr or obj.stdout or ''
+                if err:match('Conflicts detected!') then
+                    vim.notify('Obsidian Push Aborted: Conflicts detected! Please resolve before pushing.', vim.log.levels.WARN)
+                else
+                    vim.notify('Obsidian Push Failed:\n' .. err, vim.log.levels.ERROR)
+                end
             end
-        end,
-    }))
-    -- commit and push to git
-    local commands = {
-        { 'git', '-C', path, 'pull' },
-        { 'git', '-C', path, 'add', '.' },
-        { 'git', '-C', path, 'commit', '-m', 'Update ' .. now },
-        { 'git', '-C', path, 'push' },
-    }
-
-    for _, cmd in ipairs(commands) do
-        local output = vim.fn.system(cmd)
-        local is_commit_cmd = vim.tbl_contains(cmd, 'commit')
-        local is_nothing_to_commit = false
-        if is_commit_cmd and vim.v.shell_error == 1 and type(output) == 'string' then
-            if output:match('nothing to commit') or output:match('no changes added to commit') then
-                is_nothing_to_commit = true
-            end
-        end
-
-        if is_nothing_to_commit then
-            vim.print(output)
-            -- continue to next command (e.g., git push)
-        elseif vim.v.shell_error ~= 0 then
-            vim.print(output)
-            return
-        end
-    end
-    vim.print('Obsidian vault updated and pushed successfully')
+        end)
+    end)
 end, { desc = 'Commit and Push Obsidian Vault' })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
