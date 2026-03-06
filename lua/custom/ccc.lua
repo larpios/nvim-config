@@ -1,12 +1,12 @@
-local ColorInput = require("ccc.input")
-local convert = require("ccc.utils.convert")
+local ColorInput = require('ccc.input')
+local convert = require('ccc.utils.convert')
 
 local RgbHslCmykInput = setmetatable({
-    name = "RGB/HSL/CMYK",
+    name = 'RGB/HSL/CMYK',
     max = { 1, 1, 1, 360, 1, 1, 1, 1, 1, 1 },
     min = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     delta = { 1 / 255, 1 / 255, 1 / 255, 1, 0.01, 0.01, 0.005, 0.005, 0.005, 0.005 },
-    bar_name = { "R", "G", "B", "H", "S", "L", "C", "M", "Y", "K" },
+    bar_name = { 'R', 'G', 'B', 'H', 'S', 'L', 'C', 'M', 'Y', 'K' },
 }, { __index = ColorInput })
 
 function RgbHslCmykInput.format(n, i)
@@ -18,9 +18,9 @@ function RgbHslCmykInput.format(n, i)
         n = n * 100
     elseif i >= 7 then
         -- CMYK
-        return ("%5.1f%%"):format(math.floor(n * 200) / 2)
+        return ('%5.1f%%'):format(math.floor(n * 200) / 2)
     end
-    return ("%6d"):format(n)
+    return ('%6d'):format(n)
 end
 
 function RgbHslCmykInput.from_rgb(RGB)
@@ -79,7 +79,7 @@ function RgbHslCmykInput:callback(index, new_value)
     end
 end
 
-local ccc = require("ccc")
+local ccc = require('ccc')
 ccc.setup({
     inputs = {
         RgbHslCmykInput,

@@ -5,10 +5,9 @@ local options = {
         enabled = true,
         auto_trigger = true,
         keymap = {
-            accept = "<C-A>",
+            accept = '<C-A>',
         },
     },
 }
 
 copilot.setup(options)
-

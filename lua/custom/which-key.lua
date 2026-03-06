@@ -1,7 +1,7 @@
 local wk = require('which-key')
 
 local opts = {
-    preset = "modern",
+    preset = 'modern',
 }
 
 wk.setup(opts)

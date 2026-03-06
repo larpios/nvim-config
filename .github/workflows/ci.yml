@@ -15,14 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Neovim
-        uses: rhysd/action-setup-vim@v1
-        with:
-          neovim: true
-          version: stable
+      - name: Install LuaJIT
+        run: sudo apt-get install -y luajit
 
       - name: Run unit tests
-        run: nvim --headless -l tests/ccc_format_spec.lua
+        run: luajit tests/ccc_format_spec.lua
 
   lint:
     name: Lint

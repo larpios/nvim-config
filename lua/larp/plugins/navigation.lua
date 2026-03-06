@@ -30,7 +30,7 @@ return {
                 --     vim.cmd.lcd(require('oil').get_current_dir())
                 -- end,
                 ['<C-v>'] = { 'actions.select', opts = { vertical = true }, desc = 'Open the entry in a vertical split' },
-                ["<C-g>"] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
+                ['<C-g>'] = { 'actions.select', opts = { horizontal = true }, desc = 'Open the entry in a horizontal split' },
                 -- ['<C-t>'] = { 'actions.select', opts = { tab = true }, desc = 'Open the entry in new tab' },
                 ['<C-p>'] = 'actions.preview',
                 ['<C-c>'] = 'actions.close',
@@ -157,8 +157,8 @@ return {
         end,
     },
     {
-        "folke/flash.nvim",
-        event = "VeryLazy",
+        'folke/flash.nvim',
+        event = 'VeryLazy',
         ---@type Flash.Config
         opts = {
             modes = {
@@ -175,5 +175,5 @@ return {
             { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
             { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
         },
-    }
+    },
 }

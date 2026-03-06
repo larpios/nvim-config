@@ -44,9 +44,9 @@ return {
             suppressed_dirs = { '~/', '~/Downloads', '/' },
             -- log_level = 'debug',
         },
-        init = function ()
-            vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-        end
+        init = function()
+            vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+        end,
     },
     {
         'stevearc/quicker.nvim',
@@ -100,7 +100,7 @@ return {
     {
         'RaafatTurki/hex.nvim',
         opts = {},
-        cmd = { 'HexDump', 'HexToggle', 'HexAssemble' }
+        cmd = { 'HexDump', 'HexToggle', 'HexAssemble' },
     },
     {
         -- Easily identify abandoned Neovim plugins

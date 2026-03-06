@@ -9,5 +9,4 @@ local opts = {
     gamma = 0.8,
 }
 
-
 smear.setup(opts)

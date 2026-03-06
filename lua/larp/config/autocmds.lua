@@ -27,10 +27,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         larp.fn.map('', 'gd', function()
             vim.lsp.buf.definition()
-        end, { desc = 'Go to Definition'})
+        end, { desc = 'Go to Definition' })
         larp.fn.map('', 'gD', function()
             vim.lsp.buf.type_definition()
-        end, { desc = 'Go to Type Definition'})
+        end, { desc = 'Go to Type Definition' })
 
         larp.fn.map('', '<leader>ca', function()
             vim.lsp.buf.code_action()

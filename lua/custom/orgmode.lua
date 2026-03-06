@@ -5,8 +5,8 @@ require('orgmode').setup({
     org_fold_enable = false,
     org_startup_folded = 'showeverything',
     mappings = {
-        disable_all = true
-    }
+        disable_all = true,
+    },
 })
 larp.fn.map('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
 larp.fn.map('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })

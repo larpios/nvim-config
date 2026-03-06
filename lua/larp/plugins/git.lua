@@ -29,9 +29,9 @@ return {
         },
         keys = { { '<leader>Go', mode = 'n' } },
         dependencies = {
-            'nvim-lua/plenary.nvim',  -- required
+            'nvim-lua/plenary.nvim', -- required
             'sindrets/diffview.nvim', -- optional - Diff integration
-            'ibhagwan/fzf-lua',       -- optional
+            'ibhagwan/fzf-lua', -- optional
         },
         config = function()
             require('custom.neogit')
@@ -47,12 +47,12 @@ return {
         event = 'BufRead',
     },
     {
-        "nicolasgb/jj.nvim",
-        version = "*", -- Use latest stable release
+        'nicolasgb/jj.nvim',
+        version = '*', -- Use latest stable release
         -- Or from the main branch (uncomment the branch line and comment the version line)
         -- branch = "main",
         config = function()
-            require("jj").setup({})
+            require('jj').setup({})
         end,
-    }
+    },
 }
