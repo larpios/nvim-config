@@ -25,7 +25,7 @@ local opts = {
         min_char = 2,
     },
     follow_url_func = function(url)
-        vim.fn.jobstart('xdg-open ' .. url)
+        vim.fn.jobstart({ 'xdg-open', url })
     end,
 
     mappings = {
@@ -94,21 +94,35 @@ larp.fn.map('n', '<leader>Ofw', function()
     vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
         prompt = 'Choose your obsidian vault',
     }, function(_, idx)
-        vim.cmd('edit ' .. opts.workspaces[idx]['path'])
+        vim.cmd('edit ' .. vim.fn.fnameescape(opts.workspaces[idx]['path']))
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
     -- pull from git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull')
+    local output = vim.fn.system({ 'git', '-C', opts.workspaces[1].path, 'pull' })
     vim.print(output)
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
+    local path = opts.workspaces[1].path
 
     -- commit and push to git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull && git add . && git commit -m "Update ' .. now .. '" && git push')
-    vim.print(output)
+    local commands = {
+        { 'git', '-C', path, 'pull' },
+        { 'git', '-C', path, 'add', '.' },
+        { 'git', '-C', path, 'commit', '-m', 'Update ' .. now },
+        { 'git', '-C', path, 'push' },
+    }
+
+    for _, cmd in ipairs(commands) do
+        local output = vim.fn.system(cmd)
+        if vim.v.shell_error ~= 0 then
+            vim.print(output)
+            return
+        end
+    end
+    vim.print('Obsidian vault updated and pushed successfully')
 end, { desc = 'Commit and Push Obsidian Vault' })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
