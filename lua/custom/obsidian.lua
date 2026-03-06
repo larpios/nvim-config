@@ -99,13 +99,14 @@ larp.fn.map('n', '<leader>Ofw', function()
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
     -- pull from git
-    local output = vim.fn.system({ 'git', '-C', opts.workspaces[1].path, 'pull' })
+    local path = vim.fn.expand(opts.workspaces[1].path)
+    local output = vim.fn.system({ 'git', '-C', path, 'pull' })
     vim.print(output)
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
-    local path = opts.workspaces[1].path
+    local path = vim.fn.expand(opts.workspaces[1].path)
 
     -- commit and push to git
     local commands = {
@@ -117,7 +118,18 @@ larp.fn.map('n', '<leader>Os', function()
 
     for _, cmd in ipairs(commands) do
         local output = vim.fn.system(cmd)
-        if vim.v.shell_error ~= 0 then
+        local is_commit_cmd = vim.tbl_contains(cmd, 'commit')
+        local is_nothing_to_commit = false
+        if is_commit_cmd and vim.v.shell_error == 1 and type(output) == 'string' then
+            if output:match('nothing to commit') or output:match('no changes added to commit') then
+                is_nothing_to_commit = true
+            end
+        end
+
+        if is_nothing_to_commit then
+            vim.print(output)
+            -- continue to next command (e.g., git push)
+        elseif vim.v.shell_error ~= 0 then
             vim.print(output)
             return
         end
