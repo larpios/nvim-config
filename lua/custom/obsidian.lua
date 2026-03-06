@@ -98,17 +98,46 @@ larp.fn.map('n', '<leader>Ofw', function()
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
-    -- pull from git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull')
-    vim.print(output)
+    -- pull from jj asynchronously
+    local path = vim.fn.expand(opts.workspaces[1].path)
+    vim.system({ 'sh', '-c', 'jj git fetch' }, { cwd = path, text = true }, function(obj)
+        vim.schedule(function()
+            if obj.code == 0 then
+                vim.notify('Obsidian Pull: Success', vim.log.levels.INFO)
+            else
+                vim.notify('Obsidian Pull Failed:\n' .. (obj.stderr or obj.stdout or ''), vim.log.levels.ERROR)
+            end
+        end)
+    end)
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
-    -- current date and time
+    local path = vim.fn.expand(opts.workspaces[1].path)
     local now = os.date('%Y-%m-%d %H:%M:%S')
 
-    -- commit and push to git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull && git add . && git commit -m "Update ' .. now .. '" && git push')
-    vim.print(output)
+    -- Check for conflicts first, then push
+    local cmd = 'jj git fetch && '
+        .. 'if jj log -r @ --no-graph -T "conflict" | grep -q "true"; then '
+        .. 'echo "Conflicts detected!" >&2; exit 1; '
+        .. 'else '
+        .. 'jj bookmark move main --to @ && jj commit -m "Update '
+        .. now
+        .. '" && jj git push; '
+        .. 'fi'
+
+    vim.system({ 'sh', '-c', cmd }, { cwd = path, text = true }, function(obj)
+        vim.schedule(function()
+            if obj.code == 0 then
+                vim.notify('Obsidian Push: Success\nUpdate ' .. now, vim.log.levels.INFO)
+            else
+                local err = obj.stderr or obj.stdout or ''
+                if err:match('Conflicts detected!') then
+                    vim.notify('Obsidian Push Aborted: Conflicts detected! Please resolve before pushing.', vim.log.levels.WARN)
+                else
+                    vim.notify('Obsidian Push Failed:\n' .. err, vim.log.levels.ERROR)
+                end
+            end
+        end)
+    end)
 end, { desc = 'Commit and Push Obsidian Vault' })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
