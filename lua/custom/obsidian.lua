@@ -25,7 +25,7 @@ local opts = {
         min_char = 2,
     },
     follow_url_func = function(url)
-        vim.fn.jobstart('xdg-open ' .. url)
+        vim.fn.jobstart({ 'xdg-open', url })
     end,
 
     mappings = {
@@ -111,7 +111,7 @@ larp.fn.map('n', '<leader>Ofw', function()
     vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
         prompt = 'Choose your obsidian vault',
     }, function(_, idx)
-        vim.cmd('edit ' .. opts.workspaces[idx]['path'])
+        vim.cmd('edit ' .. vim.fn.fnameescape(opts.workspaces[idx]['path']))
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
