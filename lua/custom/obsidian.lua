@@ -90,6 +90,23 @@ require('nvim-treesitter').setup({
     },
 })
 
+--- Print non-empty job output lines.
+local function print_job_output(_, data)
+    if data and #data > 0 and data[1] ~= '' then
+        vim.print(table.concat(data, '\n'))
+    end
+end
+
+--- Build common jobstart opts (stdout/stderr forwarded, plus any extras).
+local function make_job_opts(extra)
+    return vim.tbl_extend('force', {
+        stdout_buffered = true,
+        stderr_buffered = true,
+        on_stdout = print_job_output,
+        on_stderr = print_job_output,
+    }, extra or {})
+end
+
 larp.fn.map('n', '<leader>Ofw', function()
     vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
         prompt = 'Choose your obsidian vault',
@@ -98,16 +115,86 @@ larp.fn.map('n', '<leader>Ofw', function()
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
+    if #opts.workspaces == 0 then
+        vim.notify('No Obsidian workspace found', vim.log.levels.WARN)
+        return
+    end
+    local vault_path = vim.fn.expand(opts.workspaces[1].path)
+    vim.fn.jobstart({ 'git', 'pull' }, make_job_opts({
+        cwd = vault_path,
+        on_exit = function(_, code)
+            if code == 0 then
+                vim.print('Obsidian Pull: Success')
+            else
+                vim.print('Obsidian Pull: Failed')
+            end
+        end,
+    }))
     -- pull from git
     local path = vim.fn.expand(opts.workspaces[1].path)
     local output = vim.fn.system({ 'git', '-C', path, 'pull' })
     vim.print(output)
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
-    -- current date and time
+    if #opts.workspaces == 0 then
+        vim.notify('No Obsidian workspace found', vim.log.levels.WARN)
+        return
+    end
+    local vault_path = vim.fn.expand(opts.workspaces[1].path)
     local now = os.date('%Y-%m-%d %H:%M:%S')
     local path = vim.fn.expand(opts.workspaces[1].path)
 
+    -- Chain git operations sequentially via on_exit to avoid shell metacharacter issues.
+    local function run_push()
+        vim.fn.jobstart({ 'git', 'push' }, make_job_opts({
+            cwd = vault_path,
+            on_exit = function(_, code)
+                if code == 0 then
+                    vim.print('Commit and Push Obsidian Vault: Success')
+                else
+                    vim.print('Commit and Push Obsidian Vault: Failed (push)')
+                end
+            end,
+        }))
+    end
+
+    local function run_commit()
+        vim.fn.jobstart({ 'git', 'commit', '-m', 'Update ' .. now }, make_job_opts({
+            cwd = vault_path,
+            on_exit = function(_, code)
+                -- git commit exits 1 when there is nothing to commit (working tree clean); still proceed to push
+                if code == 0 or code == 1 then
+                    run_push()
+                else
+                    vim.print('Commit and Push Obsidian Vault: Failed (commit)')
+                end
+            end,
+        }))
+    end
+
+    local function run_add()
+        vim.fn.jobstart({ 'git', 'add', '.' }, make_job_opts({
+            cwd = vault_path,
+            on_exit = function(_, code)
+                if code == 0 then
+                    run_commit()
+                else
+                    vim.print('Commit and Push Obsidian Vault: Failed (add)')
+                end
+            end,
+        }))
+    end
+
+    vim.fn.jobstart({ 'git', 'pull' }, make_job_opts({
+        cwd = vault_path,
+        on_exit = function(_, code)
+            if code == 0 then
+                run_add()
+            else
+                vim.print('Commit and Push Obsidian Vault: Failed (pull)')
+            end
+        end,
+    }))
     -- commit and push to git
     local commands = {
         { 'git', '-C', path, 'pull' },
