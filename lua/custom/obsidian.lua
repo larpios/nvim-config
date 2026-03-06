@@ -134,16 +134,19 @@ larp.fn.map('n', '<leader>Os', function()
 
     -- Chain git operations sequentially via on_exit to avoid shell metacharacter issues.
     local function run_push()
-        vim.fn.jobstart({ 'git', 'push' }, make_job_opts({
-            cwd = vault_path,
-            on_exit = function(_, code)
-                if code == 0 then
-                    vim.print('Commit and Push Obsidian Vault: Success')
-                else
-                    vim.print('Commit and Push Obsidian Vault: Failed (push)')
-                end
-            end,
-        }))
+        vim.fn.jobstart(
+            { 'git', 'push' },
+            make_job_opts({
+                cwd = vault_path,
+                on_exit = function(_, code)
+                    if code == 0 then
+                        vim.print('Commit and Push Obsidian Vault: Success')
+                    else
+                        vim.print('Commit and Push Obsidian Vault: Failed (push)')
+                    end
+                end,
+            })
+        )
     end
 
     -- Check for conflicts first, then push

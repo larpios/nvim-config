@@ -12,7 +12,7 @@ return {
     {
         'mrcjkb/rustaceanvim',
         version = '^6', -- Recommended
-        lazy = false,   -- This plugin is already lazy
+        lazy = false, -- This plugin is already lazy
     },
     {
         'mason-org/mason.nvim',
@@ -23,7 +23,7 @@ return {
             'MasonLog',
             'MasonUninstall',
             'MasonUninstallAll',
-            'MasonUpdate'
+            'MasonUpdate',
         },
         keys = {
             { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason', silent = true },
@@ -178,7 +178,7 @@ return {
         'rachartier/tiny-inline-diagnostic.nvim',
         enabled = false,
         event = 'VeryLazy', -- Or `LspAttach`
-        priority = 1000,    -- needs to be loaded in first
+        priority = 1000, -- needs to be loaded in first
         config = function()
             require('tiny-inline-diagnostic').setup()
             vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
