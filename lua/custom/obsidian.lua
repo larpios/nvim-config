@@ -25,7 +25,7 @@ local opts = {
         min_char = 2,
     },
     follow_url_func = function(url)
-        vim.fn.jobstart('xdg-open ' .. url)
+        vim.fn.jobstart({ 'xdg-open', url })
     end,
 
     mappings = {
@@ -94,21 +94,47 @@ larp.fn.map('n', '<leader>Ofw', function()
     vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
         prompt = 'Choose your obsidian vault',
     }, function(_, idx)
-        vim.cmd('edit ' .. opts.workspaces[idx]['path'])
+        vim.cmd('edit ' .. vim.fn.fnameescape(opts.workspaces[idx]['path']))
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
     -- pull from git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull')
+    local path = vim.fn.expand(opts.workspaces[1].path)
+    local output = vim.fn.system({ 'git', '-C', path, 'pull' })
     vim.print(output)
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
+    local path = vim.fn.expand(opts.workspaces[1].path)
 
     -- commit and push to git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull && git add . && git commit -m "Update ' .. now .. '" && git push')
-    vim.print(output)
+    local commands = {
+        { 'git', '-C', path, 'pull' },
+        { 'git', '-C', path, 'add', '.' },
+        { 'git', '-C', path, 'commit', '-m', 'Update ' .. now },
+        { 'git', '-C', path, 'push' },
+    }
+
+    for _, cmd in ipairs(commands) do
+        local output = vim.fn.system(cmd)
+        local is_commit_cmd = vim.tbl_contains(cmd, 'commit')
+        local is_nothing_to_commit = false
+        if is_commit_cmd and vim.v.shell_error == 1 and type(output) == 'string' then
+            if output:match('nothing to commit') or output:match('no changes added to commit') then
+                is_nothing_to_commit = true
+            end
+        end
+
+        if is_nothing_to_commit then
+            vim.print(output)
+            -- continue to next command (e.g., git push)
+        elseif vim.v.shell_error ~= 0 then
+            vim.print(output)
+            return
+        end
+    end
+    vim.print('Obsidian vault updated and pushed successfully')
 end, { desc = 'Commit and Push Obsidian Vault' })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
