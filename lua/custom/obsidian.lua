@@ -99,16 +99,54 @@ larp.fn.map('n', '<leader>Ofw', function()
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
     -- pull from git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull')
-    vim.print(output)
+    vim.fn.jobstart('cd "' .. opts.workspaces[1].path .. '" && git pull', {
+        stdout_buffered = true,
+        stderr_buffered = true,
+        on_stdout = function(_, data)
+            if data and #data > 0 and data[1] ~= '' then
+                vim.print(table.concat(data, '\n'))
+            end
+        end,
+        on_stderr = function(_, data)
+            if data and #data > 0 and data[1] ~= '' then
+                vim.print(table.concat(data, '\n'))
+            end
+        end,
+        on_exit = function(_, code)
+            if code == 0 then
+                vim.print('Obsidian Pull: Success')
+            else
+                vim.print('Obsidian Pull: Failed')
+            end
+        end,
+    })
 end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
     -- current date and time
     local now = os.date('%Y-%m-%d %H:%M:%S')
 
     -- commit and push to git
-    local output = vim.fn.system('cd ' .. opts.workspaces[1].path .. '&& git pull && git add . && git commit -m "Update ' .. now .. '" && git push')
-    vim.print(output)
+    vim.fn.jobstart('cd "' .. opts.workspaces[1].path .. '" && git pull && git add . && git commit -m "Update ' .. now .. '" && git push', {
+        stdout_buffered = true,
+        stderr_buffered = true,
+        on_stdout = function(_, data)
+            if data and #data > 0 and data[1] ~= '' then
+                vim.print(table.concat(data, '\n'))
+            end
+        end,
+        on_stderr = function(_, data)
+            if data and #data > 0 and data[1] ~= '' then
+                vim.print(table.concat(data, '\n'))
+            end
+        end,
+        on_exit = function(_, code)
+            if code == 0 then
+                vim.print('Commit and Push Obsidian Vault: Success')
+            else
+                vim.print('Commit and Push Obsidian Vault: Failed')
+            end
+        end,
+    })
 end, { desc = 'Commit and Push Obsidian Vault' })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
