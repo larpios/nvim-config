@@ -25,9 +25,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             })
         end, { desc = 'Get diagnostics' })
 
-        -- larp.fn.map('', '<leader>cr', function()
-        --     vim.lsp.buf.rename()
-        -- end)
         larp.fn.map('', 'gd', function()
             vim.lsp.buf.definition()
         end, { desc = 'Go to Definition'})
