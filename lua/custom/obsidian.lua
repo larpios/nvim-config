@@ -25,7 +25,7 @@ local opts = {
         min_char = 2,
     },
     follow_url_func = function(url)
-        vim.fn.jobstart('xdg-open ' .. url)
+        vim.fn.jobstart({ 'xdg-open', url })
     end,
 
     mappings = {
@@ -90,11 +90,28 @@ require('nvim-treesitter').setup({
     },
 })
 
+--- Print non-empty job output lines.
+local function print_job_output(_, data)
+    if data and #data > 0 and data[1] ~= '' then
+        vim.print(table.concat(data, '\n'))
+    end
+end
+
+--- Build common jobstart opts (stdout/stderr forwarded, plus any extras).
+local function make_job_opts(extra)
+    return vim.tbl_extend('force', {
+        stdout_buffered = true,
+        stderr_buffered = true,
+        on_stdout = print_job_output,
+        on_stderr = print_job_output,
+    }, extra or {})
+end
+
 larp.fn.map('n', '<leader>Ofw', function()
     vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
         prompt = 'Choose your obsidian vault',
     }, function(_, idx)
-        vim.cmd('edit ' .. opts.workspaces[idx]['path'])
+        vim.cmd('edit ' .. vim.fn.fnameescape(opts.workspaces[idx]['path']))
     end)
 end, { desc = 'Search Obsidian Workspace' })
 larp.fn.map('n', '<leader>Op', function()
@@ -113,6 +130,21 @@ end, { desc = 'Obsidian Pull' })
 larp.fn.map('n', '<leader>Os', function()
     local path = vim.fn.expand(opts.workspaces[1].path)
     local now = os.date('%Y-%m-%d %H:%M:%S')
+    local path = vim.fn.expand(opts.workspaces[1].path)
+
+    -- Chain git operations sequentially via on_exit to avoid shell metacharacter issues.
+    local function run_push()
+        vim.fn.jobstart({ 'git', 'push' }, make_job_opts({
+            cwd = vault_path,
+            on_exit = function(_, code)
+                if code == 0 then
+                    vim.print('Commit and Push Obsidian Vault: Success')
+                else
+                    vim.print('Commit and Push Obsidian Vault: Failed (push)')
+                end
+            end,
+        }))
+    end
 
     -- Check for conflicts first, then push
     local cmd = 'jj git fetch && '
