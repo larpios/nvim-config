@@ -45,6 +45,10 @@ return {
         opts = {
             snippetDir = vim.fn.stdpath('config') .. '/snippets',
         },
+        cmd = {
+            'ScissorsAddNewSnippet',
+            'ScissorsEditSnippet',
+        },
         keys = {
             {
                 '<leader>se',
@@ -52,7 +56,7 @@ return {
                     require('scissors').editSnippet()
                 end,
                 mode = { 'n' },
-                desc = ' edit snippet',
+                desc = '[Scissors]  edit snippet',
             },
             {
                 '<leader>sa',
@@ -60,7 +64,7 @@ return {
                     require('scissors').addNewSnippet()
                 end,
                 mode = { 'n', 'x' },
-                desc = ' add new snippet',
+                desc = '[Scissors]  add new snippet',
             },
         },
     },
