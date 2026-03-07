@@ -1,0 +1,1 @@
+{"code_block":{"body":["#+NAME: ${1:}","#+BEGIN_SRC","${2:}","#+END_SRC"],"prefix":["begin_src","src","code_block"]},"properties":{"prefix":"properties","body":[":PROPERTIES:","${1::KEY:} ${2:VALUE}",":END:"]}}

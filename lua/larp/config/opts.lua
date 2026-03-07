@@ -29,7 +29,7 @@ vim.o.hidden = true
 vim.o.bufhidden = 'hide'
 
 vim.o.signcolumn = 'yes'
-vim.o.winborder = 'rounded'
+vim.o.winborder = 'double'
 
 vim.wo.conceallevel = 2
 

@@ -1,3 +1,5 @@
+local snippet_dir = vim.fn.stdpath('config') .. '/snippets'
+
 local opts = {
     keymap = {
         preset = 'default',
@@ -5,11 +7,23 @@ local opts = {
         ['<C-e>'] = { 'show', 'hide' },
     },
     completion = {
+        keyword = { range = 'full' },
+        list = {
+            selection = {
+                preselect = false,
+                auto_insert = true,
+            },
+        },
         menu = {
             auto_show = true,
-            border = 'rounded',
             draw = {
-                columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+                columns = {
+                    { 'item_idx' },
+                    { 'kind_icon' },
+                    { 'label', 'label_description', gap = 1 },
+                    { 'kind' },
+                    { 'source_name' },
+                },
                 components = {
                     kind_icon = {
                         ellipsis = false,
@@ -38,7 +52,6 @@ local opts = {
         documentation = {
             auto_show = true,
             auto_show_delay_ms = 500,
-            window = { border = 'rounded' },
         },
     },
     sources = {
@@ -69,6 +82,11 @@ local opts = {
                     max_filesize = '1M',
                 },
             },
+            snippets = {
+                opts = {
+                    search_paths = { snippet_dir },
+                },
+            },
             -- copilot = {
             --     name = "copilot",
             --     module = "blink-cmp-copilot",
@@ -88,7 +106,6 @@ local opts = {
     -- },
     signature = {
         enabled = true,
-        window = { border = 'rounded' },
     },
     cmdline = {
         enabled = true,

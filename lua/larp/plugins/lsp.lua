@@ -136,9 +136,8 @@ return {
     },
     {
         'saghen/blink.cmp',
-        lazy = false, -- lazy loading handled internally
-        -- optional: provides snippets for the snippet source
         dependencies = {
+            -- optional: provides snippets for the snippet source
             'rafamadriz/friendly-snippets',
             'mikavilpas/blink-ripgrep.nvim',
             'giuxtaposition/blink-cmp-copilot',
