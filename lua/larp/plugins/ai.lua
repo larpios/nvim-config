@@ -33,7 +33,7 @@ return {
                     model = 'deepseek-coder-v2:lite',
                 },
             },
-            auto_set_keymaps = true,
+            auto_set_keymaps = false,
             -- REMOVED: auto_suggestions_provider = "neocodeium" (not supported)
             mappings = {
                 edit = '<C-e>',
