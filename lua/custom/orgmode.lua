@@ -2,6 +2,7 @@ local org_path = '~/obsidian-vault/'
 require('orgmode').setup({
     org_agenda_files = org_path .. '/**/*',
     org_default_notes_file = org_path .. 'refile.org',
+    org_startup_indented = true,
     org_fold_enable = false,
     org_startup_folded = 'showeverything',
     mappings = {
