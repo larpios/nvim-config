@@ -341,13 +341,20 @@ function M.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = M.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
-    for target in targets do
-        if val == target then
-            return true
+    -- Performance optimization:
+    -- Avoid O(N) allocation and extra loop of vim.tbl_keys() and vim.values()
+    if from_keys then
+        -- O(1) lookup
+        return tbl[val] ~= nil
+    else
+        -- O(N) direct iteration, avoiding extra table allocation
+        for _, v in pairs(tbl) do
+            if val == v then
+                return true
+            end
         end
+        return false
     end
-    return false
 end
 
 --- Calculates the number of UTF-8 characters in a string.

@@ -1,0 +1,3 @@
+## 2024-03-08 - [Avoid table allocations in Neovim API table helpers]
+**Learning:** Functions like `vim.tbl_keys` and `vim.values` in Neovim's API create full new lists containing the keys/values of a given table. When checking for the existence of an element in a table (e.g., `M.is_in`), using these methods inside the function creates an O(N) time and O(N) space overhead before the search even begins.
+**Action:** When performing `in` checks in Lua, skip `vim.tbl_keys` entirely and check keys directly with `tbl[val] ~= nil` for O(1) lookups. For value lookups, use a direct `pairs()` loop to avoid the O(N) space overhead and the double-looping overhead of `vim.values`.
