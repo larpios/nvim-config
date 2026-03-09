@@ -19,6 +19,10 @@ return {
         },
     },
     {
+        'esmuellert/codediff.nvim',
+        cmd = 'CodeDiff',
+    },
+    {
         'NeogitOrg/neogit',
         event = 'BufRead',
         cmds = {
@@ -36,6 +40,19 @@ return {
         config = function()
             require('custom.neogit')
         end,
+    },
+    {
+        'NicholasZolton/neojj',
+        lazy = true,
+        dependencies = {
+            'nvim-lua/plenary.nvim', -- required
+            'esmuellert/codediff.nvim', -- optional
+            'folke/snacks.nvim', -- optional
+        },
+        cmd = 'Neojj',
+        keys = {
+            { '<leader>Gj', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
+        },
     },
     {
         'tpope/vim-fugitive',
