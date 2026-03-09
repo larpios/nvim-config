@@ -12,8 +12,6 @@ conform.setup({
         xml = { 'xmlformat' },
         yaml = { 'yamllint', 'prettier' },
         text = { 'autocorrect' },
-        ['*'] = { 'autocorrect', 'codespell' },
-        ['_'] = { 'trim_whitespace' },
         cs = { 'csharpier', 'clang_format' },
         ts = { 'prettier', 'eslint_d' },
         js = { 'prettier', 'eslint_d' },
