@@ -1,0 +1,3 @@
+## 2024-05-23 - Neovim API Table Functions in Hot Paths
+**Learning:** `vim.tbl_keys()` and `vim.values()` eagerly allocate O(N) tables. Using them for presence checks (`is_in`) creates unnecessary memory pressure and O(N) scanning when an O(1) hash lookup (`tbl[val] ~= nil`) or direct iteration (`pairs()`) could be used instead. Additionally, calling `vim.tbl_keys()` inside a loop for random selection causes repeated O(N) allocations.
+**Action:** Avoid `vim.tbl_keys()` and `vim.values()` when checking table contents. Use direct indexing for keys and `pairs()` for values. Hoist `vim.tbl_keys()` out of loops if needed.

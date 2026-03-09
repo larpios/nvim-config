@@ -21,8 +21,12 @@ function M.tbl_choose_random(tbl, num)
 
     math.randomseed(os.time())
     local chosen_elems = {}
+    -- Hoist vim.tbl_keys to prevent repeated O(N) allocations in loop
+    local keys = vim.tbl_keys(tbl)
     for _ = 1, num, 1 do
-        local keys = vim.tbl_keys(tbl)
+        if #keys == 0 then
+            break
+        end
         local key_idx = math.random(#keys)
         local key = keys[key_idx]
         table.insert(chosen_elems, tbl[key])
@@ -341,13 +345,18 @@ function M.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = M.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
-    for target in targets do
-        if val == target then
-            return true
+    if from_keys then
+        -- O(1) direct lookup instead of allocating vim.tbl_keys(tbl)
+        return tbl[val] ~= nil
+    else
+        -- Zero-allocation iteration instead of allocating vim.values(tbl)
+        for _, target in pairs(tbl) do
+            if val == target then
+                return true
+            end
         end
+        return false
     end
-    return false
 end
 
 --- Calculates the number of UTF-8 characters in a string.
