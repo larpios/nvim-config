@@ -21,12 +21,23 @@ function M.tbl_choose_random(tbl, num)
 
     math.randomseed(os.time())
     local chosen_elems = {}
+
+    -- ⚡ Bolt: Hoist vim.tbl_keys outside the loop to prevent O(N*M) memory allocation
+    local keys = vim.tbl_keys(tbl)
+    local available_keys = #keys
+
     for _ = 1, num, 1 do
-        local keys = vim.tbl_keys(tbl)
-        local key_idx = math.random(#keys)
+        if available_keys == 0 then
+            break
+        end
+        local key_idx = math.random(available_keys)
         local key = keys[key_idx]
         table.insert(chosen_elems, tbl[key])
-        table.remove(keys, key_idx)
+
+        -- Remove the chosen key to avoid duplicates and decrease available keys count
+        keys[key_idx] = keys[available_keys]
+        keys[available_keys] = nil
+        available_keys = available_keys - 1
     end
     return chosen_elems
 end
@@ -341,10 +352,14 @@ function M.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = M.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
-    for target in targets do
-        if val == target then
-            return true
+    -- ⚡ Bolt: Prevent O(N) memory allocation from vim.tbl_keys and vim.values
+    if from_keys then
+        return tbl[val] ~= nil
+    else
+        for _, v in pairs(tbl) do
+            if v == val then
+                return true
+            end
         end
     end
     return false
