@@ -1,0 +1,3 @@
+## 2024-05-15 - [Avoid Neovim API Table Iterators for Performance]
+**Learning:** Functions like `vim.tbl_keys` and `vim.values` eagerly allocate O(N) memory to create new arrays. Using them inside loops or for simple presence checks creates significant allocation overhead, especially in a performance-sensitive environment or large tables.
+**Action:** Use direct O(1) lookups (`tbl[key] ~= nil`) to check if a key exists. For iterating over values, use `pairs(tbl)` instead of `vim.values(tbl)`. If `vim.tbl_keys` is strictly necessary in a loop, hoist the call outside the loop to avoid repeated array allocations.
