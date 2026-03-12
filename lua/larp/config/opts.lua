@@ -34,3 +34,5 @@ vim.o.winborder = 'double'
 vim.wo.conceallevel = 2
 
 vim.o.guicursor = 'n-v-i-c:block'
+
+vim.o.autoread = true
