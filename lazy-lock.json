@@ -76,6 +76,7 @@
   "opencode.nvim": { "branch": "main", "commit": "1088ee70dd997d785a1757d351c07407f0abfc9f" },
   "orgmode": { "branch": "master", "commit": "f3ea61f6d71486c9062d40efe3c882050758e9b3" },
   "orphans.nvim": { "branch": "main", "commit": "35f995fbb04b679b7d829072d7209a2117c15adf" },
+  "otter.nvim": { "branch": "main", "commit": "4796602953348e19fb24916557af7b89e188751f" },
   "overseer.nvim": { "branch": "master", "commit": "2802c15182dae2de71f9c82e918d7ba850b90c22" },
   "peek.nvim": { "branch": "master", "commit": "5820d937d5414baea5f586dc2a3d912a74636e5b" },
   "pest.vim": { "branch": "master", "commit": "60cae7ea1beb644ed40081a3ec213ea9061aba09" },
