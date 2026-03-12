@@ -196,6 +196,8 @@ return {
         end,
     },
     {
+        -- Enables inline syntax highlighting using a tree-sitter parser
+        -- For example, inside multiline strings in Nix or Markdown
         'jmbuhr/otter.nvim',
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
