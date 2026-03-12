@@ -21,8 +21,13 @@ function M.tbl_choose_random(tbl, num)
 
     math.randomseed(os.time())
     local chosen_elems = {}
+    -- PERF: Hoist vim.tbl_keys outside the loop to avoid repeated allocations
+    local keys = vim.tbl_keys(tbl)
+
     for _ = 1, num, 1 do
-        local keys = vim.tbl_keys(tbl)
+        if #keys == 0 then
+            break
+        end
         local key_idx = math.random(#keys)
         local key = keys[key_idx]
         table.insert(chosen_elems, tbl[key])
@@ -341,12 +346,17 @@ function M.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = M.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
-    for target in targets do
+    -- PERF: Avoid eagerly allocating O(N) tables with vim.tbl_keys or vim.values
+    if from_keys then
+        return tbl[val] ~= nil
+    end
+
+    for _, target in pairs(tbl) do
         if val == target then
             return true
         end
     end
+
     return false
 end
 

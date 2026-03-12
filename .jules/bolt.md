@@ -1,0 +1,3 @@
+## 2024-05-24 - [Avoid vim.tbl_keys and vim.values in iteration]
+**Learning:** The Neovim memory pattern states we should avoid Neovim API helpers like `vim.tbl_keys` and `vim.values` when performing presence checks or iterating in Lua tables, as they eagerly allocate O(N) tables in memory. Instead, use direct O(1) lookups (`tbl[val] ~= nil`) for keys, direct iteration (`pairs()`) for values, and hoist any necessary `vim.tbl_keys` calls outside of loops to prevent repeated allocations.
+**Action:** Replace `vim.tbl_keys` and `vim.values` with direct lookups/iterations or hoist them outside loops.
