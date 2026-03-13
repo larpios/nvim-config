@@ -21,6 +21,7 @@ conform.setup({
         typst = { 'prettypst', 'typstyle' },
         xml = { 'xmlformat' },
         yaml = { 'yamllint', 'prettier' },
+        kdl = { 'kdlfmt' },
     },
     default_format_opts = {
         lsp_format = 'fallback',
@@ -37,7 +38,10 @@ vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = '*',
     callback = function()
         larp.fn.map('n', '<leader>cf', function()
-            conform.format({ lsp_fallback = true })
+            conform.format({
+                async = true, -- might cause a problem where your changes are overwritten by the formatter
+                lsp_fallback = true
+            })
         end, { desc = 'Format Document' })
     end,
 })
