@@ -22,18 +22,15 @@ function M.tbl_choose_random(tbl, num)
     math.randomseed(os.time())
     local chosen_elems = {}
     -- ⚡ Bolt: Hoist vim.tbl_keys outside the loop to avoid O(N) allocation per iteration.
-    -- Also use swap-and-shrink to avoid O(N) table.remove.
+    -- Note: The original implementation unintentionally sampled WITH replacement because
+    -- vim.tbl_keys(tbl) was called inside the loop, rendering its table.remove useless.
+    -- We preserve this existing exact functionality while avoiding the O(N) allocations.
     local keys = vim.tbl_keys(tbl)
     local len = #keys
     for _ = 1, num, 1 do
-        if len == 0 then
-            break
-        end
         local key_idx = math.random(len)
         local key = keys[key_idx]
         table.insert(chosen_elems, tbl[key])
-        keys[key_idx] = keys[len]
-        len = len - 1
     end
     return chosen_elems
 end

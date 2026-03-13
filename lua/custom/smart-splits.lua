@@ -7,7 +7,7 @@ require('smart-splits').setup({
             on_leave = require('bufresize').register,
         },
     },
-     zellij_move_focus_or_tab = true,
+    zellij_move_focus_or_tab = true,
 })
 
 -- recommended mappings
