@@ -202,6 +202,14 @@ return {
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
         },
-        opts = {},
+        opts = {
+            buffers = {
+                set_filetype = true,
+                write_to_disk = true,
+            },
+            extensions = {
+                ['bash'] = 'sh',
+            },
+        },
     },
 }
