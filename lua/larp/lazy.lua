@@ -16,6 +16,22 @@ require('lazy').setup({
     spec = {
         { import = 'larp.plugins' },
     },
+    performance = {
+        rtp = {
+            -- disable some rtp plugins
+            disabled_plugins = {
+                'gzip',
+                'tarPlugin',
+                'tohtml',
+                'tutor',
+                'zipPlugin',
+            },
+        },
+    },
+    change_detection = {
+        enabled = false,
+        notify = false,
+    },
 })
 
-larp.fn.map('n', '<leader>ll', '<cmd>Lazy<cr>', { desc = 'Open Lazy Menu' })
+vim.keymap.set('n', '<leader>ll', '<cmd>Lazy<cr>', { desc = 'Open Lazy Menu', silent = true })

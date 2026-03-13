@@ -22,7 +22,6 @@ return {
             -- OPTIONAL:
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
-            'rcarriga/nvim-notify',
             'nvim-treesitter/nvim-treesitter',
         },
         config = function()
@@ -49,7 +48,7 @@ return {
     },
     {
         'petertriho/nvim-scrollbar',
-        event = 'BufRead',
+        event = 'BufReadPost',
     },
     {
         'folke/trouble.nvim',
@@ -174,26 +173,5 @@ return {
         config = true,
         event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
         opts = {},
-    },
-    {
-        'rachartier/tiny-code-action.nvim',
-        dependencies = {
-            { 'nvim-lua/plenary.nvim' },
-            { 'ibhagwan/fzf-lua' },
-        },
-        event = 'LspAttach',
-        opts = {},
-        keys = {
-            {
-                '<leader>ca',
-                function()
-                    require('tiny-code-action').code_action()
-                end,
-                mode = 'n',
-                desc = 'Code Action',
-                noremap = true,
-                silent = true,
-            },
-        },
     },
 }

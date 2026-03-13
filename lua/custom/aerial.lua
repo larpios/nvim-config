@@ -9,4 +9,4 @@ require('aerial').setup({
     filter_kind = false,
 })
 -- You probably also want to set a keymap to toggle aerial
-larp.fn.map('', '<leader>to', '<cmd>AerialToggle<cr>', { desc = 'Toggle Aerial Overview' })
+vim.keymap.set('', '<leader>to', '<cmd>AerialToggle<cr>', { desc = 'Toggle Aerial Overview' })

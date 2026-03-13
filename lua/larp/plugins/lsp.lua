@@ -136,6 +136,7 @@ return {
     },
     {
         'saghen/blink.cmp',
+        event = 'InsertEnter',
         dependencies = {
             -- optional: provides snippets for the snippet source
             'rafamadriz/friendly-snippets',
@@ -157,6 +158,7 @@ return {
     {
         -- Shows refernce and definition info above functions
         'VidocqH/lsp-lens.nvim',
+        event = 'LspAttach',
         opts = {},
     },
     {
@@ -191,6 +193,8 @@ return {
     {
         -- Formatter
         'stevearc/conform.nvim',
+        event = { 'BufWritePre' },
+        cmd = { 'ConformInfo' },
         config = function()
             require('custom.conform')
         end,
@@ -198,7 +202,10 @@ return {
     {
         -- Enables inline syntax highlighting using a tree-sitter parser
         -- For example, inside multiline strings in Nix or Markdown
-        'jmbuhr/otter.nvim',
+        -- 'jmbuhr/otter.nvim',
+        'larpios/otter.nvim',
+        branch = 'test',
+        event = 'VeryLazy',
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
         },

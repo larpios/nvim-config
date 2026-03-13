@@ -4,7 +4,7 @@ return {
         'lambdalisue/vim-suda',
         keys = {
             { '<leader><leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = 'Sudo Write' },
-            { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
+            { '<leader><leader>Sr', '<cmd>SudaRead<cr>',  mode = 'n', desc = 'Sudo Read' },
         },
         cmd = { 'SudaWrite', 'SudaRead' },
         config = function()
@@ -13,6 +13,7 @@ return {
     },
     {
         'MagicDuck/grug-far.nvim',
+        cmd = { 'GrugFar', 'GrugFarWithin' },
         config = function()
             require('grug-far').setup({
                 -- options, see Configuration section below
@@ -57,6 +58,7 @@ return {
     },
     {
         'NMAC427/guess-indent.nvim',
+        event = 'BufReadPost',
         opts = {},
     },
     {
@@ -105,6 +107,7 @@ return {
     {
         -- Easily identify abandoned Neovim plugins
         'ZWindL/orphans.nvim',
+        cmd = 'Orphans',
         opts = {},
     },
     {

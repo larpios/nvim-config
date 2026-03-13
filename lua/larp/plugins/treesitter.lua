@@ -1,10 +1,10 @@
 return {
     {
         'nvim-treesitter/nvim-treesitter',
+        event = { 'BufReadPost', 'BufNewFile' },
         branch = 'master',
         dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
         build = ':TSUpdate',
-        lazy = false,
         config = function()
             require('nvim-treesitter.configs').setup({
                 textobjects = {
@@ -158,7 +158,7 @@ return {
     --             zindex = 20, -- The Z-index of the context window
     --             on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
     --         })
-    --         larp.fn.map('n', '[c', function()
+    --         vim.keymap.set('n', '[c', function()
     --             require('treesitter-context').go_to_context(vim.v.count1)
     --         end, { silent = true })
     --     end,

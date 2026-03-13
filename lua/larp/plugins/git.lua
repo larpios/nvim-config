@@ -56,6 +56,7 @@ return {
     },
     {
         'tpope/vim-fugitive',
+        cmd = { 'G', 'Git', 'Gdiffsplit', 'Gread', 'Gwrite', 'Ggrep', 'GMove', 'GDelete', 'GBrowse' },
     },
     {
         'akinsho/git-conflict.nvim',
@@ -68,6 +69,7 @@ return {
         version = '*', -- Use latest stable release
         -- Or from the main branch (uncomment the branch line and comment the version line)
         -- branch = "main",
+        event = 'VeryLazy',
         config = function()
             require('jj').setup({})
         end,

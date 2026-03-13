@@ -60,10 +60,10 @@ require('mini.sessions').setup({
 require('mini.splitjoin').setup({})
 require('mini.comment').setup({})
 local files = require('mini.files')
-larp.fn.map('n', '<leader>tm', function()
+vim.keymap.set('n', '<leader>tm', function()
     files.open()
 end)
 
-larp.fn.map('n', '<leader>mf', function()
+vim.keymap.set('n', '<leader>mf', function()
     files.open()
 end)

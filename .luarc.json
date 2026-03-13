@@ -5,7 +5,7 @@
     "lua/?/init.lua"
   ],
   "diagnostics.globals": ["vim",
-        "larp"],
+        ""],
   "workspace.checkThirdParty": false,
   "workspace.library": [
     "$VIMRUNTIME",

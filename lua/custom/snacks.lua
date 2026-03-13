@@ -40,137 +40,137 @@ local snacks = require('snacks')
 local notifier = snacks.notifier
 snacks.setup(opts)
 
-larp.fn.map('n', '<leader>Nff', notifier.show_history, { desc = 'Show History', desc_prefix = 'Notifier' })
-larp.fn.map('n', '<leader>Gro', snacks.gitbrowse.open, { desc = 'Open in Browser', desc_prefix = 'Git' })
+vim.keymap.set('n', '<leader>Nff', notifier.show_history, { desc = 'Notifier: Show History', silent = true })
+vim.keymap.set('n', '<leader>Gro', snacks.gitbrowse.open, { desc = 'Git: Open in Browser', silent = true })
 
 -- Scratch
-larp.fn.map('n', '<leader>st', function()
+vim.keymap.set('n', '<leader>st', function()
     snacks.scratch()
-end, { desc = 'Toggle Scratch Buffer', desc_prefix = 'Snacks' })
-larp.fn.map('n', '<leader>ss', snacks.scratch.select, { desc = 'Select Scratch Buffer', desc_prefix = 'Snacks' })
+end, { desc = 'Snacks: Toggle Scratch Buffer', silent = true })
+vim.keymap.set('n', '<leader>ss', snacks.scratch.select, { desc = 'Snacks: Select Scratch Buffer', silent = true })
 
 -- Git
-larp.fn.map({ 'n', 'x' }, '<leader>Gb', snacks.git.blame_line, { desc = 'Blame', desc_prefix = 'Git' })
-larp.fn.map('n', '<leader>Gr', function()
+vim.keymap.set({ 'n', 'x' }, '<leader>Gb', snacks.git.blame_line, { desc = 'Git: Blame', silent = true })
+vim.keymap.set('n', '<leader>Gr', function()
     print('Git root: ' .. snacks.git.get_root())
-end, { desc = 'Blame', desc_prefix = 'Git' })
+end, { desc = 'Git: Blame', silent = true })
 
 -- Picker
 local picker = require('snacks.picker')
 
 -- Find
-larp.fn.map('n', '<leader>pp', function()
+vim.keymap.set('n', '<leader>pp', function()
     picker.pick()
 end, { desc = 'Snacks Picker' })
-larp.fn.map('n', '<leader>ff', function()
+vim.keymap.set('n', '<leader>ff', function()
     picker.files()
 end, { desc = 'Find Files' })
-larp.fn.map('n', '<leader>fc', function()
+vim.keymap.set('n', '<leader>fc', function()
     picker.files({ cwd = vim.fn.stdpath('config') })
 end, { desc = 'Find Config Files' })
-larp.fn.map('n', '<leader>fh', function()
+vim.keymap.set('n', '<leader>fh', function()
     picker.help()
 end, { desc = 'Find Help' })
-larp.fn.map('n', '<leader>:', function() end, { desc = 'Find Commands' })
-larp.fn.map('n', '<leader>fn', function()
+vim.keymap.set('n', '<leader>:', function() end, { desc = 'Find Commands' })
+vim.keymap.set('n', '<leader>fn', function()
     picker.notifications()
 end, { desc = 'Find Commands' })
-larp.fn.map('n', '<leader>fC', function()
+vim.keymap.set('n', '<leader>fC', function()
     picker.commands()
 end, { desc = 'Find Commands' })
-larp.fn.map('n', '<leader>fa', function()
+vim.keymap.set('n', '<leader>fa', function()
     picker.autocmds()
 end, { desc = 'Find Help' })
-larp.fn.map('n', '<leader>fk', function()
+vim.keymap.set('n', '<leader>fk', function()
     picker.keymaps()
 end, { desc = 'Find Help' })
-larp.fn.map('n', '<leader>fF', function()
+vim.keymap.set('n', '<leader>fF', function()
     picker.smart()
 end, { desc = 'Find Files (Smart)' })
-larp.fn.map('n', '<leader>fl', function()
+vim.keymap.set('n', '<leader>fl', function()
     picker.lazy()
 end, { desc = 'Find Lazy Specs' })
 
-larp.fn.map('n', '<leader>fr', function()
+vim.keymap.set('n', '<leader>fr', function()
     picker.recent()
 end, { desc = 'Find Lazy Specs' })
 
-larp.fn.map('n', '<leader>fs', function()
+vim.keymap.set('n', '<leader>fs', function()
     picker.lsp_symbols()
 end, { desc = 'Find Symbols' })
 
-larp.fn.map('n', '<leader>fS', function()
+vim.keymap.set('n', '<leader>fS', function()
     picker.lsp_workspace_symbols()
 end, { desc = 'Find Workspace Symbols' })
 
-larp.fn.map('n', '<leader>fm', function()
+vim.keymap.set('n', '<leader>fm', function()
     picker.man()
 end, { desc = 'Find Man Pages' })
 
-larp.fn.map('n', '<leader>ft', function()
+vim.keymap.set('n', '<leader>ft', function()
     picker.colorschemes()
 end, { desc = 'Find Colorschemes' })
 
-larp.fn.map('n', '<leader>f.', function()
+vim.keymap.set('n', '<leader>f.', function()
     picker.resume()
 end, { desc = 'Find Resume' })
 
-larp.fn.map('n', '<leader>fd', function()
+vim.keymap.set('n', '<leader>fd', function()
     picker.diagnostics()
 end, { desc = 'Find Diagnostics' })
 
-larp.fn.map('n', '<leader>fb', function()
+vim.keymap.set('n', '<leader>fb', function()
     picker.buffers()
 end, { desc = 'Find Buffers' })
 
-larp.fn.map('n', '<leader>fg', function()
+vim.keymap.set('n', '<leader>fg', function()
     picker.git_files()
 end, { desc = 'Find Git Files' })
 
-larp.fn.map('n', '<leader>gb', function()
+vim.keymap.set('n', '<leader>gb', function()
     picker.git_branches()
 end, { desc = 'Find Git Branches' })
 
-larp.fn.map('n', '<leader>gl', function()
+vim.keymap.set('n', '<leader>gl', function()
     picker.git_log()
 end, { desc = 'Find Git Logs' })
 
-larp.fn.map('n', '<leader>gL', function()
+vim.keymap.set('n', '<leader>gL', function()
     picker.git_log_line()
 end, { desc = 'Find Git Log Line' })
 
-larp.fn.map('n', '<leader>gs', function()
+vim.keymap.set('n', '<leader>gs', function()
     picker.git_status()
 end, { desc = 'Find Git Log Line' })
 
-larp.fn.map('n', '<leader>gd', function()
+vim.keymap.set('n', '<leader>gd', function()
     picker.git_diff()
 end, { desc = 'Find Git Diff' })
 
-larp.fn.map('n', '<leader>gg', function()
+vim.keymap.set('n', '<leader>gg', function()
     picker.pick('grep')
 end, { desc = 'Grep' })
 
-larp.fn.map({ 'n', 'x' }, '<leader>gw', function()
+vim.keymap.set({ 'n', 'x' }, '<leader>gw', function()
     picker.grep_word({
         -- live = true,
         args = { '--hidden', '--follow', '--glob', '!*/.git/*', '--no-ignore' },
     })
 end, { desc = 'Grep Word' })
 
-larp.fn.map({ 'n', 'x' }, '<leader>fw', function()
+vim.keymap.set({ 'n', 'x' }, '<leader>fw', function()
     picker.files({
         search = vim.fn.expand('<cWORD>'),
         live = true,
     })
 end, { desc = 'Grep Word' })
 
-larp.fn.map('n', '<leader>gc', function()
+vim.keymap.set('n', '<leader>gc', function()
     picker.grep({ cwd = vim.fn.stdpath('config') })
 end, { desc = 'Grep Config' })
 
 -- Lazygit
-larp.fn.map('n', '<leader>Gl', function()
+vim.keymap.set('n', '<leader>Gl', function()
     snacks.lazygit()
 end, { desc = 'Lazygit' })
 
@@ -220,16 +220,16 @@ vim.api.nvim_create_autocmd('LspProgress', {
 })
 
 local notifier = snacks.notifier
-larp.fn.map('n', '<leader>nh', function()
+vim.keymap.set('n', '<leader>nh', function()
     notifier.show_history()
 end, { desc = 'Notification History' })
 
-larp.fn.map('n', '<leader>nd', function()
+vim.keymap.set('n', '<leader>nd', function()
     notifier.hide()
 end, { desc = 'Notification Dismiss' })
 
 -- Bufdelete
-larp.fn.map('n', '<leader>bd', function()
+vim.keymap.set('n', '<leader>bd', function()
     snacks.bufdelete.other()
 end, { desc = 'Notification Dismiss' })
 
@@ -254,6 +254,6 @@ M.new = function(opts)
     return self
 end
 -- Zen
-larp.fn.map('n', '<leader>zz', function()
+vim.keymap.set('n', '<leader>zz', function()
     snacks.zen()
 end, { desc = 'Toggle Zen' })

@@ -19,7 +19,7 @@ vim.o.ignorecase = true
 vim.o.undofile = true
 vim.o.undolevels = 5000
 
-vim.o.updatetime = 50
+vim.o.updatetime = 250
 
 vim.o.breakindent = true
 vim.o.wrap = true
@@ -36,3 +36,12 @@ vim.wo.conceallevel = 2
 vim.o.guicursor = 'n-v-i-c:block'
 
 vim.o.autoread = true
+
+-- shada: limit history for faster startup
+vim.opt.shada = [[!,'100,f1,<50,s10,h]]
+
+-- Disable unused providers
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0

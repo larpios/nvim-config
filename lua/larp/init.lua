@@ -1,8 +1,9 @@
-require('larp.larp-nvim')
 require('larp.config')
-require('larp.third-party')
 require('larp.lazy')
--- lazy loads this
--- require('larp.plugins')
 
-vim.cmd.colorscheme('catppuccin')
+-- Defer third-party and heavier configs to keep initial startup fast
+vim.schedule(function()
+    require('larp.third-party')
+end)
+
+vim.cmd.colorscheme('catppuccin-mocha')
