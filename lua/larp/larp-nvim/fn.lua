@@ -21,12 +21,19 @@ function M.tbl_choose_random(tbl, num)
 
     math.randomseed(os.time())
     local chosen_elems = {}
+    -- ⚡ Bolt: Hoist vim.tbl_keys outside the loop to avoid O(N) allocation per iteration.
+    -- Also use swap-and-shrink to avoid O(N) table.remove.
+    local keys = vim.tbl_keys(tbl)
+    local len = #keys
     for _ = 1, num, 1 do
-        local keys = vim.tbl_keys(tbl)
-        local key_idx = math.random(#keys)
+        if len == 0 then
+            break
+        end
+        local key_idx = math.random(len)
         local key = keys[key_idx]
         table.insert(chosen_elems, tbl[key])
-        table.remove(keys, key_idx)
+        keys[key_idx] = keys[len]
+        len = len - 1
     end
     return chosen_elems
 end
@@ -341,9 +348,14 @@ function M.is_in(val, tbl, from_keys)
         return false
     end
 
-    local targets = M.if_get_or(from_keys, vim.tbl_keys(tbl), vim.values(tbl))
-    for target in targets do
-        if val == target then
+    -- ⚡ Bolt: Use direct O(1) table lookup instead of O(N) vim.tbl_keys allocation
+    if from_keys then
+        return tbl[val] ~= nil
+    end
+
+    -- ⚡ Bolt: Use direct O(N) iteration instead of O(N) vim.values allocation
+    for _, v in pairs(tbl) do
+        if v == val then
             return true
         end
     end

@@ -1,0 +1,3 @@
+## 2024-03-13 - Avoid `vim.tbl_keys` and `vim.values` inside loops for performance
+**Learning:** Using Neovim API helpers like `vim.tbl_keys` and `vim.values` for presence checks or inside iterations is a significant performance anti-pattern. These functions eagerly allocate O(N) tables in memory, which causes high GC pressure and slow execution times when called repeatedly.
+**Action:** For O(1) presence checks on keys, use direct lookup `tbl[val] ~= nil`. For values, use direct iteration with `pairs()`. When an array of keys is strictly required within a loop, hoist the `vim.tbl_keys` call outside the loop to prevent repeated O(N) memory allocations.
