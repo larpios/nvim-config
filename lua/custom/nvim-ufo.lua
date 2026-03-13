@@ -15,13 +15,8 @@ capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
 }
-local language_servers = require('lspconfig').util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-for _, ls in ipairs(language_servers) do
-    require('lspconfig')[ls].setup({
-        capabilities = capabilities,
-        -- you can add other fields for setting up lsp server in this table
-    })
-end
+-- Propagate folding capabilities to all servers configured via vim.lsp.enable()
+vim.lsp.config('*', { capabilities = capabilities })
 local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
     local suffix = (' 󰁂 %d '):format(endLnum - lnum)

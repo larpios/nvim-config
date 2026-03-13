@@ -1,8 +1,6 @@
 require('larp.larp-nvim')
 require('larp.config')
 require('larp.third-party')
-require('larp.lazy')
--- lazy loads this
--- require('larp.plugins')
+require('larp.pack')
 
 vim.cmd.colorscheme('catppuccin')

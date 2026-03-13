@@ -21,7 +21,8 @@ local opts = {
         template = 'Daily Template',
     },
     completion = {
-        nvim_cmp = true,
+        nvim_cmp = false,
+        blink = true,
         min_char = 2,
     },
     follow_url_func = function(url)
@@ -83,11 +84,9 @@ obsidian.setup(opts)
 
 vim.o.conceallevel = 2
 
-require('nvim-treesitter').setup({
+require('nvim-treesitter.configs').setup({
     ensure_installed = { 'markdown', 'markdown_inline' },
-    highlight = {
-        enable = true,
-    },
+    highlight = { enable = true },
 })
 
 --- Print non-empty job output lines.

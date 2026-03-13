@@ -1,199 +1,51 @@
-return {
-    {
-        'nvim-lualine/lualine.nvim',
-        event = 'BufWinEnter',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-            'stevearc/overseer.nvim',
-        },
-        config = function()
-            require('custom.lualine')
-        end,
-    },
-    {
-        'folke/noice.nvim',
-        event = 'VeryLazy',
-        opts = {
-            -- add any options here
-        },
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            'MunifTanjim/nui.nvim',
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            'rcarriga/nvim-notify',
-            'nvim-treesitter/nvim-treesitter',
-        },
-        config = function()
+return function(load, on_event, on_ft, lazy_cmd, later)
+    -- BufWinEnter: UI infrastructure
+    on_event('BufWinEnter', { 'bufferline.nvim', 'nvim-web-devicons' }, function()
+        require('bufferline').setup({})
+        vim.keymap.set('n', 'L', '<cmd>BufferLineCycleNext<cr>',  { desc = 'Next Buffer' })
+        vim.keymap.set('n', 'H', '<cmd>BufferLineCyclePrev<cr>',  { desc = 'Previous Buffer' })
+        vim.keymap.set('n', '<leader>>', '<cmd>BufferLineMoveNext<cr>', { desc = 'Move Buffer Right' })
+        vim.keymap.set('n', '<leader><', '<cmd>BufferLineMovePrev<cr>', { desc = 'Move Buffer Left' })
+        vim.keymap.set('n', '<leader>bc', '<cmd>BufferLinePickClose<cr>', { desc = 'Close buffer' })
+        vim.keymap.set('n', '<leader>bp', '<cmd>BufferLinePick<cr>',     { desc = 'Pick Buffer' })
+        vim.keymap.set('n', '<leader>br', '<cmd>BufferLineTabRename<cr>', { desc = 'Rename Tab' })
+    end)
+
+    on_event('BufWinEnter', { 'lualine.nvim', 'nvim-web-devicons', 'overseer.nvim' }, function()
+        require('custom.lualine')
+    end)
+
+    -- Deferred UI (VeryLazy)
+    later(function()
+        load({ 'noice.nvim', 'nui.nvim', 'nvim-notify' }, function()
             require('custom.noice')
-        end,
-    },
-    {
-        'stevearc/dressing.nvim',
-        event = 'VeryLazy',
-        opts = {},
-    },
-    {
-        -- Loading screen on the bottom right
-        'j-hui/fidget.nvim',
-        event = 'VeryLazy',
-        opts = {
-            -- options
-        },
-    },
-    {
-        -- Peek buffer while typing :<linenumber>
-        'nacro90/numb.nvim',
-        config = true,
-    },
-    {
-        'petertriho/nvim-scrollbar',
-        event = 'BufRead',
-    },
-    {
-        'folke/trouble.nvim',
-        branch = 'main', -- IMPORTANT!
-        keys = {
-            {
-                '<leader>xx',
-                '<cmd>Trouble diagnostics toggle<cr>',
-                desc = 'Diagnostics (Trouble)',
-            },
-            {
-                '<leader>xX',
-                '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
-                desc = 'Buffer Diagnostics (Trouble)',
-            },
-            {
-                '<leader>cs',
-                '<cmd>Trouble symbols toggle focus=false<cr>',
-                desc = 'Symbols (Trouble)',
-            },
-            {
-                '<leader>cl',
-                '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
-                desc = 'LSP Definitions / references / ... (Trouble)',
-            },
-            {
-                '<leader>xL',
-                '<cmd>Trouble loclist toggle<cr>',
-                desc = 'Location List (Trouble)',
-            },
-            {
-                '<leader>xQ',
-                '<cmd>Trouble qflist toggle<cr>',
-                desc = 'Quickfix List (Trouble)',
-            },
-        },
-        opts = {}, -- for default options, refer to the configuration section for custom setup.
-    },
-    {
-        'folke/which-key.nvim',
-        event = 'VeryLazy',
-        config = function()
-            require('custom.which-key')
-        end,
-    },
-    {
-        -- Colorful window separator
-        'nvim-zh/colorful-winsep.nvim',
-        config = true,
-        event = { 'WinLeave' },
-    },
-    {
-        -- Changes the color of the line number depending on the current mode.
-        'mawkler/modicator.nvim',
-        event = 'VeryLazy',
-        init = function()
-            -- These are required for Modicator to work
-            vim.o.cursorline = true
-            vim.o.number = true
-            vim.o.termguicolors = true
-        end,
-        opts = {},
-    },
-    {
-        'nvzone/showkeys',
-        cmd = 'ShowkeysToggle',
-        opts = {
-            maxkeys = 5,
-            winopts = {
-                focusable = true,
-            },
+        end)
+        load({ 'dressing.nvim' }, function()
+            require('dressing').setup({})
+        end)
+        load({ 'fidget.nvim' }, function()
+            require('fidget').setup({})
+        end)
+        load({ 'colorful-winsep.nvim' }, function()
+            require('colorful-winsep').setup({})
+        end)
+        load({ 'modicator.nvim' }, function()
+            require('modicator').setup({})
+        end)
+    end)
+
+    -- Command stubs
+    lazy_cmd({ 'ShowkeysToggle' }, { 'showkeys' }, function()
+        require('showkeys').setup({
+            maxkeys  = 5,
+            winopts  = { focusable = true },
             show_count = true,
             position = 'top-right',
-        },
-    },
-    {
-        -- Neovide-like cursor
-        'sphamba/smear-cursor.nvim',
-        enabled = false,
-        event = 'BufWinEnter',
-        config = function()
-            require('custom.smear-cursor')
-        end,
-    },
-    {
-        -- Tabs
-        'akinsho/bufferline.nvim',
-        event = 'BufWinEnter',
-        version = '*',
-        dependencies = 'nvim-tree/nvim-web-devicons',
-        opts = {},
-        keys = {
-            { 'L', '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = 'Next Buffer' },
-            { 'H', '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = 'Previous Buffer' },
-            { '<leader>>', '<cmd>BufferLineMoveNext<cr>', mode = 'n', desc = 'Move Buffer to the Right' },
-            { '<leader><', '<cmd>BufferLineMovePrev<cr>', mode = 'n', desc = 'Move Buffer to the Left' },
-            { '<leader>bc', '<cmd>BufferLinePickClose<cr>', mode = 'n', desc = 'Close buffer' },
-            { '<leader>bp', '<cmd>BufferLinePick<cr>', mode = 'n', desc = 'Pick Buffer' },
-            { '<leader>br', '<cmd>BufferLineTabRename<cr>', mode = 'n', desc = 'Rename Tab' },
-        },
-    },
-    {
-        'jake-stewart/auto-cmdheight.nvim',
-        lazy = false,
-        opts = {
-            -- max cmdheight before displaying hit enter prompt.
-            max_lines = 5,
+        })
+    end)
 
-            -- number of seconds until the cmdheight can restore.
-            duration = 2,
-
-            -- whether key press is required to restore cmdheight.
-            remove_on_key = true,
-
-            -- always clear the cmdline after duration and key press.
-            -- by default it will only happen when cmdheight changed.
-            clear_always = false,
-        },
-    },
-    {
-        'mcauley-penney/visual-whitespace.nvim',
-        config = true,
-        event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
-        opts = {},
-    },
-    {
-        'rachartier/tiny-code-action.nvim',
-        dependencies = {
-            { 'nvim-lua/plenary.nvim' },
-            { 'ibhagwan/fzf-lua' },
-        },
-        event = 'LspAttach',
-        opts = {},
-        keys = {
-            {
-                '<leader>ca',
-                function()
-                    require('tiny-code-action').code_action()
-                end,
-                mode = 'n',
-                desc = 'Code Action',
-                noremap = true,
-                silent = true,
-            },
-        },
-    },
-}
+    lazy_cmd({ 'CccConvert', 'CccPick', 'CccHighlighterDisable', 'CccHighlighterEnable', 'CccHighlighterToggle' },
+        { 'ccc.nvim' }, function()
+            require('custom.ccc')
+        end)
+end

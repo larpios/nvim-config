@@ -1,215 +1,71 @@
-return {
-    {
-        'ray-x/lsp_signature.nvim',
-        event = 'VeryLazy',
-        opts = {
+return function(load, on_event, on_ft, lazy_cmd, later)
+    -- InsertEnter: completion + copilot
+    on_event('InsertEnter', {
+        'blink.cmp', 'friendly-snippets', 'blink-ripgrep.nvim',
+        'blink-cmp-copilot', 'blink-emoji.nvim',
+    }, function()
+        require('custom.blink')
+    end)
+
+    on_event('InsertEnter', { 'copilot.lua' }, function()
+        require('custom.copilot-lua')
+    end)
+
+    -- LspAttach: LSP-dependent UI
+    on_event('LspAttach', { 'lsp_signature.nvim' }, function()
+        require('lsp_signature').setup({
             bind = true,
-            handle_opts = {
-                border = 'rounded',
-            },
-        },
-    },
-    {
-        'mrcjkb/rustaceanvim',
-        version = '^6', -- Recommended
-        lazy = false, -- This plugin is already lazy
-    },
-    {
-        'mason-org/mason.nvim',
-        opts = {},
-        cmds = {
-            'Mason',
-            'MasonInstall',
-            'MasonLog',
-            'MasonUninstall',
-            'MasonUninstallAll',
-            'MasonUpdate',
-        },
-        keys = {
-            { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason', silent = true },
-        },
-    },
-    {
-        'mason-org/mason-lspconfig.nvim',
-        opts = {
-            ensure_installed = {
-                'vimls',
-                'lua_ls',
-                'rust_analyzer',
-                'clangd',
-            },
-        },
-        dependencies = {
-            { 'mason-org/mason.nvim', opts = {} },
-            'neovim/nvim-lspconfig',
-        },
-    },
-    {
-        'saecki/crates.nvim',
-        ft = 'toml',
-        config = function()
-            require('crates').setup({
-                completion = {
-                    cmp = {
-                        enabled = true,
-                    },
-                },
-            })
-            require('cmp').setup.buffer({
-                sources = {
-                    { name = 'crates' },
-                },
-            })
-        end,
-    },
-    {
-        -- Better folding
-        'kevinhwang91/nvim-ufo',
-        event = 'BufRead',
-        dependencies = { 'kevinhwang91/promise-async' },
-        init = function()
-            vim.o.foldcolumn = '1'
-            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-            vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
-        end,
-        config = function()
-            require('custom.nvim-ufo')
-        end,
-    },
-    {
-        'neovim/nvim-lspconfig',
-    },
-    {
-        -- Stops inactive LSP servers to free RAM
-        'zeioth/garbage-day.nvim',
-        dependencies = 'neovim/nvim-lspconfig',
-        event = 'VeryLazy',
-        opts = {},
-    },
-    {
-        -- IDE-like breadcrumb navigation
-        'Bekaboo/dropbar.nvim',
-        -- optional, but required for fuzzy finder support
-        dependencies = {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'make',
-        },
-        config = function()
-            local dropbar_api = require('dropbar.api')
-            vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
-            vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
-            vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
-        end,
-    },
-    {
-        'stevearc/aerial.nvim',
-        -- just to test symbols.nvim
-        -- enabled = false,
-        event = 'BufRead',
-        opts = {},
-        -- Optional dependencies
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons',
-        },
+            handle_opts = { border = 'rounded' },
+        })
+    end)
 
-        config = function()
-            require('custom.aerial')
-        end,
-    },
-    {
-        -- Overview panel, something like aerial
-        'oskarrrrrrr/symbols.nvim',
-        enabled = false,
-        cmds = {
-            'Symbols',
-            'SymbolsOpen',
-            'SymbolsClose',
-        },
-        keys = {
-            { '<leader>ts', mode = 'n', desc = 'Toggle Symbols' },
-        },
-        config = function()
-            require('custom.symbols')
-        end,
-    },
-    {
-        'saghen/blink.cmp',
-        dependencies = {
-            -- optional: provides snippets for the snippet source
-            'rafamadriz/friendly-snippets',
-            'mikavilpas/blink-ripgrep.nvim',
-            'giuxtaposition/blink-cmp-copilot',
-            'moyiz/blink-emoji.nvim',
-        },
+    on_event('LspAttach', { 'lsp-lens.nvim' }, function()
+        require('lsp-lens').setup({})
+    end)
 
-        -- use a release tag to download pre-built binaries
-        version = 'v1.*',
-        -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-        -- build = 'cargo build --release',
-        -- On musl libc based systems you need to add this flag
-        -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
-        config = function()
-            require('custom.blink')
-        end,
-    },
-    {
-        -- Shows refernce and definition info above functions
-        'VidocqH/lsp-lens.nvim',
-        opts = {},
-    },
-    {
-        'mfussenegger/nvim-jdtls',
-        enabled = false,
-        ft = 'java',
-    },
-    {
-        'p00f/clangd_extensions.nvim',
-        ft = { 'c', 'cpp' },
-        opts = {},
-    },
-    {
-        'pest-parser/pest.vim',
-        ft = 'pest',
-    },
-    {
-        'rachartier/tiny-inline-diagnostic.nvim',
-        enabled = false,
-        event = 'VeryLazy', -- Or `LspAttach`
-        priority = 1000, -- needs to be loaded in first
-        config = function()
-            require('tiny-inline-diagnostic').setup()
-            vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
-        end,
-    },
-    {
-        'Civitasv/cmake-tools.nvim',
-        ft = { 'cmake' },
-        opts = {},
-    },
-    {
-        -- Formatter
-        'stevearc/conform.nvim',
-        config = function()
-            require('custom.conform')
-        end,
-    },
-    {
-        -- Enables inline syntax highlighting using a tree-sitter parser
-        -- For example, inside multiline strings in Nix or Markdown
-        'jmbuhr/otter.nvim',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
+    on_event('LspAttach', { 'dropbar.nvim', 'telescope-fzf-native.nvim' }, function()
+        local api = require('dropbar.api')
+        vim.keymap.set('n', '<Leader>;', api.pick,                { desc = 'Pick symbols in winbar' })
+        vim.keymap.set('n', '[;',        api.goto_context_start,  { desc = 'Go to start of current context' })
+        vim.keymap.set('n', '];',        api.select_next_context, { desc = 'Select next context' })
+    end)
+
+    on_event('LspAttach', { 'tiny-code-action.nvim', 'plenary.nvim', 'fzf-lua' }, function()
+        require('tiny-code-action').setup({})
+        vim.keymap.set('n', '<leader>ca', function()
+            require('tiny-code-action').code_action()
+        end, { desc = 'Code Action', noremap = true, silent = true })
+    end)
+
+    -- Filetype-based loading
+    vim.g.rustaceanvim = {
+        server = {
+            on_attach = function(_, bufnr)
+                vim.keymap.set('n', '<leader>a', function()
+                    vim.cmd.RustLsp('codeAction')
+                end, { silent = true, buffer = bufnr, desc = 'Rust Code Action' })
+            end,
         },
-        opts = {
-            buffers = {
-                set_filetype = true,
-                write_to_disk = true,
-            },
-            extensions = {
-                ['bash'] = 'sh',
-            },
-        },
-    },
-}
+    }
+    on_ft('rust', { 'rustaceanvim' })
+
+    on_ft('toml', { 'crates.nvim' }, function()
+        require('crates').setup({ completion = { cmp = { enabled = false }, blink = { enabled = true } } })
+    end)
+
+    on_ft({ 'c', 'cpp' }, { 'clangd_extensions.nvim' }, function()
+        require('clangd_extensions').setup({})
+    end)
+
+    on_ft('lua', { 'lazydev.nvim' }, function()
+        require('lazydev').setup({
+            library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } },
+        })
+    end)
+
+    -- Command stubs
+    lazy_cmd({ 'Mason', 'MasonInstall', 'MasonLog', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' },
+        { 'mason.nvim' }, function()
+            require('mason').setup({})
+        end)
+end

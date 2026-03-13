@@ -16,7 +16,7 @@ local opts = {
     scope = { enabled = true }, -- Scope detection based on treesitter or indent.
     words = { enabled = true },
     picker = {
-        enabled = true,
+        enabled = false,
         formatters = {
             file = {
                 filename_first = true,
@@ -55,119 +55,119 @@ larp.fn.map('n', '<leader>Gr', function()
     print('Git root: ' .. snacks.git.get_root())
 end, { desc = 'Blame', desc_prefix = 'Git' })
 
--- Picker
-local picker = require('snacks.picker')
-
--- Find
-larp.fn.map('n', '<leader>pp', function()
-    picker.pick()
-end, { desc = 'Snacks Picker' })
-larp.fn.map('n', '<leader>ff', function()
-    picker.files()
-end, { desc = 'Find Files' })
-larp.fn.map('n', '<leader>fc', function()
-    picker.files({ cwd = vim.fn.stdpath('config') })
-end, { desc = 'Find Config Files' })
-larp.fn.map('n', '<leader>fh', function()
-    picker.help()
-end, { desc = 'Find Help' })
-larp.fn.map('n', '<leader>:', function() end, { desc = 'Find Commands' })
-larp.fn.map('n', '<leader>fn', function()
-    picker.notifications()
-end, { desc = 'Find Commands' })
-larp.fn.map('n', '<leader>fC', function()
-    picker.commands()
-end, { desc = 'Find Commands' })
-larp.fn.map('n', '<leader>fa', function()
-    picker.autocmds()
-end, { desc = 'Find Help' })
-larp.fn.map('n', '<leader>fk', function()
-    picker.keymaps()
-end, { desc = 'Find Help' })
-larp.fn.map('n', '<leader>fF', function()
-    picker.smart()
-end, { desc = 'Find Files (Smart)' })
-larp.fn.map('n', '<leader>fl', function()
-    picker.lazy()
-end, { desc = 'Find Lazy Specs' })
-
-larp.fn.map('n', '<leader>fr', function()
-    picker.recent()
-end, { desc = 'Find Lazy Specs' })
-
-larp.fn.map('n', '<leader>fs', function()
-    picker.lsp_symbols()
-end, { desc = 'Find Symbols' })
-
-larp.fn.map('n', '<leader>fS', function()
-    picker.lsp_workspace_symbols()
-end, { desc = 'Find Workspace Symbols' })
-
-larp.fn.map('n', '<leader>fm', function()
-    picker.man()
-end, { desc = 'Find Man Pages' })
-
-larp.fn.map('n', '<leader>ft', function()
-    picker.colorschemes()
-end, { desc = 'Find Colorschemes' })
-
-larp.fn.map('n', '<leader>f.', function()
-    picker.resume()
-end, { desc = 'Find Resume' })
-
-larp.fn.map('n', '<leader>fd', function()
-    picker.diagnostics()
-end, { desc = 'Find Diagnostics' })
-
-larp.fn.map('n', '<leader>fb', function()
-    picker.buffers()
-end, { desc = 'Find Buffers' })
-
-larp.fn.map('n', '<leader>fg', function()
-    picker.git_files()
-end, { desc = 'Find Git Files' })
-
-larp.fn.map('n', '<leader>gb', function()
-    picker.git_branches()
-end, { desc = 'Find Git Branches' })
-
-larp.fn.map('n', '<leader>gl', function()
-    picker.git_log()
-end, { desc = 'Find Git Logs' })
-
-larp.fn.map('n', '<leader>gL', function()
-    picker.git_log_line()
-end, { desc = 'Find Git Log Line' })
-
-larp.fn.map('n', '<leader>gs', function()
-    picker.git_status()
-end, { desc = 'Find Git Log Line' })
-
-larp.fn.map('n', '<leader>gd', function()
-    picker.git_diff()
-end, { desc = 'Find Git Diff' })
-
-larp.fn.map('n', '<leader>gg', function()
-    picker.pick('grep')
-end, { desc = 'Grep' })
-
-larp.fn.map({ 'n', 'x' }, '<leader>gw', function()
-    picker.grep_word({
-        -- live = true,
-        args = { '--hidden', '--follow', '--glob', '!*/.git/*', '--no-ignore' },
-    })
-end, { desc = 'Grep Word' })
-
-larp.fn.map({ 'n', 'x' }, '<leader>fw', function()
-    picker.files({
-        search = vim.fn.expand('<cWORD>'),
-        live = true,
-    })
-end, { desc = 'Grep Word' })
-
-larp.fn.map('n', '<leader>gc', function()
-    picker.grep({ cwd = vim.fn.stdpath('config') })
-end, { desc = 'Grep Config' })
+-- # Picker
+-- local picker = require('snacks.picker')
+--
+-- -- Find
+-- larp.fn.map('n', '<leader>pp', function()
+--     picker.pick()
+-- end, { desc = 'Snacks Picker' })
+-- larp.fn.map('n', '<leader>ff', function()
+--     picker.files()
+-- end, { desc = 'Find Files' })
+-- larp.fn.map('n', '<leader>fc', function()
+--     picker.files({ cwd = vim.fn.stdpath('config') })
+-- end, { desc = 'Find Config Files' })
+-- larp.fn.map('n', '<leader>fh', function()
+--     picker.help()
+-- end, { desc = 'Find Help' })
+-- larp.fn.map('n', '<leader>:', function() end, { desc = 'Find Commands' })
+-- larp.fn.map('n', '<leader>fn', function()
+--     picker.notifications()
+-- end, { desc = 'Find Commands' })
+-- larp.fn.map('n', '<leader>fC', function()
+--     picker.commands()
+-- end, { desc = 'Find Commands' })
+-- larp.fn.map('n', '<leader>fa', function()
+--     picker.autocmds()
+-- end, { desc = 'Find Help' })
+-- larp.fn.map('n', '<leader>fk', function()
+--     picker.keymaps()
+-- end, { desc = 'Find Help' })
+-- larp.fn.map('n', '<leader>fF', function()
+--     picker.smart()
+-- end, { desc = 'Find Files (Smart)' })
+-- larp.fn.map('n', '<leader>fl', function()
+--     picker.lazy()
+-- end, { desc = 'Find Lazy Specs' })
+--
+-- larp.fn.map('n', '<leader>fr', function()
+--     picker.recent()
+-- end, { desc = 'Find Lazy Specs' })
+--
+-- larp.fn.map('n', '<leader>fs', function()
+--     picker.lsp_symbols()
+-- end, { desc = 'Find Symbols' })
+--
+-- larp.fn.map('n', '<leader>fS', function()
+--     picker.lsp_workspace_symbols()
+-- end, { desc = 'Find Workspace Symbols' })
+--
+-- larp.fn.map('n', '<leader>fm', function()
+--     picker.man()
+-- end, { desc = 'Find Man Pages' })
+--
+-- larp.fn.map('n', '<leader>ft', function()
+--     picker.colorschemes()
+-- end, { desc = 'Find Colorschemes' })
+--
+-- larp.fn.map('n', '<leader>f.', function()
+--     picker.resume()
+-- end, { desc = 'Find Resume' })
+--
+-- larp.fn.map('n', '<leader>fd', function()
+--     picker.diagnostics()
+-- end, { desc = 'Find Diagnostics' })
+--
+-- larp.fn.map('n', '<leader>fb', function()
+--     picker.buffers()
+-- end, { desc = 'Find Buffers' })
+--
+-- larp.fn.map('n', '<leader>fg', function()
+--     picker.git_files()
+-- end, { desc = 'Find Git Files' })
+--
+-- larp.fn.map('n', '<leader>gb', function()
+--     picker.git_branches()
+-- end, { desc = 'Find Git Branches' })
+--
+-- larp.fn.map('n', '<leader>gl', function()
+--     picker.git_log()
+-- end, { desc = 'Find Git Logs' })
+--
+-- larp.fn.map('n', '<leader>gL', function()
+--     picker.git_log_line()
+-- end, { desc = 'Find Git Log Line' })
+--
+-- larp.fn.map('n', '<leader>gs', function()
+--     picker.git_status()
+-- end, { desc = 'Find Git Log Line' })
+--
+-- larp.fn.map('n', '<leader>gd', function()
+--     picker.git_diff()
+-- end, { desc = 'Find Git Diff' })
+--
+-- larp.fn.map('n', '<leader>gg', function()
+--     picker.pick('grep')
+-- end, { desc = 'Grep' })
+--
+-- larp.fn.map({ 'n', 'x' }, '<leader>gw', function()
+--     picker.grep_word({
+--         -- live = true,
+--         args = { '--hidden', '--follow', '--glob', '!*/.git/*', '--no-ignore' },
+--     })
+-- end, { desc = 'Grep Word' })
+--
+-- larp.fn.map({ 'n', 'x' }, '<leader>fw', function()
+--     picker.files({
+--         search = vim.fn.expand('<cWORD>'),
+--         live = true,
+--     })
+-- end, { desc = 'Grep Word' })
+--
+-- larp.fn.map('n', '<leader>gc', function()
+--     picker.grep({ cwd = vim.fn.stdpath('config') })
+-- end, { desc = 'Grep Config' })
 
 -- Lazygit
 larp.fn.map('n', '<leader>Gl', function()
