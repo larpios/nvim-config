@@ -41,4 +41,4 @@ vim.api.nvim_create_autocmd('RecordingLeave', {
     end,
     group = vim.api.nvim_create_augroup('NoiceMacroNotficationDismiss', { clear = true }),
 })
-larp.fn.map('n', '<leader>nd', '<cmd>NoiceDismiss<cr>', { desc = 'Dismiss Notification' })
+vim.keymap.set('n', '<leader>nd', '<cmd>NoiceDismiss<cr>', { desc = 'Dismiss Notification', silent = true })

@@ -107,14 +107,14 @@ local function make_job_opts(extra)
     }, extra or {})
 end
 
-larp.fn.map('n', '<leader>Ofw', function()
+vim.keymap.set('n', '<leader>Ofw', function()
     vim.ui.select(larp.fn.tbl_get_by_key(opts.workspaces, 'name'), {
         prompt = 'Choose your obsidian vault',
     }, function(_, idx)
         vim.cmd('edit ' .. vim.fn.fnameescape(opts.workspaces[idx]['path']))
     end)
-end, { desc = 'Search Obsidian Workspace' })
-larp.fn.map('n', '<leader>Op', function()
+end, { desc = 'Search Obsidian Workspace', silent = true })
+vim.keymap.set('n', '<leader>Op', function()
     -- pull from jj asynchronously
     local path = vim.fn.expand(opts.workspaces[1].path)
     vim.system({ 'sh', '-c', 'jj git fetch' }, { cwd = path, text = true }, function(obj)
@@ -126,8 +126,8 @@ larp.fn.map('n', '<leader>Op', function()
             end
         end)
     end)
-end, { desc = 'Obsidian Pull' })
-larp.fn.map('n', '<leader>Os', function()
+end, { desc = 'Obsidian Pull', silent = true })
+vim.keymap.set('n', '<leader>Os', function()
     local path = vim.fn.expand(opts.workspaces[1].path)
     local now = os.date('%Y-%m-%d %H:%M:%S')
     local path = vim.fn.expand(opts.workspaces[1].path)
@@ -173,7 +173,7 @@ larp.fn.map('n', '<leader>Os', function()
             end
         end)
     end)
-end, { desc = 'Commit and Push Obsidian Vault' })
+end, { desc = 'Commit and Push Obsidian Vault', silent = true })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     desc = 'Enter Obsidian Vault',

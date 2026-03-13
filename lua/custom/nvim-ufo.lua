@@ -1,15 +1,15 @@
 local ufo = require('ufo')
 local actions = require('ufo.action')
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-larp.fn.map('n', 'zR', ufo.openAllFolds)
-larp.fn.map('n', 'zM', ufo.closeAllFolds)
-larp.fn.map('n', 'zuc', function()
+vim.keymap.set('n', 'zR', ufo.openAllFolds)
+vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+vim.keymap.set('n', 'zuc', function()
     local level = vim.fn.input('Enter fold level: ')
     level = tonumber(level)
     ufo.closeFoldsWith(level)
 end)
-larp.fn.map('n', 'z;', actions.goNextClosedFold)
-larp.fn.map('n', 'z,', actions.goPreviousClosedFold)
+vim.keymap.set('n', 'z;', actions.goNextClosedFold)
+vim.keymap.set('n', 'z,', actions.goPreviousClosedFold)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,

@@ -44,8 +44,8 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
-larp.fn.map('n', '<leader>cdb', dap.toggle_breakpoint, { desc = 'Toggle breakpoint', desc_prefix = 'DAP' })
-larp.fn.map('n', '<leader>cdr', dap.run, { desc = 'Run', desc_prefix = '[DAP] ' })
-larp.fn.map('n', '<leader>cdc', dap.continue, { desc = 'Continue', desc_prefix = '[DAP] ' })
-larp.fn.map('n', '<F3>', dap.step_over, { desc = 'Step Over', desc_prefix = '[DAP] ' })
-larp.fn.map('n', '<F4>', dap.step_into, { desc = 'Step Into', desc_prefix = '[DAP] ' })
+vim.keymap.set('n', '<leader>cdb', dap.toggle_breakpoint, { desc = 'DAP: Toggle breakpoint', silent = true })
+vim.keymap.set('n', '<leader>cdr', dap.run, { desc = '[DAP] Run', silent = true })
+vim.keymap.set('n', '<leader>cdc', dap.continue, { desc = '[DAP] Continue', silent = true })
+vim.keymap.set('n', '<F3>', dap.step_over, { desc = '[DAP] Step Over', silent = true })
+vim.keymap.set('n', '<F4>', dap.step_into, { desc = '[DAP] Step Into', silent = true })

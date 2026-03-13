@@ -9,9 +9,9 @@ require('orgmode').setup({
         disable_all = true,
     },
 })
-larp.fn.map('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
-larp.fn.map('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })
-larp.fn.map('n', '<leader>oj', function()
+vim.keymap.set('n', '<leader>oo', ':e ' .. org_path .. '<cr>', { desc = 'Open Orgmode' })
+vim.keymap.set('n', '<leader>of', ':FzfLua files cwd=' .. org_path .. '<cr>', { desc = 'Find Org Files' })
+vim.keymap.set('n', '<leader>oj', function()
     local today = os.date('*t')
     local journal = org_path .. '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
     if vim.fn.filereadable(vim.fn.expand(journal)) == 0 then

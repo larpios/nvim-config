@@ -37,7 +37,7 @@ conform.setup({
 vim.api.nvim_create_autocmd({ 'LspAttach' }, {
     pattern = '*',
     callback = function()
-        larp.fn.map('n', '<leader>cf', function()
+        vim.keymap.set('n', '<leader>cf', function()
             conform.format({
                 async = true, -- might cause a problem where your changes are overwritten by the formatter
                 lsp_fallback = true

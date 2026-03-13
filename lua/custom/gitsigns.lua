@@ -5,7 +5,7 @@ require('gitsigns').setup({
         local function map(mode, l, r, opts)
             opts = opts or {}
             opts.buffer = bufnr
-            larp.fn.map(mode, l, r, opts)
+            vim.keymap.set(mode, l, r, opts)
         end
 
         -- Navigation

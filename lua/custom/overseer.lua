@@ -41,8 +41,8 @@ end
 --     },
 -- })
 
-larp.fn.map('n', '<leader>cot', ':OverseerToggle<CR>', { desc = 'Toggle Overseer', noremap = true, silent = true })
-larp.fn.map('n', '<leader>cor', ':OverseerRun<CR>', { desc = 'Overseer Run', noremap = true, silent = true })
-larp.fn.map('n', '<leader>coR', ':OverseerRunCmd<CR>', { desc = 'Overseer Run Cmd', noremap = true, silent = true })
-larp.fn.map('n', '<leader>cob', ':OverseerBuild<CR>', { desc = 'Overseer Build', noremap = true, silent = true })
-larp.fn.map('n', '<leader>coa', ':OverseerTaskAction<CR>', { desc = 'Overseer Task Actions', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cot', ':OverseerToggle<CR>', { desc = 'Toggle Overseer', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cor', ':OverseerRun<CR>', { desc = 'Overseer Run', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>coR', ':OverseerRunCmd<CR>', { desc = 'Overseer Run Cmd', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cob', ':OverseerBuild<CR>', { desc = 'Overseer Build', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>coa', ':OverseerTaskAction<CR>', { desc = 'Overseer Task Actions', noremap = true, silent = true })

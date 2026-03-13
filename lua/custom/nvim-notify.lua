@@ -15,4 +15,4 @@ local opts = {
 local notify = require('notify')
 notify.setup(opts)
 
-larp.fn.map('n', '<leader>fn', '<cmd>Telescope notify<cr>', { desc = 'Find Notify History' })
+vim.keymap.set('n', '<leader>fn', '<cmd>Telescope notify<cr>', { desc = 'Find Notify History' })

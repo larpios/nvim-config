@@ -1,3 +1,4 @@
+
 return {
     {
         'iamcco/markdown-preview.nvim',
@@ -149,52 +150,108 @@ return {
         keys = {
             { '<leader>qf', '<cmd>QMKFormat<cr>', desc = 'Format QMK' },
         },
-        config = function()
-            -- local conf = {
-            --     name = 'LAYOUT_glove80', -- identify your layout name
-            --     comment_preview = {
-            --         keymap_overrides = {
-            --             MG = 'Magic', -- replace any long key codes
-            --         },
-            --     },
-            --     variant = "zmk",
-            --     layout = { -- create a visual representation of your final layout
-            --         'x x x x x _ _ _ _ _ _ _ _ x x x x x ',
-            --         'x x x x x x _ _ _ _ _ _ x x x x x x ',
-            --         'x x x x x x _ _ _ _ _ _ x x x x x x ',
-            --         'x x x x x x _ _ _ _ _ _ x x x x x x ',
-            --         'x x x x x x x x x x x x x x x x x x ',
-            --         'x x x x x _ x x x x x x _ x x x x x ',
-            --     },
-            -- }
-            -- require('qmk').setup(conf)
-            local qmk = require('qmk')
-            qmk.setup({
-                name = 'LAYOUT_glove80', -- identify your layout name
-                comment_preview = {
-                    keymap_overrides = {
-                        MG = 'Magic', -- replace any long key codes
-                    },
+        opts = {
+            name = 'LAYOUT_glove80', -- identify your layout name
+            comment_preview = {
+                keymap_overrides = {
+                    MG = 'Magic', -- replace any long key codes
                 },
-                variant = 'zmk',
-                layout = { -- create a visual representation of your final layout
-                    'x x x x x _ _ _ _ _ _ _ _ x x x x x',
-                    'x x x x x x _ _ _ _ _ _ x x x x x x',
-                    'x x x x x x _ _ _ _ _ _ x x x x x x',
-                    'x x x x x x _ _ _ _ _ _ x x x x x x',
-                    'x x x x x x x x x x x x x x x x x x',
-                    'x x x x x _ x x x x x x _ x x x x x',
-                },
-            })
-        end,
+            },
+            variant = 'zmk',
+            layout = { -- create a visual representation of your final layout
+                'x x x x x _ _ _ _ _ _ _ _ x x x x x',
+                'x x x x x x _ _ _ _ _ _ x x x x x x',
+                'x x x x x x _ _ _ _ _ _ x x x x x x',
+                'x x x x x x _ _ _ _ _ _ x x x x x x',
+                'x x x x x x x x x x x x x x x x x x',
+                'x x x x x _ x x x x x x _ x x x x x',
+            },
+        },
     },
     {
         'mrjones2014/smart-splits.nvim',
-        dependencies = { 'kwkarlwang/bufresize.nvim' },
+        version = '>=1.0.0',
         lazy = false,
-        config = function()
-            require('custom.smart-splits')
-        end,
+        keys = {
+            {
+                '<A-h>',
+                function()
+                    require('smart-splits').resize_left()
+                end,
+            },
+            {
+                '<A-j>',
+                function()
+                    require('smart-splits').resize_down()
+                end,
+            },
+            {
+                '<A-k>',
+                function()
+                    require('smart-splits').resize_up()
+                end,
+            },
+            {
+                '<A-l>',
+                function()
+                    require('smart-splits').resize_right()
+                end,
+            },
+            {
+                '<C-h>',
+                function()
+                    require('smart-splits').move_cursor_left()
+                end,
+            },
+            {
+                '<C-j>',
+                function()
+                    require('smart-splits').move_cursor_down()
+                end,
+            },
+            {
+                '<C-k>',
+                function()
+                    require('smart-splits').move_cursor_up()
+                end,
+            },
+            {
+                '<C-l>',
+                function()
+                    require('smart-splits').move_cursor_right()
+                end,
+            },
+            {
+                '<C-\\>',
+                function()
+                    require('smart-splits').move_cursor_previous()
+                end,
+            },
+            {
+                '<leader><leader>h',
+                function()
+                    require('smart-splits').swap_buf_left()
+                end,
+            },
+            {
+                '<leader><leader>j',
+                function()
+                    require('smart-splits').swap_buf_down()
+                end,
+            },
+            {
+                '<leader><leader>k',
+                function()
+                    require('smart-splits').swap_buf_up()
+                end,
+            },
+            {
+                '<leader><leader>l',
+                function()
+                    require('smart-splits').swap_buf_right()
+                end,
+            },
+        },
     },
     {
         'hat0uma/csvview.nvim',

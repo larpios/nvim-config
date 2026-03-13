@@ -4,20 +4,13 @@ return {
         name = 'catppuccin',
         priority = 1000,
         opts = {
-            flavour = 'mocha', -- latte, frappe, macchiato, mocha
+            flavour = 'auto', -- latte, frappe, macchiato, mocha
             show_end_of_buffer = true,
             dim_inactive = {
                 enabled = true,
                 shade = 'dark',
                 percentage = 0.1,
             },
-            -- transparent_background = true,
-            -- styles = {
-            --     sidebars = 'transparent',
-            --     floats = 'transparent',
-            -- },
-            default_integrations = true,
-            auto_integrations = false,
             integrations = {
                 blink_cmp = true,
                 colorful_winsep = {
@@ -64,8 +57,6 @@ return {
     },
     {
         'folke/tokyonight.nvim',
-        lazy = false,
-        priority = 1000,
         opts = {
             -- transparent = true,
             dim_inactive = true,
@@ -77,6 +68,8 @@ return {
         'xiyaowong/transparent.nvim',
         -- Modify this to enable/disable transparent background
         enabled = true,
+        lazy = false,
+        priority = 500,
         config = function()
             require('custom.transparent')
         end,
