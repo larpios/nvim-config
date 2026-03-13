@@ -154,7 +154,7 @@ return {
             { '<leader>ps', '<cmd>Store<cr>', desc = 'Open Plugin Store' },
         },
         opts = {
-            -- optional configuration here
+            telemetry = false,
         },
     },
 }

@@ -7,20 +7,13 @@ return {
         end,
     },
     {
-        'sindrets/diffview.nvim',
-        event = 'BufRead',
-        cmds = {
-            'DiffviewOpen',
-            'DiffviewClose',
-            'DiffviewToggleFiles',
-            'DiffviewFocusFiles',
-            'DiffviewRefresh',
-            'DiffviewLog',
-        },
+        'esmuellert/codediff.nvim',
+        cmd = { 'CodeDiff', 'VscodeDiff' },
     },
     {
-        'esmuellert/codediff.nvim',
-        cmd = 'CodeDiff',
+        'julienvincent/hunk.nvim',
+        cmd = { 'DiffEditor' },
+        config = true,
     },
     {
         'NeogitOrg/neogit',
