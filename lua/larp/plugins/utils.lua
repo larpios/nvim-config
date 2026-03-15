@@ -52,74 +52,43 @@ return {
     {
         'stevearc/quicker.nvim',
         ft = 'qf',
-        config = function()
-            require('custom.quicker')
-        end,
-    },
-    {
-        'NMAC427/guess-indent.nvim',
-        event = 'BufReadPost',
-        opts = {},
-    },
-    {
-        'kevinhwang91/nvim-bqf',
-        ft = 'qf',
-        dependencies = {
-            {
-                'junegunn/fzf',
-                run = function()
-                    vim.fn['fzf#install']()
-                end,
-            },
-            { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
-        },
-    },
-    {
-        'meznaric/key-analyzer.nvim',
-        cmd = { 'KeyAnalyzer' },
-        opts = {},
-    },
-    {
-        'atiladefreitas/dooing',
         keys = {
-            { '<leader>td', mode = 'n' },
+            {
+                '<leader>tq',
+                function()
+                    require('quicker').toggle()
+                end,
+                desc = 'Toggle quickfix',
+            },
+            {
+                '<leader>tl',
+                function()
+                    require('quicker').toggle({ loclist = true })
+                end,
+                desc = 'Toggle loclist',
+            },
         },
-        cmd = 'Dooing',
         config = function()
-            require('dooing').setup({
-                -- your custom config here (optional)
+            local quicker = require('quicker')
+            quicker.setup({
+                keys = {
+                    {
+                        '>',
+                        function()
+                            quicker.expand({ before = 2, after = 2, add_to_existing = true })
+                        end,
+                        desc = 'Expand quickfix context',
+                    },
+                    {
+                        '<',
+                        function()
+                            quicker.collapse()
+                        end,
+                        desc = 'Collapse quickfix context',
+                    },
+                },
             })
         end,
-    },
-    {
-        'RaafatTurki/hex.nvim',
-        opts = {},
-        cmd = { 'HexDump', 'HexToggle', 'HexAssemble' },
-    },
-    {
-        -- Easily identify abandoned Neovim plugins
-        'ZWindL/orphans.nvim',
-        cmd = 'Orphans',
-        opts = {},
-    },
-    {
-        'rachartier/tiny-code-action.nvim',
-        dependencies = {
-            { 'nvim-lua/plenary.nvim' },
-            { 'ibhagwan/fzf-lua' },
-        },
-        event = 'LspAttach',
-        keys = {
-            {
-                '<leader>cA',
-                function()
-                    require('tiny-code-action').code_action()
-                end,
-                mode = { 'n', 'v' },
-                desc = 'Code Action',
-            },
-        },
-        opts = {},
     },
     {
         -- Color picker utils
@@ -132,7 +101,92 @@ return {
             'CccHighlighterToggle',
         },
         config = function()
-            require('custom.ccc')
+            local ColorInput = require('ccc.input')
+            local convert = require('ccc.utils.convert')
+
+            local RgbHslCmykInput = setmetatable({
+                name = 'RGB/HSL/CMYK',
+                max = { 1, 1, 1, 360, 1, 1, 1, 1, 1, 1 },
+                min = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                delta = { 1 / 255, 1 / 255, 1 / 255, 1, 0.01, 0.01, 0.005, 0.005, 0.005, 0.005 },
+                bar_name = { 'R', 'G', 'B', 'H', 'S', 'L', 'C', 'M', 'Y', 'K' },
+            }, { __index = ColorInput })
+
+            function RgbHslCmykInput.format(n, i)
+                if i <= 3 then
+                    -- RGB
+                    n = n * 255
+                elseif i == 5 or i == 6 then
+                    -- S or L of HSL
+                    n = n * 100
+                elseif i >= 7 then
+                    -- CMYK
+                    return ('%5.1f%%'):format(math.floor(n * 200) / 2)
+                end
+                return ('%6d'):format(n)
+            end
+
+            function RgbHslCmykInput.from_rgb(RGB)
+                local HSL = convert.rgb2hsl(RGB)
+                local CMYK = convert.rgb2cmyk(RGB)
+                local R, G, B = unpack(RGB)
+                local H, S, L = unpack(HSL)
+                local C, M, Y, K = unpack(CMYK)
+                return { R, G, B, H, S, L, C, M, Y, K }
+            end
+
+            function RgbHslCmykInput.to_rgb(value)
+                return { value[1], value[2], value[3] }
+            end
+
+            function RgbHslCmykInput:_set_rgb(RGB)
+                self.value[1] = RGB[1]
+                self.value[2] = RGB[2]
+                self.value[3] = RGB[3]
+            end
+
+            function RgbHslCmykInput:_set_hsl(HSL)
+                self.value[4] = HSL[1]
+                self.value[5] = HSL[2]
+                self.value[6] = HSL[3]
+            end
+
+            function RgbHslCmykInput:_set_cmyk(CMYK)
+                self.value[7] = CMYK[1]
+                self.value[8] = CMYK[2]
+                self.value[9] = CMYK[3]
+                self.value[10] = CMYK[4]
+            end
+
+            function RgbHslCmykInput:callback(index, new_value)
+                self.value[index] = new_value
+                local v = self.value
+                if index <= 3 then
+                    local RGB = { v[1], v[2], v[3] }
+                    local HSL = convert.rgb2hsl(RGB)
+                    local CMYK = convert.rgb2cmyk(RGB)
+                    self:_set_hsl(HSL)
+                    self:_set_cmyk(CMYK)
+                elseif index <= 6 then
+                    local HSL = { v[4], v[5], v[6] }
+                    local RGB = convert.hsl2rgb(HSL)
+                    local CMYK = convert.rgb2cmyk(RGB)
+                    self:_set_rgb(RGB)
+                    self:_set_cmyk(CMYK)
+                else
+                    local CMYK = { v[7], v[8], v[9], v[10] }
+                    local RGB = convert.cmyk2rgb(CMYK)
+                    local HSL = convert.rgb2hsl(RGB)
+                    self:_set_rgb(RGB)
+                    self:_set_hsl(HSL)
+                end
+            end
+
+            require('ccc').setup({
+                inputs = {
+                    RgbHslCmykInput,
+                },
+            })
         end,
     },
     {
