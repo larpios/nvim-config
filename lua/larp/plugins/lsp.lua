@@ -26,7 +26,7 @@ return {
             'MasonUpdate',
         },
         keys = {
-            { '<leader>mm', '<cmd>Mason<cr>', desc = 'Mason', silent = true },
+            { '<leader>mm', '<cmd>Mason<cr>', desc = '[Mason] Open Mason', silent = true },
         },
     },
     {
@@ -40,7 +40,7 @@ return {
             },
         },
         dependencies = {
-            { 'mason-org/mason.nvim', opts = {} },
+            'mason-org/mason.nvim',
             'neovim/nvim-lspconfig',
         },
     },

@@ -16,6 +16,7 @@ require('lazy').setup({
     spec = {
         { import = 'larp.plugins' },
     },
+    checker = { enabled = true },
     performance = {
         rtp = {
             -- disable some rtp plugins
