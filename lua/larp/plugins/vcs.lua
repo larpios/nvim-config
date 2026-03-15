@@ -64,33 +64,48 @@ return {
         cmd = { 'CodeDiff', 'VscodeDiff' },
     },
     {
-        'julienvincent/hunk.nvim',
-        cmd = { 'DiffEditor' },
+        'akinsho/git-conflict.nvim',
+        version = '*',
         config = true,
+        event = 'BufRead',
+    },
+
+    -- # JJ
+    {
+        'nicolasgb/jj.nvim',
+        version = '*', -- Use latest stable release
+        event = 'VeryLazy',
+        opts = {},
     },
     {
         'NicholasZolton/neojj',
         lazy = true,
         dependencies = {
             'nvim-lua/plenary.nvim', -- required
-            'esmuellert/codediff.nvim', -- optional
-            'folke/snacks.nvim', -- optional
+            'esmuellert/codediff.nvim',
+            'folke/snacks.nvim',
         },
         cmd = 'Neojj',
         keys = {
-            { '<leader>gj', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
+            {
+                '<leader>jj',
+                function()
+                    require('neojj').open()
+                end,
+                desc = '[Neojj] Show Neojj UI'
+            },
+            {
+                '<leader>jC',
+                function()
+                    require('neojj').open({ cwd = '~/.config/nvim' })
+                end,
+                desc = '[Neojj] Open Neovim Config'
+            },
         },
     },
     {
-        'akinsho/git-conflict.nvim',
-        version = '*',
+        'julienvincent/hunk.nvim',
+        cmd = { 'DiffEditor' },
         config = true,
-        event = 'BufRead',
-    },
-    {
-        'nicolasgb/jj.nvim',
-        version = '*', -- Use latest stable release
-        event = 'VeryLazy',
-        opts = {},
     },
 }
