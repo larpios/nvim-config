@@ -1,12 +1,17 @@
 return {
     {
         'monkoose/neocodeium',
-        event = 'VeryLazy',
-        config = function()
-            local neocodeium = require('neocodeium')
-            neocodeium.setup()
-            vim.keymap.set('i', '<A-a>', neocodeium.accept)
-        end,
+        event = 'InsertEnter',
+        opts = {},
+        keys = {
+            {
+                '<A-a>',
+                function()
+                    require('neocodeium').accept()
+                end,
+                mode = 'i',
+            },
+        },
     },
     {
         'David-Kunz/gen.nvim',
@@ -19,41 +24,10 @@ return {
         },
     },
     {
-        'yetone/avante.nvim',
-        event = 'VeryLazy',
-        version = false,
-        opts = {
-            provider = 'ollama',
-            -- FIXED: Changed 'vendors' to 'providers'
-            providers = {
-                ollama = {
-                    __inherited_from = 'openai',
-                    api_key_name = '',
-                    endpoint = 'http://127.0.0.1:11434/v1',
-                    model = 'deepseek-coder-v2:lite',
-                },
-            },
-            auto_set_keymaps = false,
-            -- REMOVED: auto_suggestions_provider = "neocodeium" (not supported)
-            mappings = {
-                edit = '<C-e>',
-                jump_next = ']a',
-                jump_prev = '[a',
-            },
-        },
-        build = 'make',
-        dependencies = {
-            'stevearc/dressing.nvim',
-            'nvim-treesitter/nvim-treesitter',
-        },
-    },
-    {
         'zbirenbaum/copilot.lua',
         cmd = 'Copilot',
         event = 'InsertEnter',
-        config = function()
-            require('copilot').setup()
-        end,
+        opts = {},
     },
     {
         'nickjvandyke/opencode.nvim',

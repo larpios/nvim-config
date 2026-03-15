@@ -16,25 +16,6 @@ return {
         config = true,
     },
     {
-        'NeogitOrg/neogit',
-        event = 'BufRead',
-        cmds = {
-            'Neogit',
-            'NeogitCommit',
-            'NeogitLogCurrent',
-            'NeogitResetState',
-        },
-        keys = { { '<leader>Go', mode = 'n' } },
-        dependencies = {
-            'nvim-lua/plenary.nvim', -- required
-            'sindrets/diffview.nvim', -- optional - Diff integration
-            'ibhagwan/fzf-lua', -- optional
-        },
-        config = function()
-            require('custom.neogit')
-        end,
-    },
-    {
         'NicholasZolton/neojj',
         lazy = true,
         dependencies = {
@@ -44,12 +25,8 @@ return {
         },
         cmd = 'Neojj',
         keys = {
-            { '<leader>Gj', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
+            { '<leader>gj', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
         },
-    },
-    {
-        'tpope/vim-fugitive',
-        cmd = { 'G', 'Git', 'Gdiffsplit', 'Gread', 'Gwrite', 'Ggrep', 'GMove', 'GDelete', 'GBrowse' },
     },
     {
         'akinsho/git-conflict.nvim',
@@ -60,11 +37,7 @@ return {
     {
         'nicolasgb/jj.nvim',
         version = '*', -- Use latest stable release
-        -- Or from the main branch (uncomment the branch line and comment the version line)
-        -- branch = "main",
         event = 'VeryLazy',
-        config = function()
-            require('jj').setup({})
-        end,
+        opts = {},
     },
 }
