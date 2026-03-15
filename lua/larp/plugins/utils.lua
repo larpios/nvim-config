@@ -4,7 +4,7 @@ return {
         'lambdalisue/vim-suda',
         keys = {
             { '<leader><leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = 'Sudo Write' },
-            { '<leader><leader>Sr', '<cmd>SudaRead<cr>',  mode = 'n', desc = 'Sudo Read' },
+            { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
         },
         cmd = { 'SudaWrite', 'SudaRead' },
         config = function()
@@ -78,14 +78,6 @@ return {
         'meznaric/key-analyzer.nvim',
         cmd = { 'KeyAnalyzer' },
         opts = {},
-    },
-    {
-        'folke/snacks.nvim',
-        priority = 1000,
-        lazy = false,
-        config = function()
-            require('custom.snacks')
-        end,
     },
     {
         'atiladefreitas/dooing',

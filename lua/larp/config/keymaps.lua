@@ -16,13 +16,13 @@ vim.keymap.set('', '<leader>wH', '<C-w>H', { desc = 'Send Window to Left', norem
 vim.keymap.set('', '<leader>wJ', '<C-w>J', { desc = 'Send Window to Bottom', noremap = true, silent = true })
 vim.keymap.set('', '<leader>wL', '<C-w>L', { desc = 'Send Window to Right', noremap = true, silent = true })
 vim.keymap.set('', '<leader>wK', '<C-w>K', { desc = 'Send Window to Top', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next', noremap = true, silent = true })
 
 -- Split Windows
-vim.keymap.set('', '<leader>sh', '<C-w>v', { desc = 'Split Window to the Left', noremap = true, silent = true })
-vim.keymap.set('', '<leader>sj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom', noremap = true, silent = true })
-vim.keymap.set('', '<leader>sk', '<C-w>s', { desc = 'Split Window to the Top', noremap = true, silent = true })
-vim.keymap.set('', '<leader>sl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wsh', '<C-w>v', { desc = 'Split Window to the Left', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wsj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wsk', '<C-w>s', { desc = 'Split Window to the Top', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wsl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right', noremap = true, silent = true })
 
 -- Resize Windows
 vim.keymap.set('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height', noremap = true, silent = true })
@@ -47,8 +47,8 @@ vim.keymap.set({ 'n', 'x' }, '<leader>QQ', ':qa!<cr>', { desc = 'Exit NeoVim wit
 vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>ww', ':w<cr>', { desc = 'Write to Buffer', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>wa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>wq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>wQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, '<leader>qq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, '<leader>Q', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>so', function()
     vim.print('Sourced ' .. vim.fn.expand('%:p'))
     vim.cmd('source ' .. vim.fn.expand('%:p'))

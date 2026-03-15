@@ -56,7 +56,7 @@ local opts = {
     },
     sources = {
         -- rm ripgrep
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'lazydev' },
         providers = {
             ripgrep = {
                 module = 'blink-ripgrep',
@@ -98,6 +98,11 @@ local opts = {
                 name = 'Emoji',
                 score_offset = -1, -- Tune by preference
                 opts = { insert = true }, -- Insert emoji (default) or complete its name
+            },
+            lazydev = {
+                name = 'LazyDev',
+                module = 'lazydev.integrations.blink',
+                score_offset = 100,
             },
         },
     },
