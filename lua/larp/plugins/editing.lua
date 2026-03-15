@@ -73,9 +73,43 @@ return {
         -- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
         'chrisgrieser/nvim-spider',
         event = 'BufRead',
-        config = function()
-            require('custom.nvim-spider')
-        end,
+        keys = {
+            {
+                'w',
+                function()
+                    require('spider').motion('w')
+                end,
+                mode = { 'n', 'o', 'x' },
+                desc = 'Spider-w',
+            },
+            {
+                'e',
+                function()
+                    require('spider').motion('e')
+                end,
+                mode = { 'n', 'o', 'x' },
+                desc = 'Spider-e',
+            },
+            {
+                'b',
+                function()
+                    require('spider').motion('b')
+                end,
+                mode = { 'n', 'o', 'x' },
+                desc = 'Spider-b',
+            },
+            {
+                '<C-f>',
+                '<Esc>l<cmd>lua require("spider").motion("w")<CR>i',
+                mode = 'i',
+            },
+            {
+                '<C-b>',
+                '<Esc><cmd>lua require("spider").motion("b")<CR>i',
+                mode = 'i',
+            },
+        },
+        config = true,
     },
     {
         'HiPhish/rainbow-delimiters.nvim',

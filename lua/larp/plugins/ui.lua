@@ -7,7 +7,77 @@ return {
             'stevearc/overseer.nvim',
         },
         config = function()
-            require('custom.lualine')
+            local overseer = require('overseer')
+            local recorder = require('recorder') -- nvim-recorder
+
+            require('lualine').setup({
+                options = {
+                    theme = 'auto',
+                },
+                sections = {
+                    lualine_a = { 'mode' },
+                    lualine_b = { 'branch', 'diff', 'diagnostics' },
+                    lualine_c = {
+                        'filename',
+                        {
+                            function()
+                                return vim.bo.modified and '' or ''
+                            end,
+                        },
+                        {
+                            function()
+                                return vim.bo.readonly and '' or ''
+                            end,
+                        },
+                        {
+                            function()
+                                return vim.bo.buftype == 'quickfix' and '' or ''
+                            end,
+                        },
+                    },
+                    lualine_x = {
+                        {
+                            'overseer',
+                            label = '', -- Prefix for task counts
+                            colored = true, -- Color the task icons and counts
+                            symbols = {
+                                [overseer.STATUS.FAILURE] = 'F:',
+                                [overseer.STATUS.CANCELED] = 'C:',
+                                [overseer.STATUS.SUCCESS] = 'S:',
+                                [overseer.STATUS.RUNNING] = 'R:',
+                            },
+                            unique = false, -- Unique-ify non-running task count by name
+                            name = nil, -- List of task names to search for
+                            name_not = false, -- When true, invert the name search
+                            status = nil, -- List of task statuses to display
+                            status_not = false, -- When true, invert the status search
+                        },
+                        {
+                            --- Lsp server name
+                            function()
+                                local msg = 'No Active Lsp'
+                                local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+                                local clients = vim.lsp.get_clients()
+                                if next(clients) == nil then
+                                    return msg
+                                end
+                                for _, client in ipairs(clients) do
+                                    local filetypes = client.config.filetypes
+                                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                                        return client.name
+                                    end
+                                end
+                                return msg
+                            end,
+                        },
+                        'encoding',
+                        'fileformat',
+                        'filetype',
+                    },
+                    lualine_y = { 'progress', recorder.displaySlots },
+                    lualine_z = { 'location', recorder.recordingStatus },
+                },
+            })
         end,
     },
     {
@@ -24,8 +94,53 @@ return {
             --   If not available, we use `mini` as the fallback
             'nvim-treesitter/nvim-treesitter',
         },
+        keys = {
+            { '<leader>nd', '<cmd>NoiceDismiss<cr>', desc = 'Dismiss Notification', silent = true },
+        },
         config = function()
-            require('custom.noice')
+            require('noice').setup({
+                lsp = {
+                    signature = { enabled = false },
+                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                    override = {
+                        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+                        ['vim.lsp.util.stylize_markdown'] = true,
+                        ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+                    },
+                },
+                -- you can enable a preset for easier configuration
+                presets = {
+                    bottom_search = false, -- use a classic bottom cmdline for search
+                    command_palette = true, -- position the cmdline and popupmenu together
+                    long_message_to_split = true, -- long messages will be sent to a split
+                    inc_rename = true, -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = true, -- add a border to hover docs and signature help
+                },
+            })
+            vim.api.nvim_create_autocmd('RecordingEnter', {
+                callback = function()
+                    local msg = string.format('Register:  %s', vim.fn.reg_recording())
+                    _MACRO_RECORDING_STATUS = true
+                    vim.notify(msg, vim.log.levels.INFO, {
+                        title = 'Macro Recording',
+                        keep = function()
+                            return _MACRO_RECORDING_STATUS
+                        end,
+                    })
+                end,
+                group = vim.api.nvim_create_augroup('NoiceMacroNotfication', { clear = true }),
+            })
+
+            vim.api.nvim_create_autocmd('RecordingLeave', {
+                callback = function()
+                    _MACRO_RECORDING_STATUS = false
+                    vim.notify('Success!', vim.log.levels.INFO, {
+                        title = 'Macro Recording End',
+                        timeout = 2000,
+                    })
+                end,
+                group = vim.api.nvim_create_augroup('NoiceMacroNotficationDismiss', { clear = true }),
+            })
         end,
     },
     {
@@ -90,8 +205,23 @@ return {
     {
         'folke/which-key.nvim',
         event = 'VeryLazy',
+        keys = {
+            {
+                '<leader>?',
+                function()
+                    require('which-key').show({ global = false })
+                end,
+                desc = 'Buffer Local Keymaps (which-key)',
+            },
+        },
         config = function()
-            require('custom.which-key')
+            local wk = require('which-key')
+
+            local opts = {
+                preset = 'modern',
+            }
+
+            wk.setup(opts)
         end,
     },
     {
@@ -130,7 +260,14 @@ return {
         enabled = false,
         event = 'BufWinEnter',
         config = function()
-            require('custom.smear-cursor')
+            require('smear-cursor').setup({
+                cursor_color = '#efd4fc',
+                stiffness = 0.8,
+                trailing_stiffness = 0.2,
+                trailing_exponent = 0.8,
+                hide_target_hack = true,
+                gamma = 0.8,
+            })
         end,
     },
     {

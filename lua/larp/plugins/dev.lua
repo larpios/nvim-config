@@ -23,23 +23,25 @@ return {
             'OverseerInfo',
         },
         keys = {
-            '<leader>cor',
-            mode = 'n',
-            '<leader>coR',
-            mode = 'n',
-            '<leader>coa',
-            mode = 'n',
-            '<leader>cob',
-            mode = 'n',
-            '<leader>cot',
-            mode = 'n',
+            { '<leader>cor', '<cmd>OverseerRun<cr>', desc = 'Overseer Run' },
+            { '<leader>coR', '<cmd>OverseerRunCmd<cr>', desc = 'Overseer Run Cmd' },
+            { '<leader>coa', '<cmd>OverseerTaskAction<cr>', desc = 'Overseer Task Actions' },
+            { '<leader>cob', '<cmd>OverseerBuild<cr>', desc = 'Overseer Build' },
+            { '<leader>cot', '<cmd>OverseerToggle<cr>', desc = 'Toggle Overseer' },
         },
         dependencies = {
             'akinsho/toggleterm.nvim',
             -- 'rmagatti/auto-session',
         },
         config = function()
-            require('custom.overseer')
+            require('overseer').setup({
+                dap = false,
+                templates = {
+                    'builtin',
+                    'larp.cpp',
+                },
+                strategy = 'toggleterm',
+            })
         end,
     },
     {
