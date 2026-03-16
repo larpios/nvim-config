@@ -1,0 +1,77 @@
+local M = {}
+
+---@class OrphanInfo
+---@field name string
+---@field last_commit_date string
+---@field days_since_last_commit number
+---@field url string
+
+---@param threshold_days number?
+function M.check_orphans(threshold_days)
+    threshold_days = threshold_days or 365
+    local lazy_config = require('lazy.core.config')
+    local plugins = lazy_config.plugins
+    local all_plugins = {}
+
+    local current_time = os.time()
+
+    for _, plugin in pairs(plugins) do
+        if plugin.dir and vim.fn.isdirectory(plugin.dir) == 1 then
+            -- Get the last commit date using git
+            local cmd = string.format('git -C %s log -1 --format=%%at', vim.fn.shellescape(plugin.dir))
+            local handle = io.popen(cmd)
+            local result = handle:read('*a')
+            handle:close()
+
+            local last_commit_timestamp = tonumber(result)
+            if last_commit_timestamp then
+                local seconds_since = current_time - last_commit_timestamp
+                local days_since = math.floor(seconds_since / (24 * 3600))
+
+                table.insert(all_plugins, {
+                    name = plugin.name,
+                    last_commit_date = os.date('%Y-%m-%d', last_commit_timestamp),
+                    days_since_last_commit = days_since,
+                    url = plugin.url or 'local',
+                })
+            end
+        end
+    end
+
+    -- Sort by days since last commit (descending)
+    table.sort(all_plugins, function(a, b)
+        return a.days_since_last_commit > b.days_since_last_commit
+    end)
+
+    -- Display results
+    local lines = { '# Plugin Maintenance Status (Sorted by Last Commit)', '' }
+    for _, p in ipairs(all_plugins) do
+        local prefix = p.days_since_last_commit > threshold_days and '⚠️ ' or '✅ '
+        table.insert(lines, string.format('%s **%s**: %d days ago (%s)', prefix, p.name, p.days_since_last_commit, p.last_commit_date))
+    end
+
+    -- Create a temporary buffer to show the results
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    vim.api.nvim_set_option_value('filetype', 'markdown', { buf = buf })
+    vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = buf })
+
+    local width = math.floor(vim.o.columns * 0.8)
+    local height = math.floor(vim.o.lines * 0.8)
+    local row = math.floor((vim.o.lines - height) / 2)
+    local col = math.floor((vim.o.columns - width) / 2)
+
+    vim.api.nvim_open_win(buf, true, {
+        relative = 'editor',
+        width = width,
+        height = height,
+        row = row,
+        col = col,
+        style = 'minimal',
+        border = 'rounded',
+        title = ' Plugin Maintenance Status ',
+        title_pos = 'center',
+    })
+end
+
+return M

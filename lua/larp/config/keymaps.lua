@@ -42,12 +42,12 @@ vim.keymap.set('n', '<leader>Tn', ':tabnext<CR>', { desc = 'Go to Next Tab', nor
 vim.keymap.set('n', '<leader>Tp', ':tabprevious<CR>', { desc = 'Go to Previous Tab', noremap = true, silent = true })
 
 -- General
-vim.keymap.set({ 'n', 'x' }, '<leader>Wqq', ':confirm qa<cr>', { desc = 'Exit NeoVim', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>WQ', ':qa!<cr>', { desc = 'Exit NeoVim without saving', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>Www', ':w<cr>', { desc = 'Write to Buffer', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>Wwa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>Wwq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>WwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Qqq', ':confirm qa<cr>', { desc = 'Exit NeoVim', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'QQ', ':qa!<cr>', { desc = 'Exit NeoVim without saving', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Qww', ':w<cr>', { desc = 'Write to Buffer', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Qwa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Qwq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'QwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
 vim.keymap.set('n', '<leader>so', function()
     vim.print('Sourced ' .. vim.fn.expand('%:p'))
@@ -103,7 +103,7 @@ vim.keymap.set('i', '<C-C>', function()
 end) -- Use <C-C> to act as <ESC>
 vim.keymap.set('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 vim.keymap.set('', '<leader><leader>p', '"+p', { desc = 'Paste from Clipboard' })
-vim.keymap.set({ 'n', 'x' }, 'Q', 'gq', { desc = 'Split long text into multiple lines', noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'x' }, 'Q', 'gq', { desc = 'Split long text into multiple lines', noremap = true, silent = true })
 vim.keymap.set('', '<leader>p', function()
     -- Get current cursor position: {row, col} (col is 0-based)
     local cursor = vim.api.nvim_win_get_cursor(0)
@@ -125,6 +125,16 @@ vim.keymap.set('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc =
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 -- vim.keymap.set('n', '<Tab>', 'za', { desc = 'Toggle Fold' })
+
+vim.keymap.set('n', '<leader>lo', function()
+    require('larp.utils.orphans').check_orphans()
+end, { desc = 'Check for Orphan Plugins', silent = true })
+
+vim.api.nvim_create_user_command('CheckOrphans', function(opts)
+    local threshold = tonumber(opts.args)
+    require('larp.utils.orphans').check_orphans(threshold)
+end, { nargs = '?' })
+
 
 -- # Misc.
 
