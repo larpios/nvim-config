@@ -51,7 +51,7 @@ return {
         },
         keys = {
             {
-                '<leader>se',
+                '<leader>Se',
                 function()
                     require('scissors').editSnippet()
                 end,
@@ -59,7 +59,7 @@ return {
                 desc = '[Scissors]  edit snippet',
             },
             {
-                '<leader>sa',
+                '<leader>Sa',
                 function()
                     require('scissors').addNewSnippet()
                 end,
@@ -113,6 +113,44 @@ return {
     },
     {
         'HiPhish/rainbow-delimiters.nvim',
+        dependencies = 'nvim-treesitter/nvim-treesitter',
+        config = function()
+            vim.g.rainbow_delimiters = {
+                strategy = {
+                    [''] = 'rainbow-delimiters.strategy.global',
+                },
+                query = {
+                    [''] = 'rainbow-delimiters',
+                },
+                condition = function(bufnr)
+                    -- Check if treesitter parser is available for the buffer
+                    local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+                    local ok = pcall(vim.treesitter.get_parser, bufnr, lang)
+                    return ok
+                end,
+                blacklist = {
+                    'oil',
+                    'noice',
+                    'notify',
+                    'lazy',
+                    'mason',
+                    'Trouble',
+                    'alpha',
+                    'dashboard',
+                    'neo-tree',
+                    'NvimTree',
+                    'fidget',
+                    'snacks_notif',
+                    'snacks_notif_history',
+                    'snacks_terminal',
+                    'snacks_win',
+                    'snacks_input',
+                    'blink-cmp-menu',
+                    'blink-cmp-signature-help',
+                    'blink-cmp-documentation',
+                },
+            }
+        end,
     },
     {
         'ibhagwan/smartyank.nvim',
