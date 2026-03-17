@@ -50,7 +50,7 @@ vim.keymap.set({ 'n', 'x' }, 'Qwq', ':wq<cr>', { desc = 'Write and Quit', norema
 vim.keymap.set({ 'n', 'x' }, 'QwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
 vim.keymap.set('n', '<leader>so', function()
-    vim.print('Sourced ' .. vim.fn.expand('%:p'))
+    vim.notify('Sourced ' .. vim.fn.expand('%:p'))
     vim.cmd('source ' .. vim.fn.expand('%:p'))
 end, { desc = 'Source Current Buffer', silent = true })
 vim.keymap.set('n', '<C-p>', ':bprevious<cr>', { desc = 'Navigate to Previous Buffer', noremap = true, silent = true })
@@ -64,7 +64,7 @@ vim.keymap.set('', '<leader>bo', function()
         path = path:sub(7)
     end
     vim.cmd('cd ' .. path)
-    vim.print('Changed directory to ' .. path)
+    vim.notify('Changed directory to ' .. path)
 end, { desc = 'Change Directory to Current Buffer', silent = true })
 vim.keymap.set('n', 'j', function()
     if vim.v.count > 1 then
