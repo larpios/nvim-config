@@ -434,7 +434,7 @@ return {
                 desc = 'Goto Declaration',
             },
             {
-                'gr',
+                'grr',
                 function()
                     Snacks.picker.lsp_references()
                 end,
@@ -442,14 +442,14 @@ return {
                 desc = 'References',
             },
             {
-                'gI',
+                'grI',
                 function()
                     Snacks.picker.lsp_implementations()
                 end,
                 desc = 'Goto Implementation',
             },
             {
-                'gy',
+                'gry',
                 function()
                     Snacks.picker.lsp_type_definitions()
                 end,
