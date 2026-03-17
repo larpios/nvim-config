@@ -114,6 +114,13 @@ return {
                 desc = '[JJ] Tug'
             },
             {
+                '<leader>jc',
+                function()
+                    require('jj.cmd').commit()
+                end,
+                desc = '[JJ] Commit'
+            },
+            {
                 '<leader>jD',
                 function()
                     require('jj.cmd').describe()
