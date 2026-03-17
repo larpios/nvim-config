@@ -114,7 +114,7 @@ return {
     {
         'HiPhish/rainbow-delimiters.nvim',
         dependencies = 'nvim-treesitter/nvim-treesitter',
-        config = function()
+        init = function()
             vim.g.rainbow_delimiters = {
                 strategy = {
                     [''] = 'rainbow-delimiters.strategy.global',
@@ -123,10 +123,12 @@ return {
                     [''] = 'rainbow-delimiters',
                 },
                 condition = function(bufnr)
-                    -- Check if treesitter parser is available for the buffer
-                    local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
-                    local ok = pcall(vim.treesitter.get_parser, bufnr, lang)
-                    return ok
+                    local ft = vim.bo[bufnr].filetype
+                    if ft == '' then return false end
+                    local lang = vim.treesitter.language.get_lang(ft)
+                    if not lang then return false end
+                    local ok, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
+                    return ok and parser ~= nil
                 end,
                 blacklist = {
                     'oil',
@@ -145,6 +147,9 @@ return {
                     'snacks_terminal',
                     'snacks_win',
                     'snacks_input',
+                    'snacks_picker_input',
+                    'snacks_picker_preview',
+                    'snacks_layout',
                     'blink-cmp-menu',
                     'blink-cmp-signature-help',
                     'blink-cmp-documentation',
