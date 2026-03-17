@@ -42,12 +42,12 @@ vim.keymap.set('n', '<leader>Tn', ':tabnext<CR>', { desc = 'Go to Next Tab', nor
 vim.keymap.set('n', '<leader>Tp', ':tabprevious<CR>', { desc = 'Go to Previous Tab', noremap = true, silent = true })
 
 -- General
-vim.keymap.set({ 'n', 'x' }, 'Qqq', ':confirm qa<cr>', { desc = 'Exit NeoVim', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, 'QQ', ':qa!<cr>', { desc = 'Exit NeoVim without saving', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, 'Qww', ':w<cr>', { desc = 'Write to Buffer', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, 'Qwa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, 'Qwq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, 'QwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Zqq', ':confirm qa<cr>', { desc = 'Exit NeoVim', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'ZQ', ':qa!<cr>', { desc = 'Exit NeoVim without saving', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Zww', ':w<cr>', { desc = 'Write to Buffer', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Zwa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'Zwq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'ZwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
 vim.keymap.set('n', '<leader>so', function()
     vim.notify('Sourced ' .. vim.fn.expand('%:p'))

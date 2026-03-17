@@ -190,6 +190,17 @@ return {
     {
         -- Enhance the usage of macros in Neovim
         "chrisgrieser/nvim-recorder",
-        opts = {},                      -- required even with default settings, since it calls `setup()`
+        opts = {
+            mapping = {
+                startStopRecording = "<leader>ms",
+                playMacro = "<leader>mp",
+                switchSlot = "<leader>mn",
+                editMacro = "<leader>me",
+                deleteAllMacros = "<leader>md",
+                yankMacro = "<leader>my",
+                -- ⚠️ this should be a string you don't use in insert mode during a macro
+                addBreakPoint = "##",
+            },
+        }, -- required even with default settings, since it calls `setup()`
     },
 }
