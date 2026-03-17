@@ -12,17 +12,17 @@ vim.keymap.set('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window', nore
 vim.keymap.set('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window', noremap = true, silent = true })
 
 -- Move Windows
-vim.keymap.set('', '<leader>wH', '<C-w>H', { desc = 'Send Window to Left', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wJ', '<C-w>J', { desc = 'Send Window to Bottom', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wL', '<C-w>L', { desc = 'Send Window to Right', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wK', '<C-w>K', { desc = 'Send Window to Top', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wmh', '<C-w>H', { desc = 'Send Window to Left', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wmj', '<C-w>J', { desc = 'Send Window to Bottom', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wml', '<C-w>L', { desc = 'Send Window to Right', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wmk', '<C-w>K', { desc = 'Send Window to Top', noremap = true, silent = true })
 vim.keymap.set('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next', noremap = true, silent = true })
 
 -- Split Windows
-vim.keymap.set('', '<leader>wsh', '<C-w>v', { desc = 'Split Window to the Left', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wsj', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wsk', '<C-w>s', { desc = 'Split Window to the Top', noremap = true, silent = true })
-vim.keymap.set('', '<leader>wsl', '<C-w>v<C-w>l', { desc = 'Split Window to the Right', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wH', '<C-w>v', { desc = 'Split Window to the Left', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wJ', '<C-w>s<C-w>j', { desc = 'Split Window to the Bottom', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wK', '<C-w>s', { desc = 'Split Window to the Top', noremap = true, silent = true })
+vim.keymap.set('', '<leader>wL', '<C-w>v<C-w>l', { desc = 'Split Window to the Right', noremap = true, silent = true })
 
 -- Resize Windows
 vim.keymap.set('', '<leader>w+', '<C-w>+', { desc = 'Increase Window Height', noremap = true, silent = true })
