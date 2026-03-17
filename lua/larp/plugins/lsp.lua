@@ -490,9 +490,9 @@ return {
     {
         -- Enables inline syntax highlighting using a tree-sitter parser
         -- For example, inside multiline strings in Nix or Markdown
-        -- 'jmbuhr/otter.nvim',
-        'larpios/otter.nvim',
-        branch = 'test',
+        'jmbuhr/otter.nvim',
+        -- 'larpios/otter.nvim',
+        -- branch = 'test',
         event = 'VeryLazy',
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
