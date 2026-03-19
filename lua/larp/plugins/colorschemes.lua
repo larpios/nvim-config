@@ -4,7 +4,11 @@ return {
         name = 'catppuccin',
         priority = 1000,
         opts = {
-            flavour = 'auto', -- latte, frappe, macchiato, mocha
+            flavour = 'auto',                                   -- latte, frappe, macchiato, mocha
+            transparent_background = vim.g.transparent_enabled, -- from transparent.nvim
+            float = {
+                transparent = vim.g.transparent_enabled,
+            },
             show_end_of_buffer = true,
             dim_inactive = {
                 enabled = true,
