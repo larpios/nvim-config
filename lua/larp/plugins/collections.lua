@@ -625,7 +625,7 @@ return {
                 desc = '[Snacks.Rename] Rename File',
             },
             {
-                '<c-/>',
+                '<c-t>',
                 function()
                     Snacks.terminal()
                 end,

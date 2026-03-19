@@ -1,13 +1,5 @@
 return {
     {
-        -- Better terminal support with persistent history
-        'akinsho/toggleterm.nvim',
-        version = '*',
-        opts = {
-            open_mapping = [[<c-t>]],
-        },
-    },
-    {
         'stevearc/overseer.nvim',
         cmds = {
             'Overseer',
