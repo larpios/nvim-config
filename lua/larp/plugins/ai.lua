@@ -3,6 +3,7 @@ return {
         'monkoose/neocodeium',
         event = 'InsertEnter',
         opts = {},
+        cmd = 'NeoCodeium',
         keys = {
             {
                 '<A-a>',
