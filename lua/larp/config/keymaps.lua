@@ -60,8 +60,12 @@ vim.keymap.set('', '<leader>bo', function()
     local path = vim.fn.expand('%:p:h')
     -- if the buffer name starts with oil://
     if vim.fn.bufname(current_buffer):match('^oil://') then
-        -- remove the oil:// prefix
-        path = path:sub(7)
+        local result, oil = pcall(require, 'oil')
+        if not result then
+            vim.notify('Failed to load oil', vim.log.levels.WARN)
+            return
+        end
+        path = oil.get_current_dir()
     end
     vim.cmd('cd ' .. path)
     vim.notify('Changed directory to ' .. path)
