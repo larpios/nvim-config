@@ -16,11 +16,11 @@ vim.diagnostic.config({
 })
 
 vim.lsp.enable('fish_lsp')
-vim.lsp.enable('nu')
 
 -- Nix LSP
 vim.lsp.enable('nil_ls')
 
+-- Nushell LSP
 vim.lsp.enable('nushell')
 
 vim.lsp.enable('bpls')

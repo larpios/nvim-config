@@ -12,7 +12,7 @@ return {
     {
         'mrcjkb/rustaceanvim',
         version = '^6', -- Recommended
-        lazy = false, -- This plugin is already lazy
+        lazy = false,   -- This plugin is already lazy
     },
     {
         'mason-org/mason.nvim',
@@ -235,10 +235,10 @@ return {
             'SymbolsClose',
         },
         keys = {
-            { '<leader>ts', mode = 'n', desc = 'Toggle Symbols' },
-            { ',s', '<cmd> Symbols<CR>', desc = 'Symbols' },
-            { ',S', '<cmd> SymbolsClose<CR>', desc = 'Symbols Close' },
-            { 'ts', '<cmd> SymbolsToggle<CR>', desc = 'Symbols Toggle' },
+            { '<leader>ts', mode = 'n',                desc = 'Toggle Symbols' },
+            { ',s',         '<cmd> Symbols<CR>',       desc = 'Symbols' },
+            { ',S',         '<cmd> SymbolsClose<CR>',  desc = 'Symbols Close' },
+            { 'ts',         '<cmd> SymbolsToggle<CR>', desc = 'Symbols Toggle' },
         },
         config = function()
             local opts = {
@@ -292,7 +292,7 @@ return {
                             columns = {
                                 { 'item_idx' },
                                 { 'kind_icon' },
-                                { 'label', 'label_description', gap = 1 },
+                                { 'label',      'label_description', gap = 1 },
                                 { 'kind' },
                                 { 'source_name' },
                             },
@@ -368,7 +368,7 @@ return {
                         emoji = {
                             module = 'blink-emoji',
                             name = 'Emoji',
-                            score_offset = -1, -- Tune by preference
+                            score_offset = -1,        -- Tune by preference
                             opts = { insert = true }, -- Insert emoji (default) or complete its name
                         },
                         lazydev = {
@@ -424,7 +424,7 @@ return {
         'rachartier/tiny-inline-diagnostic.nvim',
         enabled = false,
         event = 'VeryLazy', -- Or `LspAttach`
-        priority = 1000, -- needs to be loaded in first
+        priority = 1000,    -- needs to be loaded in first
         config = function()
             require('tiny-inline-diagnostic').setup()
             vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
@@ -438,7 +438,7 @@ return {
     {
         -- Formatter
         'stevearc/conform.nvim',
-        event = { 'BufWritePre' },
+        event = { 'BufRead' },
         cmd = { 'ConformInfo' },
         opts = {
             formatters_by_ft = {
@@ -452,7 +452,7 @@ return {
                 lua = { 'stylua' },
                 markdown = { 'injected', 'prettier', 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
                 nix = { 'injected', 'alejandra', 'nixpkgs-fmt', 'nixfmt' },
-                nushell = { 'nufmt' },
+                nu = { 'injected', 'nufmt' },
                 org = { 'injected', 'orgfmt' },
                 python = { 'ruff', 'autopep8', 'autoflake', 'black' },
                 rust = { 'rustfmt' },
@@ -483,7 +483,7 @@ return {
                         lsp_fallback = true,
                     })
                 end,
-                desc = 'Format Document',
+                desc = '[Conform] Format Document',
             },
         },
     },

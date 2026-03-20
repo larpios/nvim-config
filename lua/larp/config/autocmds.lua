@@ -7,42 +7,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('lsp_attach', {}),
-    desc = 'Attach LSP',
-    pattern = '*',
-    callback = function()
-        vim.keymap.set('', 'gh', function()
-            vim.diagnostic.open_float({
-                source = true,
-                format = function(diagnostic)
-                    return string.format('%s [%s]', diagnostic.message, diagnostic.source)
-                end,
-                border = 'rounded',
-                severity_sort = true,
-                focus_id = 'diagnostic',
-                focusable = true,
-            })
-        end, { desc = 'Get diagnostics' })
-
-        vim.keymap.set('', 'gd', function()
-            vim.lsp.buf.definition()
-        end, { desc = 'Go to Definition' })
-        vim.keymap.set('', 'gD', function()
-            vim.lsp.buf.type_definition()
-        end, { desc = 'Go to Type Definition' })
-
-        vim.keymap.set('', '<leader>ca', function()
-            vim.lsp.buf.code_action()
-        end)
-        vim.keymap.set('', '<leader>cf', function()
-            vim.lsp.buf.format({ async = true })
-        end)
-
-        -- vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
-    end,
-})
-
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup('keymap_read', {}),
     desc = 'Recognize *.keymap files as C files',
