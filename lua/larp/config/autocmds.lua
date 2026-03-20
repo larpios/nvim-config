@@ -147,3 +147,13 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
         vim.notify('Spell check enabled for English')
     end,
 })
+
+-- When a help window opens, force it to move to the right
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('help_window', {}),
+    desc = 'Move help window to the right',
+    pattern = 'help',
+    callback = function()
+        vim.cmd('wincmd L')
+    end,
+})
