@@ -48,7 +48,8 @@ vim.keymap.set({ 'n', 'x' }, 'Zww', ':w<cr>', { desc = 'Write to Buffer', norema
 vim.keymap.set({ 'n', 'x' }, 'Zwa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, 'Zwq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, 'ZwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
+vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>',
+    { desc = 'Open Neovim Config', silent = true })
 vim.keymap.set('n', '<leader>so', function()
     vim.notify('Sourced ' .. vim.fn.expand('%:p'))
     vim.cmd('source ' .. vim.fn.expand('%:p'))
@@ -138,6 +139,14 @@ vim.api.nvim_create_user_command('CheckOrphans', function(opts)
     local threshold = tonumber(opts.args)
     require('larp.utils.orphans').check_orphans(threshold)
 end, { nargs = '?' })
+
+-- #LSP
+vim.keymap.set({ 'n', 'x' }, 'gh', function()
+    vim.diagnostic.open_float()
+end, { desc = 'Open Diagnostics' })
+vim.keymap.set({ 'n', 'x' }, '<leader>ca', function()
+    vim.lsp.buf.code_action()
+end, { desc = 'Open Diagnostics' })
 
 
 -- # Misc.

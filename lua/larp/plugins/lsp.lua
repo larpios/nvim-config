@@ -11,7 +11,7 @@ return {
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^6', -- Recommended
+        version = '^8', -- Recommended
         lazy = false,   -- This plugin is already lazy
     },
     {
@@ -169,38 +169,6 @@ return {
         opts = {},
     },
     {
-        -- IDE-like breadcrumb navigation
-        'Bekaboo/dropbar.nvim',
-        -- optional, but required for fuzzy finder support
-        dependencies = {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'make',
-        },
-        keys = {
-            {
-                '<Leader>;',
-                function()
-                    require('dropbar.api').pick()
-                end,
-                desc = 'Pick symbols in winbar',
-            },
-            {
-                '[;',
-                function()
-                    require('dropbar.api').goto_context_start()
-                end,
-                desc = 'Go to start of current context',
-            },
-            {
-                '];',
-                function()
-                    require('dropbar.api').select_next_context()
-                end,
-                desc = 'Select next context',
-            },
-        },
-    },
-    {
         'stevearc/aerial.nvim',
         -- just to test symbols.nvim
         -- enabled = false,
@@ -329,6 +297,9 @@ return {
                 sources = {
                     -- rm ripgrep
                     default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'lazydev' },
+                    per_filetype = {
+                        org = { 'orgmode' }
+                    },
                     providers = {
                         ripgrep = {
                             module = 'blink-ripgrep',
@@ -375,6 +346,11 @@ return {
                             name = 'LazyDev',
                             module = 'lazydev.integrations.blink',
                             score_offset = 100,
+                        },
+                        orgmode = {
+                            name = 'Orgmode',
+                            module = 'orgmode.org.autocompletion.blink',
+                            fallbacks = { 'buffer' },
                         },
                     },
                 },

@@ -38,7 +38,7 @@ return {
                     lualine_x = {
                         {
                             'overseer',
-                            label = '', -- Prefix for task counts
+                            label = '',     -- Prefix for task counts
                             colored = true, -- Color the task icons and counts
                             symbols = {
                                 [overseer.STATUS.FAILURE] = 'F:',
@@ -46,10 +46,10 @@ return {
                                 [overseer.STATUS.SUCCESS] = 'S:',
                                 [overseer.STATUS.RUNNING] = 'R:',
                             },
-                            unique = false, -- Unique-ify non-running task count by name
-                            name = nil, -- List of task names to search for
-                            name_not = false, -- When true, invert the name search
-                            status = nil, -- List of task statuses to display
+                            unique = false,     -- Unique-ify non-running task count by name
+                            name = nil,         -- List of task names to search for
+                            name_not = false,   -- When true, invert the name search
+                            status = nil,       -- List of task statuses to display
                             status_not = false, -- When true, invert the status search
                         },
                         {
@@ -110,11 +110,11 @@ return {
                 },
                 -- you can enable a preset for easier configuration
                 presets = {
-                    bottom_search = false, -- use a classic bottom cmdline for search
-                    command_palette = true, -- position the cmdline and popupmenu together
+                    bottom_search = false,        -- use a classic bottom cmdline for search
+                    command_palette = true,       -- position the cmdline and popupmenu together
                     long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = true, -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = true, -- add a border to hover docs and signature help
+                    inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = true,        -- add a border to hover docs and signature help
                 },
             })
             vim.api.nvim_create_autocmd('RecordingEnter', {
@@ -278,12 +278,12 @@ return {
         dependencies = 'nvim-tree/nvim-web-devicons',
         opts = {},
         keys = {
-            { 'L', '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = 'Next Buffer' },
-            { 'H', '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = 'Previous Buffer' },
-            { '<leader>>', '<cmd>BufferLineMoveNext<cr>', mode = 'n', desc = 'Move Buffer to the Right' },
-            { '<leader><', '<cmd>BufferLineMovePrev<cr>', mode = 'n', desc = 'Move Buffer to the Left' },
+            { 'L',          '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = 'Next Buffer' },
+            { 'H',          '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = 'Previous Buffer' },
+            { '<leader>>',  '<cmd>BufferLineMoveNext<cr>',  mode = 'n', desc = 'Move Buffer to the Right' },
+            { '<leader><',  '<cmd>BufferLineMovePrev<cr>',  mode = 'n', desc = 'Move Buffer to the Left' },
             { '<leader>bc', '<cmd>BufferLinePickClose<cr>', mode = 'n', desc = 'Close buffer' },
-            { '<leader>bp', '<cmd>BufferLinePick<cr>', mode = 'n', desc = 'Pick Buffer' },
+            { '<leader>bp', '<cmd>BufferLinePick<cr>',      mode = 'n', desc = 'Pick Buffer' },
             { '<leader>br', '<cmd>BufferLineTabRename<cr>', mode = 'n', desc = 'Rename Tab' },
         },
     },
@@ -311,4 +311,17 @@ return {
         event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
         opts = {},
     },
+    {
+        'Bekaboo/dropbar.nvim',
+        event = 'BufRead',
+        dependencies = {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'make'
+        },
+        keys = {
+            { '<leader>;',  function() require('dropbar.api').pick() end,                 desc = '[Dropbar] Pick symbols' },
+            { '<leader>[;', function() require('dropbar.api').goto_context_start() end,   desc = '[Dropbar] Go to start of current context' },
+            { '<leader>];', function() require('dropbar.api').select_next_context() end,  desc = '[Dropbar] Select next context' },
+        },
+    }
 }
