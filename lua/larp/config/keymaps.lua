@@ -142,7 +142,11 @@ end, { nargs = '?' })
 
 -- #LSP
 vim.keymap.set({ 'n', 'x' }, 'gh', function()
-    vim.diagnostic.open_float()
+    vim.diagnostic.open_float({
+        focusable = true,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        source = 'always'
+    })
 end, { desc = 'Open Diagnostics' })
 vim.keymap.set({ 'n', 'x' }, '<leader>ca', function()
     vim.lsp.buf.code_action()
