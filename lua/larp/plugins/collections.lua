@@ -44,16 +44,16 @@ return {
             require('mini.surround').setup({
                 respect_selection_type = true,
                 mappings = {
-                    add = 'gsa', -- Add surrounding in Normal and Visual modes
-                    delete = 'gsd', -- Delete surrounding
-                    find = 'gsf', -- Find surrounding (to the right)
-                    find_left = 'gsF', -- Find surrounding (to the left)
-                    highlight = 'gsh', -- Highlight surrounding
-                    replace = 'gsr', -- Replace surrounding
+                    add = 'gsa',            -- Add surrounding in Normal and Visual modes
+                    delete = 'gsd',         -- Delete surrounding
+                    find = 'gsf',           -- Find surrounding (to the right)
+                    find_left = 'gsF',      -- Find surrounding (to the left)
+                    highlight = 'gsh',      -- Highlight surrounding
+                    replace = 'gsr',        -- Replace surrounding
                     update_n_lines = 'gsn', -- Update `n_lines`
 
-                    suffix_last = 'l', -- Suffix to search with "prev" method
-                    suffix_next = 'n', -- Suffix to search with "next" method
+                    suffix_last = 'l',      -- Suffix to search with "prev" method
+                    suffix_next = 'n',      -- Suffix to search with "next" method
                 },
             })
             require('mini.move').setup({
@@ -96,16 +96,16 @@ return {
             bigfile = { enabled = true },
             bufdelete = { enabled = true }, -- Delete buffers without disrupting window layout.
             indent = { enabled = true },
-            input = { enabled = true }, -- Better `vim.ui.input`.
+            input = { enabled = true },     -- Better `vim.ui.input`.
             -- dashboard = {},
             notifier = { enabled = true },
             toggle = { enabled = true },
             quickfile = { enabled = true },
-            git = { enabled = true }, -- Git utilities.
+            git = { enabled = true },       -- Git utilities.
             gh = { enabled = true },
             gitbrowse = { enabled = true }, -- Open the repo of the active file in the browser.
             statuscolumn = { enabled = true },
-            scope = { enabled = true }, -- Scope detection based on treesitter or indent.
+            scope = { enabled = true },     -- Scope detection based on treesitter or indent.
             words = { enabled = true },
             picker = {
                 enabled = true,
@@ -693,9 +693,11 @@ return {
                     Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map('<leader>uL')
                     Snacks.toggle.diagnostics():map('<leader>ud')
                     Snacks.toggle.line_number():map('<leader>ul')
-                    Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map('<leader>uc')
+                    Snacks.toggle.option('conceallevel',
+                        { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map('<leader>uc')
                     Snacks.toggle.treesitter():map('<leader>uT')
-                    Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map('<leader>ub')
+                    Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map(
+                    '<leader>ub')
                     Snacks.toggle.inlay_hints():map('<leader>uh')
                     Snacks.toggle.indent():map('<leader>ug')
                     Snacks.toggle.dim():map('<leader>uD')
@@ -703,6 +705,23 @@ return {
                     Snacks.toggle.profiler():map('<leader>up')
                 end,
             })
+        end,
+        config = function(_, opts)
+            require('snacks').setup(opts)
+
+            -- Fix for a while
+            local M = require('snacks.picker.core.main')
+            M.new = function(opts)
+                opts = vim.tbl_extend('force', {
+                    float = false,
+                    file = true,
+                    current = false,
+                }, opts or {})
+                local self = setmetatable({}, M)
+                self.opts = opts
+                self.win = vim.api.nvim_get_current_win()
+                return self
+            end
         end,
         dependencies = {
             {
