@@ -437,7 +437,7 @@ return {
                 ts = { 'prettier', 'eslint_d' },
                 typst = { 'prettypst', 'typstyle' },
                 xml = { 'xmlformat' },
-                yaml = { 'yamllint', 'prettier' },
+                yaml = { 'prettier', 'yamlfmt' },
                 kdl = { 'kdlfmt' },
             },
             default_format_opts = {
