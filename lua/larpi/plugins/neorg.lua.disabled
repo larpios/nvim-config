@@ -1,0 +1,106 @@
+return {
+    'nvim-neorg/neorg',
+    -- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    ft = 'norg',
+    cmd = 'Neorg',
+    version = '*', -- Pin Neorg to the latest stable release
+    keys = {
+        { '<leader>no', '<cmd>Neorg<CR>', desc = 'Open Neorg', mode = 'n' },
+        { '<leader>nw', desc = 'Open Neorg Workspace' },
+        { '<leader>nfh', '<Plug>(neorg.telescope.search_headings)', desc = 'Find Norg Headings' },
+        { '<leader>nff', '<Plug>(neorg.telescope.find_norg_files)', desc = 'Find Norg Files' },
+        { '<leader>nfb', '<Plug>(neorg.telescope.backlinks.file_backlinks)', desc = 'Find Backlinks' },
+        { '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', desc = 'Find Header Backlinks' },
+        { '<localleader>niL', '<Plug>(neorg.telescope.insert_file_link)', desc = 'Insert File Link' },
+        { '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', desc = 'Insert Link' },
+        { '<C-@>', '<C-Space>', mode = { 'i', 'x', 'n' }, desc = 'Continue Current Object' },
+        { '<C-Space>', '<Plug>(neorg.itero.next-iteration)', mode = { 'i', 'x', 'n' }, desc = 'Continue Current Object' },
+    },
+    config = function()
+        local my_workspaces = {
+            default = '~/notes/norgs',
+            personal = '~/notes/norgs/personal',
+            work = '~/notes/norgs/work',
+        }
+        require('neorg').setup({
+            -- Tell Neorg what modules to load
+            load = {
+                ['core.defaults'] = {}, -- Load all the default modules
+                ['core.autocommands'] = {},
+                ['core.dirman'] = {
+                    config = {
+                        workspaces = my_workspaces,
+                        index = 'index.norg',
+                    },
+                },
+                ['core.concealer'] = {},
+                ['core.completion'] = {
+                    config = {
+                        name = '[Neorg]',
+                        engine = 'nvim-cmp',
+                    },
+                }, -- Load all the default modules
+                ['core.integrations.nvim-cmp'] = {},
+                ['core.integrations.treesitter'] = {},
+                ['core.integrations.telescope'] = {
+                    config = {
+                        insert_file_link = {
+                            show_title_preview = true,
+                        },
+                    },
+                },
+                ['core.presenter'] = {
+                    config = {
+                        zen_mode = 'zen-mode',
+                    },
+                },
+                ['core.export'] = {
+                    config = {
+                        path = '~/norgs/exports',
+                        export_dir = '<export-dir>/<language>-export',
+                    },
+                },
+                ['core.export.markdown'] = {},
+                ['core.fs'] = {},
+                ['core.neorgcmd'] = {},
+                ['core.ui'] = {},
+                ['core.neorgcmd.commands.return'] = {},
+                ['core.tempus'] = {},
+                ['core.syntax'] = {},
+                ['core.ui.calendar'] = {},
+                ['core.summary'] = {
+                    config = {
+                        strategy = 'default',
+                    },
+                },
+                ['core.highlights'] = {},
+                ['core.clipboard'] = {},
+                ['core.queries.native'] = {},
+                ['core.todo-introspector'] = {},
+                ['core.storage'] = {
+                    config = {
+                        vim.fn.stdpath('data') .. '/neorg.mpack',
+                    },
+                },
+                ['core.text-objects'] = {},
+            },
+        })
+
+        vim.api.nvim_create_autocmd('Filetype', {
+            pattern = 'norg',
+            callback = function()
+                vim.o.conceallevel = 3
+                vim.keymap.set('n', '<up>', '<Plug>(neorg.text-objects.item-up)', { desc = 'Move item up' })
+                vim.keymap.set('n', '<down>', '<Plug>(neorg.text-objects.item-down)', { desc = 'Move item down' })
+                vim.keymap.set({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
+                vim.keymap.set({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
+                vim.keymap.set({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
+                vim.keymap.set({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>')
+                vim.keymap.set({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                vim.keymap.set({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                vim.keymap.set({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                vim.keymap.set('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
+            end,
+        })
+    end,
+}

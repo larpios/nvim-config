@@ -1,0 +1,36 @@
+return {
+    -- live-preview markdown
+    'OXY2DEV/markview.nvim',
+    enabled = false,
+    lazy = false,
+    version = 'v25.*',
+    config = function()
+        local presets = require('markview.presets')
+        require('markview').setup({
+            preview = {
+                icon_provider = 'mini',
+            },
+            markdown = {
+                enable = true,
+                headings = presets.headings.arrowed,
+                horizontal_rules = presets.horizontal_rules.arrowed,
+                tables = presets.tables.rounded,
+            },
+            block = {
+                enable = true,
+            },
+            inline = {
+                enable = true,
+            },
+            html = {
+                enable = true,
+            },
+            latex = {
+                enable = true,
+            },
+            yaml = {
+                enable = true,
+            },
+        })
+    end,
+}

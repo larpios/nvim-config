@@ -1,0 +1,193 @@
+return {
+    'epwalsh/obsidian.nvim',
+    enabled = false,
+    priority = 1000,
+    cmd = {
+        'ObsidianNew',
+        'ObsidianOpen',
+        'ObsidianSearch',
+    },
+    keys = {
+        { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n', desc = 'Search Obsidian Vault' },
+        { '<leader>Ogg', '<cmd>ObsidianSearch<cr>', mode = 'n', desc = 'Grep Obsidian Vault' },
+        { '<leader>Ot', '<cmd>ObsidianTOC<cr>', mode = 'n', desc = 'Search Obsidian TOC' },
+        { '<leader>Oft', '<cmd>ObsidianTags<cr>', mode = 'n', desc = 'Find Obsidian Tags' },
+        { '<leader>Oj', '<cmd>ObsidianDailies<cr>', mode = 'n', desc = 'Obsidian Journal' },
+        {
+            '<leader>Ofw',
+            function()
+                local obsidian = require('obsidian')
+                local client = obsidian.get_client()
+                local workspaces = client.opts.workspaces
+                local names = {}
+                for _, w in ipairs(workspaces) do
+                    table.insert(names, w.name)
+                end
+                vim.ui.select(names, {
+                    prompt = 'Choose your obsidian vault',
+                }, function(_, idx)
+                    if idx then
+                        vim.cmd('edit ' .. vim.fn.fnameescape(workspaces[idx]['path']))
+                    end
+                end)
+            end,
+            mode = 'n',
+            desc = 'Search Obsidian Workspace',
+        },
+        {
+            '<leader>Op',
+            function()
+                local obsidian = require('obsidian')
+                local client = obsidian.get_client()
+                local path = vim.fn.expand(client.opts.workspaces[1].path)
+                vim.system({ 'sh', '-c', 'jj git fetch' }, { cwd = path, text = true }, function(obj)
+                    vim.schedule(function()
+                        if obj.code == 0 then
+                            vim.notify('Obsidian Pull: Success', vim.log.levels.INFO)
+                        else
+                            vim.notify('Obsidian Pull Failed:\n' .. (obj.stderr or obj.stdout or ''), vim.log.levels.ERROR)
+                        end
+                    end)
+                end)
+            end,
+            mode = 'n',
+            desc = 'Obsidian Pull',
+        },
+        {
+            '<leader>Os',
+            function()
+                local obsidian = require('obsidian')
+                local client = obsidian.get_client()
+                local path = vim.fn.expand(client.opts.workspaces[1].path)
+                local now = os.date('%Y-%m-%d %H:%M:%S')
+
+                -- Check for conflicts first, then push
+                local cmd = 'jj git fetch && '
+                .. 'if jj log -r @ --no-graph -T "conflict" | grep -q "true"; then '
+                .. 'echo "Conflicts detected!" >&2; exit 1; '
+                .. 'else '
+                .. 'jj bookmark move main --to @ && jj commit -m "Update '
+                .. now
+                .. '" && jj git push; '
+                .. 'fi'
+
+                vim.system({ 'sh', '-c', cmd }, { cwd = path, text = true }, function(obj)
+                    vim.schedule(function()
+                        if obj.code == 0 then
+                            vim.notify('Obsidian Push: Success\nUpdate ' .. now, vim.log.levels.INFO)
+                        else
+                            local err = obj.stderr or obj.stdout or ''
+                            if err:match('Conflicts detected!') then
+                                vim.notify('Obsidian Push Aborted: Conflicts detected! Please resolve before pushing.', vim.log.levels.WARN)
+                            else
+                                vim.notify('Obsidian Push Failed:\n' .. err, vim.log.levels.ERROR)
+                            end
+                        end
+                    end)
+                end)
+            end,
+            mode = 'n',
+            desc = 'Commit and Push Obsidian Vault',
+        },
+    },
+    version = '*', -- recommended, use latest release instead of latest commit
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'hrsh7th/nvim-cmp',
+        'ibhagwan/fzf-lua',
+        'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+        local obsidian = require('obsidian')
+
+        local workspace_candidates = {
+            {
+                name = 'default',
+                path = '~/obsidian-vault',
+            },
+            {
+                name = 'fallback',
+                path = '~/.dotfiles/obsidian-vault',
+            },
+        }
+
+        local opts = {
+            workspaces = {},
+            templates = {
+                folder = 'Templates',
+            },
+            daily_notes = {
+                folder = 'journal',
+                template = 'Daily Template',
+            },
+            completion = {
+                nvim_cmp = true,
+                min_char = 2,
+            },
+            follow_url_func = function(url)
+                vim.fn.jobstart({ 'xdg-open', url })
+            end,
+
+            mappings = {
+                -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+                ['gf'] = {
+                    action = function()
+                        return require('obsidian').util.gf_passthrough()
+                    end,
+                    opts = { noremap = false, expr = true, buffer = true },
+                },
+                -- Toggle check-boxes.
+                ['<leader>ch'] = {
+                    action = function()
+                        return require('obsidian').util.toggle_checkbox()
+                    end,
+                    opts = { buffer = true },
+                },
+                -- Smart action depending on context, either follow link or toggle checkbox.
+                ['<cr>'] = {
+                    action = function()
+                        return require('obsidian').util.smart_action()
+                    end,
+                    opts = { buffer = true, expr = true },
+                },
+            },
+            ui = {
+                enable = true,
+                update_debounce = 200, -- update delay after a text change (in milliseconds)
+                max_file_length = 5000, -- disable UI features for files with more than this many lines
+                checkboxes = {
+                    [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
+                    ['x'] = { char = '', hl_group = 'ObsidianDone' },
+                    ['>'] = { char = '', hl_group = 'ObsidianRightArrow' },
+                    ['~'] = { char = '󰰱', hl_group = 'ObsidianTilde' },
+                    ['!'] = { char = '', hl_group = 'ObsidianImportant' },
+                },
+            },
+        }
+
+        for _, candidate in ipairs(workspace_candidates) do
+            if vim.fn.isdirectory(vim.fn.expand(candidate.path)) == 1 then
+                opts.workspaces[#opts.workspaces + 1] = candidate
+            end
+        end
+
+        obsidian.setup(opts)
+
+        vim.o.conceallevel = 2
+
+        require('nvim-treesitter').setup({
+            ensure_installed = { 'markdown', 'markdown_inline' },
+            highlight = {
+                enable = true,
+            },
+        })
+
+        vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+            desc = 'Enter Obsidian Vault',
+            pattern = '~/notes/obsidian/*',
+            callback = function()
+                vim.o.conceallevel = 2
+            end,
+        })
+    end,
+}

@@ -1,0 +1,18 @@
+return {
+    'nanozuki/tabby.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+        'nvim-mini/mini.nvim',
+    },
+    keys = {
+        { '<leader>Ta', '<cmd>$tabnew<cr>', desc = '[Tabby] New Tab' },
+        { '<leader>Tx', '<cmd>tabclose<cr>', desc = '[Tabby] Close Tab' },
+        { '<leader>To', '<cmd>tabonly<cr>', desc = '[Tabby] Only Tab' },
+        { '<leader>Tn', '<cmd>tabnext<cr>', desc = '[Tabby] Next Tab' },
+        { '<leader>Tp', '<cmd>tabprevious<cr>', desc = '[Tabby] Previous Tab' },
+        { '<leader>T<', '<cmd>-tabmove<cr>', desc = '[Tabby] Move Tab to the Left' },
+        { '<leader>T>', '<cmd>+tabmove<cr>', desc = '[Tabby] Move Tab to the Right' },
+    },
+    ---@type TabbyConfig
+    opts = {},
+}

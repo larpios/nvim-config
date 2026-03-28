@@ -1,0 +1,4 @@
+return {
+    require('larpi.plugins.startscreen.alpha'),
+    require('larpi.plugins.startscreen.dashboard'),
+}

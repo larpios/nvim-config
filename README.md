@@ -1,4 +1,4 @@
-# Ray's Neovim Config
+# Larpi's Neovim Config
 
 This is my personal Neovim configuration. 
 Nothing special is going on.
@@ -21,10 +21,10 @@ As you may know, the `lua` directory has the most useful configuration files, li
 Inside the `lua` directory, we have the following directories:
 
 - custom
-- larp
+- larpi
 - overseer
 
-The `larp` directory is where I keep most of the configurations, like options, keymaps, and plugins.
+The `larpi` directory is where I keep most of the configurations, like options, keymaps, and plugins.
 
 The `custom` directory is where I keep the configurations for the plugins that I have customized.
 

@@ -1,0 +1,3 @@
+return {
+    'larpi.aosp.build',
+}
