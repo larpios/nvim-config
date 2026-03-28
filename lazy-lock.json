@@ -45,7 +45,7 @@
   "mini.nvim": { "branch": "main", "commit": "a995fe9cd4193fb492b5df69175a351a74b3d36b" },
   "modicator.nvim": { "branch": "main", "commit": "0bc989b32a7ba3cab06cb79a433557384eb2a0be" },
   "neocodeium": { "branch": "main", "commit": "bfe790d78e66adaa95cb50a8c75c64a752336e9c" },
-  "neojj": { "branch": "main", "commit": "fdb6b50a4c5d52849c0b1eb0d493ea6feb634f48" },
+  "neojj": { "branch": "push-qvtvtqnyntkx", "commit": "fff108ba9e8ac4ba55fac5c232ef5ef13af3757a" },
   "noice.nvim": { "branch": "main", "commit": "7bfd942445fb63089b59f97ca487d605e715f155" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "numb.nvim": { "branch": "master", "commit": "12ef3913dea8727d4632c6f2ed47957a993de627" },
