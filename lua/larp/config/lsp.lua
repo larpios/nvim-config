@@ -15,6 +15,8 @@ vim.diagnostic.config({
     },
 })
 
+vim.lsp.codelens.enable()
+
 vim.lsp.enable('fish_lsp')
 
 -- Nix LSP

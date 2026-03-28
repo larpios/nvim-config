@@ -377,17 +377,6 @@ return {
         end,
     },
     {
-        -- Shows refernce and definition info above functions
-        'VidocqH/lsp-lens.nvim',
-        event = 'LspAttach',
-        opts = {},
-    },
-    {
-        'mfussenegger/nvim-jdtls',
-        enabled = false,
-        ft = 'java',
-    },
-    {
         'p00f/clangd_extensions.nvim',
         ft = { 'c', 'cpp' },
         opts = {},

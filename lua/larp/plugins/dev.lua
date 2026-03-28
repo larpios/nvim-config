@@ -15,26 +15,19 @@ return {
             'OverseerInfo',
         },
         keys = {
-            { '<leader>cor', '<cmd>OverseerRun<cr>', desc = 'Overseer Run' },
-            { '<leader>coR', '<cmd>OverseerRunCmd<cr>', desc = 'Overseer Run Cmd' },
+            { '<leader>cor', '<cmd>OverseerRun<cr>',        desc = 'Overseer Run' },
+            { '<leader>coR', '<cmd>OverseerRunCmd<cr>',     desc = 'Overseer Run Cmd' },
             { '<leader>coa', '<cmd>OverseerTaskAction<cr>', desc = 'Overseer Task Actions' },
-            { '<leader>cob', '<cmd>OverseerBuild<cr>', desc = 'Overseer Build' },
-            { '<leader>cot', '<cmd>OverseerToggle<cr>', desc = 'Toggle Overseer' },
+            { '<leader>cob', '<cmd>OverseerBuild<cr>',      desc = 'Overseer Build' },
+            { '<leader>cot', '<cmd>OverseerToggle<cr>',     desc = 'Toggle Overseer' },
         },
-        dependencies = {
-            'akinsho/toggleterm.nvim',
-            -- 'rmagatti/auto-session',
-        },
-        config = function()
-            require('overseer').setup({
-                dap = false,
-                templates = {
-                    'builtin',
-                    'larp.cpp',
-                },
-                strategy = 'toggleterm',
-            })
-        end,
+        opts = {
+            dap = true,
+            templates = {
+                'builtin',
+                'larp.cpp',
+            },
+        }
     },
     {
         'folke/todo-comments.nvim',

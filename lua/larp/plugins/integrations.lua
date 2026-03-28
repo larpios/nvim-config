@@ -1,39 +1,5 @@
 return {
     {
-        'iamcco/markdown-preview.nvim',
-        cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-        ft = { 'markdown' },
-        build = function()
-            vim.fn['mkdp#util#install']()
-        end,
-        keys = {
-            { '<leader>mds', '<cmd>MarkdownPreview<cr>',                             desc = 'Start Markdown Preview' },
-            { '<leader>mdS', '<cmd>MarkdownPreviewStop<cr>',                         desc = 'Stop Markdown Preview' },
-            { '<leader>mdr', '<cmd>MarkdownPreviewStop<cr><cmd>MarkdownPreview<cr>', desc = 'Restart Markdown Preview' },
-        },
-        config = function()
-            vim.g.mkdp_preview_options = {
-                uml = {
-                    imageFormat = 'svg',
-                },
-            }
-            vim.g.mkdp_theme = 'dark'
-        end,
-    },
-    {
-        -- Markdown preview plugin
-        'toppair/peek.nvim',
-        event = { 'VeryLazy' },
-        ft = { 'markdown' },
-        cmd = { 'PeekOpen', 'PeekClose' },
-        build = 'deno task --quiet build:fast',
-        config = function()
-            require('peek').setup()
-            vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
-            vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
-        end,
-    },
-    {
         -- live-preview markdown
         'OXY2DEV/markview.nvim',
         enabled = false,
