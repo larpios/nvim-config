@@ -16,7 +16,7 @@ return {
     },
     {
         'David-Kunz/gen.nvim',
-        event = 'VeryLazy',
+        cmd = 'Gen',
         opts = {
             model = 'deepseek-coder-v2:lite',
             quit_map = 'q',
@@ -31,25 +31,37 @@ return {
         opts = {},
     },
     {
-        "olimorris/codecompanion.nvim",
-        version = "^19.0.0",
+        'olimorris/codecompanion.nvim',
+        version = '^19.0.0',
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        keys = {
-            { '<leader>acc', function() require('codecompanion').chat() end,   desc = '[CodeCompanion] Chat' },
-            { '<leader>act', function() require('codecompanion').toggle() end, desc = '[CodeCompanion] Toggle' },
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
         },
         cmd = 'CodeCompanion',
+        keys = {
+            {
+                '<leader>acc',
+                function()
+                    require('codecompanion').chat()
+                end,
+                desc = '[CodeCompanion] Chat',
+            },
+            {
+                '<leader>act',
+                function()
+                    require('codecompanion').toggle()
+                end,
+                desc = '[CodeCompanion] Toggle',
+            },
+        },
         opts = {
             interactions = {
                 chat = {
                     adapter = 'ollama',
                     model = 'qwen2.5-coder:32b',
-                }
-            }
-        };
+                },
+            },
+        },
         config = function(_, opts)
             local cc = require('codecompanion')
             cc.setup(opts)
@@ -66,9 +78,9 @@ return {
                 nargs = 1,
                 complete = function(arg_lead, cmd_line, cursor_pos)
                     return { 'chat', 'toggle' }
-                end
+                end,
             })
-        end
+        end,
     },
     {
         'nickjvandyke/opencode.nvim',
@@ -81,7 +93,7 @@ return {
                 optional = true,
                 opts = {
                     input = {}, -- Enhances `ask()`
-                    picker = {  -- Enhances `select()`
+                    picker = { -- Enhances `select()`
                         actions = {
                             opencode_send = function(...)
                                 return require('opencode').snacks_picker_send(...)
@@ -159,12 +171,8 @@ return {
                 desc = '[Opencode] Scroll opencode down',
             },
         },
-        config = function()
-            ---@type opencode.Opts
-            vim.g.opencode_opts = {
-                -- Your configuration, if any; goto definition on the type or field for details
-            }
-
+        init = function()
+            vim.g.opencode_opts = {}
             vim.o.autoread = true -- Required for `opts.events.reload`
         end,
     },

@@ -1,79 +1,165 @@
 return {
     {
         'lewis6991/gitsigns.nvim',
-        event = 'BufRead',
-        config = function()
-            require('gitsigns').setup({
-                on_attach = function(bufnr)
-                    local gitsigns = require('gitsigns')
-
-                    local function map(mode, l, r, opts)
-                        opts = opts or {}
-                        opts.buffer = bufnr
-                        vim.keymap.set(mode, l, r, opts)
+        opts = {},
+        event = 'VeryLazy',
+        keys = {
+            {
+                ']c',
+                function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ ']c', bang = true })
+                    else
+                        require('gitsigns').nav_hunk('next')
                     end
-
-                    -- Navigation
-                    map('n', ']c', function()
-                        if vim.wo.diff then
-                            vim.cmd.normal({ ']c', bang = true })
-                        else
-                            gitsigns.nav_hunk('next')
-                        end
-                    end, { desc = 'Go to Next Hunk' })
-
-                    map('n', '[c', function()
-                        if vim.wo.diff then
-                            vim.cmd.normal({ '[c', bang = true })
-                        else
-                            gitsigns.nav_hunk('prev')
-                        end
-                    end, { desc = 'Go to Previous Hunk' })
-
-                    -- Actions
-                    map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Stage Hunk' })
-                    map('n', '<leader>hr', gitsigns.reset_hunk)
-                    map('v', '<leader>hs', function()
-                        gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                    end, { desc = 'Stage Hunk' })
-                    map('v', '<leader>hr', function()
-                        gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                    end)
-                    map('n', '<leader>hS', gitsigns.stage_buffer)
-                    map('n', '<leader>hu', gitsigns.undo_stage_hunk)
-                    map('n', '<leader>hR', gitsigns.reset_buffer)
-                    map('n', '<leader>hp', gitsigns.preview_hunk)
-                    map('n', '<leader>hb', function()
-                        gitsigns.blame_line({ full = true })
-                    end)
-                    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-                    map('n', '<leader>hd', gitsigns.diffthis)
-                    map('n', '<leader>hD', function()
-                        gitsigns.diffthis('~')
-                    end)
-                    map('n', '<leader>td', gitsigns.toggle_deleted)
-
-                    -- Text object
-                    map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
                 end,
-            })
-        end,
+                desc = '[GitSigns] Go to Next Hunk',
+            },
+            {
+                '[c',
+                function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ '[c', bang = true })
+                    else
+                        require('gitsigns').nav_hunk('prev')
+                    end
+                end,
+                mode = 'n',
+                desc = '[GitSigns] Go to Previous Hunk',
+            },
+
+            -- Actions
+            {
+                '<leader>hs',
+                function()
+                    require('gitsigns').stage_hunk()
+                end,
+                mode = 'n',
+                desc = '[GitSigns] Stage Hunk',
+            },
+            {
+                '<leader>hr',
+                function()
+                    require('gitsigns').reset_hunk()
+                end,
+                mode = 'n',
+                desc = '[GitSigns] Reset Hunk',
+            },
+            {
+                '<leader>hs',
+                function()
+                    require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end,
+                mode = 'x',
+                desc = '[GitSigns] Stage Hunk',
+            },
+            {
+                '<leader>hr',
+                function()
+                    require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end,
+                mode = 'x',
+                desc = '[GitSigns] Reset Hunk',
+            },
+            {
+                mode = 'n',
+                '<leader>hS',
+                function()
+                    require('gitsigns').stage_buffer()
+                end,
+                desc = '[GitSigns] Stage Buffer',
+            },
+            {
+                mode = 'n',
+                '<leader>hu',
+                function()
+                    require('gitsigns').undo_stage_hunk()
+                end,
+                desc = '[GitSigns] Undo Stage Hunk',
+            },
+            {
+                mode = 'n',
+                '<leader>hR',
+                function()
+                    require('gitsigns').reset_buffer()
+                end,
+                desc = '[GitSigns] Reset Buffer',
+            },
+            {
+                mode = 'n',
+                '<leader>hp',
+                function()
+                    require('gitsigns').preview_hunk()
+                end,
+                desc = '[GitSigns] Preview Hunk',
+            },
+            {
+                mode = 'n',
+                '<leader>hb',
+                function()
+                    require('gitsigns').blame_line({ full = true })
+                end,
+                desc = '[GitSigns] Blame Line',
+            },
+            {
+                mode = 'n',
+                '<leader>tb',
+                function()
+                    require('gitsigns').toggle_current_line_blame()
+                end,
+                desc = '[GitSigns] Toggle Blame Line',
+            },
+            {
+                mode = 'n',
+                '<leader>hd',
+                function()
+                    require('gitsigns').diffthis()
+                end,
+                desc = '[GitSigns] Diff This',
+            },
+            {
+                mode = 'n',
+                '<leader>hD',
+                function()
+                    require('gitsigns').diffthis('~')
+                end,
+                desc = '[GitSigns] Diff This ~',
+            },
+            {
+                mode = 'n',
+                '<leader>td',
+                function()
+                    require('gitsigns').toggle_deleted()
+                end,
+                desc = '[GitSigns] Toggle Deleted',
+            },
+
+            -- Text object
+            {
+                'ih',
+                function()
+                    require('gitsigns').select_hunk()
+                end,
+                mode = { 'o', 'x' },
+                desc = '[GitSigns] Select Hunk',
+            },
+        },
     },
     {
         'esmuellert/codediff.nvim',
         cmd = { 'CodeDiff', 'VscodeDiff' },
+        opts = {},
     },
     {
         -- Visualize git conflicts
         'akinsho/git-conflict.nvim',
         version = '*',
         config = true,
-        event = 'BufRead',
+        event = { 'BufReadPre', 'BufNewFile' },
     },
     {
         'nicolasgb/jj.nvim',
         version = '*', -- Use latest stable release
-        event = 'VeryLazy',
         dependencies = {
             'esmuellert/codediff.nvim',
             'folke/snacks.nvim',
@@ -86,6 +172,7 @@ return {
                 backend = 'codediff',
             },
         },
+        cmd = 'JJ',
         keys = {
             {
                 '<leader>jl',
@@ -258,14 +345,14 @@ return {
         -- TODO: Switch back to the upstream when the PR is merged
         -- 'NicholasZolton/neojj',
         'larpios/neojj',
-        branch ='fix/workspace-root-resolution',
+        branch = 'fix/workspace-root-resolution',
         lazy = true,
         opts = {
             disable_line_numbers = false,
             user_per_project_settings = false,
             integrations = {
                 codediff = true,
-                fzf_lua = true,
+                snacks = true,
             },
         },
         cmd = 'Neojj',
@@ -295,7 +382,7 @@ return {
         dependencies = {
             'nvim-lua/plenary.nvim', -- required
             'esmuellert/codediff.nvim',
-            'ibhagwan/fzf-lua',
+            'folke/snacks.nvim',
         },
     },
     {

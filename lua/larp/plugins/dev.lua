@@ -15,11 +15,11 @@ return {
             'OverseerInfo',
         },
         keys = {
-            { '<leader>cor', '<cmd>OverseerRun<cr>',        desc = 'Overseer Run' },
-            { '<leader>coR', '<cmd>OverseerRunCmd<cr>',     desc = 'Overseer Run Cmd' },
+            { '<leader>cor', '<cmd>OverseerRun<cr>', desc = 'Overseer Run' },
+            { '<leader>coR', '<cmd>OverseerRunCmd<cr>', desc = 'Overseer Run Cmd' },
             { '<leader>coa', '<cmd>OverseerTaskAction<cr>', desc = 'Overseer Task Actions' },
-            { '<leader>cob', '<cmd>OverseerBuild<cr>',      desc = 'Overseer Build' },
-            { '<leader>cot', '<cmd>OverseerToggle<cr>',     desc = 'Toggle Overseer' },
+            { '<leader>cob', '<cmd>OverseerBuild<cr>', desc = 'Overseer Build' },
+            { '<leader>cot', '<cmd>OverseerToggle<cr>', desc = 'Toggle Overseer' },
         },
         opts = {
             dap = true,
@@ -27,11 +27,11 @@ return {
                 'builtin',
                 'larp.cpp',
             },
-        }
+        },
     },
     {
         'folke/todo-comments.nvim',
-        event = 'BufRead',
+        event = { 'BufReadPost', 'BufNewFile' },
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {},
     },

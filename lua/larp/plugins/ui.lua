@@ -1,14 +1,45 @@
 return {
     {
         'nvim-lualine/lualine.nvim',
-        event = 'BufWinEnter',
+        event = 'VeryLazy',
         dependencies = {
             'nvim-tree/nvim-web-devicons',
-            'stevearc/overseer.nvim',
+            {
+                'stevearc/overseer.nvim',
+                optional = true,
+            },
+            {
+                'chrisgrieser/nvim-recorder',
+                optional = true,
+            },
         },
         config = function()
-            local overseer = require('overseer')
-            local recorder = require('recorder') -- nvim-recorder
+            local status
+
+            local overseer
+            status, overseer = pcall(require, 'overseer')
+            local overseer_component = status
+                    and {
+                        'overseer',
+                        label = '', -- Prefix for task counts
+                        colored = true, -- Color the task icons and counts
+                        symbols = {
+                            [overseer.STATUS.FAILURE] = 'F:',
+                            [overseer.STATUS.CANCELED] = 'C:',
+                            [overseer.STATUS.SUCCESS] = 'S:',
+                            [overseer.STATUS.RUNNING] = 'R:',
+                        },
+                        unique = false, -- Unique-ify non-running task count by name
+                        name = nil, -- List of task names to search for
+                        name_not = false, -- When true, invert the name search
+                        status = nil, -- List of task statuses to display
+                        status_not = false, -- When true, invert the status search
+                    }
+                or nil
+
+            local recorder
+            status, recorder = pcall(require, 'recorder')
+            recorder = status and recorder or {}
 
             require('lualine').setup({
                 options = {
@@ -36,22 +67,7 @@ return {
                         },
                     },
                     lualine_x = {
-                        {
-                            'overseer',
-                            label = '',     -- Prefix for task counts
-                            colored = true, -- Color the task icons and counts
-                            symbols = {
-                                [overseer.STATUS.FAILURE] = 'F:',
-                                [overseer.STATUS.CANCELED] = 'C:',
-                                [overseer.STATUS.SUCCESS] = 'S:',
-                                [overseer.STATUS.RUNNING] = 'R:',
-                            },
-                            unique = false,     -- Unique-ify non-running task count by name
-                            name = nil,         -- List of task names to search for
-                            name_not = false,   -- When true, invert the name search
-                            status = nil,       -- List of task statuses to display
-                            status_not = false, -- When true, invert the status search
-                        },
+                        overseer_component,
                         {
                             --- Lsp server name
                             function()
@@ -89,10 +105,6 @@ return {
         dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             'MunifTanjim/nui.nvim',
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            'nvim-treesitter/nvim-treesitter',
         },
         keys = {
             { '<leader>nd', '<cmd>NoiceDismiss<cr>', desc = 'Dismiss Notification', silent = true },
@@ -110,11 +122,11 @@ return {
                 },
                 -- you can enable a preset for easier configuration
                 presets = {
-                    bottom_search = false,        -- use a classic bottom cmdline for search
-                    command_palette = true,       -- position the cmdline and popupmenu together
+                    bottom_search = false, -- use a classic bottom cmdline for search
+                    command_palette = true, -- position the cmdline and popupmenu together
                     long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = true,            -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = true,        -- add a border to hover docs and signature help
+                    inc_rename = true, -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = true, -- add a border to hover docs and signature help
                 },
             })
             vim.api.nvim_create_autocmd('RecordingEnter', {
@@ -142,11 +154,6 @@ return {
                 group = vim.api.nvim_create_augroup('NoiceMacroNotficationDismiss', { clear = true }),
             })
         end,
-    },
-    {
-        'stevearc/dressing.nvim',
-        event = 'VeryLazy',
-        opts = {},
     },
     {
         -- Loading screen on the bottom right
@@ -278,12 +285,12 @@ return {
         dependencies = 'nvim-tree/nvim-web-devicons',
         opts = {},
         keys = {
-            { 'L',          '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = '[Bufferline] Next Buffer' },
-            { 'H',          '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = '[Bufferline] Previous Buffer' },
-            { '<leader>>',  '<cmd>BufferLineMoveNext<cr>',  mode = 'n', desc = '[Bufferline] Move Buffer to the Right' },
-            { '<leader><',  '<cmd>BufferLineMovePrev<cr>',  mode = 'n', desc = '[Bufferline] Move Buffer to the Left' },
+            { 'L', '<cmd>BufferLineCycleNext<cr>', mode = 'n', desc = '[Bufferline] Next Buffer' },
+            { 'H', '<cmd>BufferLineCyclePrev<cr>', mode = 'n', desc = '[Bufferline] Previous Buffer' },
+            { '<leader>>', '<cmd>BufferLineMoveNext<cr>', mode = 'n', desc = '[Bufferline] Move Buffer to the Right' },
+            { '<leader><', '<cmd>BufferLineMovePrev<cr>', mode = 'n', desc = '[Bufferline] Move Buffer to the Left' },
             { '<leader>bc', '<cmd>BufferLinePickClose<cr>', mode = 'n', desc = '[Bufferline] Close buffer' },
-            { '<leader>bp', '<cmd>BufferLinePick<cr>',      mode = 'n', desc = '[Bufferline] Pick Buffer' },
+            { '<leader>bp', '<cmd>BufferLinePick<cr>', mode = 'n', desc = '[Bufferline] Pick Buffer' },
             { '<leader>br', '<cmd>BufferLineTabRename<cr>', mode = 'n', desc = '[Bufferline] Rename Tab' },
         },
     },
@@ -307,7 +314,6 @@ return {
     },
     {
         'mcauley-penney/visual-whitespace.nvim',
-        config = true,
         event = 'ModeChanged *:[vV\22]', -- optionally, lazy load on entering visual mode
         opts = {},
     },
@@ -316,12 +322,30 @@ return {
         event = 'BufRead',
         dependencies = {
             'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'make'
+            build = 'make',
         },
         keys = {
-            { '<leader>;',  function() require('dropbar.api').pick() end,                 desc = '[Dropbar] Pick symbols' },
-            { '<leader>[;', function() require('dropbar.api').goto_context_start() end,   desc = '[Dropbar] Go to start of current context' },
-            { '<leader>];', function() require('dropbar.api').select_next_context() end,  desc = '[Dropbar] Select next context' },
+            {
+                '<leader>;',
+                function()
+                    require('dropbar.api').pick()
+                end,
+                desc = '[Dropbar] Pick symbols',
+            },
+            {
+                '<leader>[;',
+                function()
+                    require('dropbar.api').goto_context_start()
+                end,
+                desc = '[Dropbar] Go to start of current context',
+            },
+            {
+                '<leader>];',
+                function()
+                    require('dropbar.api').select_next_context()
+                end,
+                desc = '[Dropbar] Select next context',
+            },
         },
-    }
+    },
 }

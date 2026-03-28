@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     group = vim.api.nvim_create_augroup('keymap_read', {}),
     desc = 'Recognize *.keymap files as C files',
     pattern = '*.keymap',
@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('help_window', {}),
     desc = 'Move help window to the right',
-    pattern = { 'help', 'man', 'markdown' },
+    pattern = { 'help', 'man' },
     callback = function()
         vim.cmd('wincmd L')
     end,

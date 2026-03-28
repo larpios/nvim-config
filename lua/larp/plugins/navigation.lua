@@ -2,7 +2,6 @@ return {
     {
         'stevearc/oil.nvim',
         lazy = false,
-        tag = 'stable',
         dependencies = {
             'nvim-mini/mini.icons',
         },
@@ -51,26 +50,6 @@ return {
                     { 'name', 'asc' },
                 },
             },
-            -- sort_by = function(a, b)
-            --     if a.type == 'directory' and b.type ~= 'directory' then
-            --         return true
-            --     elseif a.type ~= 'directory' and b.type == 'directory' then
-            --         return false
-            --     else
-            --         local function get_extension(file)
-            --             return file.name:match('^.+(%..+)$') or ''
-            --         end
-            --
-            --         local ext_a = get_extension(a.name):lower()
-            --         local ext_b = get_extension(b.name):lower()
-            --
-            --         if ext_a == ext_b then
-            --             return a.name:lower() < b.name:lower()
-            --         else
-            --             return ext_a < ext_b
-            --         end
-            --     end
-            -- end,
             columns = {
                 'icon',
                 'mtime',
@@ -95,329 +74,378 @@ return {
             },
         },
     },
-    {
-        'ibhagwan/fzf-lua',
-        dependencies = { 'nvim-mini/mini.icons' },
-        opts = {
-            winopts = {
-                preview = {
-                    wrap = true,
-                    hidden = false,
-                },
-            },
-        },
-        keys = {
-            {
-                '<leader>fp',
-                function()
-                    require('fzf-lua').builtin()
-                end,
-                desc = '[FzfLua] Pick',
-            },
-            {
-                '<leader>ff',
-                function()
-                    require('fzf-lua').files()
-                end,
-                desc = '[FzfLua] Files',
-            },
-            {
-                '<leader>fc',
-                function()
-                    require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
-                end,
-                desc = '[FzfLua] Neovim Files',
-            },
-            {
-                '<leader>f.',
-                function()
-                    require('fzf-lua').resume()
-                end,
-                desc = '[FzfLua] Resume',
-            },
-            {
-                '<leader>fF',
-                function()
-                    require('fzf-lua').global()
-                end,
-                desc = '[FzfLua] Global Search',
-            },
-            {
-                '<leader>fb',
-                function()
-                    require('fzf-lua').buffers()
-                end,
-                desc = '[FzfLua] Buffers',
-            },
-            {
-                '<leader>fr',
-                function()
-                    require('fzf-lua').oldfiles()
-                end,
-                desc = '[FzfLua] Recent',
-            },
-            {
-                '<leader>fH',
-                function()
-                    require('fzf-lua').history()
-                end,
-                desc = '[FzfLua] History',
-            },
-            {
-                '<leader>fb',
-                function()
-                    require('fzf-lua').blines()
-                end,
-                desc = '[FzfLua] Current Buffer Lines',
-            },
-            {
-                '<leader>fB',
-                function()
-                    require('fzf-lua').lines()
-                end,
-                desc = '[FzfLua] Buffers Lines',
-            },
-            {
-                '<leader>ft',
-                function()
-                    require('fzf-lua').treesitter()
-                end,
-                desc = '[FzfLua] Treesitter',
-            },
-            {
-                '<leader>fT',
-                function()
-                    require('fzf-lua').tabs()
-                end,
-                desc = '[FzfLua] Tabs',
-            },
-            {
-                '<leader>fv',
-                function()
-                    require('fzf-lua').vcs_files()
-                end,
-                desc = '[FzfLua] VCS Files (Git/Jujutsu)',
-            },
-            {
-                '<leader>fh',
-                function()
-                    require('fzf-lua').helptags()
-                end,
-                desc = '[FzfLua] Help',
-            },
-            {
-                '<leader>fm',
-                function()
-                    require('fzf-lua').manpages()
-                end,
-                desc = '[FzfLua] Man Pages',
-            },
-            {
-                '<leader>fC',
-                function()
-                    require('fzf-lua').commands()
-                end,
-                desc = '[FzfLua] Commands',
-            },
-            {
-                '<leader>f:',
-                function()
-                    require('fzf-lua').command_history()
-                end,
-                desc = '[FzfLua] Command History',
-            },
-            {
-                '<leader>f"',
-                function()
-                    require('fzf-lua').registers()
-                end,
-                desc = '[FzfLua] Registers',
-            },
-            {
-                '<leader>fxc',
-                function()
-                    require('fzf-lua').changes()
-                end,
-                desc = '[FzfLua] Changes',
-            },
-            {
-                '<leader>fu',
-                function()
-                    require('fzf-lua').undotree()
-                end,
-                desc = '[FzfLua] Undotree',
-            },
-            {
-                '<leader>fk',
-                function()
-                    require('fzf-lua').keymaps()
-                end,
-                desc = '[FzfLua] Keymaps',
-            },
-            {
-                '<leader>fj',
-                function()
-                    require('fzf-lua').jumps()
-                end,
-                desc = '[FzfLua] Jumps',
-            },
-            {
-                '<leader>fa',
-                function()
-                    require('fzf-lua').autocmds()
-                end,
-                desc = '[FzfLua] Autocmds',
-            },
-            {
-                '<leader>fxt',
-                function()
-                    require('fzf-lua').tmux_buffers()
-                end,
-                desc = '[FzfLua] Tmux Buffers',
-            },
-            {
-                '<leader>fz',
-                function()
-                    require('fzf-lua').zoxide()
-                end,
-                desc = '[FzfLua] Zoxide',
-            },
-
-            -- Grep
-            {
-                '<leader>sg',
-                function()
-                    require('fzf-lua').live_grep()
-                end,
-                desc = '[FzfLua] Grep',
-            },
-            {
-                '<leader>sc',
-                function()
-                    require('fzf-lua').live_grep({ cwd = vim.fn.stdpath('config') })
-                end,
-                desc = '[FzfLua] Grep Neovim',
-            },
-            {
-                '<leader>sw',
-                function()
-                    require('fzf-lua').grep_cword()
-                end,
-                desc = '[FzfLua] Grep Word',
-            },
-            {
-                '<leader>sW',
-                function()
-                    require('fzf-lua').grep_cWORD()
-                end,
-                desc = '[FzfLua] Grep WORD',
-            },
-            {
-                '<leader>sw',
-                function()
-                    require('fzf-lua').grep_visual()
-                end,
-                mode = { 'x', 'v' },
-                desc = '[FzfLua] Grep Selection',
-            },
-            {
-                '<leader>sl',
-                function()
-                    require('fzf-lua').grep_loclist()
-                end,
-                desc = '[FzfLua] Grep Loclist',
-            },
-
-            -- LSP
-            {
-                'grr',
-                function()
-                    require('fzf-lua').lsp_references()
-                end,
-                desc = '[FzfLua] LSP References',
-            },
-            {
-                'gd',
-                function()
-                    require('fzf-lua').lsp_definitions()
-                end,
-                desc = '[FzfLua] LSP Definitions',
-            },
-            {
-                'gD',
-                function()
-                    require('fzf-lua').lsp_declarations()
-                end,
-                desc = '[FzfLua] LSP Declarations',
-            },
-            {
-                'grt',
-                function()
-                    require('fzf-lua').lsp_typedefs()
-                end,
-                desc = '[FzfLua] LSP Type Definitions',
-            },
-            {
-                'gri',
-                function()
-                    require('fzf-lua').lsp_implementations()
-                end,
-                desc = '[FzfLua] LSP Implementations',
-            },
-            {
-                'grci',
-                function()
-                    require('fzf-lua').lsp_incoming_calls()
-                end,
-                desc = '[FzfLua] LSP Incoming Calls',
-            },
-            {
-                'grco',
-                function()
-                    require('fzf-lua').lsp_outcoming_calls()
-                end,
-                desc = '[FzfLua] LSP Outcoming Calls',
-            },
-            {
-                'gra',
-                function()
-                    require('fzf-lua').lsp_code_actions()
-                end,
-                desc = '[FzfLua] LSP Code Actions',
-            },
-            {
-                '<leader>sd',
-                function()
-                    require('fzf-lua').diagnostics_document()
-                end,
-                desc = '[FzfLua] Diagnostics Document',
-            },
-            {
-                '<leader>sD',
-                function()
-                    require('fzf-lua').diagnostics_workspace()
-                end,
-                desc = '[FzfLua] Diagnostics Workspace',
-            },
-
-            -- Jujutsu
-            {
-                '<leader>jsf',
-                function()
-                    require('fzf-lua').jj_files()
-                end,
-                desc = '[FzfLua] Jujutsu Files',
-            },
-        },
-    },
+    -- {
+    --     'ibhagwan/fzf-lua',
+    --     enabled = false,
+    --     dependencies = { 'nvim-mini/mini.icons' },
+    --     opts = {
+    --         winopts = {
+    --             preview = {
+    --                 wrap = true,
+    --                 hidden = false,
+    --             },
+    --         },
+    --     },
+    --     keys = {
+    --         {
+    --             '<leader>fp',
+    --             function()
+    --                 require('fzf-lua').builtin()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Pick',
+    --         },
+    --         {
+    --             '<leader>ff',
+    --             function()
+    --                 require('fzf-lua').files()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Files',
+    --         },
+    --         {
+    --             '<leader>fc',
+    --             function()
+    --                 require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Neovim Files',
+    --         },
+    --         {
+    --             '<leader>f.',
+    --             function()
+    --                 require('fzf-lua').resume()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Resume',
+    --         },
+    --         {
+    --             '<leader>fF',
+    --             function()
+    --                 require('fzf-lua').global()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Global Search',
+    --         },
+    --         {
+    --             '<leader>fb',
+    --             function()
+    --                 require('fzf-lua').buffers()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Buffers',
+    --         },
+    --         {
+    --             '<leader>fr',
+    --             function()
+    --                 require('fzf-lua').oldfiles()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Recent',
+    --         },
+    --         {
+    --             '<leader>fH',
+    --             function()
+    --                 require('fzf-lua').history()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] History',
+    --         },
+    --         {
+    --             '<leader>fb',
+    --             function()
+    --                 require('fzf-lua').blines()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Current Buffer Lines',
+    --         },
+    --         {
+    --             '<leader>fB',
+    --             function()
+    --                 require('fzf-lua').lines()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Buffers Lines',
+    --         },
+    --         {
+    --             '<leader>ft',
+    --             function()
+    --                 require('fzf-lua').treesitter()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Treesitter',
+    --         },
+    --         {
+    --             '<leader>fT',
+    --             function()
+    --                 require('fzf-lua').tabs()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Tabs',
+    --         },
+    --         {
+    --             '<leader>fv',
+    --             function()
+    --                 require('fzf-lua').vcs_files()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] VCS Files (Git/Jujutsu)',
+    --         },
+    --         {
+    --             '<leader>fh',
+    --             function()
+    --                 require('fzf-lua').helptags()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Help',
+    --         },
+    --         {
+    --             '<leader>fm',
+    --             function()
+    --                 require('fzf-lua').manpages()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Man Pages',
+    --         },
+    --         {
+    --             '<leader>fC',
+    --             function()
+    --                 require('fzf-lua').commands()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Commands',
+    --         },
+    --         {
+    --             '<leader>f:',
+    --             function()
+    --                 require('fzf-lua').command_history()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Command History',
+    --         },
+    --         {
+    --             '<leader>f"',
+    --             function()
+    --                 require('fzf-lua').registers()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Registers',
+    --         },
+    --         {
+    --             '<leader>fxc',
+    --             function()
+    --                 require('fzf-lua').changes()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Changes',
+    --         },
+    --         {
+    --             '<leader>fu',
+    --             function()
+    --                 require('fzf-lua').undotree()
+    --             end,
+    --             desc = '[FzfLua] Undotree',
+    --             mode = { 'n', 'x' },
+    --         },
+    --         {
+    --             '<leader>fk',
+    --             function()
+    --                 require('fzf-lua').keymaps()
+    --             end,
+    --             desc = '[FzfLua] Keymaps',
+    --             mode = { 'n', 'x' },
+    --         },
+    --         {
+    --             '<leader>fj',
+    --             function()
+    --                 require('fzf-lua').jumps()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Jumps',
+    --         },
+    --         {
+    --             '<leader>fa',
+    --             function()
+    --                 require('fzf-lua').autocmds()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Autocmds',
+    --         },
+    --         {
+    --             '<leader>fxt',
+    --             function()
+    --                 require('fzf-lua').tmux_buffers()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Tmux Buffers',
+    --         },
+    --         {
+    --             '<leader>fz',
+    --             function()
+    --                 require('fzf-lua').zoxide()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Zoxide',
+    --         },
+    --
+    --         -- Grep
+    --         {
+    --             '<leader>sg',
+    --             function()
+    --                 require('fzf-lua').live_grep()
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Grep',
+    --         },
+    --         {
+    --             '<leader>sc',
+    --             function()
+    --                 require('fzf-lua').live_grep({ cwd = vim.fn.stdpath('config') })
+    --             end,
+    --             mode = { 'n', 'x' },
+    --             desc = '[FzfLua] Grep Neovim',
+    --         },
+    --         {
+    --             '<leader>sw',
+    --             function()
+    --                 require('fzf-lua').grep_cword()
+    --             end,
+    --             desc = '[FzfLua] Grep Word',
+    --         },
+    --         {
+    --             '<leader>sW',
+    --             function()
+    --                 require('fzf-lua').grep_cWORD()
+    --             end,
+    --             desc = '[FzfLua] Grep WORD',
+    --         },
+    --         {
+    --             '<leader>sw',
+    --             function()
+    --                 require('fzf-lua').grep_visual()
+    --             end,
+    --             mode = { 'x', 'x' },
+    --             desc = '[FzfLua] Grep Selection',
+    --         },
+    --         {
+    --             '<leader>sl',
+    --             function()
+    --                 require('fzf-lua').grep_loclist()
+    --             end,
+    --             desc = '[FzfLua] Grep Loclist',
+    --         },
+    --
+    --         -- LSP
+    --         {
+    --             'grr',
+    --             function()
+    --                 require('fzf-lua').lsp_references()
+    --             end,
+    --             desc = '[FzfLua] LSP References',
+    --         },
+    --         {
+    --             'gd',
+    --             function()
+    --                 require('fzf-lua').lsp_definitions()
+    --             end,
+    --             desc = '[FzfLua] LSP Definitions',
+    --         },
+    --         {
+    --             'gD',
+    --             function()
+    --                 require('fzf-lua').lsp_declarations()
+    --             end,
+    --             desc = '[FzfLua] LSP Declarations',
+    --         },
+    --         {
+    --             'grt',
+    --             function()
+    --                 require('fzf-lua').lsp_typedefs()
+    --             end,
+    --             desc = '[FzfLua] LSP Type Definitions',
+    --         },
+    --         {
+    --             'gri',
+    --             function()
+    --                 require('fzf-lua').lsp_implementations()
+    --             end,
+    --             desc = '[FzfLua] LSP Implementations',
+    --         },
+    --         {
+    --             'grci',
+    --             function()
+    --                 require('fzf-lua').lsp_incoming_calls()
+    --             end,
+    --             desc = '[FzfLua] LSP Incoming Calls',
+    --         },
+    --         {
+    --             'grco',
+    --             function()
+    --                 require('fzf-lua').lsp_outcoming_calls()
+    --             end,
+    --             desc = '[FzfLua] LSP Outcoming Calls',
+    --         },
+    --         {
+    --             'gra',
+    --             function()
+    --                 require('fzf-lua').lsp_code_actions()
+    --             end,
+    --             desc = '[FzfLua] LSP Code Actions',
+    --         },
+    --         {
+    --             '<leader>sd',
+    --             function()
+    --                 require('fzf-lua').diagnostics_document()
+    --             end,
+    --             desc = '[FzfLua] Diagnostics Document',
+    --         },
+    --         {
+    --             '<leader>sD',
+    --             function()
+    --                 require('fzf-lua').diagnostics_workspace()
+    --             end,
+    --             desc = '[FzfLua] Diagnostics Workspace',
+    --         },
+    --
+    --         -- Jujutsu
+    --         {
+    --             '<leader>jsf',
+    --             function()
+    --                 require('fzf-lua').jj_files()
+    --             end,
+    --             desc = '[FzfLua] Jujutsu Files',
+    --         },
+    --     },
+    -- },
     {
         'folke/flash.nvim',
         event = 'VeryLazy',
         ---@type Flash.Config
         opts = {
+            search = {
+                mode = 'fuzzy',
+                incremental = true,
+            },
+            jump = {
+                history = true,
+                nohlsearch = true,
+                autojump = true, -- TODO: Remove it after testing
+            },
+            label = {
+                uppercase = false,
+            },
             modes = {
                 char = {
                     jump_labels = true,
+                    autohide = true,
+                    jump = {
+                        autojump = true,
+                    },
+                },
+                treesitter = {
+                    search = {
+                        incremental = true,
+                    },
                 },
             },
         },
@@ -440,7 +468,7 @@ return {
         keys = {
             {
                 '<leader>ty',
-                mode = { 'n', 'v' },
+                mode = { 'n', 'x' },
                 '<cmd>Yazi<cr>',
                 desc = '[Yazi] Open yazi at the current file',
             },
@@ -456,28 +484,8 @@ return {
             -- enable it if you want to open yazi instead of netrw, see below for more info
             open_for_directories = false,
             keymaps = {
-                show_help = '<f1>',
+                show_help = '?',
             },
-        },
-    },
-    {
-        'folke/flash.nvim',
-        event = 'VeryLazy',
-        ---@type Flash.Config
-        opts = {
-            modes = {
-                char = {
-                    jump_labels = true,
-                },
-            },
-        },
-        -- stylua: ignore
-        keys = {
-            { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-            { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-            { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
-            { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-            { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
         },
     },
 }

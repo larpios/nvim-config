@@ -3,51 +3,27 @@ return {
         -- Sudo write/read
         'lambdalisue/vim-suda',
         keys = {
-            { '<leader><leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = 'Sudo Write' },
-            { '<leader><leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = 'Sudo Read' },
+            { '<leader>Sw', '<cmd>SudaWrite<cr>', mode = 'n', desc = '[Suda] Sudo Write' },
+            { '<leader>Sr', '<cmd>SudaRead<cr>', mode = 'n', desc = '[Suda] Sudo Read' },
         },
         cmd = { 'SudaWrite', 'SudaRead' },
-        config = function()
+        init = function()
             vim.g.suda_smart_edit = 1
         end,
     },
     {
         'MagicDuck/grug-far.nvim',
         cmd = { 'GrugFar', 'GrugFarWithin' },
-        config = function()
-            require('grug-far').setup({
-                -- options, see Configuration section below
-                -- there are no required options atm
-                -- engine = 'ripgrep' is default, but 'astgrep' can be specified
-            })
-        end,
+        opts = {},
     },
 
     {
         -- Preview the definition of the word under the cursor
         'rmagatti/goto-preview',
-        event = 'BufRead',
+        event = 'BufReadPre',
         opts = {
             default_mappings = true,
         },
-    },
-    {
-        -- AutoSession takes advantage of Neovim's existing session management capabilities
-        -- to provide seamless automatic session management.
-        'rmagatti/auto-session',
-        lazy = false,
-
-        ---enables autocomplete for opts
-        ---@module "auto-session"
-        ---@type AutoSession.Config
-        opts = {
-            auto_restore = false,
-            suppressed_dirs = { '~/', '~/Downloads', '/' },
-            -- log_level = 'debug',
-        },
-        init = function()
-            vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-        end,
     },
     {
         'stevearc/quicker.nvim',
@@ -58,37 +34,34 @@ return {
                 function()
                     require('quicker').toggle()
                 end,
-                desc = 'Toggle quickfix',
+                desc = '[Quicker] Toggle quickfix',
             },
             {
                 '<leader>tl',
                 function()
                     require('quicker').toggle({ loclist = true })
                 end,
-                desc = 'Toggle loclist',
+                desc = '[Quicker] Toggle loclist',
             },
         },
-        config = function()
-            local quicker = require('quicker')
-            quicker.setup({
-                keys = {
-                    {
-                        '>',
-                        function()
-                            quicker.expand({ before = 2, after = 2, add_to_existing = true })
-                        end,
-                        desc = 'Expand quickfix context',
-                    },
-                    {
-                        '<',
-                        function()
-                            quicker.collapse()
-                        end,
-                        desc = 'Collapse quickfix context',
-                    },
+        opts = {
+            keys = {
+                {
+                    '>',
+                    function()
+                        quicker.expand({ before = 2, after = 2, add_to_existing = true })
+                    end,
+                    desc = 'Expand quickfix context',
                 },
-            })
-        end,
+                {
+                    '<',
+                    function()
+                        quicker.collapse()
+                    end,
+                    desc = 'Collapse quickfix context',
+                },
+            },
+        },
     },
     {
         -- Color picker utils
@@ -192,12 +165,9 @@ return {
     {
         -- Awesome Neovim plugin list
         'alex-popov-tech/store.nvim',
-        dependencies = {
-            'OXY2DEV/markview.nvim', -- optional, for pretty readme preview / help window
-        },
         cmd = 'Store',
         keys = {
-            { '<leader>ps', '<cmd>Store<cr>', desc = 'Open Plugin Store' },
+            { '<leader>ps', '<cmd>Store<cr>', desc = '[Store] Open Plugin Store' },
         },
         opts = {
             telemetry = false,
@@ -205,8 +175,8 @@ return {
     },
     {
         -- Check assigned keys
-        "meznaric/key-analyzer.nvim",
+        'meznaric/key-analyzer.nvim',
         cmd = 'KeyAnalyzer',
-        opts = {}
+        opts = {},
     },
 }

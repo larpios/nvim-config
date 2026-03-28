@@ -41,6 +41,7 @@ return {
         cmd = { 'RenderMarkdown' },
         ft = { 'markdown', 'vimwiki' },
         opts = {
+            file_types = { 'markdown', 'vimwiki' },
             completions = {
                 lsp = {
                     enabled = true,
@@ -50,9 +51,12 @@ return {
                 },
             },
         },
+        init = function()
+            vim.treesitter.language.register('markdown', 'markdown')
+        end,
         dependencies = {
             'nvim-treesitter/nvim-treesitter',
-            'echasnovski/mini.nvim',
+            'nvim-mini/mini.nvim',
             {
                 'epwalsh/obsidian.nvim',
                 optional = true,
@@ -60,8 +64,7 @@ return {
                     require('obsidian').get_client().opts.ui.enable = false
                     vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_get_namespaces()['ObsidianUI'], 0, -1)
                 end,
-            }
-
+            },
         },
     },
     {
@@ -76,22 +79,18 @@ return {
         -- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
         ft = 'norg',
         cmd = 'Neorg',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-neorg/neorg-telescope',
-        },             -- Load plenary as a dependency
         version = '*', -- Pin Neorg to the latest stable release
         keys = {
-            { '<leader>no',       '<cmd>Neorg<CR>',                                     desc = 'Open Neorg',           mode = 'n' },
-            { '<leader>nw',       desc = 'Open Neorg Workspace' },
-            { '<leader>nfh',      '<Plug>(neorg.telescope.search_headings)',            desc = 'Find Norg Headings' },
-            { '<leader>nff',      '<Plug>(neorg.telescope.find_norg_files)',            desc = 'Find Norg Files' },
-            { '<leader>nfb',      '<Plug>(neorg.telescope.backlinks.file_backlinks)',   desc = 'Find Backlinks' },
-            { '<leader>nfB',      '<Plug>(neorg.telescope.backlinks.header_backlinks)', desc = 'Find Header Backlinks' },
-            { '<localleader>niL', '<Plug>(neorg.telescope.insert_file_link)',           desc = 'Insert File Link' },
-            { '<localleader>nil', '<Plug>(neorg.telescope.insert_link)',                desc = 'Insert Link' },
-            { '<C-@>',            '<C-Space>',                                          mode = { 'i', 'x', 'n' },      desc = 'Continue Current Object' },
-            { '<C-Space>',        '<Plug>(neorg.itero.next-iteration)',                 mode = { 'i', 'x', 'n' },      desc = 'Continue Current Object' },
+            { '<leader>no', '<cmd>Neorg<CR>', desc = 'Open Neorg', mode = 'n' },
+            { '<leader>nw', desc = 'Open Neorg Workspace' },
+            { '<leader>nfh', '<Plug>(neorg.telescope.search_headings)', desc = 'Find Norg Headings' },
+            { '<leader>nff', '<Plug>(neorg.telescope.find_norg_files)', desc = 'Find Norg Files' },
+            { '<leader>nfb', '<Plug>(neorg.telescope.backlinks.file_backlinks)', desc = 'Find Backlinks' },
+            { '<leader>nfB', '<Plug>(neorg.telescope.backlinks.header_backlinks)', desc = 'Find Header Backlinks' },
+            { '<localleader>niL', '<Plug>(neorg.telescope.insert_file_link)', desc = 'Insert File Link' },
+            { '<localleader>nil', '<Plug>(neorg.telescope.insert_link)', desc = 'Insert Link' },
+            { '<C-@>', '<C-Space>', mode = { 'i', 'x', 'n' }, desc = 'Continue Current Object' },
+            { '<C-Space>', '<Plug>(neorg.itero.next-iteration)', mode = { 'i', 'x', 'n' }, desc = 'Continue Current Object' },
         },
         config = function()
             local my_workspaces = {
@@ -169,45 +168,43 @@ return {
                     vim.o.conceallevel = 3
                     vim.keymap.set('n', '<up>', '<Plug>(neorg.text-objects.item-up)', { desc = 'Move item up' })
                     vim.keymap.set('n', '<down>', '<Plug>(neorg.text-objects.item-down)', { desc = 'Move item down' })
-                    vim.keymap.set({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)',
-                        { desc = 'Select heading' })
-                    vim.keymap.set({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)',
-                        { desc = 'Select heading' })
-                    vim.keymap.set({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)',
-                        { desc = 'Cycle through Task Modes' })
+                    vim.keymap.set({ 'o', 'x' }, 'iH', '<Plug>(neorg.text-objects.textobject.heading.inner)', { desc = 'Select heading' })
+                    vim.keymap.set({ 'o', 'x' }, 'aH', '<Plug>(neorg.text-objects.textobject.heading.outer)', { desc = 'Select heading' })
+                    vim.keymap.set({ 'n', 'x' }, '<localleader>T', '<Plug>(neorg.qol.todo-items.todo.task-cycle)', { desc = 'Cycle through Task Modes' })
                     vim.keymap.set({ 'i', 'x', 'n' }, '<C-@>', '<C-Space>')
-                    vim.keymap.set({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)',
-                        { desc = 'Continue Current Object' })
-                    vim.keymap.set({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)',
-                        { desc = 'Continue Current Object' })
-                    vim.keymap.set({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)',
-                        { desc = 'Continue Current Object' })
-                    vim.keymap.set('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>',
-                        { desc = 'Toggle Concealer' })
+                    vim.keymap.set({ 'i', 'x', 'n' }, '<S-CR>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    vim.keymap.set({ 'i', 'x', 'n' }, '<C-Space>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    vim.keymap.set({ 'i', 'x', 'n' }, '<C-S-a>', '<Plug>(neorg.itero.next-iteration)', { desc = 'Continue Current Object' })
+                    vim.keymap.set('', '<localleader>Tc', '<cmd>Neorg toggle-concealer<cr>', { desc = 'Toggle Concealer' })
                 end,
             })
         end,
     },
     {
         'nvim-orgmode/orgmode',
-        event = 'VeryLazy',
         ft = { 'org' },
         keys = {
             {
                 '<leader>oo',
                 function()
-                    require('orgmode').setup(); vim.cmd('e ~/obsidian-vault/')
+                    require('orgmode').setup()
+                    vim.cmd('e ~/obsidian-vault/')
                 end,
-                desc = 'Open Orgmode'
+                desc = 'Open Orgmode',
             },
-            { '<leader>of', function() require('fzf-lua').files({ cwd = '~/obsidian-vault/' }) end, desc = 'Find Org Files' },
+            {
+                '<leader>of',
+                function()
+                    require('fzf-lua').files({ cwd = '~/obsidian-vault/' })
+                end,
+                desc = 'Find Org Files',
+            },
             {
                 '<leader>oj',
                 function()
                     local org_path = '~/obsidian-vault/'
                     local today = os.date('*t')
-                    local journal = org_path ..
-                        '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
+                    local journal = org_path .. '/journal/' .. today.year .. '/' .. today.month .. '/' .. today.day .. '.org'
                     if vim.fn.filereadable(vim.fn.expand(journal)) == 0 then
                         vim.cmd('silent !mkdir -p ' .. org_path .. '/journal/' .. today.year .. '/' .. today.month)
                         vim.cmd('silent !touch ' .. journal)
@@ -244,10 +241,10 @@ return {
         },
         keys = {
             { '<leader>Off', '<cmd>ObsidianQuickSwitch<cr>', mode = 'n', desc = 'Search Obsidian Vault' },
-            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>',      mode = 'n', desc = 'Grep Obsidian Vault' },
-            { '<leader>Ot',  '<cmd>ObsidianTOC<cr>',         mode = 'n', desc = 'Search Obsidian TOC' },
-            { '<leader>Oft', '<cmd>ObsidianTags<cr>',        mode = 'n', desc = 'Find Obsidian Tags' },
-            { '<leader>Oj',  '<cmd>ObsidianDailies<cr>',     mode = 'n', desc = 'Obsidian Journal' },
+            { '<leader>Ogg', '<cmd>ObsidianSearch<cr>', mode = 'n', desc = 'Grep Obsidian Vault' },
+            { '<leader>Ot', '<cmd>ObsidianTOC<cr>', mode = 'n', desc = 'Search Obsidian TOC' },
+            { '<leader>Oft', '<cmd>ObsidianTags<cr>', mode = 'n', desc = 'Find Obsidian Tags' },
+            { '<leader>Oj', '<cmd>ObsidianDailies<cr>', mode = 'n', desc = 'Obsidian Journal' },
             {
                 '<leader>Ofw',
                 function()
@@ -280,8 +277,7 @@ return {
                             if obj.code == 0 then
                                 vim.notify('Obsidian Pull: Success', vim.log.levels.INFO)
                             else
-                                vim.notify('Obsidian Pull Failed:\n' .. (obj.stderr or obj.stdout or ''),
-                                    vim.log.levels.ERROR)
+                                vim.notify('Obsidian Pull Failed:\n' .. (obj.stderr or obj.stdout or ''), vim.log.levels.ERROR)
                             end
                         end)
                     end)
@@ -314,9 +310,7 @@ return {
                             else
                                 local err = obj.stderr or obj.stdout or ''
                                 if err:match('Conflicts detected!') then
-                                    vim.notify(
-                                        'Obsidian Push Aborted: Conflicts detected! Please resolve before pushing.',
-                                        vim.log.levels.WARN)
+                                    vim.notify('Obsidian Push Aborted: Conflicts detected! Please resolve before pushing.', vim.log.levels.WARN)
                                 else
                                     vim.notify('Obsidian Push Failed:\n' .. err, vim.log.levels.ERROR)
                                 end
@@ -391,7 +385,7 @@ return {
                 },
                 ui = {
                     enable = true,
-                    update_debounce = 200,  -- update delay after a text change (in milliseconds)
+                    update_debounce = 200, -- update delay after a text change (in milliseconds)
                     max_file_length = 5000, -- disable UI features for files with more than this many lines
                     checkboxes = {
                         [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
@@ -430,12 +424,6 @@ return {
         end,
     },
     {
-        'chomosuke/typst-preview.nvim',
-        ft = { 'typst' },
-        version = '1.*',
-        opts = {}, -- lazy.nvim will implicitly calls `setup {}`
-    },
-    {
         'codethread/qmk.nvim',
         enabled = false,
         ft = { 'keymap' },
@@ -463,7 +451,7 @@ return {
     {
         'mrjones2014/smart-splits.nvim',
         version = '>=1.0.0',
-        lazy = false,
+        event = 'VeryLazy',
         opts = {
             multiplexer_integration = true,
             zellij_move_focus_or_tab = true,

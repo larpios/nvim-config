@@ -48,8 +48,7 @@ vim.keymap.set({ 'n', 'x' }, 'Zww', ':w<cr>', { desc = 'Write to Buffer', norema
 vim.keymap.set({ 'n', 'x' }, 'Zwa', ':wa<cr>', { desc = 'Write All', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, 'Zwq', ':wq<cr>', { desc = 'Write and Quit', noremap = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, 'ZwQ', ':wqa<cr>', { desc = 'Write All and Quit', noremap = true, silent = true })
-vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>',
-    { desc = 'Open Neovim Config', silent = true })
+vim.keymap.set({ 'n', 'x' }, '<leader>oc', ':e ' .. vim.fn.stdpath('config') .. '<CR>', { desc = 'Open Neovim Config', silent = true })
 vim.keymap.set('n', '<leader>so', function()
     vim.notify('Sourced ' .. vim.fn.expand('%:p'))
     vim.cmd('source ' .. vim.fn.expand('%:p'))
@@ -67,6 +66,10 @@ vim.keymap.set('', '<leader>bo', function()
             return
         end
         path = oil.get_current_dir()
+        if path == nil then
+            vim.notify('Failed to get current directory', vim.log.levels.ERROR)
+            return
+        end
     end
     vim.cmd('cd ' .. path)
     vim.notify('Changed directory to ' .. path)
@@ -80,6 +83,7 @@ vim.keymap.set('n', 'j', function()
 end, { desc = 'Navigate One Line Down' })
 vim.keymap.set('n', 'k', function()
     if vim.v.count > 1 then
+        -- If we prefix it with a count, that means we are looking at the relative line number.
         vim.cmd('normal! ' .. vim.v.count .. 'k')
     else
         vim.cmd('normal! gk')
@@ -106,7 +110,7 @@ vim.keymap.set({ 'i', 'x' }, 'zx', '<Esc>')
 vim.keymap.set('i', '<C-C>', function()
     vim.cmd('stopinsert')
 end) -- Use <C-C> to act as <ESC>
-vim.keymap.set('', '<leader>y', function ()
+vim.keymap.set('', '<leader>y', function()
     vim.cmd('normal! "+y')
     vim.notify('Yanked to Clipboard')
 end, { desc = 'Yank to Clipboard' })
@@ -130,9 +134,10 @@ vim.keymap.set('', '<leader>p', function()
     end
 end, { desc = 'Paste (Without Cutting)' })
 vim.keymap.set('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
--- vim.keymap.set('n', '<Tab>', 'za', { desc = 'Toggle Fold' })
+
+-- Better Indentation. You can continue pressing < or > to indent more.
+vim.keymap.set('x', '<', '<gv')
+vim.keymap.set('x', '>', '>gv')
 
 vim.keymap.set('n', '<leader>lo', function()
     require('larp.utils.orphans').check_orphans()
@@ -147,14 +152,13 @@ end, { nargs = '?' })
 vim.keymap.set({ 'n', 'x' }, 'gh', function()
     vim.diagnostic.open_float({
         focusable = true,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        source = 'always'
+        close_events = { 'BufLeave', 'InsertEnter', 'FocusLost' },
+        source = true,
     })
-end, { desc = 'Open Diagnostics' })
+end, { desc = 'open diagnostics' })
 vim.keymap.set({ 'n', 'x' }, '<leader>ca', function()
     vim.lsp.buf.code_action()
 end, { desc = 'Open Diagnostics' })
-
 
 -- # Misc.
 

@@ -13,42 +13,42 @@ return {
                 function()
                     require('dap').toggle_breakpoint()
                 end,
-                desc = 'DAP: Toggle Breakpoint',
+                desc = '[DAP] Toggle Breakpoint',
             },
             {
                 '<leader>dc',
                 function()
                     require('dap').continue()
                 end,
-                desc = 'DAP: Continue',
+                desc = '[DAP] Continue',
             },
             {
                 '<leader>di',
                 function()
                     require('dap').step_into()
                 end,
-                desc = 'DAP: Step Into',
+                desc = '[DAP] Step Into',
             },
             {
                 '<leader>do',
                 function()
                     require('dap').step_over()
                 end,
-                desc = 'DAP: Step Over',
+                desc = '[DAP] Step Over',
             },
             {
                 '<leader>dt',
                 function()
                     require('dap').terminate()
                 end,
-                desc = 'DAP: Terminate',
+                desc = '[DAP] Terminate',
             },
             {
                 '<leader>du',
                 function()
                     require('dapui').toggle()
                 end,
-                desc = 'DAP: Toggle UI',
+                desc = '[DAP] Toggle UI',
             },
         },
         config = function()

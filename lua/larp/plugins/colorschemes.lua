@@ -4,7 +4,7 @@ return {
         name = 'catppuccin',
         priority = 1000,
         opts = {
-            flavour = 'auto',                                   -- latte, frappe, macchiato, mocha
+            flavour = 'auto', -- latte, frappe, macchiato, mocha
             transparent_background = vim.g.transparent_enabled, -- from transparent.nvim
             float = {
                 transparent = vim.g.transparent_enabled,
@@ -74,80 +74,48 @@ return {
         enabled = true,
         lazy = false,
         priority = 500,
-        config = function()
+        opts = {
+            groups = {
+                'Normal',
+                'NormalNC',
+                'Comment',
+                'Constant',
+                'Special',
+                'Identifier',
+                'Statement',
+                'PreProc',
+                'Type',
+                'Underlined',
+                'Todo',
+                'String',
+                'Function',
+                'Conditional',
+                'Repeat',
+                'Operator',
+                'Structure',
+                'LineNr',
+                'NonText',
+                'SignColumn',
+                -- 'CursorLine',
+                'CursorLineNr',
+                'StatusLine',
+                'StatusLineNC',
+                'EndOfBuffer',
+            },
+            extra_groups = {
+                'SnacksPicker',
+                'SnacksPickerInput',
+                'FloatTitle',
+                'FloatBorder',
+                'FzfLuaNormal',
+                'MasonNormal',
+            },
+        },
+        config = function(_, opts)
             local transparent = require('transparent')
-            transparent.setup({
-                groups = {
-                    'Normal',
-                    'NormalNC',
-                    'Comment',
-                    'Constant',
-                    'Special',
-                    'Identifier',
-                    'Statement',
-                    'PreProc',
-                    'Type',
-                    'Underlined',
-                    'Todo',
-                    'String',
-                    'Function',
-                    'Conditional',
-                    'Repeat',
-                    'Operator',
-                    'Structure',
-                    'LineNr',
-                    'NonText',
-                    'SignColumn',
-                    -- 'CursorLine',
-                    'CursorLineNr',
-                    'StatusLine',
-                    'StatusLineNC',
-                    'EndOfBuffer',
-                },
-                extra_groups = {
-                    'SnacksPicker',
-                    'FloatTitle',
-                    'FloatBorder',
-                    'FzfLuaNormal',
-                },
-            })
+            transparent.setup(opts)
 
             transparent.clear_prefix('WhichKey')
         end,
     },
-
-    -- {
-    --     'navarasu/onedark.nvim',
-    --     priority = 1000, -- make sure to load this before all the other start plugins
-    --     config = function()
-    --         require('onedark').setup({
-    --             style = 'darker',
-    --         })
-    --         -- Enable theme
-    --         require('onedark').load()
-    --     end,
-    -- },
-    --
-    -- {
-    --     'mawkler/onedark.nvim',
-    --     priority = 1000,
-    --     opts = {
-    --         style = 'darker',
-    --     },
-    --     config = function()
-    --         require('onedark').setup({})
-    --     end,
-    -- },
-    -- {
-    --     'projekt0n/github-nvim-theme',
-    --     enabled = false,
-    --     name = 'github-theme',
-    --     lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    --     priority = 1000, -- make sure to load this before all the other start plugins
-    --     config = function()
-    --         require('github-theme').setup({
-    --             -- ...
-    --         })
-    --     end,
-    -- },
 }
