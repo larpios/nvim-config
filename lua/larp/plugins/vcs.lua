@@ -83,7 +83,7 @@ return {
                 cursor_render_delay = 10, -- Adjust if cursor position isn't restoring correctly
             },
             diff = {
-                backend = "codediff"
+                backend = 'codediff',
             },
         },
         keys = {
@@ -92,7 +92,7 @@ return {
                 function()
                     require('jj.cmd').log()
                 end,
-                desc = '[JJ] Log'
+                desc = '[JJ] Log',
             },
             {
                 '<leader>jL',
@@ -101,7 +101,7 @@ return {
                         revisions = '::',
                     })
                 end,
-                desc = '[JJ] Log All'
+                desc = '[JJ] Log All',
             },
             {
                 -- Alias for moving bookmarks
@@ -110,149 +110,149 @@ return {
                     require('jj.cmd').j('tug')
                     require('jj.cmd').log()
                 end,
-                desc = '[JJ] Tug'
+                desc = '[JJ] Tug',
             },
             {
-                '<leader>jc',
+                '<leader>jC',
                 function()
                     require('jj.cmd').commit()
                 end,
-                desc = '[JJ] Commit'
+                desc = '[JJ] Commit',
             },
             {
                 '<leader>jD',
                 function()
                     require('jj.cmd').describe()
                 end,
-                desc = '[JJ] Describe'
+                desc = '[JJ] Describe',
             },
             {
                 '<leader>je',
                 function()
                     require('jj.cmd').edit()
                 end,
-                desc = '[JJ] Edit'
+                desc = '[JJ] Edit',
             },
             {
                 '<leader>jn',
                 function()
                     require('jj.cmd').new()
                 end,
-                desc = '[JJ] New'
+                desc = '[JJ] New',
             },
             {
                 '<leader>jsh',
                 function()
                     require('jj.cmd').j('show')
                 end,
-                desc = '[JJ] Show'
+                desc = '[JJ] Show',
             },
             {
                 '<leader>jst',
                 function()
                     require('jj.cmd').status()
                 end,
-                desc = '[JJ] Status'
+                desc = '[JJ] Status',
             },
             {
                 '<leader>jsp',
                 function()
                     require('jj.cmd').split()
                 end,
-                desc = '[JJ] Split'
+                desc = '[JJ] Split',
             },
             {
                 '<leader>jsq',
                 function()
                     require('jj.cmd').squash()
                 end,
-                desc = '[JJ] Squash'
+                desc = '[JJ] Squash',
             },
             {
                 '<leader>jou',
                 function()
                     require('jj.cmd').undo()
                 end,
-                desc = '[JJ] Undo Operation'
+                desc = '[JJ] Undo Operation',
             },
             {
                 '<leader>jor',
                 function()
                     require('jj.cmd').redo()
                 end,
-                desc = '[JJ] Redo Operation'
+                desc = '[JJ] Redo Operation',
             },
             {
                 '<leader>jbc',
                 function()
                     require('jj.cmd').bookmark_create()
                 end,
-                desc = '[JJ] Create Bookmark'
+                desc = '[JJ] Create Bookmark',
             },
             {
                 '<leader>jbd',
                 function()
                     require('jj.cmd').bookmark_delete()
                 end,
-                desc = '[JJ] Delete Bookmark'
+                desc = '[JJ] Delete Bookmark',
             },
             {
                 '<leader>jbm',
                 function()
                     require('jj.cmd').bookmark_move()
                 end,
-                desc = '[JJ] Move Bookmark'
+                desc = '[JJ] Move Bookmark',
             },
             {
                 '<leader>ja',
                 function()
                     require('jj.cmd').abandon()
                 end,
-                desc = '[JJ] Abandon'
+                desc = '[JJ] Abandon',
             },
             {
                 '<leader>jp',
                 function()
                     require('jj.cmd').push()
                 end,
-                desc = '[JJ] Push'
+                desc = '[JJ] Push',
             },
             {
                 '<leader>jf',
                 function()
                     require('jj.cmd').fetch()
                 end,
-                desc = '[JJ] Fetch'
+                desc = '[JJ] Fetch',
             },
             {
                 '<leader>jdf',
                 function()
                     require('jj.diff').open_vdiff()
                 end,
-                desc = '[JJ] Open VDiff'
+                desc = '[JJ] Open VDiff',
             },
             {
                 '<leader>jdF',
                 function()
                     require('jj.diff').open_hdiff()
                 end,
-                desc = '[JJ] Open HDiff'
+                desc = '[JJ] Open HDiff',
             },
             {
                 '<leader>jps',
                 function()
                     require('jj.picker').status()
                 end,
-                desc = '[JJ] Pick Status'
+                desc = '[JJ] Pick Status',
             },
             {
                 '<leader>jph',
                 function()
                     require('jj.diff').file_history()
                 end,
-                desc = '[JJ] Pick File History'
+                desc = '[JJ] Pick File History',
             },
-        }
+        },
     },
     {
         'NicholasZolton/neojj',
@@ -269,14 +269,14 @@ return {
                 function()
                     require('neojj').open()
                 end,
-                desc = '[Neojj] Show Neojj UI'
+                desc = '[Neojj] Show Neojj UI',
             },
             {
-                '<leader>jC',
+                '<leader>jc',
                 function()
-                    require('neojj').open({ cwd = '~/.config/nvim' })
+                    require('neojj').open({ cwd = vim.fn.stdpath('config') })
                 end,
-                desc = '[Neojj] Open Neovim Config'
+                desc = '[Neojj] Run Neojj in Neovim Config',
             },
         },
     },
