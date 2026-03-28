@@ -257,10 +257,13 @@ return {
     {
         'NicholasZolton/neojj',
         lazy = true,
-        dependencies = {
-            'nvim-lua/plenary.nvim', -- required
-            'esmuellert/codediff.nvim',
-            'folke/snacks.nvim',
+        opts = {
+            disable_line_numbers = false,
+            user_per_project_settings = false,
+            integrations = {
+                codediff = true,
+                fzf_lua = true,
+            },
         },
         cmd = 'Neojj',
         keys = {
@@ -274,10 +277,20 @@ return {
             {
                 '<leader>jc',
                 function()
-                    require('neojj').open({ cwd = vim.fn.stdpath('config') })
+                    -- HACK: Currently, without `_workspace_root` set, Neojj will refuse to open in the config directory, saying it's not a workspace.
+                    -- `_workspace_root` is set [here](https://github.com/NicholasZolton/neojj/blob/fdb6b50a4c5d52849c0b1eb0d493ea6feb634f48/lua/neojj.lua#L81-L90),
+                    -- and used [here](https://github.com/NicholasZolton/neojj/blob/fdb6b50a4c5d52849c0b1eb0d493ea6feb634f48/lua/neojj.lua#L136-L162)
+
+                    local config_dir = vim.fn.stdpath('config')
+                    require('neojj').open({ cwd = config_dir, _workspace_root = config_dir})
                 end,
                 desc = '[Neojj] Run Neojj in Neovim Config',
             },
+        },
+        dependencies = {
+            'nvim-lua/plenary.nvim', -- required
+            'esmuellert/codediff.nvim',
+            'ibhagwan/fzf-lua',
         },
     },
     {

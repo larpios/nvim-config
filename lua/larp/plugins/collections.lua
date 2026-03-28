@@ -495,18 +495,7 @@ return {
             {
                 '<leader>gc',
                 function()
-                    local curr_dir = vim.fn.expand('%:p:h')
-
-                    local curr_buf = vim.fn.bufname('%')
-                    -- if you were in an Oil buffer, use the Oil API to get the current directory
-                    if curr_buf:match('^oil://') then
-                        local result, oil = pcall(require, 'oil')
-                        if not result then
-                            vim.notify('Failed to load oil', vim.log.levels.WARN)
-                            return
-                        end
-                        curr_dir = oil.get_current_dir()
-                    end
+                    local curr_dir = vim.fn.getcwd()
 
                     -- Go to Neovim Config Directory and run Lazygit
                     vim.cmd('cd ' .. vim.fn.stdpath('config'))
