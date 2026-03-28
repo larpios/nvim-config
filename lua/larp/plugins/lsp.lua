@@ -12,7 +12,7 @@ return {
     {
         'mrcjkb/rustaceanvim',
         version = '^8', -- Recommended
-        lazy = false,   -- This plugin is already lazy
+        lazy = false, -- This plugin is already lazy
     },
     {
         'mason-org/mason.nvim',
@@ -203,10 +203,10 @@ return {
             'SymbolsClose',
         },
         keys = {
-            { '<leader>ts', mode = 'n',                desc = 'Toggle Symbols' },
-            { ',s',         '<cmd> Symbols<CR>',       desc = 'Symbols' },
-            { ',S',         '<cmd> SymbolsClose<CR>',  desc = 'Symbols Close' },
-            { 'ts',         '<cmd> SymbolsToggle<CR>', desc = 'Symbols Toggle' },
+            { '<leader>ts', mode = 'n', desc = 'Toggle Symbols' },
+            { ',s', '<cmd> Symbols<CR>', desc = 'Symbols' },
+            { ',S', '<cmd> SymbolsClose<CR>', desc = 'Symbols Close' },
+            { 'ts', '<cmd> SymbolsToggle<CR>', desc = 'Symbols Toggle' },
         },
         config = function()
             local opts = {
@@ -260,7 +260,7 @@ return {
                             columns = {
                                 { 'item_idx' },
                                 { 'kind_icon' },
-                                { 'label',      'label_description', gap = 1 },
+                                { 'label', 'label_description', gap = 1 },
                                 { 'kind' },
                                 { 'source_name' },
                             },
@@ -298,7 +298,7 @@ return {
                     -- rm ripgrep
                     default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'lazydev' },
                     per_filetype = {
-                        org = { 'orgmode' }
+                        org = { 'orgmode' },
                     },
                     providers = {
                         ripgrep = {
@@ -339,7 +339,7 @@ return {
                         emoji = {
                             module = 'blink-emoji',
                             name = 'Emoji',
-                            score_offset = -1,        -- Tune by preference
+                            score_offset = -1, -- Tune by preference
                             opts = { insert = true }, -- Insert emoji (default) or complete its name
                         },
                         lazydev = {
@@ -389,7 +389,7 @@ return {
         'rachartier/tiny-inline-diagnostic.nvim',
         enabled = false,
         event = 'VeryLazy', -- Or `LspAttach`
-        priority = 1000,    -- needs to be loaded in first
+        priority = 1000, -- needs to be loaded in first
         config = function()
             require('tiny-inline-diagnostic').setup()
             vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
@@ -438,6 +438,7 @@ return {
             -- },
             -- Conform will notify you when no formatters are available for the buffer
             notify_no_formatters = true,
+            notify_on_error = true,
         },
         keys = {
             {
@@ -445,8 +446,18 @@ return {
                 function()
                     require('conform').format({
                         async = true, -- might cause a problem where your changes are overwritten by the formatter
-                        lsp_fallback = true,
-                    })
+                        lsp_format = 'fallback',
+                    }, function(err, did_edit)
+                        if err == nil then
+                            if did_edit then
+                                vim.notify('[Conform] Formatted document successfully')
+                            else
+                                vim.notify('[Conform] Nothing to format')
+                            end
+                        else
+                            vim.notify('[Conform] Error while formatting: ' .. err, vim.log.levels.ERROR)
+                        end
+                    end)
                 end,
                 desc = '[Conform] Format Document',
             },
