@@ -108,6 +108,7 @@ return {
                     'SnacksPicker',
                     'FloatTitle',
                     'FloatBorder',
+                    'FzfLuaNormal',
                 },
             })
 
