@@ -4,7 +4,7 @@ return {
         lazy = false,
         tag = 'stable',
         dependencies = {
-            'echasnovski/mini.icons',
+            'nvim-mini/mini.icons',
         },
         opts = {
             default_file_explorer = true,
@@ -92,6 +92,321 @@ return {
                 end,
                 mode = 'n',
                 desc = 'Open parent directory',
+            },
+        },
+    },
+    {
+        'ibhagwan/fzf-lua',
+        dependencies = { 'nvim-mini/mini.icons' },
+        opts = {
+            winopts = {
+                preview = {
+                    wrap = true,
+                    hidden = false,
+                },
+            },
+        },
+        keys = {
+            {
+                '<leader>fp',
+                function()
+                    require('fzf-lua').builtin()
+                end,
+                desc = '[FzfLua] Pick',
+            },
+            {
+                '<leader>ff',
+                function()
+                    require('fzf-lua').files()
+                end,
+                desc = '[FzfLua] Files',
+            },
+            {
+                '<leader>fc',
+                function()
+                    require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
+                end,
+                desc = '[FzfLua] Neovim Files',
+            },
+            {
+                '<leader>f.',
+                function()
+                    require('fzf-lua').resume()
+                end,
+                desc = '[FzfLua] Resume',
+            },
+            {
+                '<leader>fF',
+                function()
+                    require('fzf-lua').global()
+                end,
+                desc = '[FzfLua] Global Search',
+            },
+            {
+                '<leader>fb',
+                function()
+                    require('fzf-lua').buffers()
+                end,
+                desc = '[FzfLua] Buffers',
+            },
+            {
+                '<leader>fr',
+                function()
+                    require('fzf-lua').oldfiles()
+                end,
+                desc = '[FzfLua] Recent',
+            },
+            {
+                '<leader>fH',
+                function()
+                    require('fzf-lua').history()
+                end,
+                desc = '[FzfLua] History',
+            },
+            {
+                '<leader>fb',
+                function()
+                    require('fzf-lua').blines()
+                end,
+                desc = '[FzfLua] Current Buffer Lines',
+            },
+            {
+                '<leader>fB',
+                function()
+                    require('fzf-lua').lines()
+                end,
+                desc = '[FzfLua] Buffers Lines',
+            },
+            {
+                '<leader>ft',
+                function()
+                    require('fzf-lua').treesitter()
+                end,
+                desc = '[FzfLua] Treesitter',
+            },
+            {
+                '<leader>fT',
+                function()
+                    require('fzf-lua').tabs()
+                end,
+                desc = '[FzfLua] Tabs',
+            },
+            {
+                '<leader>fv',
+                function()
+                    require('fzf-lua').vcs_files()
+                end,
+                desc = '[FzfLua] VCS Files (Git/Jujutsu)',
+            },
+            {
+                '<leader>fh',
+                function()
+                    require('fzf-lua').helptags()
+                end,
+                desc = '[FzfLua] Help',
+            },
+            {
+                '<leader>fm',
+                function()
+                    require('fzf-lua').manpages()
+                end,
+                desc = '[FzfLua] Man Pages',
+            },
+            {
+                '<leader>fC',
+                function()
+                    require('fzf-lua').commands()
+                end,
+                desc = '[FzfLua] Commands',
+            },
+            {
+                '<leader>f:',
+                function()
+                    require('fzf-lua').command_history()
+                end,
+                desc = '[FzfLua] Command History',
+            },
+            {
+                '<leader>f"',
+                function()
+                    require('fzf-lua').registers()
+                end,
+                desc = '[FzfLua] Registers',
+            },
+            {
+                '<leader>fxc',
+                function()
+                    require('fzf-lua').changes()
+                end,
+                desc = '[FzfLua] Changes',
+            },
+            {
+                '<leader>fu',
+                function()
+                    require('fzf-lua').undotree()
+                end,
+                desc = '[FzfLua] Undotree',
+            },
+            {
+                '<leader>fk',
+                function()
+                    require('fzf-lua').keymaps()
+                end,
+                desc = '[FzfLua] Keymaps',
+            },
+            {
+                '<leader>fj',
+                function()
+                    require('fzf-lua').jumps()
+                end,
+                desc = '[FzfLua] Jumps',
+            },
+            {
+                '<leader>fa',
+                function()
+                    require('fzf-lua').autocmds()
+                end,
+                desc = '[FzfLua] Autocmds',
+            },
+            {
+                '<leader>fxt',
+                function()
+                    require('fzf-lua').tmux_buffers()
+                end,
+                desc = '[FzfLua] Tmux Buffers',
+            },
+            {
+                '<leader>fz',
+                function()
+                    require('fzf-lua').zoxide()
+                end,
+                desc = '[FzfLua] Zoxide',
+            },
+
+            -- Grep
+            {
+                '<leader>sg',
+                function()
+                    require('fzf-lua').live_grep()
+                end,
+                desc = '[FzfLua] Grep',
+            },
+            {
+                '<leader>sc',
+                function()
+                    require('fzf-lua').live_grep({ cwd = vim.fn.stdpath('config') })
+                end,
+                desc = '[FzfLua] Grep Neovim',
+            },
+            {
+                '<leader>sw',
+                function()
+                    require('fzf-lua').grep_cword()
+                end,
+                desc = '[FzfLua] Grep Word',
+            },
+            {
+                '<leader>sW',
+                function()
+                    require('fzf-lua').grep_cWORD()
+                end,
+                desc = '[FzfLua] Grep WORD',
+            },
+            {
+                '<leader>sw',
+                function()
+                    require('fzf-lua').grep_visual()
+                end,
+                mode = { 'x', 'v' },
+                desc = '[FzfLua] Grep Selection',
+            },
+            {
+                '<leader>sl',
+                function()
+                    require('fzf-lua').grep_loclist()
+                end,
+                desc = '[FzfLua] Grep Loclist',
+            },
+
+            -- LSP
+            {
+                'grr',
+                function()
+                    require('fzf-lua').lsp_references()
+                end,
+                desc = '[FzfLua] LSP References',
+            },
+            {
+                'gd',
+                function()
+                    require('fzf-lua').lsp_definitions()
+                end,
+                desc = '[FzfLua] LSP Definitions',
+            },
+            {
+                'gD',
+                function()
+                    require('fzf-lua').lsp_declarations()
+                end,
+                desc = '[FzfLua] LSP Declarations',
+            },
+            {
+                'grt',
+                function()
+                    require('fzf-lua').lsp_typedefs()
+                end,
+                desc = '[FzfLua] LSP Type Definitions',
+            },
+            {
+                'gri',
+                function()
+                    require('fzf-lua').lsp_implementations()
+                end,
+                desc = '[FzfLua] LSP Implementations',
+            },
+            {
+                'grci',
+                function()
+                    require('fzf-lua').lsp_incoming_calls()
+                end,
+                desc = '[FzfLua] LSP Incoming Calls',
+            },
+            {
+                'grco',
+                function()
+                    require('fzf-lua').lsp_outcoming_calls()
+                end,
+                desc = '[FzfLua] LSP Outcoming Calls',
+            },
+            {
+                'gra',
+                function()
+                    require('fzf-lua').lsp_code_actions()
+                end,
+                desc = '[FzfLua] LSP Code Actions',
+            },
+            {
+                '<leader>sd',
+                function()
+                    require('fzf-lua').diagnostics_document()
+                end,
+                desc = '[FzfLua] Diagnostics Document',
+            },
+            {
+                '<leader>sD',
+                function()
+                    require('fzf-lua').diagnostics_workspace()
+                end,
+                desc = '[FzfLua] Diagnostics Workspace',
+            },
+
+            -- Jujutsu
+            {
+                '<leader>jsf',
+                function()
+                    require('fzf-lua').jj_files()
+                end,
+                desc = '[FzfLua] Jujutsu Files',
             },
         },
     },
