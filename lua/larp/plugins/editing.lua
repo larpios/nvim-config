@@ -166,13 +166,13 @@ return {
                 higroup = 'IncSearch',
                 timeout = 200,
             },
+            clipboard = {
+                enabled = false,
+            },
             osc52 = {
                 enabled = true,
                 ssh_only = true,
                 silent = false,
-            },
-            clipboard = {
-                enabled = false,
             },
         },
     },
