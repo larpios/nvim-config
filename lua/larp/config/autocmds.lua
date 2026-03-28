@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('help_window', {}),
     desc = 'Move help window to the right',
-    pattern = {'help', 'man'},
+    pattern = { 'help', 'man', 'markdown' },
     callback = function()
         vim.cmd('wincmd L')
     end,
