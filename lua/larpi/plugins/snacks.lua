@@ -1,3 +1,19 @@
+local images = {
+    'xqc.png',
+    'quieres.png',
+    'niko_shocked.png',
+    'niko_pancake.png',
+    'moist.png',
+    'ralsei.png',
+    'ralsei2.png',
+    'juan.png',
+    'cat_with_gun.png',
+    'terry.png',
+}
+
+math.randomseed(os.time())
+local logo = vim.fn.stdpath('config') .. '/images/' .. images[math.random(#images)]
+
 return {
     'folke/snacks.nvim',
     lazy = false,
@@ -12,6 +28,45 @@ return {
         },
         bigfile = { enabled = true },
         bufdelete = { enabled = true }, -- Delete buffers without disrupting window layout.
+        dashboard = {
+            preset = {
+                keys = {
+                    { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+                    { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+                    { icon = ' ', key = 'g', desc = 'Find Text', action = ":lua Snacks.dashboard.pick('live_grep')" },
+                    { icon = ' ', key = 'r', desc = 'Recent Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
+                    { icon = ' ', key = 'c', desc = 'Config', action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+                    { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
+                    { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+                    { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+                },
+                header = [[
+    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+            },
+            sections = {
+                {
+                    section = 'terminal',
+                    cmd = 'chafa ' .. logo .. ' -f symbol --symbols braille --fg-only --view-size 60x35 --align center,center',
+                    height = 35,
+                },
+                {
+                    pane = 2,
+                    height = 35,
+                    { section = 'header', gap = 2},
+                    {
+                        section = 'keys',
+                        gap = 2,
+                        padding = 3,
+                    },
+                    { section = 'startup' },
+                },
+            },
+        },
         indent = { enabled = true },
         input = { enabled = true }, -- Better `vim.ui.input`.
         -- dashboard = {},
