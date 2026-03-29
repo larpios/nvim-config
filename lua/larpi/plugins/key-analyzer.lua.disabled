@@ -2,5 +2,8 @@ return {
     -- Check assigned keys
     'meznaric/key-analyzer.nvim',
     cmd = 'KeyAnalyzer',
-    opts = {},
+    opts = {
+        layout = 'qwerty',
+        promotion = false,
+    },
 }

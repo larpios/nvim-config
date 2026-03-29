@@ -1,6 +1,6 @@
 return {
     'saghen/blink.cmp',
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         -- optional: provides snippets for the snippet source
         'rafamadriz/friendly-snippets',
@@ -142,7 +142,7 @@ return {
                 enabled = true,
             },
             cmdline = {
-                enabled = true,
+                enabled = false,
                 completion = {
                     menu = {
                         auto_show = function()

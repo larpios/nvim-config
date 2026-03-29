@@ -5,9 +5,10 @@ return {
         {
             '<leader>?',
             function()
-                require('which-key').show({ global = true })
+                require('which-key').show({ global = false })
             end,
-            desc = '[WhichKey] Show Global Keybindings',
+            mode = { 'n', 'x' },
+            desc = '[WhichKey] Show Local Keybindings',
         },
     },
     opts = {

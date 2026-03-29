@@ -4,8 +4,8 @@ return {
     event = 'VeryLazy',
     opts = {
         mapping = {
-            startStopRecording = '<leader>q',
-            playMacro = '<leader>Q',
+            startStopRecording = '<leader>ms',
+            playMacro = '<leader>mp',
             switchSlot = '<leader>mn',
             editMacro = '<leader>me',
             deleteAllMacros = '<leader>md',
