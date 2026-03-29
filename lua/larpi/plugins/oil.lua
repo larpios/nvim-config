@@ -5,7 +5,7 @@ return {
         'nvim-mini/mini.icons',
     },
     opts = {
-        default_file_explorer = true,
+        default_file_explorer = false,
         delete_to_trash = true,
         use_default_keymaps = false,
         keymaps = {
@@ -60,6 +60,7 @@ return {
             winbar = "%{v:lua.require('oil').get_current_dir()}",
         },
     },
+    cmd = { 'Oil' },
     keys = {
         {
             '-',

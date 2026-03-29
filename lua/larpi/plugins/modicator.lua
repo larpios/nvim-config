@@ -1,7 +1,7 @@
 return {
     -- Changes the color of the line number depending on the current mode.
     'mawkler/modicator.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     init = function()
         -- These are required for Modicator to work
         vim.o.cursorline = true

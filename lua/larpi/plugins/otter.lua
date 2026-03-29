@@ -4,7 +4,7 @@ return {
     'jmbuhr/otter.nvim',
     -- 'larpios/otter.nvim',
     -- branch = 'test',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
         'nvim-treesitter/nvim-treesitter',
     },

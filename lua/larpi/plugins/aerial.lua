@@ -1,8 +1,5 @@
 return {
     'stevearc/aerial.nvim',
-    -- just to test symbols.nvim
-    -- enabled = false,
-    event = 'BufRead',
     opts = {
         -- optionally use on_attach to set keymaps when aerial has attached to a buffer
         on_attach = function(bufnr)
@@ -18,8 +15,14 @@ return {
         'nvim-treesitter/nvim-treesitter',
         'nvim-tree/nvim-web-devicons',
     },
-
+    cmd = { 'AerialToggle' },
     keys = {
-        { '<leader>to', '<cmd>AerialToggle<cr>', desc = 'Toggle Aerial Overview' },
+        {
+            '<leader>to',
+            function()
+                require('aerial').toggle()
+            end,
+            desc = '[Aerial] Toggle Overview',
+        },
     },
 }

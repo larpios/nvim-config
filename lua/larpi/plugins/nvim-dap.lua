@@ -4,8 +4,32 @@ return {
         'rcarriga/nvim-dap-ui',
         'nvim-neotest/nvim-nio',
         'theHamsta/nvim-dap-virtual-text',
+        {
+            'igorlfs/nvim-dap-view',
+            ---@module 'dap-view'
+            ---@type dapview.Config
+            opts = {},
+        },
+        {
+            'jay-babu/mason-nvim-dap.nvim',
+            dependencies = {
+                'mason-org/mason.nvim',
+            },
+            opts = {
+                ensure_installed = {
+                    'codelldb',
+                    'python',
+                    'bash',
+                },
+                handlers = {
+                    function(config)
+                        require('mason-nvim-dap').default_setup(config)
+                    end,
+                },
+            },
+        },
     },
-    -- Common keymaps for debugging
+    cmd = { 'DapToggleBreakpoint', 'DapContinue', 'DapStepInto', 'DapStepOver', 'DapTerminate' },
     keys = {
         {
             '<leader>db',

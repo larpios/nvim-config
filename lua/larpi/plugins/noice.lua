@@ -1,6 +1,6 @@
 return {
     'folke/noice.nvim',
-    event = 'VeryLazy',
+    event = 'CmdlineEnter',
     opts = {
         -- add any options here
     },

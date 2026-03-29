@@ -57,7 +57,7 @@ return {
     'goolord/alpha-nvim',
     enabled = false,
     dependencies = {
-        'kyazdani42/nvim-web-devicons',
+        'nvim-tree/nvim-web-devicons',
         'nvim-lua/plenary.nvim',
         'LintaoAmons/bookmarks.nvim',
         'stevearc/resession.nvim',

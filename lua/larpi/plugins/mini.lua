@@ -1,6 +1,6 @@
 return {
     'nvim-mini/mini.nvim',
-    event = 'VeryLazy',
+    lazy = false,
     version = false,
     keys = {
         {

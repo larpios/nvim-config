@@ -7,9 +7,15 @@ return {
     },
     keys = {
         {
-            '<leader>ty',
-            mode = { 'n', 'x' },
+            '<leader>-',
             '<cmd>Yazi<cr>',
+            mode = { 'n', 'x' },
+            desc = '[Yazi] Open yazi at the current file',
+        },
+        {
+            '<leader>ty',
+            '<cmd>Yazi<cr>',
+            mode = { 'n', 'x' },
             desc = '[Yazi] Open yazi at the current file',
         },
         {

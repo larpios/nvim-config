@@ -1,45 +1,10 @@
 return {
     'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
         'nvim-tree/nvim-web-devicons',
-        {
-            'stevearc/overseer.nvim',
-            optional = true,
-        },
-        {
-            'chrisgrieser/nvim-recorder',
-            optional = true,
-        },
     },
     config = function()
-        local status
-
-        local overseer
-        status, overseer = pcall(require, 'overseer')
-        local overseer_component = status
-                and {
-                    'overseer',
-                    label = '', -- Prefix for task counts
-                    colored = true, -- Color the task icons and counts
-                    symbols = {
-                        [overseer.STATUS.FAILURE] = 'F:',
-                        [overseer.STATUS.CANCELED] = 'C:',
-                        [overseer.STATUS.SUCCESS] = 'S:',
-                        [overseer.STATUS.RUNNING] = 'R:',
-                    },
-                    unique = false, -- Unique-ify non-running task count by name
-                    name = nil, -- List of task names to search for
-                    name_not = false, -- When true, invert the name search
-                    status = nil, -- List of task statuses to display
-                    status_not = false, -- When true, invert the status search
-                }
-            or nil
-
-        local recorder
-        status, recorder = pcall(require, 'recorder')
-        recorder = status and recorder or {}
-
         require('lualine').setup({
             options = {
                 theme = 'auto',
@@ -66,7 +31,6 @@ return {
                     },
                 },
                 lualine_x = {
-                    overseer_component,
                     {
                         --- Lsp server name
                         function()
@@ -89,8 +53,8 @@ return {
                     'fileformat',
                     'filetype',
                 },
-                lualine_y = { 'progress', recorder.displaySlots },
-                lualine_z = { 'location', recorder.recordingStatus },
+                lualine_y = { 'progress' },
+                lualine_z = { 'location' },
             },
         })
     end,

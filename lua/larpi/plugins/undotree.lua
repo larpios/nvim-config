@@ -1,19 +1,15 @@
 return {
-    'ibhagwan/smartyank.nvim',
-    event = 'VeryLazy',
-    opts = {
-        highlight = {
-            enabled = true,
-            higroup = 'IncSearch',
-            timeout = 200,
-        },
-        clipboard = {
-            enabled = false,
-        },
-        osc52 = {
-            enabled = true,
-            ssh_only = true,
-            silent = false,
+    'jiaoshijie/undotree',
+    ---@module 'undotree.collector'
+    ---@type UndoTreeCollector.Opts
+    opts = {},
+    keys = { -- load the plugin only when using it's keybinding:
+        {
+            '<leader>tu',
+            function()
+                require('undotree').toggle()
+            end,
+            desc = '[UndoTree] Toggle',
         },
     },
 }
