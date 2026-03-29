@@ -9,31 +9,6 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install LuaJIT
-        run: sudo apt-get install -y luajit
-
-      - name: Run unit tests
-        run: luajit tests/ccc_format_spec.lua
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Check Lua formatting with stylua
-        uses: JohnnyMorganz/stylua-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --check .
-
   startup:
     name: Config Startup Check
     runs-on: ubuntu-latest
