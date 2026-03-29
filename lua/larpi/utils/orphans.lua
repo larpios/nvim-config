@@ -8,9 +8,15 @@ local M = {}
 
 ---@param threshold_days number?
 function M.check_orphans(threshold_days)
+    local exclude = {
+        'promise-async',
+    }
+
     threshold_days = threshold_days or 365
     local lazy_config = require('lazy.core.config')
-    local plugins = lazy_config.plugins
+    local plugins = vim.tbl_filter(function(p)
+        return not vim.tbl_contains(exclude, p.name)
+    end, lazy_config.plugins)
     local all_plugins = {}
 
     local current_time = os.time()
@@ -47,7 +53,7 @@ function M.check_orphans(threshold_days)
     local lines = { '# Plugin Maintenance Status (Sorted by Last Commit)', '' }
     for _, p in ipairs(all_plugins) do
         local prefix = p.days_since_last_commit > threshold_days and '⚠️ ' or '✅ '
-        table.insert(lines, string.format('%s **%s**: %d days ago (%s)', prefix, p.name, p.days_since_last_commit, p.last_commit_date))
+        table.insert(lines, string.format('%s **[%s](%s)**: %d days ago (%s)', prefix, p.name, p.url, p.days_since_last_commit, p.last_commit_date))
     end
 
     -- Create a temporary buffer to show the results
@@ -72,6 +78,7 @@ function M.check_orphans(threshold_days)
         title = ' Plugin Maintenance Status ',
         title_pos = 'center',
     })
+    ::continue::
 end
 
 return M

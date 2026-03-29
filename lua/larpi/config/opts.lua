@@ -1,41 +1,52 @@
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.termguicolors = true
-vim.o.confirm = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.termguicolors = true
+vim.opt.confirm = true
 
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = true
-vim.o.scrolloff = 100
-vim.o.smarttab = true
-vim.o.smartindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.scrolloff = 100
+vim.opt.smarttab = true
+vim.opt.smartindent = true
 
-vim.o.hlsearch = false
-vim.o.incsearch = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 
-vim.o.smartcase = true
-vim.o.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
 
-vim.o.undofile = true
-vim.o.undolevels = 5000
+vim.opt.undofile = true
+vim.opt.undolevels = 5000
 
-vim.o.updatetime = 250
+vim.opt.updatetime = 250
 
-vim.o.breakindent = true
-vim.o.wrap = true
-vim.o.swapfile = false
+vim.opt.breakindent = true
+vim.opt.wrap = true
+vim.opt.swapfile = false
 
-vim.o.hidden = true
-vim.o.bufhidden = 'hide'
+vim.opt.hidden = true
+vim.opt.bufhidden = 'hide'
 
-vim.o.signcolumn = 'yes'
-vim.o.winborder = 'double'
+vim.opt.signcolumn = 'yes'
+vim.opt.winborder = 'double'
 
 vim.wo.conceallevel = 2
 
-vim.o.guicursor = 'n-v-i-c:block'
+-- Set cursor shape to block in all modes
+vim.opt.guicursor = 'n-v-i-c:block'
 
-vim.o.autoread = true
+-- Re-read files that have been modified outside of Vim
+vim.opt.autoread = true
+
+-- It's already off, but just in case.
+-- You should just use a dedicated completion plugin
+vim.opt.autocomplete = false
+
+-- Open new windows to the right.
+-- For example, opening a help page from a picker will open it to the right.
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- shada: limit history for faster startup
 vim.opt.shada = [[!,'100,f1,<50,s10,h]]
