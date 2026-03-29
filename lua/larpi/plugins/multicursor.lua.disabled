@@ -3,7 +3,7 @@ return {
     branch = '1.0',
     keys = {
         {
-            '<up>',
+            '<leader><leader>k',
             function()
                 require('multicursor-nvim').lineAddCursor(-1)
             end,
@@ -11,11 +11,27 @@ return {
             desc = '[Multicursor] Add cursor above',
         },
         {
-            '<down>',
+            '<leader><leader>j',
             function()
                 require('multicursor-nvim').lineAddCursor(1)
             end,
             mode = { 'n', 'x' },
+            desc = '[Multicursor] Add cursor below',
+        },
+        {
+            '<C-k>',
+            function()
+                require('multicursor-nvim').lineAddCursor(-1)
+            end,
+            mode = { 'i' },
+            desc = '[Multicursor] Add cursor above',
+        },
+        {
+            '<C-j>',
+            function()
+                require('multicursor-nvim').lineAddCursor(1)
+            end,
+            mode = { 'i' },
             desc = '[Multicursor] Add cursor below',
         },
         {
@@ -37,7 +53,7 @@ return {
 
         -- Add or skip adding a new cursor by matching word/selection
         {
-            '<leader>n',
+            '<leader><leader>n',
             function()
                 require('multicursor-nvim').matchAddCursor(1)
             end,
@@ -45,7 +61,7 @@ return {
             desc = '[Multicursor] Add Cursor to Next Match',
         },
         {
-            '<leader>s',
+            '<leader><leader>s',
             function()
                 require('multicursor-nvim').matchSkipCursor(1)
             end,
@@ -53,7 +69,7 @@ return {
             desc = '[Multicursor] Skip Cursor to Next Match',
         },
         {
-            '<leader>N',
+            '<leader><leader>N',
             function()
                 require('multicursor-nvim').matchAddCursor(-1)
             end,
@@ -61,7 +77,7 @@ return {
             desc = '[Multicursor] Add Cursor to Previous Match',
         },
         {
-            '<leader>S',
+            '<leader><leader>S',
             function()
                 require('multicursor-nvim').matchSkipCursor(-1)
             end,
