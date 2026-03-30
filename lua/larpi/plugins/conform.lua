@@ -1,63 +1,56 @@
 return {
-    -- Formatter
     'stevearc/conform.nvim',
-    event = { 'BufRead' },
+    event = { 'BufReadPre', 'BufNewFile' },
     cmd = { 'ConformInfo' },
     opts = {
         formatters_by_ft = {
-            bash = { 'beautysh', 'shfmt', 'shellharden' },
+            bash = { 'shfmt', 'shellharden', stop_after_first = true },
             c = { 'clang_format' },
-            cmake = { 'cmake_format' },
+            cmake = { 'clang_format' },
             cpp = { 'clang_format' },
-            cs = { 'csharpier', 'clang_format' },
             fish = { 'fish_lsp' },
-            js = { 'prettier', 'eslint_d' },
-            lua = { 'stylua' },
-            markdown = { 'injected', 'prettier', 'markdownfmt', 'markdownlint', 'markdownlint-cli2' },
-            nix = { 'injected', 'alejandra', 'nixpkgs-fmt', 'nixfmt' },
-            nu = { 'injected', 'nufmt' },
+            javascript = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+            lua = { 'stylua', 'luaformatter', stop_after_first = true },
+            markdown = { 'injected', 'prettierd', 'prettier', 'markdownfmt', stop_after_first = true },
+            nix = { 'injected', 'alejandra', 'nixpkgs-fmt', 'nixfmt', stop_after_first = true },
             org = { 'injected', 'orgfmt' },
-            python = { 'ruff', 'autopep8', 'autoflake', 'black' },
+            python = { 'ruff_organize_imports', 'ruff_format' },
             rust = { 'rustfmt' },
-            svelte = { 'prettier', 'eslint_d' },
-            text = { 'autocorrect' },
-            ts = { 'prettier', 'eslint_d' },
-            typst = { 'prettypst', 'typstyle' },
-            xml = { 'xmlformat' },
-            yaml = { 'prettier', 'yamlfmt' },
+            typescript = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+            typst = { 'prettypst', 'typstyle', stop_after_first = true },
             kdl = { 'kdlfmt' },
         },
         default_format_opts = {
             lsp_format = 'fallback',
         },
-        -- format_after_save = {
-            --     lsp_format = 'fallback',
-            --     timeout_ms = 500,
-            -- },
-            -- Conform will notify you when no formatters are available for the buffer
-            notify_no_formatters = true,
-            notify_on_error = true,
-        },
-        keys = {
-            {
-                '<leader>cf',
-                function()
-                    require('conform').format({
-                        async = true, -- might cause a problem where your changes are overwritten by the formatter
-                        lsp_format = 'fallback',
-                    }, function(err, did_edit)
-                        if err == nil then
-                            if did_edit then
-                                vim.notify('[Conform] Formatted document successfully')
-                            else
-                                vim.notify('[Conform] Nothing to format')
-                            end
-                        else
-                            vim.notify('[Conform] Error while formatting: ' .. err, vim.log.levels.ERROR)
+    },
+    keys = {
+        {
+            '<leader>cf',
+            function()
+                require('conform').format({ async = true }, function(err)
+                    if err then
+                        vim.notify('[Conform] ' .. err, vim.log.levels.ERROR)
+                        return
+                    end
+
+                    -- Fetch the formatters that were actually used for the current buffer
+                    local info = require('conform').list_formatters(0)
+                    local names = {}
+                    for _, f in ipairs(info) do
+                        if f.available then
+                            table.insert(names, f.name)
                         end
-                    end)
-                end,
-                desc = '[Conform] Format Document',
-            },
+                    end
+
+                    if #names > 0 then
+                        vim.notify('[Conform] Formatted with: ' .. table.concat(names, ', '))
+                    else
+                        vim.notify('[Conform] No formatter available')
+                    end
+                end)
+            end,
+            desc = 'Format Document',
         },
-    }
+    },
+}

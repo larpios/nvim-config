@@ -29,6 +29,7 @@ return {
         bigfile = { enabled = true },
         bufdelete = { enabled = true }, -- Delete buffers without disrupting window layout.
         dashboard = {
+            pane_gap = 6,
             preset = {
                 keys = {
                     { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
@@ -51,7 +52,7 @@ return {
             sections = {
                 {
                     section = 'terminal',
-                    cmd = 'chafa ' .. logo .. ' -f symbol --symbols braille --fg-only --view-size 60x35 --align center,center',
+                    cmd = 'chafa ' .. logo .. ' --symbols all --view-size 60x35 --align center,center',
                     height = 35,
                 },
                 {

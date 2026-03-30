@@ -80,20 +80,20 @@ export extern chafa [
                                                        # Iterm, kitty and sixels yield much higher quality but enjoy limited support. Symbols mode yields beautiful character art.
   --optimize (-O): int@optimization-modes              # Compress the output by using control sequences intelligently [0-9]. 
                                                        # 0 disables, 9 enables every available optimization. Defaults to 5, except for when used with "-c none", where it defaults to 0.
-  --relative: string@on-off-modes = 'off'              # Use relative cursor positioning [on, off]. 
+  --relative: string@on-off-modes                      # Use relative cursor positioning [on, off]. 
                                                        # When on, control sequences will be used to position images relative to the cursor.
                                                        # When off, newlines will be used to separate rows instead for e.g. 'less -R' interop.
                                                        # Defaults to off.
-  --passthrough: string@passthrough-modes = 'auto'     # Graphics protocol passthrough [auto, none, screen, tmux].
+  --passthrough: string@passthrough-modes              # Graphics protocol passthrough [auto, none, screen, tmux].
                                                        # Used to show pixel graphics through multiplexers.
-  --polite: string@on-off-modes = 'off'                # Polite mode [on, off].
+  --polite: string@on-off-modes =                      # Polite mode [on, off].
                                                        # Inhibits escape sequences that may confuse other programs.
                                                        # Defaults to off.
   --align: string                                      # Horizontal and vertical alignment (e.g. "top,left").
   --clear                                              # Clear screen before processing each file.
   --exact-size: string@on-off-auto-modes               # Try to match the input's size exactly [auto, on, off].
   --fit-width                                          # Fit images to view's width, possibly exceeding its height.
-  --font-ratio: string = '1/2'                         # Target font's width/height ratio. 
+  --font-ratio: string =                               # Target font's width/height ratio. 
                                                        # Can be specified as a real number or a fraction.
                                                        # Defaults to 1/2. 
   --grid: string                                       # Lay out images in a grid of CxR columns/rows per screenful.
@@ -101,7 +101,7 @@ export extern chafa [
   -g                                                   # Alias for "--grid auto".
   --label: string@on-off-modes                         # Labeling [on, off]. Filenames below images. Default off.
   -l                                                   # Alias for "--label on".
-  --link: string@on-off-auto-modes = 'auto'            # Link labels [auto, on, off].
+  --link: string@on-off-auto-modes                     # Link labels [auto, on, off].
                                                        # Turns labels into clickable hyperlinks.
                                                        # Use with "--label on".
                                                        # Defaults to auto.
@@ -114,9 +114,16 @@ export extern chafa [
   --fg-only                                            # Leave the background color untouched. This produces character-cell output using foreground colors only.
   --symbols (-s): string@symbols                       # Specify character symbols to employ in final output.
   --glyph-file : path                                  # Load glyph information from FILE, which can be any font file supported by FreeType (TTF, PCF, etc).
-  --fill: string@symbols = 'none'                      # Specify character symbols to use for fill/gradients. Defaults to none. See below for full usage.
-  --work (-w): int = 5                                 # How hard to work in terms of CPU and memory [1-9]. 1 is the cheapest, 9 is the most accurate. Defaults to 5.
+  --fill: string@symbols                               # Specify character symbols to use for fill/gradients. Defaults to none. See below for full usage.
+  --work (-w): int                                     # How hard to work in terms of CPU and memory [1-9]. 1 is the cheapest, 9 is the most accurate. Defaults to 5.
   --threads: int                                       # Maximum number of CPU threads to use. If left unspecified or negative, this will equal available CPU cores.
+
+  --animate: string@on-off-modes # Whether to allow animation [on, off]. Defaults to on. When off, will show a still frame from each animation.
+  --duration (-d):int # How long to show each file. If showing a single file, defaults to zero for a still image and infinite for an animation. For multiple files, defaults to zero. Animations will always be played through at least once.
+  --speed: string # Animation speed. Either a unitless multiplier, or a real number followed by "fps" to apply a specific framerate.
+  --watch # Watch a single input file, redisplaying it whenever its contents change. Will run until manually interrupted or, if --duration is set, until it expires.
+
+
   --bg: string                                         # Background color of display (color name or hex).
   --colors (-c): string@color_modes                    # Set output color mode; one of [none, 2, 8, 16/8, 16, 240, 256, full]. Defaults to best guess.
   --color-extractor='average': string@color_extractors #  Method for extracting color from an area [average, median]. Average is the default.
@@ -125,7 +132,7 @@ export extern chafa [
   --dither-grain='4x4': string                         # Set dimensions of dither grains in 1/8ths of a character cell [1, 2, 4, 8]. Defaults to 4x4.
   --dither-intensity=1.0: float                        # Multiplier for dither intensity [0.0 - inf]. Defaults to 1.0.
   --invert                                             # Swaps --fg and --bg. Useful with light terminal background.
-  --preprocess (-p) = true                             # Image preprocessing [on, off]. Defaults to on with 16 colors or lower, off otherwise.
+  --preprocess (-p): string@on-off-modes               # Image preprocessing [on, off]. Defaults to on with 16 colors or lower, off otherwise.
   --threshold (-t): float                              # Lower threshold for full transparency [0.0 - 1.0].
   ...args: string                                      # Additional arguments to pass to chafa
 ]
