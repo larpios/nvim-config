@@ -92,7 +92,6 @@ vim.keymap.set('n', '<Leader>oth', '<Cmd>leftabove vsplit | term<CR>', { desc = 
 vim.keymap.set('n', '<Leader>otj', '<Cmd>belowright split | term<CR>', { desc = '[Custom] Open Terminal to the Bottom' })
 vim.keymap.set('n', '<Leader>otk', '<Cmd>aboveleft split | term<CR>', { desc = '[Custom] Open Terminal to the Top' })
 vim.keymap.set('n', '<Leader>otl', '<Cmd>rightbelow vsplit | term<CR>', { desc = '[Custom] Open Terminal to the Right' })
-vim.keymap.set('t', '<C-n><C-n>', '<C-\\><C-n>', { desc = '[Custom] Exit Terminal Mode' })
 
 -- # Edit
 vim.keymap.set({ 'i', 'x' }, 'zx', '<Esc>')
@@ -136,6 +135,11 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>ca', function()
 end, { desc = '[Custom] Code Action' })
 
 -- # Misc.
+
+vim.keymap.set('n', 'Zrr', function ()
+    vim.cmd.mksession({ 'Session.vim', bang = true })
+    vim.cmd.restart('source Session.vim')
+end, { desc = '[Custom] Restart Neovim' })
 
 vim.keymap.set('n', '<Leader>Co', function()
     local config_dir = os.getenv('XDG_CONFIG_HOME') or vim.fn.getenv('HOME') .. '/.config'
