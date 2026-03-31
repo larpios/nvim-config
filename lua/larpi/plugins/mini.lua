@@ -10,13 +10,6 @@ return {
             end,
             desc = '[Mini] Open Mini Files',
         },
-        {
-            '<leader>mf',
-            function()
-                require('mini.files').open()
-            end,
-            desc = '[Mini] Open Mini Files',
-        },
     },
     config = function()
         -- mini.align is a module that aligns text in visual mode
