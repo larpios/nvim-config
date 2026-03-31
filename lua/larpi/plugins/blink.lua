@@ -5,7 +5,6 @@ return {
         -- optional: provides snippets for the snippet source
         'rafamadriz/friendly-snippets',
         'mikavilpas/blink-ripgrep.nvim',
-        'giuxtaposition/blink-cmp-copilot',
         'moyiz/blink-emoji.nvim',
     },
 
@@ -108,12 +107,6 @@ return {
                             search_paths = { snippet_dir },
                         },
                     },
-                    -- copilot = {
-                    --     name = "copilot",
-                    --     module = "blink-cmp-copilot",
-                    --     score_offset = 100,
-                    --     async = true,
-                    -- },
                     emoji = {
                         module = 'blink-emoji',
                         name = 'Emoji',
