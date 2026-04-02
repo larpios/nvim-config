@@ -23,7 +23,7 @@ return {
             function()
                 require('multicursor-nvim').lineAddCursor(-1)
             end,
-            mode = { 'i' },
+            mode = { 'i', 'x' },
             desc = '[Multicursor] Add cursor above',
         },
         {
@@ -31,7 +31,7 @@ return {
             function()
                 require('multicursor-nvim').lineAddCursor(1)
             end,
-            mode = { 'i' },
+            mode = { 'i', 'x' },
             desc = '[Multicursor] Add cursor below',
         },
         {

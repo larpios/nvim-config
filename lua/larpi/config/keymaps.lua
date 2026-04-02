@@ -123,6 +123,9 @@ vim.api.nvim_create_user_command('CheckOrphans', function(opts)
 end, { nargs = '?' })
 
 -- #LSP
+vim.keymap.set({ 'n', 'x' }, 'gs', function()
+    vim.lsp.buf.signature_help()
+end, { desc = '[Custom] Function Signature' })
 vim.keymap.set({ 'n', 'x' }, 'gh', function()
     vim.diagnostic.open_float({
         focusable = true,
