@@ -34,6 +34,7 @@ return {
                 keys = {
                     { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
                     { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+                    { icon = ' ', key = 'e', desc = 'Explorer', action = ':lua Snacks.explorer()' },
                     { icon = ' ', key = 'g', desc = 'Find Text', action = ":lua Snacks.dashboard.pick('live_grep')" },
                     { icon = ' ', key = 'r', desc = 'Recent Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
                     { icon = ' ', key = 'c', desc = 'Config', action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
@@ -58,11 +59,11 @@ return {
                 {
                     pane = 2,
                     height = 35,
-                    { section = 'header', gap = 2},
+                    { section = 'header', padding = 4 },
                     {
                         section = 'keys',
-                        gap = 2,
-                        padding = 3,
+                        gap = 1,
+                        padding = 5,
                     },
                     { section = 'startup' },
                 },
