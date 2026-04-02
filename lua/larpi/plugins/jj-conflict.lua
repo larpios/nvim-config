@@ -1,6 +1,5 @@
 return {
     'larpios/jj-conflict.nvim',
-    version = '*',
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = {
         'JjConflictList',
@@ -13,7 +12,6 @@ return {
     },
     opts = {
         default_mappings = true,
-        mappings_prefix = '[JjConflict]',
         mappings = {
             ours = 'gho',
             theirs = 'ght',
