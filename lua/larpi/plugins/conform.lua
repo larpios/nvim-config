@@ -19,6 +19,7 @@ return {
             typescript = { 'oxfmt', 'prettierd', 'prettier' },
             typst = { 'prettypst', 'typstyle' },
             kdl = { 'kdlfmt' },
+            go = { 'gofmt' },
         },
         default_format_opts = {
             lsp_format = 'fallback',

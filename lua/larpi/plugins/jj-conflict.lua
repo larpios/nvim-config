@@ -1,6 +1,10 @@
 return {
     'larpios/jj-conflict.nvim',
+    branch = 'dev',
     event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+        'folke/snacks.nvim',
+    },
     cmd = {
         'JjConflictList',
         'JjConflictChooseBoth',
@@ -9,16 +13,14 @@ return {
         'JjConflictChooseTheirs',
         'JjConflictNextConflict',
         'JjConflictPrevConflict',
+        'JjConflictSquash',
+        'JjConflictResolve',
+        'JjConflictLog',
+        'JjConflictStatus',
+        'JjConflictDiff',
     },
     opts = {
         default_mappings = true,
-        mappings = {
-            ours = 'gho',
-            theirs = 'ght',
-            both = 'ghb',
-            none = 'gh0',
-            next = 'ghn',
-            prev = 'ghp',
-        },
+        desc_prefix = '[JjConflict]',
     },
 }
