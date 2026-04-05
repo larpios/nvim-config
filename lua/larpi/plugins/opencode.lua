@@ -49,7 +49,7 @@ return {
             function()
                 require('opencode').toggle()
             end,
-            mode = { 'n', 't' },
+            mode = { 'n', 'x' },
             desc = '[Opencode] Toggle opencode',
         },
         {
