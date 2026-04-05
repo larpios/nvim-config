@@ -20,6 +20,7 @@ return {
             typst = { 'prettypst', 'typstyle' },
             kdl = { 'kdlfmt' },
             go = { 'gofmt' },
+            toml = { 'taplo' },
         },
         default_format_opts = {
             lsp_format = 'fallback',
