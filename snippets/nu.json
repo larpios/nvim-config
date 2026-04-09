@@ -1,0 +1,9 @@
+{
+  "exists + path-exists": {
+    "body": "(${1:file} | path exists)",
+    "prefix": [
+      "exists",
+      "path-exists"
+    ]
+  }
+}

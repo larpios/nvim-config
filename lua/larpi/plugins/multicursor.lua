@@ -53,6 +53,14 @@ return {
 
         -- Add or skip adding a new cursor by matching word/selection
         {
+            '<leader><leader>a',
+            function()
+                require('multicursor-nvim').matchAllAddCursors()
+            end,
+            mode = { 'n', 'x' },
+            desc = '[Multicursor] Add Cursor to All Matches',
+        },
+        {
             '<leader><leader>n',
             function()
                 require('multicursor-nvim').matchAddCursor(1)
