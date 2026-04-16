@@ -12,6 +12,7 @@ return {
             javascript = { 'oxfmt', 'prettierd', 'prettier' },
             lua = { 'stylua', 'luaformatter' },
             markdown = { 'injected', 'prettierd', 'prettier', 'markdownfmt' },
+            html = { 'injected', 'prettierd' },
             nix = { 'injected', 'alejandra', 'nixpkgs-fmt', 'nixfmt' },
             org = { 'injected', 'orgfmt' },
             python = { 'ruff_organize_imports', 'ruff_format' },
