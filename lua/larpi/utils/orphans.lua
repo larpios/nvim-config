@@ -23,13 +23,10 @@ function M.check_orphans(threshold_days)
 
     for _, plugin in pairs(plugins) do
         if plugin.dir and vim.fn.isdirectory(plugin.dir) == 1 then
-            -- Get the last commit date using git
-            local cmd = string.format('git -C %s log -1 --format=%%at', vim.fn.shellescape(plugin.dir))
-            local handle = io.popen(cmd)
-            local result = handle:read('*a')
-            handle:close()
+            -- Get the last commit date using git (argv form avoids the shell entirely)
+            local result = vim.fn.system({ 'git', '-C', plugin.dir, 'log', '-1', '--format=%at' })
 
-            local last_commit_timestamp = tonumber(result)
+            local last_commit_timestamp = vim.v.shell_error == 0 and tonumber(result) or nil
             if last_commit_timestamp then
                 local seconds_since = current_time - last_commit_timestamp
                 local days_since = math.floor(seconds_since / (24 * 3600))
