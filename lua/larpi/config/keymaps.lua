@@ -129,7 +129,6 @@ end, { desc = '[Custom] Function Signature' })
 vim.keymap.set({ 'n', 'x' }, 'gh', function()
     vim.diagnostic.open_float({
         focusable = true,
-        close_events = { 'BufLeave', 'InsertEnter', 'FocusLost' },
         source = true,
     })
 end, { desc = '[Custom] Open Diagnostics' })
