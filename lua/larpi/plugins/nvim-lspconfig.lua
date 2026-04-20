@@ -23,7 +23,6 @@ return {
                 ensure_installed = {
                     'vimls',
                     'lua_ls',
-                    'rust_analyzer',
                     'clangd',
                     'tombi',
                 },
