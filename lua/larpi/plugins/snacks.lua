@@ -642,6 +642,7 @@ return {
                 Snacks.toggle.dim():map('<leader>uD')
                 Snacks.toggle.animate():map('<leader>ua')
                 Snacks.toggle.profiler():map('<leader>up')
+                Snacks.toggle.zen():map('<leader>uz')
             end,
         })
     end,
