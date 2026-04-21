@@ -31,7 +31,6 @@ return {
         -- Check out the documentation for more information (https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md)
         require('mini.ai').setup({
             n_lines = 1000,
-            search_method = 'cover_or_nearest',
         })
 
         require('mini.diff').setup({
