@@ -40,6 +40,7 @@ return {
             'FloatBorder',
             'FzfLuaNormal',
             'MasonNormal',
+            'MiniFilesNormal',
         },
     },
     config = function(_, opts)
