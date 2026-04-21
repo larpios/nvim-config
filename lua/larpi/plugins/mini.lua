@@ -12,6 +12,12 @@ return {
         },
     },
     config = function()
+        require('mini.files').setup({
+            mappings = {
+                go_in = '',
+                go_out = '',
+            }
+        })
         -- mini.align is a module that aligns text in visual mode
         require('mini.align').setup({})
         require('mini.keymap').setup({})
