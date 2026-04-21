@@ -3,6 +3,8 @@ return {
     lazy = false,
     dependencies = {
         'nvim-mini/mini.icons',
+        'JezerM/oil-lsp-diagnostics.nvim',
+        'malewicz1337/oil-git.nvim',
     },
     opts = {
         default_file_explorer = true,
