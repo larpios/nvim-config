@@ -5,7 +5,7 @@ return {
         'nvim-mini/mini.icons',
     },
     opts = {
-        default_file_explorer = false,
+        default_file_explorer = true,
         delete_to_trash = true,
         use_default_keymaps = false,
         keymaps = {
