@@ -32,15 +32,9 @@ return {
             'StatusLine',
             'StatusLineNC',
             'EndOfBuffer',
-        },
-        extra_groups = {
-            'SnacksPicker',
-            'SnacksPickerInput',
-            'FloatTitle',
+            'NormalFloat',
             'FloatBorder',
-            'FzfLuaNormal',
-            'MasonNormal',
-            'MiniFilesNormal',
+            'FloatTitle',
         },
     },
     config = function(_, opts)
