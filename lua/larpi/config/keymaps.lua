@@ -137,9 +137,24 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>ca', function()
     vim.lsp.buf.code_action()
 end, { desc = '[Custom] Code Action' })
 
+-- # Fixes
+
+-- `vim.lsp.codelens.run()` uses the `&&` syntax in the shell command.
+-- It doesn't work if shell is `nu`
+vim.keymap.set('n', 'grx', function()
+    local prev_shell = vim.o.shell
+    vim.o.shell = 'bash'
+
+    vim.lsp.codelens.run()
+
+    vim.defer_fn(function()
+        vim.o.shell = prev_shell
+    end, 100)
+end, { desc = 'vim.lsp.codelens.run()' })
+
 -- # Misc.
 
-vim.keymap.set('n', 'Zrr', function ()
+vim.keymap.set('n', 'Zrr', function()
     vim.cmd.mksession({ 'Session.vim', bang = true })
     vim.cmd.restart('source Session.vim')
 end, { desc = '[Custom] Restart Neovim' })
