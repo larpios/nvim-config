@@ -92,6 +92,7 @@ vim.keymap.set('n', '<Leader>oth', '<Cmd>leftabove vsplit | term<CR>', { desc = 
 vim.keymap.set('n', '<Leader>otj', '<Cmd>belowright split | term<CR>', { desc = '[Custom] Open Terminal to the Bottom' })
 vim.keymap.set('n', '<Leader>otk', '<Cmd>aboveleft split | term<CR>', { desc = '[Custom] Open Terminal to the Top' })
 vim.keymap.set('n', '<Leader>otl', '<Cmd>rightbelow vsplit | term<CR>', { desc = '[Custom] Open Terminal to the Right' })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = '[Custom] Escape' })
 
 -- # Edit
 vim.keymap.set({ 'i', 'x' }, 'zx', '<Esc>')

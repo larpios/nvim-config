@@ -51,14 +51,16 @@ vim.opt.splitbelow = true
 -- shada: limit history for faster startup
 vim.opt.shada = [[!,'100,f1,<50,s10,h]]
 
+vim.opt.shell = os.getenv('CURRENT_SHELL') or os.getenv('SHELL')
+
 -- Disable unused providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python3_provider = 0
 
-if vim.fn.has("win32") == 1 then
-    vim.opt.shellcmdflag = "-c"
-    vim.opt.shellquote = ""
-    vim.opt.shellxquote = ""
+if vim.fn.has('win32') == 1 then
+    vim.opt.shellcmdflag = '-c'
+    vim.opt.shellquote = ''
+    vim.opt.shellxquote = ''
 end
