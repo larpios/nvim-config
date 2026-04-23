@@ -4,6 +4,7 @@ return {
     cmd = { 'ConformInfo' },
     opts = {
         formatters_by_ft = {
+            sh = { 'shfmt', 'shellharden' },
             bash = { 'shfmt', 'shellharden' },
             c = { 'clang_format' },
             cmake = { 'clang_format' },
