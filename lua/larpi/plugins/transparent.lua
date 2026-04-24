@@ -35,6 +35,7 @@ return {
             'NormalFloat',
             'FloatBorder',
             'FloatTitle',
+            'LspInlayHint',
         },
     },
     config = function(_, opts)

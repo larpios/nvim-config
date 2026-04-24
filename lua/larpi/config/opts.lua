@@ -10,6 +10,9 @@ vim.opt.scrolloff = 100
 vim.opt.smarttab = true
 vim.opt.smartindent = true
 
+vim.opt.timeout = true
+vim.opt.timeoutlen = 300
+
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
