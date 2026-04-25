@@ -19,7 +19,7 @@ require('lazy').setup({
     spec = {
         { import = 'larpi.plugins' },
     },
-    install = { colorscheme = { 'habamax' } },
+    install = { colorscheme = { 'catppuccin' } },
     checker = { enabled = true },
     performance = {
         rtp = {
