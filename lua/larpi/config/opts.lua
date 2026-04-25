@@ -7,6 +7,9 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.scrolloff = 100
+if vim.fn.exists('+scrolloffpad') == 1 then
+    vim.opt.scrolloffpad = 1
+end
 vim.opt.smarttab = true
 vim.opt.smartindent = true
 
