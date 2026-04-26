@@ -58,8 +58,6 @@ return {
         })
 
         require('mini.basics').setup({})
-        -- Autocomplete for command line
-        require('mini.cmdline').setup({})
         -- Highlight word under cursor
         require('mini.cursorword').setup({})
         require('mini.move').setup({
