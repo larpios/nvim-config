@@ -97,10 +97,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = '[Custom] Escape' })
 -- # Edit
 vim.keymap.set({ 'i', 'x' }, 'zx', '<Esc>')
 vim.keymap.set({ 'i', 'x' }, 'jk', '<Esc>')
-vim.keymap.set({ 'n', 'x' }, '<Leader>y', function()
-    vim.cmd.normal('"+y')
-    vim.notify('Yanked to Clipboard')
-end, { desc = '[Custom] Yank to Clipboard' })
+vim.keymap.set({ 'n', 'x' }, '<Leader>y', '"+y', { desc = '[Custom] Yank to Clipboard' })
 
 -- Paste without cutting
 vim.keymap.set('x', 'p', function()

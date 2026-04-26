@@ -3,7 +3,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Hightlight selection on yank',
     pattern = '*',
     callback = function()
+        local ev = vim.v.event
         vim.hl.on_yank({ higroup = 'IncSearch', timeout = 200 })
+
+        -- Notify when yanked to the clipboard
+        if ev.regname == '+' then
+            vim.notify('Yanked to the Clipboard')
+        end
     end,
 })
 
