@@ -28,7 +28,7 @@ vim.opt.undolevels = 5000
 vim.opt.updatetime = 250
 
 vim.opt.breakindent = true
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.swapfile = false
 
 vim.opt.hidden = true
