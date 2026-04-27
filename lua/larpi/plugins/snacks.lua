@@ -204,6 +204,20 @@ return {
             desc = '[Snacks.Picker] Help File',
         },
         {
+            '<leader>ft',
+            function()
+                Snacks.picker.treesitter()
+            end,
+            desc = '[Snacks.Picker] Help File',
+        },
+        {
+            '<leader>fT',
+            function()
+                Snacks.picker.todo_comments()
+            end,
+            desc = '[Snacks.Picker] Help File',
+        },
+        {
             '<leader>fl',
             function()
                 Snacks.picker.lazy()

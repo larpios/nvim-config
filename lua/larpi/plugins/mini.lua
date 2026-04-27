@@ -12,12 +12,7 @@ return {
         },
     },
     config = function()
-        require('mini.files').setup({
-            mappings = {
-                go_in = '',
-                go_out = '',
-            }
-        })
+        require('mini.files').setup({})
         -- mini.align is a module that aligns text in visual mode
         require('mini.align').setup({})
         require('mini.keymap').setup({})
@@ -28,10 +23,14 @@ return {
         -- Better 'f' and 't' motions
         require('mini.jump').setup({})
 
+        vim.api.nvim_create_autocmd('ColorScheme', {
+            pattern = '*',
+            callback = function()
+                vim.api.nvim_set_hl(0, 'MiniJump', { link = 'IncSearch' })
+            end,
+        })
         -- Hit `Enter` to jump to a hinted position
         require('mini.jump2d').setup({})
-
-        vim.api.nvim_set_hl(0, 'MiniJump', { link = 'Visual' })
 
         -- mini.ai is a module that provides more text objects, especially for ones that start with `a(round)`, and `i(nside)`
         -- Check out the documentation for more information (https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md)
