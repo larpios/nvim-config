@@ -103,7 +103,7 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>y', '"+y', { desc = '[Custom] Yank to Clip
 vim.keymap.set('x', 'p', function()
     local register = vim.v.register
 
-    return '"_c' .. vim.keycode('<C-r>') .. register .. vim.keycode('<Esc>')
+    return '"_c' .. vim.keycode('<C-r>') .. vim.keycode('<C-o>') .. register .. vim.keycode('<Esc>')
 end, { desc = '[Custom] Paste (Without Cutting)', remap = true, expr = true })
 vim.keymap.set({ 'n', 'x' }, '<Leader>p', '"+p', { desc = '[Custom] Paste from Clipboard' })
 -- vim.keymap.set('n', '<Leader>cR', '<Cmd>%s/\\<<C-r><Cmd>wincmd ><CR>', { desc = '[Custom] Rename All Occurrences', remap = true })
