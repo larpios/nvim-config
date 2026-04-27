@@ -133,3 +133,11 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = '*/kitty.conf',
     callback = 'silent !bash -c "kill -SIGUSR1 $(pgrep kitty)"',
 })
+
+vim.api.nvim_create_autocmd('BufReadPre', {
+    desc = 'Enable wrap for text files',
+    pattern = { '*.md', '*.markdown', '*.txt' },
+    callback = function()
+        vim.opt_local.wrap = true
+    end,
+})
