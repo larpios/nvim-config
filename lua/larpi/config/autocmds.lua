@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('HightlightYank', { clear = true }),
+    group = vim.api.nvim_create_augroup('HightlightYank', {}),
     desc = 'Hightlight selection on yank',
     callback = function()
         vim.hl.on_yank({ higroup = 'IncSearch', timeout = 200 })
@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup('KeymapRead', { clear = true }),
+    group = vim.api.nvim_create_augroup('KeymapRead', {}),
     desc = 'Recognize *.keymap files as C files',
     pattern = '*.keymap',
     callback = function()
@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup('MarkdownRead', { clear = true }),
+    group = vim.api.nvim_create_augroup('MarkdownRead', {}),
     desc = 'Add useful keymaps for markdown files',
     pattern = { '*.markdown', '*.md', '*.txt' },
     callback = function()
@@ -119,7 +119,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 
 -- When a help window opens, force it to move to the right
 vim.api.nvim_create_autocmd('FileType', {
-    group = vim.api.nvim_create_augroup('HelpPageRead', { clear = true }),
+    group = vim.api.nvim_create_augroup('HelpPageRead', {}),
     desc = 'Move help window to the right',
     pattern = { 'help', 'man' },
     callback = function()
@@ -128,14 +128,14 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
-    group = vim.api.nvim_create_augroup('ReloadKitty', { clear = true }),
+    group = vim.api.nvim_create_augroup('ReloadKitty', {}),
     desc = 'Automatically reload kitty config',
     pattern = '*/kitty.conf',
     callback = 'silent !bash -c "kill -SIGUSR1 $(pgrep kitty)"',
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
-    group = vim.api.nvim_create_augroup('WrapText', { clear = true }),
+    group = vim.api.nvim_create_augroup('WrapText', {}),
     desc = 'Enable wrap for text files',
     pattern = { '*.md', '*.markdown', '*.txt' },
     callback = function()
@@ -144,13 +144,13 @@ vim.api.nvim_create_autocmd('BufReadPre', {
 })
 
 vim.api.nvim_create_autocmd('VimEnter', {
-    group = vim.api.nvim_create_augroup('CdIntoArg', { clear = true }),
+    group = vim.api.nvim_create_augroup('CdIntoArg', {}),
     desc = "Change directory into the first argument if it's a directory",
     callback = function()
         if vim.fn.argc() > 0 then
             local arg = vim.fn.argv(0)
 
-            if vim.fn.isdirectory(arg) then
+            if vim.fn.isdirectory(arg) == 1 then
                 vim.api.nvim_set_current_dir(arg)
             end
         end
@@ -158,7 +158,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 vim.api.nvim_create_autocmd('VimEnter', {
-    group = vim.api.nvim_create_augroup('RemoveSessionFile', { clear = true }),
+    group = vim.api.nvim_create_augroup('RemoveSessionFile', {}),
     desc = 'Remove remnant Session.vim',
     callback = function()
         local session_file = 'Session.vim'

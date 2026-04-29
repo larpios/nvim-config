@@ -73,10 +73,14 @@ return {
             desc = "Change directory into the first argument if it's a directory",
             callback = function()
                 if vim.fn.argc() > 0 then
-                    local arg = vim.fn.argv(0):sub(7, -1)
+                    local arg = vim.fn.argv(0)
 
-                    if vim.fn.isdirectory(arg) then
-                        vim.api.nvim_set_current_dir(arg)
+                    -- Strip `oil://`
+                    if arg:sub(1, 6) == 'oil://' then
+                        arg = arg:sub(7, -1)
+                        if vim.fn.isdirectory(arg) == 1 then
+                            vim.api.nvim_set_current_dir(arg)
+                        end
                     end
                 end
             end,

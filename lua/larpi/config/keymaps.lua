@@ -151,12 +151,6 @@ end, { desc = 'vim.lsp.codelens.run()' })
 
 -- # Misc.
 
-vim.keymap.set('n', '<Leader>cdc', function()
-    local path = vim.fn.stdpath('config')
-    vim.api.nvim_set_current_dir(path)
-    vim.cmd.edit(path)
-end, { desc = '[Custom] Change Directory to Neovim Config' })
-
 vim.keymap.set('n', '<Leader>cdC', function()
     local config_dir = os.getenv('XDG_CONFIG_HOME') or vim.fn.getenv('HOME') .. '/.config'
     vim.api.nvim_set_current_dir(config_dir)
