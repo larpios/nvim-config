@@ -4,7 +4,6 @@ return {
     opts = {
         highlight = {
             enabled = true,
-            higroup = 'IncSearch',
             timeout = 200,
         },
         clipboard = {

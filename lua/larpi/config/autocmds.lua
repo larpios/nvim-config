@@ -1,11 +1,10 @@
 vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', {}),
+    group = vim.api.nvim_create_augroup('HightlightYank', { clear = true }),
     desc = 'Hightlight selection on yank',
-    pattern = '*',
     callback = function()
-        local ev = vim.v.event
         vim.hl.on_yank({ higroup = 'IncSearch', timeout = 200 })
 
+        local ev = vim.v.event
         -- Notify when yanked to the clipboard
         if ev.regname == '+' then
             vim.notify('Yanked to the Clipboard')
@@ -14,16 +13,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup('keymap_read', {}),
+    group = vim.api.nvim_create_augroup('KeymapRead', { clear = true }),
     desc = 'Recognize *.keymap files as C files',
     pattern = '*.keymap',
     callback = function()
-        vim.cmd([[set filetype=c]])
+        vim.bo.filetype = 'c'
     end,
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-    group = vim.api.nvim_create_augroup('MarkdownRead', {}),
+    group = vim.api.nvim_create_augroup('MarkdownRead', { clear = true }),
     desc = 'Add useful keymaps for markdown files',
     pattern = { '*.markdown', '*.md', '*.txt' },
     callback = function()
@@ -120,7 +119,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 
 -- When a help window opens, force it to move to the right
 vim.api.nvim_create_autocmd('FileType', {
-    group = vim.api.nvim_create_augroup('help_window', {}),
+    group = vim.api.nvim_create_augroup('HelpPageRead', { clear = true }),
     desc = 'Move help window to the right',
     pattern = { 'help', 'man' },
     callback = function()
@@ -129,15 +128,43 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
+    group = vim.api.nvim_create_augroup('ReloadKitty', { clear = true }),
     desc = 'Automatically reload kitty config',
     pattern = '*/kitty.conf',
     callback = 'silent !bash -c "kill -SIGUSR1 $(pgrep kitty)"',
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
+    group = vim.api.nvim_create_augroup('WrapText', { clear = true }),
     desc = 'Enable wrap for text files',
     pattern = { '*.md', '*.markdown', '*.txt' },
     callback = function()
         vim.opt_local.wrap = true
+    end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+    group = vim.api.nvim_create_augroup('CdIntoArg', { clear = true }),
+    desc = "Change directory into the first argument if it's a directory",
+    callback = function()
+        if vim.fn.argc() > 0 then
+            local arg = vim.fn.argv(0)
+
+            if vim.fn.isdirectory(arg) then
+                vim.api.nvim_set_current_dir(arg)
+            end
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+    group = vim.api.nvim_create_augroup('RemoveSessionFile', { clear = true }),
+    desc = 'Remove remnant Session.vim',
+    callback = function()
+        local session_file = 'Session.vim'
+
+        if vim.fn.filereadable(session_file) == 1 then
+            vim.fn.delete(session_file)
+        end
     end,
 })
