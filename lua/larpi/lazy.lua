@@ -20,7 +20,8 @@ require('lazy').setup({
         { import = 'larpi.plugins' },
     },
     install = { colorscheme = { 'catppuccin' } },
-    checker = { enabled = true },
+    -- automatically check for plugin updates and notify
+    checker = { enabled = false },
     performance = {
         rtp = {
             -- disable some rtp plugins
