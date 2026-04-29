@@ -19,6 +19,11 @@ local glove80 = {
 local voyager = {
     name = 'LAYOUT_voyager', -- identify your layout name
     variant = 'qmk',
+    comment_preview = {
+        keymap_overrides = {
+            TRANSPARENT = 'Trans',
+        },
+    },
     layout = { -- create a visual representation of your final layout
         'x x x x x x _ _ x x x x x x',
         'x x x x x x _ _ x x x x x x',
