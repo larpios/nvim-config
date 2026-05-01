@@ -13,6 +13,7 @@ return {
             '<leader>Ha',
             function()
                 require('harpoon'):list():add()
+                vim.notify(string.format('Added `%s` to Harpoon', vim.fn.expand('%:p')))
             end,
             desc = '[Harpoon] Add',
         },
