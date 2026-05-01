@@ -204,6 +204,14 @@ return {
             desc = '[Snacks.Picker] Help File',
         },
         {
+            '<leader>fh',
+            function()
+                Snacks.picker.help({ search = larpi.fn.get_highlighted_text() })
+            end,
+            desc = '[Snacks.Picker] Help File',
+            mode = 'x',
+        },
+        {
             '<leader>ft',
             function()
                 Snacks.picker.treesitter()

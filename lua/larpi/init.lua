@@ -1,3 +1,7 @@
+_G.larpi = {
+    fn = require('larpi.utils.fn'),
+}
+
 require('larpi.config')
 
 if not vim.env.NO_PLUGINS then

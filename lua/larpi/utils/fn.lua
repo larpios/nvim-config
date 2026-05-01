@@ -22,4 +22,16 @@ function M.with_bash(action, timeout_ms)
     return ret
 end
 
+---Get highlighted text
+---@return string text Highlighted text
+function M.get_highlighted_text()
+    local start_pos = vim.fn.getpos('v')
+    local end_pos = vim.fn.getpos('.')
+
+    local lines = vim.fn.getregion(start_pos, end_pos, { type = vim.fn.mode() })
+    local text = table.concat(lines, '\n')
+
+    return text
+end
+
 return M
