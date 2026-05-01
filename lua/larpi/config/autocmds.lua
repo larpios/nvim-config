@@ -131,7 +131,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     group = vim.api.nvim_create_augroup('ReloadKitty', {}),
     desc = 'Automatically reload kitty config',
     pattern = '*/kitty.conf',
-    callback = 'silent !bash -c "kill -SIGUSR1 $(pgrep kitty)"',
+    callback = function()
+        vim.cmd('silent !bash -c "kill -SIGUSR1 $(pgrep kitty)"')
+    end,
 })
 
 vim.api.nvim_create_autocmd('BufReadPre', {
