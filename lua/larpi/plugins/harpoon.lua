@@ -13,7 +13,9 @@ return {
             '<leader>Ha',
             function()
                 require('harpoon'):list():add()
-                vim.notify(string.format('Added `%s` to Harpoon', vim.fn.expand('%:p')))
+                local pos = vim.api.nvim_win_get_cursor(0)
+                local row, col = pos[1], pos[2]
+                vim.notify(string.format('Added `%s:%d:%d` to Harpoon', vim.fn.expand('%:p'), row, col))
             end,
             desc = '[Harpoon] Add',
         },
