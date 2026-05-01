@@ -14,6 +14,7 @@ return {
         },
     },
     cmd = 'JJ',
+    cmd = 'J',
     keys = {
         {
             '<leader>jl',
