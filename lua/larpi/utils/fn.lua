@@ -5,8 +5,9 @@ local M = {}
 ---@return any ret Return value from the `action` function
 function M.with_bash(action, timeout_ms)
     local new_shell = vim.fn.has('unix') == 1 and 'bash' or 'cmd.exe'
+    local prev_shell = vim.o.shell
 
-    if vim.go.shell == new_shell then
+    if prev_shell == new_shell then
         return action()
     end
 
@@ -16,7 +17,7 @@ function M.with_bash(action, timeout_ms)
     local ret = action()
 
     vim.defer_fn(function()
-        vim.o.shell = vim.go.shell
+        vim.o.shell = prev_shell
     end, timeout_ms)
 
     return ret

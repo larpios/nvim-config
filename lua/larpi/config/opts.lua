@@ -1,63 +1,63 @@
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.termguicolors = true
-vim.opt.confirm = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.termguicolors = true
+vim.o.confirm = true
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.scrolloff = 100
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.scrolloff = 100
 if vim.fn.exists('+scrolloffpad') == 1 then
-    vim.opt.scrolloffpad = 1
+    vim.o.scrolloffpad = 1
 end
-vim.opt.smarttab = true
-vim.opt.smartindent = true
+vim.go.smarttab = true
+vim.o.smartindent = true
 
-vim.opt.timeout = true
-vim.opt.timeoutlen = 300
+vim.o.timeout = true
+vim.o.timeoutlen = 300
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+vim.o.hlsearch = false
+vim.o.incsearch = true
 
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
+vim.o.smartcase = true
+vim.o.ignorecase = true
 
-vim.opt.undofile = true
-vim.opt.undolevels = 5000
+vim.o.undofile = true
+vim.o.undolevels = 5000
 
-vim.opt.updatetime = 250
+vim.go.updatetime = 250
 
-vim.opt.breakindent = true
-vim.opt.wrap = false
-vim.opt.swapfile = false
+vim.o.breakindent = true
+vim.o.wrap = false
+vim.o.swapfile = false
 
-vim.opt.hidden = true
-vim.opt.bufhidden = 'hide'
+vim.o.hidden = true
+vim.o.bufhidden = 'hide'
 
-vim.opt.signcolumn = 'yes'
-vim.opt.winborder = 'double'
+vim.o.signcolumn = 'yes'
+vim.o.winborder = 'double'
 
 vim.wo.conceallevel = 2
 
 -- Set cursor shape to block in all modes
-vim.opt.guicursor = 'n-v-i-c:block'
+vim.o.guicursor = 'n-v-i-c:block'
 
 -- Re-read files that have been modified outside of Vim
-vim.opt.autoread = true
+vim.o.autoread = true
 
 -- It's already off, but just in case.
 -- You should just use a dedicated completion plugin
-vim.opt.autocomplete = false
+vim.o.autocomplete = false
 
 -- Open new windows to the right.
 -- For example, opening a help page from a picker will open it to the right.
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- shada: limit history for faster startup
-vim.opt.shada = [[!,'100,f1,<50,s10,h]]
+vim.o.shada = [[!,'100,f1,<50,s10,h]]
 
-vim.opt.shell = os.getenv('CURRENT_SHELL') or os.getenv('SHELL')
+vim.o.shell = os.getenv('CURRENT_SHELL') or os.getenv('SHELL')
 
 -- Disable unused providers
 vim.g.loaded_perl_provider = 0
@@ -66,7 +66,7 @@ vim.g.loaded_node_provider = 0
 vim.g.loaded_python3_provider = 0
 
 if vim.fn.has('win32') == 1 then
-    vim.opt.shellcmdflag = '-c'
-    vim.opt.shellquote = ''
-    vim.opt.shellxquote = ''
+    vim.o.shellcmdflag = '-c'
+    vim.o.shellquote = ''
+    vim.o.shellxquote = ''
 end

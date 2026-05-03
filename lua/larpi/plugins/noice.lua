@@ -34,10 +34,9 @@ return {
         { '<leader>nd', '<Cmd>NoiceDismiss<CR>', desc = '[Noice] Dismiss Notification', silent = true },
     },
     config = function(_, opts)
-        require('noice').setup(opts)
-        vim.api.nvim_create_autocmd('RecordingEnter', {
+        require('noice').setup(opts) vim.api.nvim_create_autocmd('RecordingEnter', {
             callback = function()
-                local msg = string.format('Register:  %s', vim.fn.reg_recording())
+                local msg = string.format('Register: ' .. vim.fn.reg_recording())
                 _MACRO_RECORDING_STATUS = true
                 vim.notify(msg, vim.log.levels.INFO, {
                     title = 'Macro Recording',
@@ -52,7 +51,7 @@ return {
         vim.api.nvim_create_autocmd('RecordingLeave', {
             callback = function()
                 _MACRO_RECORDING_STATUS = false
-                vim.notify(string.format('Macro recorded: %s', vim.v.event.regname), vim.log.levels.INFO, {
+                vim.notify(string.format('Macro recorded: ' .. vim.v.event.regname), vim.log.levels.INFO, {
                     title = 'Macro Recording End',
                     timeout = 2000,
                 })
