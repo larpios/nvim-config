@@ -206,7 +206,9 @@ return {
         {
             '<leader>fh',
             function()
-                Snacks.picker.help({ search = larpi.fn.get_highlighted_text() })
+                Snacks.picker.help({
+                    pattern = larpi.fn.get_highlighted_text()
+                })
             end,
             desc = '[Snacks.Picker] Help File',
             mode = 'x',
