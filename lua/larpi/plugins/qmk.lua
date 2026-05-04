@@ -21,7 +21,16 @@ local voyager = {
     variant = 'qmk',
     comment_preview = {
         keymap_overrides = {
-            TRANSPARENT = 'Trans',
+            KC_TRANSPARENT = 'trans',
+            KC_PRINT_SCREEN = 'print',
+            KC_LEFT_ALT = 'LALT',
+            KC_LEFT_CTRL = 'LCTRL',
+            KC_LEFT_SHIFT = 'LSHIFT',
+            KC_RIGHT_ALT = 'RALT',
+            KC_RIGHT_CTRL = 'RCTRL',
+            KC_RIGHT_SHIFT = 'RSHIFT',
+            KC_LEFT_GUI = 'LGUI',
+            KC_RIGHT_GUI = 'RGUI',
         },
     },
     layout = { -- create a visual representation of your final layout
@@ -34,7 +43,8 @@ local voyager = {
 }
 
 return {
-    'codethread/qmk.nvim',
+    'larpios/qmk.nvim',
+    branch = 'test',
     cmd = 'QMKFormat',
     keys = {
         { '<leader>qf', '<cmd>QMKFormat<cr>', desc = 'Format QMK' },
