@@ -146,7 +146,7 @@ end, { desc = 'vim.lsp.codelens.run()' })
 
 -- # Misc.
 --
-vim.keymap.set('n', 'z.', 'zszH', { desc = 'Center Horizontally' })
+vim.keymap.set({ 'n', 'x' }, 'z.', 'zszH', { desc = 'Center Horizontally' })
 
 vim.keymap.set('n', '<Leader>cdC', function()
     local config_dir = os.getenv('XDG_CONFIG_HOME') or vim.fn.getenv('HOME') .. '/.config'
