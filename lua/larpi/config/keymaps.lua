@@ -135,6 +135,12 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>ca', function()
     vim.lsp.buf.code_action()
 end, { desc = '[Custom] Code Action' })
 
+-- # Multicursor
+vim.keymap.set('n', '<C-q>', function()
+    local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+    vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end)
+
 -- # Fixes
 
 -- `vim.lsp.codelens.run()` uses the `&&` syntax in the shell command.
@@ -146,7 +152,7 @@ vim.keymap.set('n', 'grx', function()
 end, { desc = 'vim.lsp.codelens.run()' })
 
 -- # Misc.
---
+
 vim.keymap.set({ 'n', 'x' }, 'z.', 'zszH', { desc = 'Center Horizontally' })
 
 vim.keymap.set('n', '<Leader>cdC', function()
