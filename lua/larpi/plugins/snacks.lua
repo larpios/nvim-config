@@ -223,7 +223,7 @@ return {
 
         -- Bufdelete
         {
-            '<Leader>bd',
+            '<Leader>bD',
             function()
                 Snacks.bufdelete.other()
             end,

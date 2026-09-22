@@ -118,16 +118,6 @@ return {
             mode = 'n',
             desc = '[Multicursor] Add Cursor at Mouse',
         },
-
-        -- Disable and enable cursors.
-        {
-            '<c-q>',
-            function()
-                require('multicursor-nvim').toggleCursor()
-            end,
-            mode = { 'n', 'x' },
-            desc = '[Multicursor] Toggle Cursors',
-        },
     },
     init = function()
         -- Customize how cursors look.
