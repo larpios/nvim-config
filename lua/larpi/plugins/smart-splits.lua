@@ -2,10 +2,7 @@ return {
     'mrjones2014/smart-splits.nvim',
     version = '>=1.0.0',
     lazy = false,
-    opts = {
-        multiplexer_integration = true,
-        zellij_move_focus_or_tab = true,
-    },
+    opts = {},
     build = './kitty/install-kittens.bash',
     keys = {
         {
