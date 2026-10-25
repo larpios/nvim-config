@@ -40,9 +40,9 @@ return {
             org_startup_indented = true,
             org_fold_enable = false,
             org_startup_folded = 'showeverything',
-            mappings = {
-                disable_all = true,
-            },
+            -- mappings = {
+            --     disable_all = true,
+            -- },
         })
         -- Experimental LSP support
         vim.lsp.enable('org')
