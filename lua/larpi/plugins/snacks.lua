@@ -99,7 +99,7 @@ return {
             pane_gap = math.floor(vim.o.columns * GAP_SCALE),
             preset = {
                 keys = {
-                    { icon = ' ', key = 'f', desc = 'Find File', action = ':lua Snacks.picker.files({ hidden = true, ignored = true})' },
+                    { icon = ' ', key = 'f', desc = 'Find File', action = ':lua Snacks.picker.files({ hidden = true})' },
                     { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
                     { icon = ' ', key = 'e', desc = 'Explorer', action = ':lua Snacks.explorer()' },
                     { icon = '󱃪 ', key = 'o', desc = 'Oil', action = ':Oil' },
